@@ -1,0 +1,5 @@
+export type stats = {
+  clients_message_num: number;
+  ai_message_num: number;
+  token_used: number;
+};
