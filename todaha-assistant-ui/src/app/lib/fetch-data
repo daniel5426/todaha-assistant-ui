@@ -1,0 +1,17 @@
+import { unstable_noStore as noStore } from 'next/cache';
+
+export async function fetchStatsCardsData(assistant_id: string = '') {
+  noStore()
+  try {
+    // Call an external API endpoint to get posts
+  const res = await fetch(`https://custom-ai-assistant-2860d6b7062c.herokuapp.com/chat/count-messages?assistant_id=${assistant_id}`)
+  const data = await res.json()
+  return data
+
+} catch (error) {
+  console.error('Database Error:', error);
+  throw new Error('Failed to fetch card data.');
+}
+
+ }
+
