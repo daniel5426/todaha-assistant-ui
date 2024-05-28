@@ -12,7 +12,6 @@ export async function fetchStatsCardsData(assistant_id: string = 'asst_gE6RWQvul
 
 } catch (error) {
   console.log(error);
-  throw new Error("string(error)");
 }
 
  }
