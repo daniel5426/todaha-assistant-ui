@@ -1,26 +1,61 @@
+
+import daisyuiPlugin from "daisyui";
 import type { Config } from "tailwindcss";
+import plugin from "tailwindcss/plugin";
+
+import getDaisyUIConfig from "./src/services/theme/daisyui.config";
+
+const myPlugin = plugin(function ({ addVariant, e }) {
+    addVariant("svg-path", [
+        // @ts-ignore
+        ({ modifySelectors, separator }: any) => {
+            modifySelectors(({ className }: any) => {
+                return `svg.${e(`svg-path${separator}${className}`)} *`;
+            });
+        },
+    ]);
+});
 
 const config: Config = {
-  content: [
-    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
-  ],
-  theme: {
-    extend: {
-      backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
-      },
-    },
-  },
-  plugins: [
-    require('daisyui'),
-  ],
-  daisyui: {
-    themes: ["light", "dark", "cupcake", "retro", "bumblebee", "emerald", "corporate", "synthwave", "cyberpunk", "valentine", "halloween", "garden", "forest", "aqua", "lofi", "pastel", "fantasy", "wireframe", "black", "luxury", "dracula"],
-  },
 
+    content: [
+      "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
+      "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
+      "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+          "index.html",
+        "node_modules/daisyui/dist/**/*.js",
+        "node_modules/react-daisyui/dist/**/*.js",
+    ],
+    darkMode: "class",
+    theme: {
+        extend: {
+            colors: {
+                "content-background": "var(--content-background)",
+                "leftmenu-background": "var(--leftmenu-background)",
+            },
+            fontSize: {
+                xs: "11px",
+                sm: "13px",
+                base: "15px",
+            },
+        },
+        container: {
+            center: true,
+            padding: {
+                DEFAULT: "1rem",
+                sm: "2rem",
+                md: "3rem",
+                lg: "4rem",
+                xl: "5rem",
+                "2xl": "6rem",
+            },
+        },
+        fontFamily: {
+            body: ["DM Sans", "sans-serif"],
+        },
+    },
+
+    daisyui: getDaisyUIConfig(),
+    plugins: [daisyuiPlugin, myPlugin],
 };
 export default config;

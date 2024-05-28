@@ -1,5 +1,13 @@
 import type { Metadata } from "next";
-import { inter } from '@/app/ui/fonts';
+import { HelmetProvider } from "react-helmet-async";
+import { Toaster } from "sonner";
+
+import { Theme, useTheme } from "@/components/daisyui";
+
+import configureFakeBackend from "@/services/api/fake-backend";
+import Router from "@/services/routes/Router";
+import { AuthContextProvider } from "@/states/auth";
+import { LayoutContextProvider } from "@/states/layout";
 import "./ui/globals.css";
 
 
@@ -14,8 +22,21 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" data-theme="dark">
-      <body className={inter.className}>{children}</body>
+    <html lang="en">
+      <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+    
+        <title>Vite + React + TS</title>
+      </head>
+      <body>
+        <AuthContextProvider>
+          <LayoutContextProvider>
+            {children}
+          </LayoutContextProvider>
+        </AuthContextProvider>
+      </body>
     </html>
-  );
+      );
 }
