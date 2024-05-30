@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import  Link  from "next/link";
 
 import { Button, Drawer, Menu, MenuItem, Navbar, NavbarEnd, NavbarStart } from "@/components/daisyui";
-
+import useTranslation from "next-translate/useTranslation";
 import Icon from "@/components/Icon";
 import Logo from "@/components/Logo";
 import { cn } from "@/helpers/utils/cn";
@@ -16,6 +16,7 @@ import routes from "@/services/routes";
 const Topbar = () => {
     const [drawerOpened, setDrawerOpened] = useState(false);
     const [atTop, setAtTop] = useState(true);
+    const { t } = useTranslation("common");
 
     useEffect(() => {
         const onWindowScroll = () => {
@@ -35,7 +36,7 @@ const Topbar = () => {
                 <div className="container">
                     <Navbar className="px-0">
                         <NavbarStart className="gap-2">
-                            <div className="flex-none lg:hidden">
+                            <div className="flex-none ">
                                 <Drawer
                                     open={drawerOpened}
                                     onClickOverlay={() => setDrawerOpened(!drawerOpened)}
@@ -46,13 +47,13 @@ const Topbar = () => {
                                             </MenuItem>
 
                                             <MenuItem className="font-medium">
-                                                <p>Home</p>
+                                                <p>{t('home')}</p>
                                             </MenuItem>
                                             <MenuItem className="font-medium">
-                                                <Link href={routes.dashboards.ecommerce}>Dashboard</Link>
+                                                <Link href={routes.dashboards.ecommerce}>{t('dashboard')}</Link>
                                             </MenuItem>
                                             <MenuItem className="font-medium">
-                                                <Link href={routes.ui.components.accordion}>Components</Link>
+                                                <Link href={routes.ui.components.accordion}>{t('Contact')}</Link>
                                             </MenuItem>
                                         </Menu>
                                     }>

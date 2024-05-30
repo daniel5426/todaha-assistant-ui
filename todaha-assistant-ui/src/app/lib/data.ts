@@ -1,5 +1,5 @@
 import { unstable_noStore as noStore } from 'next/cache';
-import { stringify } from 'querystring';
+import { FormData } from '../contact/components/ContactForm';
 
 export async function fetchStatsCardsData(assistant_id: string = 'asst_gE6RWQvul8PGsCRMJeSc2Elo') {
   noStore()
@@ -15,4 +15,10 @@ export async function fetchStatsCardsData(assistant_id: string = 'asst_gE6RWQvul
 }
 
  }
+
+export function sendEmail(data: FormData) {
+  // TODO: send email
+  console.log(data);
+}
+
 

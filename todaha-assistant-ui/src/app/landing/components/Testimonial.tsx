@@ -4,10 +4,13 @@ import worldMapLandingImg from "@/assets/images/landing/world-map.png";
 
 import sparklesIcon from "@iconify/icons-lucide/sparkles";
 import starIcon from "@iconify/icons-lucide/star";
+import useTranslation from "next-translate/useTranslation";
 
 import Icon from "@/components/Icon";
 
 const Testimonial = () => {
+    const { t } = useTranslation("common");
+
     return (
         <section id="testimonial" className="container relative py-8 lg:py-24">
             <div
@@ -24,7 +27,7 @@ const Testimonial = () => {
                 <div className="mt-16 text-center">
                     <div className="avatar">
                         <div className="mask mask-squircle w-16 bg-base-content/10">
-                            <img src={testimonialPouyaLandingImg} alt="testimonial" />
+                            <img src={testimonialPouyaLandingImg.src} alt="testimonial" />
                         </div>
                     </div>
                     <div className="mt-4 flex items-center justify-center gap-1">
@@ -35,10 +38,10 @@ const Testimonial = () => {
                         <Icon icon={starIcon} className="text-orange-400 svg-path:fill-orange-400" fontSize={20} />
                     </div>
                     <p className="mt-4 inline-block max-w-[600px] text-center">
-                        This is the ultimate admin dashboard for any React project
+                        {t("client_1")}
                     </p>
-                    <p className="mt-8 text-lg font-medium">Pouya Saadeghi</p>
-                    <p className="text-sm text-base-content/70">Creator of daisyUI</p>
+                    <p className="mt-8 text-lg font-medium">Dan Loggia</p>
+                    <p className="text-sm text-base-content/70">CTO of SmoothGlide</p>
                 </div>
             </div>
         </section>

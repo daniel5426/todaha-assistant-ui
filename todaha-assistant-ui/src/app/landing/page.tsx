@@ -10,6 +10,9 @@ import Showcase from "./components/Showcase";
 import Testimonial from "./components/Testimonial";
 import Topbar from "./components/Topbar";
 
+//<Package />
+//<FAQ />
+
 export default async function Page() {
     return (
         <>
@@ -20,8 +23,6 @@ export default async function Page() {
             <Feature />
             <Showcase />
             <Testimonial />
-            <Package />
-            <FAQ />
             <Footer />
 
             <div className="fixed bottom-5 end-5 z-10 ">
