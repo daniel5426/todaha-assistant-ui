@@ -1,5 +1,5 @@
 import { unstable_noStore as noStore } from 'next/cache';
-import { FormData } from '../contact/components/ContactForm';
+import { FormData } from '../landing/contact/page';
 
 export async function fetchStatsCardsData(assistant_id: string = 'asst_gE6RWQvul8PGsCRMJeSc2Elo') {
   noStore()
@@ -16,9 +16,20 @@ export async function fetchStatsCardsData(assistant_id: string = 'asst_gE6RWQvul
 
  }
 
-export function sendEmail(data: FormData) {
-  // TODO: send email
-  console.log(data);
+ export function sendEmail(data: FormData) {
+  const apiEndpoint = '/api/email';
+
+  fetch(apiEndpoint, {
+    method: 'POST',
+    body: JSON.stringify(data),
+  })
+    .then((res) => res.json())
+    .then((response) => {
+      alert(response.message);
+    })
+    .catch((err) => {
+      alert(err);
+    });
 }
 
 

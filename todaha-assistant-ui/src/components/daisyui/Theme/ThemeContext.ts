@@ -1,5 +1,4 @@
 "use client";
-
 import { createContext } from "react";
 
 import { DataTheme } from "../types";

@@ -1,5 +1,4 @@
 "use client";
-
 import { useCallback, useRef } from "react";
 
 import Modal, { DialogProps } from "@/components/daisyui/Modal/Modal";

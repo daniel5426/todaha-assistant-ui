@@ -3,7 +3,7 @@ const routes = {
     landing: "/landing",
     home: "/dashboards/ecommerce",
     docs: "/docs/introduction",
-    contact: "/contact",
+    contact: "/landing/contact",
     auth: {
         login: "/auth/login",
         register: "/auth/register",

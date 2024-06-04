@@ -2,14 +2,14 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { z } from "zod";
 
 import httpRequest from "@/services/api/request";
 import routes from "@/services/routes";
 
-const useRegister = () => {
-    const navigate = useRouter();
+const useContact = () => {
+    const router = useRouter();
 
     const [isLoading, setIsLoading] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
@@ -18,20 +18,24 @@ const useRegister = () => {
         setShowPassword(!showPassword);
     };
 
-    const registerSchema = z.object({
+    const contactSchema = z.object({
         username: z.string(),
         email: z.string().email(),
-        password: z.string(),
+        message: z.string(),
     });
 
-    type RegisterSchemaType = z.infer<typeof registerSchema>;
+    type ContactSchemaType = z.infer<typeof contactSchema>;
 
-    const { control, handleSubmit, setError } = useForm<RegisterSchemaType>({
-        resolver: zodResolver(registerSchema),
+    const { control, handleSubmit, setError } = useForm<ContactSchemaType>({
+        resolver: zodResolver(contactSchema),
     });
 
-    const transformErrorToForm = (errors: Record<string, any>) => {
-        Object.entries(errors).forEach(([key, value]: any[]) => setError(key, { message: value }));
+    const transformErrorToForm = (errors: { [s: string]: unknown; } | ArrayLike<unknown>) => {
+        Object.entries(errors).forEach(([key, value]) => {
+            if (typeof key === "string") {
+                setError(key as keyof ContactSchemaType, { message: value as string });
+            }
+        });
     };
 
     const onSubmit = handleSubmit(async (data) => {
@@ -39,12 +43,13 @@ const useRegister = () => {
 
         try {
             await httpRequest.post("/api/any/success/", data);
-            navigate.push(routes.auth.login);
-        } catch (e: any) {
-            transformErrorToForm(e.response.data);
+            router.push(routes.auth.login);
+        } catch (e) {
+            transformErrorToForm((e as any).response.data);
         }
         setIsLoading(false);
     });
+
 
     return {
         showPassword,
@@ -55,4 +60,4 @@ const useRegister = () => {
     };
 };
 
-export default useRegister;
+export default useContact;

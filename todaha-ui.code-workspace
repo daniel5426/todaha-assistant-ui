@@ -4,7 +4,10 @@
 			"path": "."
 		},
 		{
-			"path": "../../../Downloads/todaha-assistant-ui - Copy"
+			"path": "../nexus-Standard-ts@1.0.0"
+		},
+		{
+			"path": "../free-nextjs-admin-dashboard-main"
 		}
 	],
 	"settings": {}

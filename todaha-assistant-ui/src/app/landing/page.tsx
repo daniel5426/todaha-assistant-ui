@@ -1,7 +1,7 @@
 import PageMetaData from "@/components/PageMetaData";
 import ThemeToggleButton from "@/components/ThemeToggleButton";
 
-import FAQ from "./components/FAQ";
+import { Metadata } from "next";
 import Feature from "./components/Feature";
 import Footer from "./components/Footer";
 import Hero from "./components/Hero";
@@ -13,25 +13,23 @@ import Topbar from "./components/Topbar";
 //<Package />
 //<FAQ />
 
+export const metadata: Metadata = {
+    title: "ChatMen SignUp Page",
+    description: "This is ChatMen SignUp Page",
+    // other metadata
+  };
+  
+
 export default async function Page() {
     return (
         <>
-            <PageMetaData title={"Landing"} />
-
-            <Topbar />
+        <Topbar />
             <Hero />
             <Feature />
             <Showcase />
             <Testimonial />
             <Footer />
 
-            <div className="fixed bottom-5 end-5 z-10 ">
-                <ThemeToggleButton
-                    shape="circle"
-                    color="ghost"
-                    className={"border border-base-content/10 text-base-content/70 hover:bg-base-content/10"}
-                />
-            </div>
         </>
     );
 };

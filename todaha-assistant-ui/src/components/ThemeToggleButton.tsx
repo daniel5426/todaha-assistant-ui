@@ -9,7 +9,6 @@ import { useLayoutContext } from "@/states/layout";
 
 const ThemeToggleButton = (props: ButtonProps) => {
     const { state, changeTheme } = useLayoutContext();
-    console.log(changeTheme)
 
     return (
         <>

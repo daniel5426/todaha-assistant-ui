@@ -10,6 +10,7 @@ import mailIcon from "@iconify/icons-lucide/mail";
 import Link from "next/link";
 
 import { Button, Checkbox } from "@/components/daisyui";
+import Image from "next/image";
 
 import Icon from "@/components/Icon";
 import Logo from "@/components/Logo";
@@ -114,7 +115,7 @@ const LoginPage = () => {
                             fullWidth
                             className="flex items-center gap-3 border-base-content/10  !text-base-content hover:border-transparent hover:bg-base-content/10"
                             variant={"outline"}>
-                            <img src={googleMiniImage} className="size-6" alt="" />
+                            <Image src={googleMiniImage} className="size-6" alt="" />
                             <span className="text-base">Login with Google</span>
                         </Button>
                     </div>

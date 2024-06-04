@@ -1,7 +1,6 @@
 "use client";
 import { useMemo } from "react";
-import Link from "next/link";
-import { useRouter } from "next/router";
+import { Link, useLocation } from "react-router-dom";
 import SimpleBar from "simplebar-react";
 import "simplebar/dist/simplebar.css";
 
@@ -26,7 +25,7 @@ const LeftMenuItem = ({ menuItem, activated }: { menuItem: IMenuItem; activated:
         return (
             <MenuItem className="mb-0.5">
                 <Link
-                    href={url ?? ""}
+                    to={url ?? ""}
                     className={cn("hover:bg-base-content/15", {
                         "bg-base-content/10": selected,
                     })}>
@@ -58,7 +57,7 @@ const LeftMenuItem = ({ menuItem, activated }: { menuItem: IMenuItem; activated:
 };
 
 const Leftbar = ({ hide, menuItems }: { hide?: boolean; menuItems: IMenuItem[] }) => {
-    const { pathname } = useRouter();
+    const { pathname } = useLocation();
 
     const activatedParents = useMemo(() => new Set(getActivatedLeftbarParentKeys(menuItems, pathname)), [pathname]);
 

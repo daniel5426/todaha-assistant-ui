@@ -9,7 +9,7 @@ import httpRequest from "@/services/api/request";
 import routes from "@/services/routes";
 
 const useRegister = () => {
-    const navigate = useRouter();
+    const router = useRouter();
 
     const [isLoading, setIsLoading] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
@@ -30,8 +30,12 @@ const useRegister = () => {
         resolver: zodResolver(registerSchema),
     });
 
-    const transformErrorToForm = (errors: Record<string, any>) => {
-        Object.entries(errors).forEach(([key, value]: any[]) => setError(key, { message: value }));
+    const transformErrorToForm = (errors: { [s: string]: unknown; } | ArrayLike<unknown>) => {
+        Object.entries(errors).forEach(([key, value]) => {
+            if (typeof key === "string") {
+                setError(key as keyof RegisterSchemaType, { message: value as string });
+            }
+        });
     };
 
     const onSubmit = handleSubmit(async (data) => {
@@ -39,12 +43,13 @@ const useRegister = () => {
 
         try {
             await httpRequest.post("/api/any/success/", data);
-            navigate.push(routes.auth.login);
-        } catch (e: any) {
-            transformErrorToForm(e.response.data);
+            router.push(routes.auth.login);
+        } catch (e) {
+            transformErrorToForm((e as any).response.data);
         }
         setIsLoading(false);
     });
+
 
     return {
         showPassword,

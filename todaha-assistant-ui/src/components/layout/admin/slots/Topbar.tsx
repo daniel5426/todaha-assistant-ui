@@ -6,7 +6,8 @@ import logoutIcon from "@iconify/icons-lucide/log-out";
 import menuIcon from "@iconify/icons-lucide/menu";
 import userIcon from "@iconify/icons-lucide/user";
 
-import { useRouter } from "next/router";
+import { useNavigate } from "react-router-dom";
+
 import {
     Avatar,
     Button,
@@ -33,11 +34,11 @@ import SearchButton from "../components/SearchButton";
 const Topbar = () => {
     const { toggleLeftbarDrawer, state } = useLayoutContext();
     const { logout } = useAuthContext();
-    const navigate = useRouter();
+    const navigate = useNavigate();
 
     const doLogout = () => {
         logout();
-        navigate.push(routes.auth.login);
+        navigate(routes.auth.login);
     };
 
     return (

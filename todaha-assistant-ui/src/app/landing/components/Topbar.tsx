@@ -18,13 +18,6 @@ const Topbar = () => {
     const [atTop, setAtTop] = useState(true);
     const { t } = useTranslation("common");
 
-    useEffect(() => {
-        const onWindowScroll = () => {
-            setAtTop(window.scrollY < 30);
-        };
-        window.addEventListener("scroll", onWindowScroll);
-        onWindowScroll();
-    }, []);
 
     return (
         <>
@@ -47,13 +40,13 @@ const Topbar = () => {
                                             </MenuItem>
 
                                             <MenuItem className="font-medium">
-                                                <p>{t('home')}</p>
+                                                <Link href={routes.landing}>{t('home')}</Link>
                                             </MenuItem>
                                             <MenuItem className="font-medium">
                                                 <Link href={routes.dashboards.ecommerce}>{t('dashboard')}</Link>
                                             </MenuItem>
                                             <MenuItem className="font-medium">
-                                                <Link href={routes.ui.components.accordion}>{t('Contact')}</Link>
+                                                <Link href={routes.contact}>{t('Contact')}</Link>
                                             </MenuItem>
                                         </Menu>
                                     }>
@@ -69,13 +62,13 @@ const Topbar = () => {
                         <NavbarEnd className="gap-3">
                             <Menu horizontal size="sm" className="hidden gap-2 px-1 lg:inline-flex">
                                 <MenuItem className="font-medium">
-                                    <p>Home</p>
+                                <Link href={routes.landing}>{t('home')}</Link>
                                 </MenuItem>
                                 <MenuItem className="font-medium">
-                                    <Link href={routes.dashboards.ecommerce}>Dashboard</Link>
+                                    <Link href={routes.dashboards.ecommerce}>{t('dashboard')}</Link>
                                 </MenuItem>
                                 <MenuItem className="font-medium">
-                                    <Link href={routes.ui.components.accordion}>Components</Link>
+                                    <Link href={routes.contact}>{t('Contact')}</Link>
                                 </MenuItem>
                             </Menu>
                             <Button size={"sm"} color="primary" onClick={() => setDrawerOpened(true)}>

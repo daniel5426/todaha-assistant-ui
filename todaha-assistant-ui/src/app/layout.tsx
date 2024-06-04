@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import "./ui/globals.css";
-import  ClientProviders  from "./app";
-import Topbar from "./landing/components/Topbar";
+import ClientProviders from "./app";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -19,12 +18,9 @@ export default function RootLayout({
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="preconnect" href="https://fonts.gstatic.com" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <title>Vite + React + TS</title>
       </head>
       <body>
-<ClientProviders>
-        {children}
-        </ClientProviders>
+        <ClientProviders>{children}</ClientProviders>
       </body>
     </html>
   );

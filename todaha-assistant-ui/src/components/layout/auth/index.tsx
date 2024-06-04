@@ -10,19 +10,19 @@ import { Card, CardBody, Mask } from "@/components/daisyui";
 
 import Icon from "@/components/Icon";
 
-const AuthLayout = ({ children }: { children: ReactNode }) => {
+export default function AuthLayout ({ children }: { children: ReactNode }) {
     return (
         <div className="grid h-screen grid-cols-12">
             <div className="relative hidden bg-[#FFE9D1] dark:bg-[#14181c] lg:col-span-7 lg:block xl:col-span-8 2xl:col-span-9">
                 <div className="absolute inset-0 flex items-center justify-center">
-                    <img src={authImage} className="object-cover" alt="Auth Image" />
+                    <img src={authImage.src} className="object-cover" alt="Auth Image" />
                 </div>
                 <div className="animate-bounce-2 absolute bottom-[15%] right-[20%]">
                     <Card className="w-64 bg-base-100/80  backdrop-blur-lg">
                         <CardBody className="p-6">
                             <div className="flex flex-col items-center justify-center">
                                 <img
-                                    src={avatar1Image}
+                                    src={avatar1Image.src}
                                     className={`size-11 bg-base-content/10 p-0.5 ${Mask.className({ variant: "squircle" })}`}
                                     alt=""
                                 />
@@ -51,5 +51,3 @@ const AuthLayout = ({ children }: { children: ReactNode }) => {
         </div>
     );
 };
-
-export default AuthLayout;

@@ -3,13 +3,14 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { z } from "zod";
 
 import useToast from "@/hooks/use-toast";
 import httpRequest from "@/services/api/request";
 import routes from "@/services/routes";
 import { useAuthContext } from "@/states/auth";
+import axios from "axios";
 
 const useLogin = () => {
     const router = useRouter();
@@ -48,11 +49,23 @@ const useLogin = () => {
             const response = await httpRequest.post("/api/auth/login/", data);
             setLoggedInUser(response.data);
             toaster.success("Login successfully...");
-            const redirectTo = router.query.redirectTo as string | undefined;
+            const redirectTo = (router as any).query.redirectTo as string | undefined;
             router.push(redirectTo ?? routes.home);
-        } catch (e: any) {
-            transformErrorToForm(e.response.data);
-        }
+        }  catch (error) {
+            if (axios.isAxiosError(error)) {
+                if (error.response && error.response.data) {
+                    transformErrorToForm(error.response.data);
+                } else {
+                    // Handle cases where error.response is undefined
+                    toaster.error("An unexpected error occurred. Please try again.");
+                    console.error(error);
+                }
+            } else {
+                // Handle non-Axios errors
+                toaster.error("An unexpected error occurred. Please try again.");
+                console.error(error);
+            }
+        } 
         setIsLoading(false);
     });
 

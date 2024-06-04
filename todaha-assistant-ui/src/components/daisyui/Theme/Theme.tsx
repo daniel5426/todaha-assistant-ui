@@ -1,5 +1,4 @@
 "use client";
-
 import { HTMLAttributes, MutableRefObject, ReactElement, forwardRef, useEffect, useRef, useState } from "react";
 
 import { defaultTheme } from "../constants";
