@@ -71,8 +71,8 @@ const Topbar = () => {
                                     <Link href={routes.contact}>{t('Contact')}</Link>
                                 </MenuItem>
                             </Menu>
-                            <Button size={"sm"} color="primary" onClick={() => setDrawerOpened(true)}>
-                                Purchase Now
+                            <Button size={"sm"} color="primary" >
+                            <Link href={routes.contact}>{t('order_demo')}</Link>
                             </Button>
                         </NavbarEnd>
                     </Navbar>

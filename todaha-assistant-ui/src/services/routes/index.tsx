@@ -1,7 +1,7 @@
-"use client";
 const routes = {
     landing: "/landing",
     home: "/dashboards/ecommerce",
+    dashboard: "/dashboard",
     docs: "/docs/introduction",
     contact: "/landing/contact",
     auth: {

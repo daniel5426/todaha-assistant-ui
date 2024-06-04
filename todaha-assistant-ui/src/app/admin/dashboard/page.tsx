@@ -5,9 +5,12 @@ import PageTitle from "@/components/PageTitle";
 import CounterWidget from "./components/CounterWidget";
 import QuickChat from "./components/QuickChat";
 import RecentOrder from "./components/RecentOrder";
-import RevenueChart from "./components/RevenueChart";
-import TopCountryChart from "./components/TopCountryChart";
-import VisitorChart from "./components/VisitorChart";
+import dynamic from "next/dynamic";
+
+const RevenueChart = dynamic(() => import("./components/RevenueChart"), { ssr: false });
+const TopCountryChart = dynamic(() => import("./components/TopCountryChart"), { ssr: false });
+const VisitorChart = dynamic(() => import("./components/VisitorChart"), { ssr: false });
+
 
 const EcommerceDashboardPage = () => {
     return (

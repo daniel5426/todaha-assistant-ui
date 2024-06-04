@@ -1,9 +1,9 @@
-"use client";
 import { useMemo } from "react";
-import { Link, useLocation } from "react-router-dom";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import SimpleBar from "simplebar-react";
 import "simplebar/dist/simplebar.css";
-
+import "@/assets/css/custom/_layout.css"
 import { Button, Menu, MenuDetails, MenuItem, MenuTitle } from "@/components/daisyui";
 
 import Icon from "@/components/Icon";
@@ -25,7 +25,7 @@ const LeftMenuItem = ({ menuItem, activated }: { menuItem: IMenuItem; activated:
         return (
             <MenuItem className="mb-0.5">
                 <Link
-                    to={url ?? ""}
+                    href={url ?? ""}
                     className={cn("hover:bg-base-content/15", {
                         "bg-base-content/10": selected,
                     })}>
@@ -56,10 +56,11 @@ const LeftMenuItem = ({ menuItem, activated }: { menuItem: IMenuItem; activated:
     );
 };
 
-const Leftbar = ({ hide, menuItems }: { hide?: boolean; menuItems: IMenuItem[] }) => {
-    const { pathname } = useLocation();
 
-    const activatedParents = useMemo(() => new Set(getActivatedLeftbarParentKeys(menuItems, pathname)), [pathname]);
+const Leftbar = ({ hide, menuItems }: { hide?: boolean; menuItems: IMenuItem[] }) => {
+    const  pathname  = usePathname();
+
+    const activatedParents = useMemo(() => new Set(getActivatedLeftbarParentKeys(menuItems, pathname as any)), [pathname]);
 
     return (
         <div

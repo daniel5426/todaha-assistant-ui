@@ -7,57 +7,58 @@ import { z } from "zod";
 
 import httpRequest from "@/services/api/request";
 import routes from "@/services/routes";
+import { sendEmail } from "@/data/contact";
 
 const useContact = () => {
-    const router = useRouter();
+  const router = useRouter();
 
-    const [isLoading, setIsLoading] = useState(false);
-    const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
-    const toggleShowPassword = () => {
-        setShowPassword(!showPassword);
-    };
+  const toggleShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
 
-    const contactSchema = z.object({
-        username: z.string(),
-        email: z.string().email(),
-        message: z.string(),
+  const contactSchema = z.object({
+    username: z.string(),
+    email: z.string().email(),
+    message: z.string(),
+  });
+
+  type ContactSchemaType = z.infer<typeof contactSchema>;
+
+  const { control, handleSubmit, setError } = useForm<ContactSchemaType>({
+    resolver: zodResolver(contactSchema),
+  });
+
+  const transformErrorToForm = (
+    errors: { [s: string]: unknown } | ArrayLike<unknown>
+  ) => {
+    Object.entries(errors).forEach(([key, value]) => {
+      if (typeof key === "string") {
+        setError(key as keyof ContactSchemaType, { message: value as string });
+      }
     });
+  };
 
-    type ContactSchemaType = z.infer<typeof contactSchema>;
+  const onSubmit = handleSubmit(async (data) => {
+    setIsLoading(true);
 
-    const { control, handleSubmit, setError } = useForm<ContactSchemaType>({
-        resolver: zodResolver(contactSchema),
-    });
+    try {
+      sendEmail(data);
+    } catch (e) {
+      transformErrorToForm((e as any).response.data);
+    }
+    setIsLoading(false);
+  });
 
-    const transformErrorToForm = (errors: { [s: string]: unknown; } | ArrayLike<unknown>) => {
-        Object.entries(errors).forEach(([key, value]) => {
-            if (typeof key === "string") {
-                setError(key as keyof ContactSchemaType, { message: value as string });
-            }
-        });
-    };
-
-    const onSubmit = handleSubmit(async (data) => {
-        setIsLoading(true);
-
-        try {
-            await httpRequest.post("/api/any/success/", data);
-            router.push(routes.auth.login);
-        } catch (e) {
-            transformErrorToForm((e as any).response.data);
-        }
-        setIsLoading(false);
-    });
-
-
-    return {
-        showPassword,
-        isLoading,
-        control,
-        onSubmit,
-        toggleShowPassword,
-    };
+  return {
+    showPassword,
+    isLoading,
+    control,
+    onSubmit,
+    toggleShowPassword,
+  };
 };
 
 export default useContact;

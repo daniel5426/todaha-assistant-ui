@@ -52,7 +52,7 @@ const Showcase = () => {
             <p className="mt-3 text-3xl font-semibold">{t("web_int_h")}</p>
             <p className="mt-4 text-base-content/70">{t("web_int_b")} </p>
             <div className="mt-6">
-              <Link href={routes.ui.components.accordion}>
+              <Link href={routes.contact}>
                 <Button
                   endIcon={<Icon icon={chevronRightIcon} fontSize={18} />}
                   variant={"outline"}

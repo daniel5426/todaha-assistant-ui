@@ -36,19 +36,18 @@ const Hero = () => {
                         </p>
 
                         <p className="mt-8 max-w-[500px]">
-                        Introducing your ultimate business partner: A custom AI assistant that
-                        learns, answers, and take action to automates and transform your customer service.
+                        {t('herro_b')}
 
                         </p>
                         <div className={"mt-8 inline-flex items-center gap-3"}>
-                            <Link href={routes.dashboards.ecommerce}>
+                            <Link href={routes.contact}>
                                 <Button color={"primary"} startIcon={<Icon icon={airplayIcon} fontSize={18} />}>
-                                    Contact
+                                {t('contact')}
                                 </Button>
                             </Link>
                         </div>
                         <div className="mt-8">
-                            <p className="font-medium text-base-content/70">Integration suported</p>
+                            <p className="font-medium text-base-content/70"> {t('integration')}</p>
                             <div className="mt-3 flex gap-5">
                                 <Tooltip message={"daisyUI - Component Library"}>
                                     <img src={whatsappImg.src} className="size-7" width={28} height={28} alt="Next" />

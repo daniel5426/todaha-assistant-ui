@@ -4,6 +4,7 @@ import avatar2Img from "@/assets/images/avatars/2.png";
 import avatar3Img from "@/assets/images/avatars/3.png";
 import avatar4Img from "@/assets/images/avatars/4.png";
 import avatar5Img from "@/assets/images/avatars/5.png";
+import Image from 'next/image'
 
 import bellIcon from "@iconify/icons-lucide/bell";
 import xIcon from "@iconify/icons-lucide/x";
@@ -49,7 +50,7 @@ const NotificationButton = () => {
                     </div>
                     <div className="mt-3">
                         <div className="my-0.5 flex cursor-pointer items-center gap-3 rounded-box p-1.5 transition-all hover:bg-base-content/5 active:scale-[.98]">
-                            <img
+                            <Image
                                 src={avatar4Img}
                                 className={`size-9 bg-base-content/10 p-0.5 ${Mask.className({ variant: "circle" })}`}
                                 alt=""
@@ -60,7 +61,7 @@ const NotificationButton = () => {
                             </div>
                         </div>
                         <div className="my-0.5 flex cursor-pointer items-center gap-3 rounded-box p-1.5 transition-all hover:bg-base-content/5 active:scale-[.98]">
-                            <img
+                            <Image
                                 src={avatar5Img}
                                 className={`size-9 bg-base-content/10 p-0.5 ${Mask.className({ variant: "circle" })}`}
                                 alt=""
@@ -78,7 +79,7 @@ const NotificationButton = () => {
                     </div>
                     <div className="mt-3">
                         <div className="my-0.5 flex cursor-pointer items-center gap-3 rounded-box p-1.5 transition-all hover:bg-base-content/5 active:scale-[.98]">
-                            <img
+                            <Image
                                 src={avatar1Img}
                                 className={`size-9 bg-base-content/10 p-0.5 ${Mask.className({ variant: "circle" })}`}
                                 alt=""
@@ -89,7 +90,7 @@ const NotificationButton = () => {
                             </div>
                         </div>
                         <div className="my-0.5 flex cursor-pointer items-center gap-3 rounded-box p-1.5 transition-all hover:bg-base-content/5 active:scale-[.98]">
-                            <img
+                            <Image
                                 src={avatar2Img}
                                 className={`size-9 bg-base-content/10 p-0.5 ${Mask.className({ variant: "circle" })}`}
                                 alt=""
@@ -100,7 +101,7 @@ const NotificationButton = () => {
                             </div>
                         </div>
                         <div className="my-0.5 flex cursor-pointer items-center gap-3 rounded-box p-1.5 transition-all hover:bg-base-content/5 active:scale-[.98]">
-                            <img
+                            <Image
                                 src={avatar3Img}
                                 className={`size-9 bg-base-content/10 p-0.5 ${Mask.className({ variant: "circle" })}`}
                                 alt=""

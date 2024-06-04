@@ -6,8 +6,7 @@ import logoutIcon from "@iconify/icons-lucide/log-out";
 import menuIcon from "@iconify/icons-lucide/menu";
 import userIcon from "@iconify/icons-lucide/user";
 
-import { useNavigate } from "react-router-dom";
-
+import { usePathname , useRouter} from "next/navigation";
 import {
     Avatar,
     Button,
@@ -34,11 +33,11 @@ import SearchButton from "../components/SearchButton";
 const Topbar = () => {
     const { toggleLeftbarDrawer, state } = useLayoutContext();
     const { logout } = useAuthContext();
-    const navigate = useNavigate();
+    const navigate = useRouter();
 
     const doLogout = () => {
         logout();
-        navigate(routes.auth.login);
+        navigate.push(routes.auth.login);
     };
 
     return (
@@ -64,7 +63,7 @@ const Topbar = () => {
                         button={false}>
                         <div className="flex items-center gap-2">
                             <Avatar
-                                src={avatar1}
+                                src={avatar1.src}
                                 size={30}
                                 innerClassName={Mask.className({ variant: "squircle" })}></Avatar>
                             <div className="flex flex-col items-start">
