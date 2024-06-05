@@ -36,7 +36,7 @@ import Icon from "@/components/Icon";
 import { cn } from "@/helpers/utils/cn";
 import DateUtil from "@/helpers/utils/date";
 import { IChat, IChatMessage } from "@/types/apps/chat";
-
+import Image from "next/image";
 import { useChat } from "../use-chat";
 import CallModal from "./CallModal";
 
@@ -46,7 +46,7 @@ const SingleMessage = ({ chat, message }: { chat: IChat; message: IChatMessage }
             <ChatBubble end={message.from_me}>
                 <ChatBubbleAvatar
                     alt={chat.name}
-                    src={message.from_me ? avatar1 : chat.image}
+                    src={message.from_me ? avatar1.src : chat.image}
                     innerClassName={"bg-base-content/10 rounded-box p-0.5"}
                     shape={"square"}
                 />

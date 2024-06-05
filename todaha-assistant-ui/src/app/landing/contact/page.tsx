@@ -11,7 +11,7 @@ export type FormData = {
   message: string;
 };
 
-export default async function Contact() {
+export default async function Page() {
   const { isLoading, control, onSubmit, showPassword, toggleShowPassword } =
     useContact();
     const { t } = useTranslation("common");

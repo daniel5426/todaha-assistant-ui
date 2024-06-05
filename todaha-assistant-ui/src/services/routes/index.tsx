@@ -1,7 +1,12 @@
 const routes = {
     landing: "/landing",
-    home: "/dashboards/ecommerce",
-    dashboard: "/dashboard",
+    home: "/admin/dashboard",
+    admin: {
+        dashboard: "/admin/dashboard",
+        chat: "/admin/chat",
+        statistics: "/admin/statistics",
+    },
+    dashboard: "/admin/dashboard",
     docs: "/docs/introduction",
     contact: "/landing/contact",
     auth: {

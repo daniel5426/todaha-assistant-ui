@@ -50,7 +50,7 @@ const useLogin = () => {
             setLoggedInUser(response.data);
             toaster.success("Login successfully...");
             const redirectTo = (router as any).query.redirectTo as string | undefined;
-            router.push(redirectTo ?? routes.home);
+            router.push(redirectTo ?? routes.dashboard);
         }  catch (error) {
             if (axios.isAxiosError(error)) {
                 if (error.response && error.response.data) {

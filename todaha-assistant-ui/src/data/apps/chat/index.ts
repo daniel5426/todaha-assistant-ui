@@ -13,7 +13,7 @@ import { IChat } from "@/types/apps/chat";
 export const chatData: IChat[] = [
     {
         id: 1,
-        image: avatar2Img,
+        image: avatar2Img.src,
         name: "Debra C. Glen",
         unreads: 2,
         messages: [
@@ -77,7 +77,7 @@ export const chatData: IChat[] = [
     {
         id: 2,
 
-        image: avatar3Img,
+        image: avatar3Img.src,
         name: "Gary N. Roache",
         messages: [
             {
@@ -135,7 +135,7 @@ export const chatData: IChat[] = [
     {
         id: 3,
 
-        image: avatar4Img,
+        image: avatar4Img.src,
         name: "Roberta K. Simons",
         messages: [
             {
@@ -178,7 +178,7 @@ export const chatData: IChat[] = [
     {
         id: 4,
 
-        image: avatar5Img,
+        image: avatar5Img.src,
         name: "Michael S. Gillen",
         messages: [
             {
@@ -221,7 +221,7 @@ export const chatData: IChat[] = [
     {
         id: 5,
 
-        image: avatar6Img,
+        image: avatar6Img.src,
         name: "Pamela W. Boggess",
         messages: [
             {
@@ -264,7 +264,7 @@ export const chatData: IChat[] = [
     {
         id: 6,
 
-        image: avatar7Img,
+        image: avatar7Img.src,
         name: "Troy G. Ward",
         messages: [
             {
@@ -307,7 +307,7 @@ export const chatData: IChat[] = [
     {
         id: 7,
 
-        image: avatar8Img,
+        image: avatar8Img.src,
         name: "Alicia W. Calvillo",
         messages: [
             {
