@@ -38,7 +38,6 @@ import DateUtil from "@/helpers/utils/date";
 import { IChat, IChatMessage } from "@/types/apps/chat";
 import Image from "next/image";
 import { useChat } from "../use-chat";
-import CallModal from "./CallModal";
 
 const SingleMessage = ({ chat, message }: { chat: IChat; message: IChatMessage }) => {
     return (
@@ -63,41 +62,11 @@ const SingleMessage = ({ chat, message }: { chat: IChat; message: IChatMessage }
     );
 };
 
-const MessageInput = () => {
-    const { sendMessage } = useChat();
-
-    const ref = useRef<HTMLInputElement>(null);
-
-    const onSend = () => {
-        if (ref.current) {
-            const message = ref.current.value;
-            if (message && message.length != 0) {
-                sendMessage(message);
-                ref.current.value = "";
-                ref.current.focus();
-            }
-        }
-    };
-
-    return (
-        <div className="flex gap-3 bg-base-content/5 p-4">
-            <Button color={"ghost"} size={"sm"} shape={"circle"} aria-label="Attachment">
-                <Icon icon={paperclipIcon} fontSize={18} className="text-base-content/80" />
-            </Button>
-            <div className="grow">
-                <Input size={"sm"} className="w-full" ref={ref} aria-label="Input message" />
-            </div>
-            <Button color={"primary"} size={"sm"} onClick={onSend} shape={"circle"} aria-label="Send message">
-                <Icon icon={sendHorizonalIcon} fontSize={18} />
-            </Button>
-        </div>
-    );
-};
 
 export const MessageList = () => {
     const ref = useRef<SimpleBarCore | null>(null);
 
-    const { selectedChat: chat, startCall } = useChat();
+    const { selectedChat: chat } = useChat();
 
     useEffect(() => {
         const scrollE = ref.current?.getScrollElement();
@@ -118,76 +87,6 @@ export const MessageList = () => {
                         <p className="text-sm/none text-base-content/70">Active</p>
                     </div>
                 </div>
-                <div className="inline-flex items-center gap-3">
-                    <Tooltip message="Audio Call">
-                        <Button
-                            onClick={startCall}
-                            color={"ghost"}
-                            aria-label="Phone"
-                            size={"sm"}
-                            className="border border-base-content/20 p-2"
-                            startIcon={<Icon icon={phoneIcon} className="size-3.5" />}></Button>
-                    </Tooltip>
-                    <Tooltip message="Video Call" className="hidden sm:block">
-                        <Button
-                            onClick={startCall}
-                            color={"ghost"}
-                            size={"sm"}
-                            aria-label="Video"
-                            className="border border-base-content/20 p-2"
-                            startIcon={<Icon icon={videoIcon} className="size-3.5" />}></Button>
-                    </Tooltip>
-                    <Tooltip message="Add to Friend">
-                        <Button
-                            color={"ghost"}
-                            aria-label="Add user"
-                            size={"sm"}
-                            className="border border-base-content/20 p-2"
-                            startIcon={<Icon icon={userPlusIcon} className="size-3.5" />}></Button>
-                    </Tooltip>
-                    <Dropdown end vertical={"bottom"}>
-                        <DropdownToggle
-                            button={false}
-                            className="btn btn-ghost btn-sm border border-base-content/20 p-2">
-                            <Icon icon={moreVerticalIcon} className="size-4" />
-                        </DropdownToggle>
-                        <DropdownMenu className="w-52 text-sm">
-                            <DropdownItem anchor={false}>
-                                <div>
-                                    <Icon icon={squareUserIcon} fontSize={16} className="" />
-                                    View Profile
-                                </div>
-                            </DropdownItem>
-
-                            <DropdownItem anchor={false}>
-                                <div>
-                                    <Icon icon={pinIcon} fontSize={16} className="" />
-                                    Pin
-                                </div>
-                            </DropdownItem>
-                            <DropdownItem anchor={false}>
-                                <div>
-                                    <Icon icon={bellDotIcon} fontSize={16} className="" />
-                                    Mute Notification
-                                </div>
-                            </DropdownItem>
-
-                            <hr className="-mx-2 my-1 border-base-content/10" />
-                            <DropdownItem anchor={false}>
-                                <div>
-                                    <Icon icon={archiveIcon} fontSize={16} className="" />
-                                    Archive
-                                </div>
-                            </DropdownItem>
-                            <DropdownItem className="text-error" anchor={false}>
-                                <div>
-                                    <Icon icon={trashIcon} fontSize={16} className="" />
-                                    Delete Chat
-                                </div>
-                            </DropdownItem>
-                        </DropdownMenu>
-                    </Dropdown>
-                </div>
             </div>
             <hr className="border-base-content/10" />
             <SimpleBar className="p-5" style={{ height: "calc(100vh - 312px)" }} ref={ref}>
@@ -195,10 +94,6 @@ export const MessageList = () => {
                     <SingleMessage chat={chat} message={message} key={index} />
                 ))}
             </SimpleBar>
-            <div className={"mt-3"}>
-                <MessageInput />
-            </div>
-            <CallModal />
         </Card>
     );
 };
