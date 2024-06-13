@@ -43,22 +43,6 @@ export const getEcommerceDashboardCounterData: IEcommerceDashboardCounter[] = [
         changesAmount: 25,
         inMoney: false,
     },
-    {
-        icon: usersIcon,
-        amount: 2200,
-        title: "Customer",
-        changes: -10.2,
-        changesAmount: -312,
-        inMoney: false,
-    },
-    {
-        icon: eraserIcon,
-        amount: 112.54,
-        title: "Spending",
-        changes: 8.5,
-        changesAmount: 54.65,
-        inMoney: true,
-    },
 ];
 
 export const getEcommerceDashboardRevenueStatData: Record<
@@ -103,7 +87,7 @@ export const getEcommerceDashboardRevenueStatData: Record<
 export const getEcommerceDashboardMessageData: IEcommerceDashboardMessage[] = [
     {
         image: avatar1,
-        name: "Mia Johnson",
+        name: "MiJohnson",
         date: DateUtil.minusMinutes(0),
         message: "It's called 'Dreamscape.' A must-watch!",
     },
@@ -123,6 +107,30 @@ export const getEcommerceDashboardMessageData: IEcommerceDashboardMessage[] = [
         image: avatar4,
         name: "Emily Chen",
         date: DateUtil.minusMinutes(300),
+        message: "Did you see that amazing sunset yesterday?",
+    },
+    {
+        image: avatar4,
+        name: "Eily Chen",
+        date: DateUtil.minusMinutes(400),
+        message: "Did you see that amazing sunset yesterday?",
+    },
+    {
+        image: avatar4,
+        name: "Emi Chen",
+        date: DateUtil.minusMinutes(500),
+        message: "Did you see that amazing sunset yesterday?",
+    },
+    {
+        image: avatar4,
+        name: " Chen",
+        date: DateUtil.minusMinutes(600),
+        message: "Did you see that amazing sunset yesterday?",
+    },
+    {
+        image: avatar4,
+        name: "Emily ",
+        date: DateUtil.minusMinutes(700),
         message: "Did you see that amazing sunset yesterday?",
     },
 ];

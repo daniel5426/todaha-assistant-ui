@@ -1,5 +1,6 @@
 "use client";
 import { IconifyIcon } from "@iconify/react";
+import { StaticImageData } from "next/image";
 
 export type IEcommerceDashboardRevenueStat = {
     amount: number;
@@ -31,7 +32,7 @@ export type IEcommerceDashboardCounter = {
 };
 
 export type IEcommerceDashboardMessage = {
-    image: string;
+    image: StaticImageData;
     name: string;
     message: string;
     date: Date;
@@ -39,7 +40,7 @@ export type IEcommerceDashboardMessage = {
 
 export type IEcommerceDashboardOrder = {
     id: number;
-    image: string;
+    image: StaticImageData;
     name: string;
     category: string;
     date: Date;

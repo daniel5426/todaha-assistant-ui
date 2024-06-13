@@ -20,6 +20,7 @@
     "clsx": "^2.1.1",
     "dayjs": "^1.11.11",
     "filepond-plugin-image-preview": "^4.6.12",
+    "luxon": "^3.4.4",
     "next": "14.2.3",
     "next-translate": "^2.6.2",
     "nodemailer": "^6.9.13",
@@ -37,6 +38,7 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@types/luxon": "^3.4.2",
     "@types/node": "^20",
     "@types/nodemailer": "^6.4.15",
     "@types/react": "^18",

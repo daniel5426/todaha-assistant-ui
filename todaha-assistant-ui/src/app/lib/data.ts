@@ -1,5 +1,9 @@
 import { unstable_noStore as noStore } from 'next/cache';
 import { FormData } from '../landing/contact/page';
+import { ApiResponse } from './serialize/server-models';
+import { IGraphDuration, IGraphStat,  } from '@/types/dashboards/chat_statistics';
+import axios from 'axios';
+import { calculateDailyStats, calculateHourlyStats, calculateMonthlyStats } from './serialize/serialize';
 
 
 const api_url = process.env.NEXT_PUBLIC_API_BASE_URL1;
@@ -47,5 +51,30 @@ export async function fetchChats(assistantId: string, page: number): Promise<any
   return data['last-chats'];
 }
 
+export async function fetchAndTransformData(assistantId: string): Promise<Record<IGraphDuration, IGraphStat>> {
+  try {
+      // Fetch the data from the endpoint
+      const response = await axios.get<ApiResponse>(`${api_url}/chat/get-statistics?assistant_id=${assistantId}`);
+      const stats = response.data.statistics;
+
+      // Process the data to calculate hourly, daily, monthly, and yearly stats
+      const hourlyData = await calculateHourlyStats(stats);
+      const dailyData = await calculateDailyStats(stats);
+      const monthlyData = await calculateMonthlyStats(stats);
+
+      // Construct the final result
+      const result: Record<IGraphDuration, IGraphStat> = {
+          hour: hourlyData,
+          day: dailyData,
+          month: monthlyData,
+      };
+
+      return result;
+
+  } catch (error) {
+      console.error('Error fetching data:', error);
+      throw error;
+  }
+}
 
 

@@ -1,5 +1,6 @@
 "use client";
 import dayjs from "dayjs";
+import { DateTime } from 'luxon';
 
 type KnownFormats = "DD MM" | "DD MM YYYY" | "DD MMM" | "MMM YYYY";
 
@@ -9,6 +10,25 @@ type IDateProps = {
 };
 
 const defaultProps: IDateProps = { onlyDate: true };
+
+class DateUtil2 {
+    static minusHours(hours: number): Date {
+        return DateTime.now().minus({ hours }).toJSDate();
+    }
+
+    static minusDays(days: number): Date {
+        return DateTime.now().minus({ days }).toJSDate();
+    }
+
+    static minusMonths(months: number): Date {
+        return DateTime.now().minus({ months }).toJSDate();
+    }
+
+    static minusYears(years: number): Date {
+        return DateTime.now().minus({ years }).toJSDate();
+    }
+}
+
 
 const formatted = (date: Date, props: IDateProps = defaultProps) => {
     let format = "";
@@ -30,6 +50,17 @@ const addMinutes = (minutes: number = 1, date: Date = new Date()): Date => {
     d.setMinutes(date.getMinutes() + minutes);
     return d;
 };
+
+const minusHours = (hours: number = 1, date: Date = new Date()): Date => {
+    return addHours(-hours, date);
+};
+
+const addHours = (hours: number = 1, date: Date = new Date()): Date => {
+    const d = new Date(date);
+    d.setHours(date.getHours() + hours);
+    return d;
+};
+
 const minusDays = (days: number = 1, date: Date = new Date()): Date => {
     return addDays(-days, date);
 };
@@ -69,5 +100,6 @@ const DateUtil = {
     addYears,
     addMinutes,
     minusMinutes,
+    minusHours,
 };
 export default DateUtil;

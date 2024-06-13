@@ -7,11 +7,13 @@ import { useEffect, useMemo, useState } from "react";
 
 import { Button, Card, CardBody, Checkbox, Mask, Table, TableBody, TableHead, TableRow } from "@/components/daisyui";
 
+import Image from "next/image";
 import Icon from "@/components/Icon";
 import { getEcommerceDashboardOrderData } from "@/data/dashboards/ecommerce";
 import { cn } from "@/helpers/utils/cn";
 import DateUtil from "@/helpers/utils/date";
 import { IEcommerceDashboardOrder } from "@/types/dashboards/ecommerce";
+
 
 const OrderRow = ({ order, checkedAll }: { order: IEcommerceDashboardOrder; checkedAll: boolean }) => {
     const [checked, setChecked] = useState(checkedAll);
@@ -31,7 +33,7 @@ const OrderRow = ({ order, checkedAll }: { order: IEcommerceDashboardOrder; chec
             />
 
             <div className="flex items-center space-x-3 truncate">
-                <img
+                <Image
                     src={order.image}
                     height={32}
                     width={32}

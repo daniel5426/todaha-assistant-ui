@@ -3,7 +3,7 @@ import messagesSquareIcon from "@iconify/icons-lucide/messages-square";
 
 import { useMemo } from "react";
 import  Link  from "next/link";
-
+import Image from "next/image";
 import { Button, Card, CardBody, Mask } from "@/components/daisyui";
 
 import Icon from "@/components/Icon";
@@ -23,11 +23,11 @@ const QuickChat = () => {
                     <span className="font-medium">Quick Chat</span>
                 </div>
                 <div className="mt-2">
-                    {data.slice(0, 4).map((chat, index) => (
+                    {data.slice(0, 7).map((chat, index) => (
                         <div
                             key={index}
                             className="flex cursor-pointer gap-4 rounded-box bg-transparent p-2.5 transition-all hover:bg-base-content/10 active:scale-[.98] active:bg-base-content/15">
-                            <img
+                            <Image
                                 src={chat.image}
                                 alt={"chat image"}
                                 height={40}

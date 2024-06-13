@@ -10,8 +10,8 @@ import {
 
 import { IChat } from "@/types/apps/chat";
 import { fetchChats } from "@/app/lib/data";
-import { transformChatsToIChat } from "@/helpers/utils/serialize";
 import { set } from "react-hook-form";
+import { transformChatsToIChat } from "@/app/lib/serialize/serialize";
 
 const useChatHook = () => {
   const [selectedChat, setSelectedChat] = useState<IChat | undefined>(
