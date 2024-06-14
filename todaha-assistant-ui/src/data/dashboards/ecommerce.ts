@@ -22,6 +22,7 @@ import {
     IEcommerceDashboardRevenueStat,
     IEcommerceDashboardUserInteraction,
 } from "@/types/dashboards/ecommerce";
+import { IGraphDuration } from "@/types/dashboards/chat_statistics";
 
 const dailyOrders = [10, 12, 14, 16, 18, 20, 14, 16, 18, 12];
 const dailyRevenues = [15, 24, 21, 28, 30, 40, 22, 32, 34, 20];
@@ -46,7 +47,7 @@ export const getEcommerceDashboardCounterData: IEcommerceDashboardCounter[] = [
 ];
 
 export const getEcommerceDashboardRevenueStatData: Record<
-    IEcommerceDashboardRevenueDuration,
+IGraphDuration,
     IEcommerceDashboardRevenueStat
 > = {
     day: {
@@ -71,7 +72,7 @@ export const getEcommerceDashboardRevenueStatData: Record<
             };
         }),
     },
-    year: {
+    hour: {
         amount: 12547,
         percent: 3.24,
         series: dailyOrders.map((orders, index) => {

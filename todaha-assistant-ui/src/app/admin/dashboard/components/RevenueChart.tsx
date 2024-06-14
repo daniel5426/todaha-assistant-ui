@@ -1,7 +1,6 @@
-"use client";
 import type { ApexOptions } from "apexcharts";
 import { useEffect, useMemo, useState } from "react";
-import ApexChart from "react-apexcharts";
+import ReactApexChart from "react-apexcharts";
 
 import { Card, CardBody, Tab, Tabs } from "@/components/daisyui";
 
@@ -12,17 +11,14 @@ import { useLayoutContext } from "@/states/layout";
 import { IEcommerceDashboardRevenueDuration } from "@/types/dashboards/ecommerce";
 import { ILayoutThemeMode } from "@/types/layout/admin";
 import { fetchAndTransformData } from "@/app/lib/data";
-import {
-  IGraphDuration,
-  IGraphStat,
-  IGraphStatSeries,
-} from "@/types/dashboards/chat_statistics";
+import { IGraphDuration, IGraphStat } from "@/types/dashboards/chat_statistics";
 
-async function getOption(
-  data: IGraphStatSeries[],
-  theme: ILayoutThemeMode,
-  duration: IGraphDuration
-): Promise<ApexOptions> {
+const getOption = (
+  dataF: Record<IGraphDuration, IGraphStat>,
+  duration: IGraphDuration = "hour",
+  theme: ILayoutThemeMode
+): ApexOptions => {
+  const data = dataF[duration].series;
   return {
     theme: {
       mode: theme,
@@ -64,11 +60,11 @@ async function getOption(
     },
     series: [
       {
-        name: "Orders",
+        name: "Chats",
         data: data.map((r) => r.value1),
       },
       {
-        name: "Revenue",
+        name: "Messages",
         data: data.map((r) => r.value2),
       },
     ],
@@ -87,8 +83,8 @@ async function getOption(
               duration == "day"
                 ? "DD MMM"
                 : duration == "month"
-                ? "MMM YY"
-                : "YYYY",
+                ? "MMM"
+                : "H",
           });
         },
       },
@@ -107,7 +103,7 @@ async function getOption(
             if (e.seriesIndex == 0) {
               return val.toString();
             }
-            return "$" + StringUtil.convertToFixed(val) + "K";
+            return StringUtil.convertToFixed(val);
           }
           return val.toString();
         },
@@ -123,103 +119,107 @@ async function getOption(
       show: false,
     },
   };
-}
+};
 
-const RevenueChart = () => {
-  const [overviewDuration, setOverviewDuration] =
-    useState<IGraphDuration>("hour");
-  const [currentStat, setCurrentStat] = useState<IGraphStat | null>(null);
-  const [fetchedData, setFetchedData] = useState<Record<
-    IGraphDuration,
-    IGraphStat
-  > | null>(null);
-  const [option, setOption] = useState<ApexOptions | null>(null);
+export default function RevenueChart() {
+  const [overviewDuration, setOverviewDuration] = useState<IGraphDuration>("hour");
+  const [flag, setFlag] = useState<boolean>(true);
+  const [data, setData] = useState<Record<IGraphDuration, IGraphStat>>({
+    day: {
+      total: 0,
+      percent: 2.14,
+      series: [],
+    },
+    month: {
+      total: 0,
+      percent: 4.59,
+      series: [],
+    },
+    hour: {
+      total: 0,
+      percent: 3.24,
+      series: [],
+    },
+  });
   const { state } = useLayoutContext();
 
-  const fetchData = async () => {
-    if (!fetchedData) {
-      const data = await fetchAndTransformData("asst_gE6RWQvul8PGsCRMJeSc2Elo");
-      setFetchedData(data);
-    }
-  };
+  const [options, setOptions] = useState<ApexOptions>(getOption(data, overviewDuration, state.theme) );
+
+
 
   useEffect(() => {
-    fetchData();
-    console.log("loading chats");
-  }, [overviewDuration, state.theme]);
-
-  useEffect(() => {
-    const async_func = async () => {
-      if (!fetchedData) {
-        return;
+    const fetchData = async () => {
+      try {
+        const fetchedData = await fetchAndTransformData(
+          "asst_gE6RWQvul8PGsCRMJeSc2Elo"
+        );
+        setData(fetchedData);
+        setFlag(false);
+        console.log("fetchedData", fetchedData);
+      } catch (error) {
+        console.error("Error fetching data:", error);
       }
-      setCurrentStat(fetchedData[overviewDuration]);
-      const option = await getOption(
-        fetchedData[overviewDuration].series,
-        state.theme,
-        overviewDuration
-      );
-      setOption(option);
     };
-    async_func();
-  }, [overviewDuration, fetchedData]);
+
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    setOptions( getOption(data, overviewDuration, state.theme));
+  }, [overviewDuration, state.theme, flag]);
+
+  const currentStat = useMemo(() => {
+    return data[overviewDuration];
+  }, [overviewDuration, flag]);
 
   return (
     <Card className="bg-base-100">
       <CardBody className="px-0 pb-0">
         <div className="px-6">
           <div className="flex items-center justify-between">
-            <span className="font-medium">Revenue Statistics</span>
+            <span className="font-medium">AI Assistant - clients usage statistics</span>
             <Tabs variant="boxed" size={"sm"}>
+              <Tab
+                onClick={() => setOverviewDuration("hour")}
+                active={overviewDuration == "hour"}
+              >
+                Today
+              </Tab>
               <Tab
                 onClick={() => setOverviewDuration("day")}
                 active={overviewDuration == "day"}
               >
-                Day
+                This week
               </Tab>
               <Tab
                 onClick={() => setOverviewDuration("month")}
                 active={overviewDuration == "month"}
               >
-                Month
-              </Tab>
-              <Tab
-                onClick={() => setOverviewDuration("hour")}
-                active={overviewDuration == "hour"}
-              >
-                Year
+                Last 5 months
               </Tab>
             </Tabs>
           </div>
           <div className="mt-2 flex items-center gap-3">
-            <span className="text-4xl/none font-semibold">
-              $
-              {currentStat && currentStat.total
-                ? StringUtil.convertToCurrency(currentStat.total)
-                : ""}
-              K
+            <span className="text-3xl/none font-semibold">
+              {StringUtil.convertToCurrency(currentStat.total)} question asked
             </span>
             <span className="text-sm font-medium text-success">
-              +{currentStat ? currentStat.percent : ""}%
+              +{currentStat.percent}%
             </span>
           </div>
           <span className="text-sm text-base-content/70">
-            Total income in this {overviewDuration}
+            Total number of responce 
           </span>
         </div>
         <div className="overflow-hidden rounded-xl">
-          {option && (
-            <ApexChart
-              options={option}
-              height={280}
-              type={"bar"}
-              series={option.series}
-            ></ApexChart>
-          )}
+          <ReactApexChart
+            options={options}
+            height={280}
+            type={"bar"}
+            series={options.series}
+          ></ReactApexChart>
         </div>
       </CardBody>
     </Card>
   );
-};
-
-export default RevenueChart;
+}

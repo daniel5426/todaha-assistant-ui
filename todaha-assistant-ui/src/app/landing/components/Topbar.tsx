@@ -17,6 +17,7 @@ const Topbar = () => {
     const [drawerOpened, setDrawerOpened] = useState(false);
     const [atTop, setAtTop] = useState(true);
     const { t } = useTranslation("common");
+    console.log(t('home'));
 
 
     return (

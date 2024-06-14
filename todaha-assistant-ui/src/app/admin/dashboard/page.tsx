@@ -7,12 +7,9 @@ import QuickChat from "./components/QuickChat";
 import RecentOrder from "./components/RecentOrder";
 import dynamic from "next/dynamic";
 import { Suspense } from "react";
+import RevenueChart from "./components/RevenueChart";
 
-const RevenueChart = dynamic(() => import("./components/RevenueChart"), {
-  ssr: false,
-});
-
-const EcommerceDashboardPage = () => {
+export default function EcommerceDashboardPage () {
   return (
     <div>
       <PageMetaData title={"Dashboard - Ecommerce"} />
@@ -41,5 +38,3 @@ const EcommerceDashboardPage = () => {
     </div>
   );
 };
-
-export default EcommerceDashboardPage;

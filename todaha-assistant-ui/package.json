@@ -21,7 +21,7 @@
     "dayjs": "^1.11.11",
     "filepond-plugin-image-preview": "^4.6.12",
     "luxon": "^3.4.4",
-    "next": "14.2.3",
+    "next": "^14.2.4",
     "next-translate": "^2.6.2",
     "nodemailer": "^6.9.13",
     "react": "^18",
@@ -49,6 +49,6 @@
     "next-translate-plugin": "^2.6.2",
     "postcss": "^8",
     "tailwindcss": "^3.4.1",
-    "typescript": "^5"
+    "typescript": "^5.4.5"
   }
 }
