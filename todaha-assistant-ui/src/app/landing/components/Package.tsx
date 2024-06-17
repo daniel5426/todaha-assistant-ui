@@ -1,4 +1,3 @@
-"use client";
 import javascriptLandingImg from "@/assets/images/landing/logo-js.svg";
 import nextLandingImg from "@/assets/images/landing/logo-next.svg";
 import reactLandingImg from "@/assets/images/landing/logo-react.svg";
@@ -15,7 +14,7 @@ import { Tooltip } from "@/components/daisyui";
 import Icon from "@/components/Icon";
 import routes from "@/services/routes";
 
-const Package = () => {
+const Package = async () => {
     return (
         <div className="">
             <div className="container py-24">

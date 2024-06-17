@@ -3,7 +3,7 @@
 
 import menuIcon from "@iconify/icons-lucide/menu";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import  Link  from "next/link";
 
 import { Button, Drawer, Menu, MenuItem, Navbar, NavbarEnd, NavbarStart } from "@/components/daisyui";

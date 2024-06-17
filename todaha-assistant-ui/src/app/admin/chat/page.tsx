@@ -1,11 +1,13 @@
-"use client";
 import PageMetaData from "@/components/PageMetaData";
 
 import { ChatList } from "./components/ChatList";
 import { MessageList } from "./components/MessageList";
 import { ChatContextProvider } from "./use-chat";
+import { Suspense } from "react";
+import { LatestInvoicesSkeleton } from "../components/loading";
 
 const ChatApp = () => {
+
     return (
         <>
             <PageMetaData title={"Chat"} />

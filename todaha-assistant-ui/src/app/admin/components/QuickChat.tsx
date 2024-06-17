@@ -1,7 +1,6 @@
-"use client";
 import messagesSquareIcon from "@iconify/icons-lucide/messages-square";
 
-import { useMemo } from "react";
+import { use } from "react";
 import  Link  from "next/link";
 import Image from "next/image";
 import { Button, Card, CardBody, Mask } from "@/components/daisyui";
@@ -11,16 +10,22 @@ import { getEcommerceDashboardMessageData } from "@/data/dashboards/ecommerce";
 import { cn } from "@/helpers/utils/cn";
 import DateUtil from "@/helpers/utils/date";
 import routes from "@/services/routes";
+import { fetchChats, fetchChatsWithSuspense } from "@/app/lib/data";
+import { chatsToQuickChat } from "@/app/lib/serialize/serialize";
 
-const QuickChat = () => {
-    const data = useMemo(() => getEcommerceDashboardMessageData, []);
+
+const QuickChat = ({ resource }: { resource: any }) => {
+
+    const fetchdata = resource.read();
+
+    const data = chatsToQuickChat(fetchdata);
 
     return (
         <Card className="bg-base-100">
             <CardBody>
                 <div className="flex items-center gap-3">
-                    <Icon icon={messagesSquareIcon} className="text-base-content/80" fontSize={16} />
-                    <span className="font-medium">Quick Chat</span>
+                    <Icon icon={messagesSquareIcon} className="text-base-content/80" fontSize={19} />
+                    <span className="font-medium">Latest client question answered</span>
                 </div>
                 <div className="mt-2">
                     {data.slice(0, 7).map((chat, index) => (
@@ -40,13 +45,12 @@ const QuickChat = () => {
 
                             <div className="grow">
                                 <div className="flex">
-                                    <p className="grow font-medium">{chat.name}</p>
                                     <span className="text-xs text-base-content/60">
                                         {" "}
                                         {DateUtil.formatted(chat.date, { format: "hh:mm A" })}
                                     </span>
                                 </div>
-                                <p className="line-clamp-1 text-ellipsis text-sm/none text-base-content/80">
+                                <p className="line-clamp-1 text-ellipsis text-lg/none text-base-content/80">
                                     {chat.message}
                                 </p>
                             </div>
@@ -54,7 +58,7 @@ const QuickChat = () => {
                     ))}
                 </div>
                 <div className="mt-2 text-center">
-                    <Link href={routes.apps.chat.home}>
+                    <Link href={routes.admin.chat}>
                         <Button variant={"outline"} color={"ghost"} size={"sm"}>
                             Go To Chat
                         </Button>
@@ -66,3 +70,7 @@ const QuickChat = () => {
 };
 
 export default QuickChat;
+function wrapPromise(arg0: Promise<any[]>) {
+    throw new Error("Function not implemented.");
+}
+

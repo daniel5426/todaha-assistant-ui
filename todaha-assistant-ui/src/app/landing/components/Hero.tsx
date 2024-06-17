@@ -1,4 +1,3 @@
-"use client";
 import heroDarkLandingImg from "@/assets/images/landing/dashboard-hero-dark.png";
 import heroLandingImg from "@/assets/images/landing/dashboard-hero.png";
 import heroGradientImg from "@/assets/images/landing/hero-gradient.png";
@@ -8,26 +7,21 @@ import gmailImg from "@/assets/images/landing/gmail.png";
 import shopifyImg from "@/assets/images/landing/shopping.png";
 import wordpressImg from "@/assets/images/landing/wordpress.png";
 import commentImg from "@/assets/images/landing/comment.png";
-
 import airplayIcon from "@iconify/icons-lucide/airplay";
-import boxIcon from "@iconify/icons-lucide/box";
-
 import Link from "next/link";
 import useTranslation from 'next-translate/useTranslation';
-
 import { Button, Tooltip } from "@/components/daisyui";
-
 import Icon from "@/components/Icon";
 import routes from "@/services/routes";
 
-const Hero = () => {
+const Hero = async () => {
     const { t } = useTranslation('common');
 
     return (
         <div>
             <div
                 className=" absolute inset-0 rotate-180 bg-cover bg-center bg-no-repeat opacity-20 dark:hidden"
-                style={{ backgroundImage: `url(${heroGradientImg})`, filter: "blur(4px)" }}></div>
+                style={{ backgroundImage: `url(${heroGradientImg.src})`, filter: "blur(4px)"}}></div>
             <div className="container relative z-10 py-20 xl:py-40">
                 <div className="grid items-center  gap-8 xl:grid-cols-7 xl:gap-20">
                     <div className="order-2 xl:order-1 xl:col-span-3">

@@ -1,4 +1,3 @@
-"use client";
 import testimonialPouyaLandingImg from "@/assets/images/landing/testimonial-pouya-avatar.png";
 import worldMapLandingImg from "@/assets/images/landing/world-map.png";
 
@@ -8,7 +7,7 @@ import useTranslation from "next-translate/useTranslation";
 
 import Icon from "@/components/Icon";
 
-const Testimonial = () => {
+const Testimonial = async () => {
     const { t } = useTranslation("common");
 
     return (

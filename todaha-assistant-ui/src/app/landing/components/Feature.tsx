@@ -1,18 +1,13 @@
-"use client";
-import caseSensitiveIcon from "@iconify/icons-lucide/case-sensitive";
-import codeSquareIcon from "@iconify/icons-lucide/code";
 import combineIcon from "@iconify/icons-lucide/combine";
 import hexagonIcon from "@iconify/icons-lucide/hexagon";
 import monitorSmartphoneIcon from "@iconify/icons-lucide/monitor-smartphone";
-import pencilLineIcon from "@iconify/icons-lucide/pencil-line";
 import pencilRulerIcon from "@iconify/icons-lucide/pencil-ruler";
-import sunMoonIcon from "@iconify/icons-lucide/sun-moon";
 import wand2Icon from "@iconify/icons-lucide/wand-2";
 import useTranslation from "next-translate/useTranslation";
 import Icon from "@/components/Icon";
 
 
-const Feature = () => {
+const Feature =async  () => {
   const { t } = useTranslation("common");
 
   const features = [

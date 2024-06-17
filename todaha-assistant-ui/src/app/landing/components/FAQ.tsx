@@ -1,4 +1,3 @@
-"use client";
 import messagesSquareIcon from "@iconify/icons-lucide/messages-square";
 
 import { Accordion, AccordionContent, AccordionTitle, Link } from "@/components/daisyui";
@@ -7,7 +6,7 @@ import { Accordion, AccordionContent, AccordionTitle, Link } from "@/components/
 import Icon from "@/components/Icon";
 import routes from "@/services/routes";
 
-const FAQ = () => {
+const FAQ = async () => {
     return (
         <div className="">
             <div className="container py-12 lg:py-24">

@@ -1,20 +1,10 @@
 "use client";
-import avatar1 from "@/assets/images/avatars/1.png";
-import avatar2 from "@/assets/images/avatars/2.png";
-import avatar3 from "@/assets/images/avatars/3.png";
-import cardLandingImg from "@/assets/images/landing/component-card-image.png";
 import bgVector1Img from "@/assets/images/landing/section-bg-gradient.png";
 import chatbot1 from "@/assets/images/landing/chat-bot1.png";
 import chatbot2 from "@/assets/images/landing/chat-bot2.png";
 
 import boxIcon from "@iconify/icons-lucide/box";
-import chevronDownIcon from "@iconify/icons-lucide/chevron-down";
 import chevronRightIcon from "@iconify/icons-lucide/chevron-right";
-import infoIcon from "@iconify/icons-lucide/info";
-import searchIcon from "@iconify/icons-lucide/search";
-import shoppingCartIcon from "@iconify/icons-lucide/shopping-cart";
-import uploadIcon from "@iconify/icons-lucide/upload";
-
 import { useState } from "react";
 import Link from "next/link";
 

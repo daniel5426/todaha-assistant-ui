@@ -9,9 +9,12 @@ import { Badge, Card, CardBody } from "@/components/daisyui";
 import Icon from "@/components/Icon";
 import { getEcommerceDashboardCounterData } from "@/data/dashboards/ecommerce";
 import { IEcommerceDashboardCounter } from "@/types/dashboards/ecommerce";
+import { useStats } from "../dashboard/use-stats";
+import { StatsToCounterData } from "@/app/lib/serialize/serialize";
+import { CounterCard } from "@/types/dashboards/chat_statistics";
 
-const SingleCounter = ({ counter }: { counter: IEcommerceDashboardCounter }) => {
-    const { icon, title, amount, changes, inMoney, changesAmount } = counter;
+const SingleCounter = ({ counter }: { counter: CounterCard }) => {
+    const { icon, title, amount, changes, inMoney, changesAmount, subTitle } = counter;
 
     return (
         <Card className="bg-base-100 shadow" bordered={false}>
@@ -25,7 +28,7 @@ const SingleCounter = ({ counter }: { counter: IEcommerceDashboardCounter }) => 
                                 {amount}
                             </h5>
                             <>
-                                {changes > 0 ? (
+                                {changes !== 0?(changes > 0 ? (
                                     <Badge
                                         className="gap-1 border-0 bg-success/10 py-3 text-xs font-semibold text-success"
                                         size="sm">
@@ -39,6 +42,12 @@ const SingleCounter = ({ counter }: { counter: IEcommerceDashboardCounter }) => 
                                         <Icon icon={arrowDownIcon} fontSize={14} />
                                         {-changes}%
                                     </Badge>
+                                )):(
+                                    <Badge
+                                        className="gap-1 border-0 bg-error/10 py-3 text-xs font-semibold text-warning"
+                                        size="sm">
+                                        {changes}%
+                                    </Badge>
                                 )}
                             </>
                         </div>
@@ -49,12 +58,12 @@ const SingleCounter = ({ counter }: { counter: IEcommerceDashboardCounter }) => 
                 </div>
 
                 <p className="text-sm font-medium">
-                    <span className={changes > 0 ? "text-success" : "text-error"}>
-                        {changes > 0 ? "+" : "-"}
+                    <span className={changes !== 0?(changes > 0 ? "text-success" : "text-error"):"text-warning"}>
+                        {changes !== 0?(changes > 0 ? "+" : "-"):""}
                         {inMoney && "$"}
                         {Math.abs(changesAmount)}
                     </span>
-                    <span className="ms-1.5 text-base-content/60">than past week</span>
+                    <span className="ms-1.5 text-base-content/60">{subTitle}</span>
                 </p>
             </CardBody>
         </Card>
@@ -62,7 +71,11 @@ const SingleCounter = ({ counter }: { counter: IEcommerceDashboardCounter }) => 
 };
 
 const CounterWidget = () => {
-    const data = useMemo(() => getEcommerceDashboardCounterData, []);
+    const { chartStats } = useStats();
+    
+    const data = useMemo(() => {
+        return StatsToCounterData(chartStats)
+    }, []);
     return (
         <>
             {data.map((counter, index) => (

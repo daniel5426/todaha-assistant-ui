@@ -5,7 +5,8 @@ const nextConfig = nextTranslate({
   webpack: (config, { isServer, webpack }) => {
     // Add custom webpack configurations here
     return config;
-  }
+  },
+  reactStrictMode: false, // Disable React Strict Mode
 });
 
 export default nextConfig;

@@ -22,7 +22,7 @@ import {
     IEcommerceDashboardRevenueStat,
     IEcommerceDashboardUserInteraction,
 } from "@/types/dashboards/ecommerce";
-import { IGraphDuration } from "@/types/dashboards/chat_statistics";
+import { IDashboardMessage, IGraphDuration } from "@/types/dashboards/chat_statistics";
 
 const dailyOrders = [10, 12, 14, 16, 18, 20, 14, 16, 18, 12];
 const dailyRevenues = [15, 24, 21, 28, 30, 40, 22, 32, 34, 20];
@@ -85,53 +85,35 @@ IGraphDuration,
     },
 };
 
-export const getEcommerceDashboardMessageData: IEcommerceDashboardMessage[] = [
+export const getEcommerceDashboardMessageData: IDashboardMessage[] = [
     {
         image: avatar1,
-        name: "MiJohnson",
         date: DateUtil.minusMinutes(0),
         message: "It's called 'Dreamscape.' A must-watch!",
     },
     {
         image: avatar2,
-        name: "Ethan Patel",
         date: DateUtil.minusMinutes(100),
         message: "Just got a new book. Excited to start reading.",
     },
     {
         image: avatar3,
-        name: "Sophia Nguyen",
         date: DateUtil.minusMinutes(200),
         message: "How's your day going?",
     },
     {
         image: avatar4,
-        name: "Emily Chen",
         date: DateUtil.minusMinutes(300),
         message: "Did you see that amazing sunset yesterday?",
     },
     {
         image: avatar4,
-        name: "Eily Chen",
         date: DateUtil.minusMinutes(400),
         message: "Did you see that amazing sunset yesterday?",
     },
     {
         image: avatar4,
-        name: "Emi Chen",
         date: DateUtil.minusMinutes(500),
-        message: "Did you see that amazing sunset yesterday?",
-    },
-    {
-        image: avatar4,
-        name: " Chen",
-        date: DateUtil.minusMinutes(600),
-        message: "Did you see that amazing sunset yesterday?",
-    },
-    {
-        image: avatar4,
-        name: "Emily ",
-        date: DateUtil.minusMinutes(700),
         message: "Did you see that amazing sunset yesterday?",
     },
 ];

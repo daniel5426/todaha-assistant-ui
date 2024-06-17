@@ -6,6 +6,7 @@ import {
   useEffect,
   useRef,
   useState,
+  useTransition,
 } from "react";
 
 import { IChat } from "@/types/apps/chat";
@@ -14,40 +15,39 @@ import { set } from "react-hook-form";
 import { transformChatsToIChat } from "@/app/lib/serialize/serialize";
 
 const useChatHook = () => {
+  const [isPending, startTransition] = useTransition();
   const [selectedChat, setSelectedChat] = useState<IChat | undefined>(
     undefined
   );
   const [chats, setChats] = useState<IChat[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  async function loadChats(page: number) {
-    setIsLoading(true);
+  function fetchData(page: number) {
     try {
-      const fetchedChats = await fetchChats("asst_gE6RWQvul8PGsCRMJeSc2Elo", page);
-      const transformedChats = transformChatsToIChat(fetchedChats, page);
-      setCurrentPage(page);
-      setChats(transformedChats);
+      startTransition(async () => {
+        const fetchedChats = await fetchChats("asst_gE6RWQvul8PGsCRMJeSc2Elo", page);
+        const transformedChats = transformChatsToIChat(fetchedChats, page);
+        setCurrentPage(page);
+        setChats(transformedChats);
+        console.log("Fetched Chats:", transformedChats);
+      });
     } catch (error) {
       console.error("Error fetching chats:", error);
-    } finally {
-        setIsLoading(false);
-      }
     }
+  }
 
-
-  useEffect(() => {
-    console.log("loading chats");
-    loadChats(currentPage);
-      }, []);
-
+    useEffect(() => {
+      fetchData(currentPage);    
+        }, []);
+  
+  
   return {
     chats: chats,
     selectedChat,
     setSelectedChat,
-    loadChats,
+    fetchData,
     currentPage,
-    isLoading,
+    isPending,
   };
 };
 

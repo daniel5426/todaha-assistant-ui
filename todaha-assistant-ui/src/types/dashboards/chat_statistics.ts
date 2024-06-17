@@ -3,8 +3,10 @@ import { IconifyIcon } from "@iconify/react";
 import { StaticImageData } from "next/image";
 
 export type IGraphStat = {
-    total: number;
-    percent: number;
+    total1: number;
+    total2: number;
+    percent1: number;
+    percent2: number;
     series: IGraphStatSeries[];
 };
 
@@ -22,18 +24,18 @@ export type ICardStat = {
 
 export type IGraphDuration = "day" | "month" | "hour";
 
-export type IEcommerceDashboardCounter = {
+export type CounterCard = {
     icon: IconifyIcon;
     title: string;
     amount: number;
     changes: number;
     changesAmount: number;
     inMoney: boolean;
+    subTitle: string;
 };
 
 export type IDashboardMessage = {
     image: StaticImageData;
-    name: string;
     message: string;
     date: Date;
 };

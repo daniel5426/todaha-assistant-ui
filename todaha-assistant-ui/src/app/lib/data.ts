@@ -1,13 +1,39 @@
 import { unstable_noStore as noStore } from 'next/cache';
 import { FormData } from '../landing/contact/page';
-import { ApiResponse } from './serialize/server-models';
+import { ApiResponse, ServerStat } from './serialize/server-models';
 import { IGraphDuration, IGraphStat,  } from '@/types/dashboards/chat_statistics';
 import axios from 'axios';
 import { daylyStats, hourlyStats, monthlyStats, processStatistics } from './serialize/serialize';
+import { Server } from 'http';
 
 
 const api_url = process.env.NEXT_PUBLIC_API_BASE_URL1;
-const num_per_page = 7;
+
+const wrapPromise = (promise: Promise<any>) => {
+  let status = 'pending';
+  let result: any;
+  let suspender = promise.then(
+    (r) => {
+      status = 'success';
+      result = r;
+    },
+    (e) => {
+      status = 'error';
+      result = e;
+    }
+  );
+  return {
+    read() {
+      if (status === 'pending') {
+        throw suspender;
+      } else if (status === 'error') {
+        throw result;
+      } else if (status === 'success') {
+        return result;
+      }
+    },
+  };
+};
 
 export async function fetchStatsCardsData(assistant_id: string = 'asst_gE6RWQvul8PGsCRMJeSc2Elo') {
   noStore()
@@ -40,7 +66,7 @@ export async function fetchStatsCardsData(assistant_id: string = 'asst_gE6RWQvul
     });
 }
 
-export async function fetchChats(assistantId: string, page: number): Promise<any[]> {
+export async function fetchChats(assistantId: string, page: number, num_per_page: number = 7): Promise<any[]> {
   const response = await fetch(`${api_url}/chat/get-chats-history?assistant_id=${assistantId}&index=${page}&number=${num_per_page}`)
 
   if (!response.ok) {
@@ -51,28 +77,12 @@ export async function fetchChats(assistantId: string, page: number): Promise<any
   return data['last-chats'];
 }
 
-export async function fetchAndTransformData(assistantId: string): Promise<Record<IGraphDuration, IGraphStat>> {
+export async function fetchStatistics(assistantId: string): Promise<ServerStat[]> {
   try {
       // Fetch the data from the endpoint
       const response = await axios.get<ApiResponse>(`${api_url}/chat/get-statistics?assistant_id=${assistantId}`);
       const stats = response.data.statistics;
-
-      const [todayStats, last7DaysStats, last3MonthsStats] = processStatistics(stats);
-      console.log('last7DaysStats', last7DaysStats);
-
-      // Process the data to calculate hourly, daily, monthly, and yearly stats
-      const hourlyData = await hourlyStats(todayStats);
-      const dailyData = await daylyStats(last7DaysStats);
-      const monthlyData = await monthlyStats(last3MonthsStats);
-
-      // Construct the final result
-      const result: Record<IGraphDuration, IGraphStat> = {
-          hour: hourlyData,
-          day: dailyData,
-          month: monthlyData,
-      };
-
-      return result;
+      return stats
 
   } catch (error) {
       console.error('Error fetching data:', error);
@@ -80,3 +90,22 @@ export async function fetchAndTransformData(assistantId: string): Promise<Record
   }
 }
 
+const createSuspenseFetcher = (fetchFunction: (...args: any[]) => Promise<any>) => {
+  let cache: { [key: string]: any } = {}; // Add index signature to cache object
+
+  return (...args: any) => {
+    const key = JSON.stringify(args); // Generate a cache key based on arguments
+
+    if (!cache[key]) {
+      // If data is not in cache, fetch it
+      cache[key] = wrapPromise(fetchFunction(...args));
+    }
+
+    return cache[key];
+  };
+};
+
+
+export const fetchChatsWithSuspense = createSuspenseFetcher(fetchChats);
+
+export const fetchStatisticsWithSuspense = createSuspenseFetcher(fetchStatistics);

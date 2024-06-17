@@ -10,8 +10,8 @@ import { StringUtil } from "@/helpers/utils/string";
 import { useLayoutContext } from "@/states/layout";
 import { IEcommerceDashboardRevenueDuration } from "@/types/dashboards/ecommerce";
 import { ILayoutThemeMode } from "@/types/layout/admin";
-import { fetchAndTransformData } from "@/app/lib/data";
 import { IGraphDuration, IGraphStat } from "@/types/dashboards/chat_statistics";
+import { useStats } from "../dashboard/use-stats";
 
 const getOption = (
   dataF: Record<IGraphDuration, IGraphStat>,
@@ -123,54 +123,17 @@ const getOption = (
 
 export default function RevenueChart() {
   const [overviewDuration, setOverviewDuration] = useState<IGraphDuration>("hour");
-  const [flag, setFlag] = useState<boolean>(true);
-  const [data, setData] = useState<Record<IGraphDuration, IGraphStat>>({
-    day: {
-      total: 0,
-      percent: 2.14,
-      series: [],
-    },
-    month: {
-      total: 0,
-      percent: 4.59,
-      series: [],
-    },
-    hour: {
-      total: 0,
-      percent: 3.24,
-      series: [],
-    },
-  });
+  const { chartStats } = useStats();
   const { state } = useLayoutContext();
-
-  const [options, setOptions] = useState<ApexOptions>(getOption(data, overviewDuration, state.theme) );
-
-
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const fetchedData = await fetchAndTransformData(
-          "asst_gE6RWQvul8PGsCRMJeSc2Elo"
-        );
-        setData(fetchedData);
-        setFlag(false);
-        console.log("fetchedData", fetchedData);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  useEffect(() => {
-    setOptions( getOption(data, overviewDuration, state.theme));
-  }, [overviewDuration, state.theme, flag]);
+    
+  const options = useMemo(() => {
+    return getOption(chartStats, overviewDuration, state.theme);
+  }, [overviewDuration, state.theme]);
 
   const currentStat = useMemo(() => {
-    return data[overviewDuration];
-  }, [overviewDuration, flag]);
+    return chartStats[overviewDuration];
+  }, [overviewDuration]);
+
 
   return (
     <Card className="bg-base-100">
@@ -201,10 +164,7 @@ export default function RevenueChart() {
           </div>
           <div className="mt-2 flex items-center gap-3">
             <span className="text-3xl/none font-semibold">
-              {StringUtil.convertToCurrency(currentStat.total)} question asked
-            </span>
-            <span className="text-sm font-medium text-success">
-              +{currentStat.percent}%
+              {StringUtil.convertToCurrency(currentStat.total2)} question asked
             </span>
           </div>
           <span className="text-sm text-base-content/70">

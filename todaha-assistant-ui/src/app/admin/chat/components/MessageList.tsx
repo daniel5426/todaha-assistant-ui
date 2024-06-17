@@ -38,8 +38,11 @@ import DateUtil from "@/helpers/utils/date";
 import { IChat, IChatMessage } from "@/types/apps/chat";
 import Image from "next/image";
 import { useChat } from "../use-chat";
+import { containsHebrew } from "@/helpers/utils/string";
 
 const SingleMessage = ({ chat, message }: { chat: IChat; message: IChatMessage }) => {
+    const isHebrew = containsHebrew(message.message);
+
     return (
         <div>
             <ChatBubble end={message.from_me}>
@@ -51,9 +54,10 @@ const SingleMessage = ({ chat, message }: { chat: IChat; message: IChatMessage }
                 />
                 <ChatBubbleMessage
                     className={cn("min-h-fit py-3 text-base/none", {
-                        "bg-base-content/5 text-base-content": message.from_me,
+                        "bg-base-content/5 text-base-content ": message.from_me,
                         "bg-base-content/10 text-base-content": !message.from_me,
-                    })}>
+                    })}      style={{ direction: isHebrew ? 'rtl' : 'ltr' }}
+>
                     {message.message}
                 </ChatBubbleMessage>
                 <ChatBubbleTime>{DateUtil.formatted(message.send_at, { format: "hh:mm A" })}</ChatBubbleTime>

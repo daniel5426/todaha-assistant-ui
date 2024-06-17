@@ -1,4 +1,3 @@
-"use client";
 import mobileHeroDarkLandingImg from "@/assets/images/landing/mobile-hero-dark.png";
 import mobileHeroLandingImg from "@/assets/images/landing/mobile-hero.png";
 
@@ -10,7 +9,7 @@ import Icon from "@/components/Icon";
 import routes from "@/services/routes";
 import useTranslation from "next-translate/useTranslation";
 
-const Footer = () => {
+const Footer = async  () => {
     const { t } = useTranslation("common");
 
     return (

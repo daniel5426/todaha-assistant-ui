@@ -6,25 +6,31 @@ import avatar5Img from "@/assets/images/avatars/5.png";
 import avatar6Img from "@/assets/images/avatars/6.png";
 import avatar7Img from "@/assets/images/avatars/7.png";
 import avatar8Img from "@/assets/images/avatars/8.png";
+import userImg from "@/assets/images/avatars/user.png";
 import DateUtil2 from "../../../helpers/utils/date";
 import { DateTime } from "luxon";
 import { DashboardChartStats, ServerStat } from "./server-models";
-import { IGraphStat } from "@/types/dashboards/chat_statistics";
+import {
+    CounterCard,
+    IDashboardMessage,
+    IGraphDuration,
+    IGraphStat,
+    IGraphStatSeries,
+} from "@/types/dashboards/chat_statistics";
 import DateUtil from "../../../helpers/utils/date";
+import eraserIcon from "@iconify/icons-lucide/eraser";
+import packageIcon from "@iconify/icons-lucide/package";
+import usersIcon from "@iconify/icons-lucide/users";
+import { IconifyIcon } from "@iconify/react/dist/iconify.js";
 
 const imageUrls = [
-    avatar2Img.src,
-    avatar3Img.src,
-    avatar4Img.src,
-    avatar5Img.src,
-    avatar6Img.src,
-    avatar7Img.src,
-    avatar8Img.src,
+    userImg.src,
 ];
 
 export function transformChatsToIChat(chats: any[], page: number): IChat[] {
     return chats.map((chat, index) => {
-        const messages = chat.data.map((message: any) => ({
+        console.log("chat", chat);
+        const messages = chat.data.reverse().map((message: any) => ({
             message: message.content[0].text.value,
             send_at: new Date(message.created_at * 1000),
             from_me: message.role === "assistant",
@@ -43,6 +49,30 @@ export function transformChatsToIChat(chats: any[], page: number): IChat[] {
         };
     });
 }
+
+export function chatsToQuickChat(chats: any[]): IDashboardMessage[] {
+    return chats.map((chat, index) => {
+        var lastQ = ""
+        var date = new Date();
+        for (const msg of chat.data) {
+            if (msg.role !== "assistant")
+            {
+                lastQ = msg.content[0].text.value;
+                date = new Date(msg.created_at * 1000);
+                break;
+            }
+        }
+
+        // Choose a random image URL from the array
+
+        return {
+            message: lastQ,
+            date: date,
+            image: userImg,
+        };
+    });
+}
+
 
 export function processStatistics(
     data: ServerStat[]
@@ -112,9 +142,10 @@ export function processStatistics(
     return [todayStats, last7DaysStats, last3MonthsStats];
 }
 
-export async function hourlyStats(
-    stats: DashboardChartStats[]
-): Promise<IGraphStat> {
+export function hourlyStats(
+    stats: DashboardChartStats[],
+    dayly_stats: IGraphStatSeries[]
+): IGraphStat {
     console.log("stats", stats);
     const hourly_stats = stats.map((stat, index) => {
         const today = new Date();
@@ -128,7 +159,7 @@ export async function hourlyStats(
             0
         );
         return {
-            date: DateUtil.minusHours(- index, today_midnight),
+            date: DateUtil.minusHours(-index, today_midnight),
             value1: stat.thread_count || 0,
             value2: stat.client_message_count || 0,
         };
@@ -138,23 +169,48 @@ export async function hourlyStats(
         (sum, stat) => sum + stat.value2,
         0
     );
-    const percentChange =
-        hourly_stats[0].value2 !== 0
-            ? (hourly_stats[hourly_stats.length - 1].value2 /
-                hourly_stats[0].value2) *
-            100
-            : 100;
+    const totalThread = hourly_stats.reduce((sum, stat) => sum + stat.value1, 0);
 
-    return Promise.resolve({
-        total: totalMessages,
-        percent: percentChange,
+    const today_index = dayly_stats.length - 1;
+    var today_message = dayly_stats[today_index].value2;
+    var yesterday_message = dayly_stats[today_index - 1].value2;
+    var messagePercent = 34;
+    if (yesterday_message < today_message) {
+        yesterday_message = yesterday_message === 0 ? 1 : yesterday_message;
+
+        messagePercent = (today_message / yesterday_message - 1) * 100;
+    } else if (yesterday_message > today_message) {
+        today_message = today_message === 0 ? 1 : today_message;
+        messagePercent = -(yesterday_message / today_message - 1) * 100;
+    } else {
+        messagePercent = 100;
+    }
+    var today_t = dayly_stats[today_index].value1;
+    var yesterday_t = dayly_stats[today_index - 1].value1;
+    console.log("today_t", today_t, "yesterday_t", yesterday_t)
+    var threadPercent = 34;
+    if (yesterday_t < today_t) {
+        yesterday_t = yesterday_t === 0 ? 1 : yesterday_t;
+
+        threadPercent = (today_t / yesterday_t - 1) * 100;
+    } else if (yesterday_t > today_t) {
+        today_t = today_t === 0 ? 1 : today_t;
+        threadPercent = -(yesterday_t / today_t - 1) * 100;
+    } else {
+        threadPercent = 0;
+    }
+    console.log("kkkkkkkk", threadPercent)
+
+    return {
+        total1: totalThread,
+        total2: totalMessages,
+        percent1: threadPercent,
+        percent2: messagePercent,
         series: hourly_stats,
-    });
+    };
 }
 
-export async function daylyStats(
-    stats: DashboardChartStats[]
-): Promise<IGraphStat> {
+export function daylyStats(stats: DashboardChartStats[]): IGraphStat {
     const dayly_stats = stats.reverse().map((stat, index) => {
         return {
             date: DateUtil.minusDays(stats.length - index - 1),
@@ -164,22 +220,28 @@ export async function daylyStats(
     });
 
     const totalMessages = dayly_stats.reduce((sum, stat) => sum + stat.value2, 0);
-    const percentChange =
+    const totalThread = dayly_stats.reduce((sum, stat) => sum + stat.value1, 0);
+    const messagePercent =
         dayly_stats[0].value2 !== 0
             ? (dayly_stats[dayly_stats.length - 1].value2 / dayly_stats[0].value2) *
             100
             : 100;
+    const threadPercent =
+        dayly_stats[0].value1 !== 0
+            ? (dayly_stats[dayly_stats.length - 1].value1 / dayly_stats[0].value1) *
+            100
+            : 100;
 
-    return Promise.resolve({
-        total: totalMessages,
-        percent: percentChange,
+    return {
+        total1: totalThread,
+        total2: totalMessages,
+        percent1: threadPercent,
+        percent2: messagePercent,
         series: dayly_stats,
-    });
+    };
 }
 
-export async function monthlyStats(
-    stats: DashboardChartStats[]
-): Promise<IGraphStat> {
+export function monthlyStats(stats: DashboardChartStats[]): IGraphStat {
     const month_stats = stats.reverse().map((stat, index) => {
         return {
             date: DateUtil.minusMonths(stats.length - index - 1),
@@ -189,15 +251,92 @@ export async function monthlyStats(
     });
 
     const totalMessages = month_stats.reduce((sum, stat) => sum + stat.value2, 0);
-    const percentChange =
+    const totalThread = month_stats.reduce((sum, stat) => sum + stat.value1, 0);
+    const messagePercent =
         month_stats[0].value2 !== 0
             ? (month_stats[month_stats.length - 1].value2 / month_stats[0].value2) *
             100
             : 100;
+    const threadPercent =
+        month_stats[0].value1 !== 0
+            ? (month_stats[month_stats.length - 1].value1 / month_stats[0].value1) *
+            100
+            : 100;
 
-    return Promise.resolve({
-        total: totalMessages,
-        percent: percentChange,
+    console.log("month_stats", month_stats);
+
+    return {
+        total1: totalThread,
+        total2: totalMessages,
+        percent1: threadPercent,
+        percent2: messagePercent,
         series: month_stats,
-    });
+    };
+}
+
+export function statsToChartData(stats: ServerStat[]): any {
+    const [todayStats, last7DaysStats, last3MonthsStats] =
+        processStatistics(stats);
+    console.log("last7DaysStats", last7DaysStats);
+
+    // Process the data to calculate hourly, daily, monthly, and yearly stats
+    const dailyData = daylyStats(last7DaysStats);
+    const hourlyData = hourlyStats(todayStats, dailyData.series);
+    const monthlyData = monthlyStats(last3MonthsStats);
+
+    // Construct the final result
+    const result: Record<IGraphDuration, IGraphStat> = {
+        hour: hourlyData,
+        day: dailyData,
+        month: monthlyData,
+    };
+
+    return result;
+}
+
+export function StatsToCounterData(
+    stats: Record<IGraphDuration, IGraphStat>
+): CounterCard[] {
+    const threadsTodayCounter = {
+        icon: usersIcon,
+        amount: stats.day.total1,
+        title: "Clients helped this week",
+        changes: stats.day.percent1,
+        changesAmount: stats.day.percent1!==0?(stats.day.total1 * 100) / stats.day.percent1:0,
+        inMoney: false,
+        subTitle: "than past week",
+    };
+    const thisMonth = stats.month.series.length - 1;
+    const messagesThisMonthCounter = {
+        icon: packageIcon,
+        amount: stats.month.series[thisMonth].value2,
+        title: "AI Messages this month",
+        changes:
+        stats.month.series[thisMonth - 1].value2!==0?(stats.month.series[thisMonth].value2 * 100) /
+            stats.month.series[thisMonth - 1].value2:(stats.month.series[thisMonth].value2!==0?100:0),
+        changesAmount:
+            stats.month.series[thisMonth].value2 -
+            stats.month.series[thisMonth - 1].value2,
+        inMoney: false,
+        subTitle: "than past month",
+    };
+    return [threadsTodayCounter, messagesThisMonthCounter];
+}
+
+export function createCounterData(
+    icon: any,
+    total: number,
+    percentChange: number,
+    changesAmount: number,
+    inMoney: boolean,
+    title: string
+): any {
+    return {
+        icon: icon,
+        amount: total,
+        title: title,
+        changes: percentChange,
+        changesAmount: changesAmount,
+        inMoney: inMoney,
+    };
 }

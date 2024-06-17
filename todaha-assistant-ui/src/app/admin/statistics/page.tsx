@@ -5,10 +5,10 @@ import PageTitle from "@/components/PageTitle";
 import CounterWidget from "../components/CounterWidget";
 import QuickChat from "../components/QuickChat";
 import RevenueChart from "../components/RevenueChart";
-import { StatsContextProvider } from "./use-stats";
 import { Suspense } from "react";
 import {LatestInvoicesSkeleton, RevenueChartAndCardSkeleton} from "../components/loading";
 import { fetchChatsWithSuspense, fetchStatisticsWithSuspense } from "@/app/lib/data";
+import { StatsContextProvider } from "../dashboard/use-stats";
 
 
 // Create a context to hold your data
