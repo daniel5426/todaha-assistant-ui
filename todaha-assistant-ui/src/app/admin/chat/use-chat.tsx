@@ -20,17 +20,13 @@ const useChatHook = () => {
   const [selectedChat, setSelectedChat] = useState<IChat | undefined>(
     undefined
   );
-  const { state } = useAuthContext();
   const [chats, setChats] = useState<IChat[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
 
   function fetchData(page: number) {
     try {
       startTransition(async () => {
-        if (!state.user?.assistant_id) {
-          return;
-        }
-        const fetchedChats = await fetchChats(state.user?.assistant_id, page);
+        const fetchedChats = await fetchChats(page);
         const transformedChats = transformChatsToIChat(fetchedChats, page);
         setCurrentPage(page);
         setChats(transformedChats);

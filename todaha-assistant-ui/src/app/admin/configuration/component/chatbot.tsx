@@ -15,7 +15,7 @@ import { useAuthContext } from "@/states/auth";
 const Chatbot = () => {
   const chatElementRef = useRef<any>(null); // Adjust type as per actual DeepChat component
   const { state } = useAuthContext();
-  const assistantId = state.user?.assistant_id!;
+  const assistantId = state.user?.assistant.id!;
   const initialMessages = [
     {
       role: "ai",

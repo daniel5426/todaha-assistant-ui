@@ -24,7 +24,6 @@ export default function EcommerceDashboardPage() {
   const { state } = useAuthContext();
 
   const resource2 = fetchStatisticsWithSuspense(
-    state.user?.assistant_id
   );
 
   return (

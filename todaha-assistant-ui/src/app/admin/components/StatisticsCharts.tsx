@@ -151,7 +151,7 @@ export function ThreadChart ()  {
   const { state } = useLayoutContext();
 
   const options: ApexOptions = useMemo(() => {
-    return getOption(thread_series, true, state.theme);
+    return getOption(thread_series, false, state.theme);
   }, [state.theme]);
 
   return (
@@ -200,7 +200,7 @@ export function MessagesChart ()  {
   const { state } = useLayoutContext();
 
   const options: ApexOptions = useMemo(() => {
-    return getOption(thread_series, false, state.theme);
+    return getOption(thread_series, true, state.theme);
   }, [state.theme]);
 
   return (

@@ -15,8 +15,8 @@ import { useAuthContext } from "@/states/auth";
 // Create a context to hold your data
 export default function EcommerceDashboardPage () {
   const { state } = useAuthContext();
-  const resource = fetchChatsWithSuspense(state.user?.assistant_id, 1, 7);
-  const resource2 = fetchStatisticsWithSuspense(state.user?.assistant_id);
+  const resource = fetchChatsWithSuspense(1, 7);
+  const resource2 = fetchStatisticsWithSuspense();
 
   return (
     <div>

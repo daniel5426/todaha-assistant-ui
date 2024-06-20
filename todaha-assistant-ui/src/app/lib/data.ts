@@ -35,21 +35,6 @@ const wrapPromise = (promise: Promise<any>) => {
   };
 };
 
-export async function fetchStatsCardsData(assistant_id: string = 'asst_gE6RWQvul8PGsCRMJeSc2Elo') {
-  noStore()
-  try {
-    // Call an external API endpoint to get posts
-  const res = await fetch(`${api_url}/admin/count-messages?assistant_id=${assistant_id}`)
-  const data = await res.json()
-  console.log(data.count)
-  return data.count
-
-} catch (error) {
-  console.log(error);
-}
-
- }
-
  export async function sendEmail(data: any) {
   const apiEndpoint = '/api/mail';
 
@@ -62,8 +47,8 @@ export async function fetchStatsCardsData(assistant_id: string = 'asst_gE6RWQvul
     return result.message;
 }
 
-export async function fetchChats(assistantId: string, page: number, num_per_page: number = 7): Promise<any[]> {
-  const response = await axiosInstance.get(`/admin/get-chats-history?assistant_id=${assistantId}&index=${page}&number=${num_per_page}`)
+export async function fetchChats(page: number, num_per_page: number = 7): Promise<any[]> {
+  const response = await axiosInstance.get(`/admin/get-chats-history?index=${page}&number=${num_per_page}`)
 
   if (!response.data) {
       throw new Error('Failed to fetch chats');
@@ -73,17 +58,16 @@ export async function fetchChats(assistantId: string, page: number, num_per_page
   return data['last-chats'];
 }
 
-export async function fetchStatistics(assistantId: string): Promise<ServerStat[]> {
+export async function fetchStatistics(): Promise<ServerStat[]> {
       // Fetch the data from the endpoint
-    const response = await axiosInstance.get<ApiResponse>(`/admin/get-statistics?assistant_id=${assistantId}`);
+    const response = await axiosInstance.get<ApiResponse>(`/admin/get-statistics`);
     const stats = response.data.statistics;
     return stats
 }
 
-export async function UpdateAiConfiguration(data: any): Promise<any> {
-  const response = await axiosInstance.post(`/admin/ai/configure`, data);
-  console.log(response);
-  return response
+export async function updateAiConfiguration(data: any) {
+  const response = await axiosInstance.post('/admin/ai/configure', data);
+  return response.data;
 }
 
 

@@ -1,24 +1,24 @@
 "use client";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
+import { use, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { z } from "zod";
 import useToast from "@/hooks/use-toast";
 import routes from "@/services/routes";
-import { UpdateAiConfiguration } from "@/app/lib/data";
+import {get_user_info, updateAiConfiguration } from "@/app/lib/data";
+import { useAuthContext } from "@/states/auth";
 
 const useConfig = () => {
   const router = useRouter();
 
   const [isLoading, setIsLoading] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
   const { toaster } = useToast();
-
+  const { state,setLoggedInUser } = useAuthContext();
+  
   const contactSchema = z.object({
-    name: z.string(),
-    welcomeMessage: z.string(),
-    instruction: z.string().email(),
+    welcome_message: z.string().optional(),
+    instruction: z.string().optional(),
   });
 
   type ConfigSchemaType = z.infer<typeof contactSchema>;
@@ -27,9 +27,8 @@ const useConfig = () => {
     resolver: zodResolver(contactSchema),
     defaultValues: {
       // Ensure default values are provided
-      name: "",
-      instruction: "",
-      welcomeMessage: "",
+      instruction: state.user?.assistant.instruction || "",
+      welcome_message: state.user?.assistant.welcome_message || "",
     },
   });
 
@@ -45,15 +44,17 @@ const useConfig = () => {
 
   const onSubmit = handleSubmit(async (data) => {
     setIsLoading(true);
-
     try {
-      const result = await UpdateAiConfiguration(data);
+      const result = await updateAiConfiguration(data);
       toaster.success('Saved successfully.');
-    } catch (e) {
-      transformErrorToForm((e as any).response.data);
+      const user_info = await get_user_info(data);
+      console.log(user_info);
+      setLoggedInUser(user_info);
+    } catch (error: any) {
+      toaster.error(error.response.detail);
     }
     setIsLoading(false);
-  });
+    });
 
   return {
     isLoading,

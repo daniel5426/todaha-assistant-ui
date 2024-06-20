@@ -29,35 +29,20 @@ const Configuration = () => {
             <Card className="bg-base-100">
               <CardBody>
                 <div className="mt-2">
-                  <div className="form-control mb-5 ">
-                    <label
-                      htmlFor="email"
-                      className="mb-3 block text-base font-medium"
-                    >
-                      Assistant Name
-                    </label>
-                    <FormInput
-                      type="text"
-                      control={control}
-                      name={"name"}
-                      size="sm"
-                      placeholder="Enter a user friendly name"
-                      className="w-full  focus:border-transparent focus:outline-0 text-sm"
-                      bordered={false}
-                      borderOffset={false}
-                    />
-                  </div>
-                  <div className="form-control mb-5 mt-5">
+                  <div className="form-control mb-5">
                     <label
                       htmlFor="message"
                       className="mb-3 block text-base font-medium"
                     >
                       First Message
                     </label>
+                    <label className="message">
+                      <span className="text-sm text-gray-500">This will be the welcome message of your chatbot</span>
+                    </label>
                     <FormInput
                       type="text"
                       control={control}
-                      name={"welcomeMessage"}
+                      name={"welcome_message"}
                       placeholder="Hi my name is John, how can I help you today?"
                       className="w-full focus:border-transparent border-transparent focus:outline-0 h-24"
                       bordered={false}
@@ -72,6 +57,9 @@ const Configuration = () => {
                       className="mb-3 block text-base font-medium"
                     >
                       Instruction
+                    </label>
+                    <label className="message">
+                      <span className=" text-sm text-gray-500">Give your AI instruction about who he is and what his job is</span>
                     </label>
                     <FormInput
                       type="text"
