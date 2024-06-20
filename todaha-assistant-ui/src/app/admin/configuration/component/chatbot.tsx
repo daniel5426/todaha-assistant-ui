@@ -8,12 +8,14 @@ import WhatsappIcon from "./icons/WhatsappIcon";
 import CloseIcon from "./icons/CloseIcon";
 import EmailIcon from "./icons/EmailIcon";
 import ResetIcon from "./icons/ResetIcon";
+import { useAuthContext } from "@/states/auth";
 
 // Helper function to retrieve query parameters from the URL
 
 const Chatbot = () => {
   const chatElementRef = useRef<any>(null); // Adjust type as per actual DeepChat component
-  const assistantId = "asst_gE6RWQvul8PGsCRMJeSc2Elo";
+  const { state } = useAuthContext();
+  const assistantId = state.user?.assistant_id!;
   const initialMessages = [
     {
       role: "ai",
@@ -96,7 +98,9 @@ const Chatbot = () => {
               style={{
                 height: "640px",
                 width: "630px",
-                borderRadius: "7px",
+                border: "1px solid rgba(230,233,236)",
+                boxShadow: "0px 0px 12px 12px rgba(230,233,236)",
+                borderRadius: "15px",
                 backgroundColor: "#ffffff",
               }}
               avatars={{

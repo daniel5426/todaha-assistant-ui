@@ -12,7 +12,6 @@ import routes from "@/services/routes";
 const useResetPassword = () => {
     const navigate = useRouter();
     const [isLoading, setIsLoading] = useState(false);
-    alert('An unexpected error occurred. Please try again.');
 
     const [showPassword, setShowPassword] = useState(false);
 
