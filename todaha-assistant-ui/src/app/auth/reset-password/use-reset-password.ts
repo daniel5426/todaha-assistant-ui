@@ -3,7 +3,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 
 import httpRequest from "@/services/api/request";
@@ -12,6 +12,7 @@ import routes from "@/services/routes";
 const useResetPassword = () => {
     const navigate = useRouter();
     const [isLoading, setIsLoading] = useState(false);
+    alert('An unexpected error occurred. Please try again.');
 
     const [showPassword, setShowPassword] = useState(false);
 

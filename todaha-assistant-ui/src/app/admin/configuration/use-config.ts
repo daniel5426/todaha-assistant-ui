@@ -2,27 +2,35 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
 import { z } from "zod";
-
-import { sendEmail } from "@/app/lib/data";
 import useToast from "@/hooks/use-toast";
+import routes from "@/services/routes";
+import { UpdateAiConfiguration } from "@/app/lib/data";
 
-const useContact = () => {
+const useConfig = () => {
+  const router = useRouter();
 
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const { toaster } = useToast();
 
   const contactSchema = z.object({
-    username: z.string(),
-    email: z.string().email(),
-    message: z.string(),
+    name: z.string(),
+    welcomeMessage: z.string(),
+    instruction: z.string().email(),
   });
 
-  type ContactSchemaType = z.infer<typeof contactSchema>;
+  type ConfigSchemaType = z.infer<typeof contactSchema>;
 
-  const { control, handleSubmit, setError } = useForm<ContactSchemaType>({
+  const { control, handleSubmit, setError } = useForm<ConfigSchemaType>({
     resolver: zodResolver(contactSchema),
+    defaultValues: {
+      // Ensure default values are provided
+      name: "",
+      instruction: "",
+      welcomeMessage: "",
+    },
   });
 
   const transformErrorToForm = (
@@ -30,7 +38,7 @@ const useContact = () => {
   ) => {
     Object.entries(errors).forEach(([key, value]) => {
       if (typeof key === "string") {
-        setError(key as keyof ContactSchemaType, { message: value as string });
+        setError(key as keyof ConfigSchemaType, { message: value as string });
       }
     });
   };
@@ -39,12 +47,12 @@ const useContact = () => {
     setIsLoading(true);
 
     try {
-      const result = await sendEmail(data);
+      const result = await UpdateAiConfiguration(data);
+      toaster.success('Saved successfully.');
     } catch (e) {
-      toaster.error('An unexpected error occurred. Please try again.');
+      transformErrorToForm((e as any).response.data);
     }
     setIsLoading(false);
-    toaster.success('Message sent successfully.');
   });
 
   return {
@@ -54,4 +62,4 @@ const useContact = () => {
   };
 };
 
-export default  useContact;
+export default  useConfig;

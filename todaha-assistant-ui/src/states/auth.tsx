@@ -1,42 +1,69 @@
 "use client";
+import Cookies from 'js-cookie';
 
-import { useCallback } from "react";
-
+import { useCallback, useEffect } from "react";
 import createHookedContext from "@/hooks/create-hooked-context";
 import useSessionStorage from "@/hooks/use-session-storage";
-import { IAuthState, IAuthUser } from "@/types/auth";
+import { IAuthState, IAuthUser, Token } from "@/types/auth";
+import axiosInstance from "@/app/lib/axiosConfig";
 
 const useHook = () => {
-    const [state, setState] = useSessionStorage<IAuthState>("__NEXUS_REACT_ADMIN_AUTH__", {});
+  const [state, setState] = useSessionStorage<IAuthState>(
+    "__ADMIN_AUTH__",
+    {}
+  );
+  const [token, setToken] = useSessionStorage<Token>(
+    "__SESSION_TOKEN__",
+    {}
+  );
 
-    const setLoggedInUser = (user: IAuthUser) => {
-        updateState({ user });
-    };
+  const setLoggedInUser = (user: IAuthUser) => {
+    updateState({ user });
+  };
+  const isLoggedIn = useCallback(() => {
+    return state.user != undefined;
+  }, [state.user]);
 
-    const updateState = (changes: Partial<IAuthState>) => {
-        setState({
-            ...state,
-            ...changes,
-        });
-    };
+  const initializeToken = () => {
+    if (token.access_token) {
+        axiosInstance.defaults.headers.common["Authorization"] = `Bearer ${token.access_token}`;
+    }
+  };
 
-    const isLoggedIn = useCallback(() => {
-        return true;
-        return state.user != null;
-    }, [state.user]);
+  useEffect(() => {
+    console.log("Token changed", token.access_token);
+    initializeToken();
+    if (token.access_token) {
+      Cookies.set('loggedIn', "true", { expires: 1 });
+      Cookies.set('token', token.access_token, { expires: 1 });
+    }
+  }, [token]);
 
-    const logout = () => {
-        updateState({
-            user: undefined,
-        });
-    };
+  const updateState = (changes: Partial<IAuthState>) => {
+    setState({
+      ...state,
+      ...changes,
+    });
+  };
 
-    return {
-        state,
-        setLoggedInUser,
-        isLoggedIn,
-        logout,
-    };
+
+  const logout = () => {
+    updateState({
+      user: undefined,
+    });
+    setToken({
+        access_token: undefined,
+    });
+    Cookies.set('loggedIn', "false", { expires: 1 });
+  };
+
+  return {
+    state,
+    setLoggedInUser,
+    isLoggedIn,
+    logout,
+    setToken,
+  };
 };
 
 const [useAuthContext, AuthContextProvider] = createHookedContext(useHook);

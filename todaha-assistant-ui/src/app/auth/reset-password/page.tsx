@@ -113,7 +113,7 @@ const ResetPasswordPage = () => {
                     </div>
                     <p className="mt-6 text-center text-sm text-base-content/80">
                         Go to{" "}
-                        <Link className="text-primary  hover:underline" to={routes.auth.login}>
+                        <Link className="text-primary  hover:underline" href={routes.auth.login}>
                             Login
                         </Link>
                     </p>

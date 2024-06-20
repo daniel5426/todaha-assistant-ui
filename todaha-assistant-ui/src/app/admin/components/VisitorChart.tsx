@@ -12,6 +12,7 @@ import Icon from "@/components/Icon";
 import { getEcommerceDashboardUserInteractionData } from "@/data/dashboards/ecommerce";
 import { useLayoutContext } from "@/states/layout";
 import { IEcommerceDashboardUserInteraction } from "@/types/dashboards/ecommerce";
+import { useStats } from "../use-stats";
 
 const CustomerInteraction = ({ title, amount, percent }: IEcommerceDashboardUserInteraction) => {
     return (
@@ -29,6 +30,7 @@ const CustomerInteraction = ({ title, amount, percent }: IEcommerceDashboardUser
 
 const VisitorChart = () => {
     const data = useMemo(() => getEcommerceDashboardUserInteractionData, []);
+    const { chartStats, monthly_thread } = useStats();
 
     const { state } = useLayoutContext();
 
@@ -64,7 +66,7 @@ const VisitorChart = () => {
                 {
                     name: "Sessions",
                     type: "area",
-                    data: [10, 14, 16, 14, 12, 15, 18, 21, 24, 23, 21, 17, 19, 22],
+                    data: monthly_thread,
                 },
             ],
             legend: {

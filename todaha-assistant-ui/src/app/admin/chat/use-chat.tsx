@@ -13,19 +13,24 @@ import { IChat } from "@/types/apps/chat";
 import { fetchChats } from "@/app/lib/data";
 import { set } from "react-hook-form";
 import { transformChatsToIChat } from "@/app/lib/serialize/serialize";
+import { useAuthContext } from "@/states/auth";
 
 const useChatHook = () => {
   const [isPending, startTransition] = useTransition();
   const [selectedChat, setSelectedChat] = useState<IChat | undefined>(
     undefined
   );
+  const { state } = useAuthContext();
   const [chats, setChats] = useState<IChat[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
 
   function fetchData(page: number) {
     try {
       startTransition(async () => {
-        const fetchedChats = await fetchChats("asst_gE6RWQvul8PGsCRMJeSc2Elo", page);
+        if (!state.user?.assistant_id) {
+          return;
+        }
+        const fetchedChats = await fetchChats(state.user?.assistant_id, page);
         const transformedChats = transformChatsToIChat(fetchedChats, page);
         setCurrentPage(page);
         setChats(transformedChats);

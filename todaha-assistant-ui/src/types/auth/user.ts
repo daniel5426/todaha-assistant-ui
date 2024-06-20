@@ -1,7 +1,7 @@
 "use client";
 export type IAuthUser = {
     id: number;
-    assistantId: string;
+    assistant_id: string;
     email: string;
     username: string;
     password: string;

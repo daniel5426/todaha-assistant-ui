@@ -47,7 +47,7 @@ export const adminMenuItems: IMenuItem[] = [
         key: "config-ai",
         icon: starIcon,
         label: "AI assistant",
-        url: routes.admin.statistics,
+        url: routes.admin.configuration,
     },
 
 

@@ -22,7 +22,7 @@ import routes from "@/services/routes";
 import ThemeToggle from "../components/ThemeToggle";
 import useRegister from "@/app/auth/register/use-register";
 
-export default async function RegisterPage () {
+export default function RegisterPage () {
     const { isLoading, control, onSubmit, showPassword, toggleShowPassword } = useRegister();
 
     return (

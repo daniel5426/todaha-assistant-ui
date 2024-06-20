@@ -19,7 +19,6 @@ const Topbar = () => {
     const { t } = useTranslation("common");
     console.log(t('home'));
 
-
     return (
         <>
             <div

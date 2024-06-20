@@ -6,7 +6,6 @@ import {
   useContext,
 } from "react";
 
-import { fetchStatistics, fetchStatisticsWithSuspense } from "@/app/lib/data";
 import {
   statsToChartData,
 } from "@/app/lib/serialize/serialize";
@@ -14,10 +13,10 @@ import {
 
 const useChatHook = (resource: any) => {
   const data = resource.read();
-  const chartStats = statsToChartData(data);
+  const [chartStats, monthly_thread] = statsToChartData(data);
 
   return {
-    chartStats,
+    chartStats,monthly_thread
   };
 };
 

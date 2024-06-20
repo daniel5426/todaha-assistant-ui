@@ -2,20 +2,21 @@
 import PageMetaData from "@/components/PageMetaData";
 import PageTitle from "@/components/PageTitle";
 
-import CounterWidget from "../components/CounterWidget";
+import  { DashboardCounterWidget } from "../components/CounterWidget";
 import QuickChat from "../components/QuickChat";
 import RevenueChart from "../components/RevenueChart";
-import { StatsContextProvider } from "./use-stats";
+import { StatsContextProvider } from "../use-stats";
 import { Suspense } from "react";
 import {LatestInvoicesSkeleton, RevenueChartAndCardSkeleton} from "../components/loading";
 import { fetchChatsWithSuspense, fetchStatisticsWithSuspense } from "@/app/lib/data";
+import { useAuthContext } from "@/states/auth";
 
 
 // Create a context to hold your data
 export default function EcommerceDashboardPage () {
-  const resource = fetchChatsWithSuspense("asst_gE6RWQvul8PGsCRMJeSc2Elo", 1, 7);
-  const resource2 = fetchStatisticsWithSuspense('asst_gE6RWQvul8PGsCRMJeSc2Elo');
-
+  const { state } = useAuthContext();
+  const resource = fetchChatsWithSuspense(state.user?.assistant_id, 1, 7);
+  const resource2 = fetchStatisticsWithSuspense(state.user?.assistant_id);
 
   return (
     <div>
@@ -27,7 +28,7 @@ export default function EcommerceDashboardPage () {
         <Suspense fallback={<RevenueChartAndCardSkeleton />}>
         <StatsContextProvider resource={resource2}>
           <div className="grid gap-5 lg:grid-cols-2 xl:grid-cols-2 md:grid-cols-2">
-            <CounterWidget />
+            <DashboardCounterWidget />
           </div>
           <div className="mt-6 grid gap-6 ">
             <div className="xl:col-span-6 lg:order-2">

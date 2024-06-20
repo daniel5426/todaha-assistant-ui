@@ -9,8 +9,8 @@ import { Badge, Card, CardBody } from "@/components/daisyui";
 import Icon from "@/components/Icon";
 import { getEcommerceDashboardCounterData } from "@/data/dashboards/ecommerce";
 import { IEcommerceDashboardCounter } from "@/types/dashboards/ecommerce";
-import { useStats } from "../dashboard/use-stats";
-import { StatsToCounterData } from "@/app/lib/serialize/serialize";
+import { useStats } from "../use-stats";
+import { StatsToCounterData, StatsToCounterData2 } from "@/app/lib/serialize/serialize";
 import { CounterCard } from "@/types/dashboards/chat_statistics";
 
 const SingleCounter = ({ counter }: { counter: CounterCard }) => {
@@ -70,7 +70,7 @@ const SingleCounter = ({ counter }: { counter: CounterCard }) => {
     );
 };
 
-const CounterWidget = () => {
+export function DashboardCounterWidget  () {
     const { chartStats } = useStats();
     
     const data = useMemo(() => {
@@ -85,4 +85,17 @@ const CounterWidget = () => {
     );
 };
 
-export default CounterWidget;
+export function StatsCounterWidget  () {
+    const { chartStats } = useStats();
+    
+    const data = useMemo(() => {
+        return StatsToCounterData2(chartStats)
+    }, []);
+    return (
+        <>
+            {data.map((counter, index) => (
+                <SingleCounter counter={counter} key={index} />
+            ))}
+        </>
+    );
+};

@@ -1,10 +1,10 @@
 import { unstable_noStore as noStore } from 'next/cache';
-import { FormData } from '../landing/contact/page';
 import { ApiResponse, ServerStat } from './serialize/server-models';
 import { IGraphDuration, IGraphStat,  } from '@/types/dashboards/chat_statistics';
 import axios from 'axios';
-import { daylyStats, hourlyStats, monthlyStats, processStatistics } from './serialize/serialize';
-import { Server } from 'http';
+import { IAuthUser, Token } from '@/types/auth';
+import httpRequest from '@/services/api/request';
+import axiosInstance from './axiosConfig';
 
 
 const api_url = process.env.NEXT_PUBLIC_API_BASE_URL1;
@@ -39,7 +39,7 @@ export async function fetchStatsCardsData(assistant_id: string = 'asst_gE6RWQvul
   noStore()
   try {
     // Call an external API endpoint to get posts
-  const res = await fetch(`${api_url}/chat/count-messages?assistant_id=${assistant_id}`)
+  const res = await fetch(`${api_url}/admin/count-messages?assistant_id=${assistant_id}`)
   const data = await res.json()
   console.log(data.count)
   return data.count
@@ -50,45 +50,70 @@ export async function fetchStatsCardsData(assistant_id: string = 'asst_gE6RWQvul
 
  }
 
- export function sendEmail(data: FormData) {
-  const apiEndpoint = '/api/email';
+ export async function sendEmail(data: any) {
+  const apiEndpoint = '/api/mail';
 
-  fetch(apiEndpoint, {
-    method: 'POST',
-    body: JSON.stringify(data),
-  })
-    .then((res) => res.json())
-    .then((response) => {
-      alert(response.message);
-    })
-    .catch((err) => {
-      alert(err);
+    const response = await fetch(apiEndpoint, {
+      method: 'POST',
+      body: JSON.stringify(data),
     });
+
+    const result = await response.json();
+    return result.message;
 }
 
 export async function fetchChats(assistantId: string, page: number, num_per_page: number = 7): Promise<any[]> {
-  const response = await fetch(`${api_url}/chat/get-chats-history?assistant_id=${assistantId}&index=${page}&number=${num_per_page}`)
+  const response = await axiosInstance.get(`/admin/get-chats-history?assistant_id=${assistantId}&index=${page}&number=${num_per_page}`)
 
-  if (!response.ok) {
+  if (!response.data) {
       throw new Error('Failed to fetch chats');
   }
 
-  const data = await response.json();
+  const data = response.data;
   return data['last-chats'];
 }
 
 export async function fetchStatistics(assistantId: string): Promise<ServerStat[]> {
-  try {
       // Fetch the data from the endpoint
-      const response = await axios.get<ApiResponse>(`${api_url}/chat/get-statistics?assistant_id=${assistantId}`);
-      const stats = response.data.statistics;
-      return stats
-
-  } catch (error) {
-      console.error('Error fetching data:', error);
-      throw error;
-  }
+    const response = await axiosInstance.get<ApiResponse>(`/admin/get-statistics?assistant_id=${assistantId}`);
+    const stats = response.data.statistics;
+    return stats
 }
+
+export async function UpdateAiConfiguration(data: any): Promise<any> {
+  const response = await axiosInstance.post(`/admin/ai/configure`, data);
+  console.log(response);
+  return response
+}
+
+
+export async function register(data: any): Promise<any> {
+    const response = await axiosInstance.post(`/auth/register`, data);
+    console.log(response);
+    if (response.status === 400) {
+        return response;
+    }
+    const user = response.data;
+    return user
+}
+
+export async function get_token(data: any): Promise<Token> {
+  console.log(data);
+  const response = await axiosInstance.post(`/auth/token`, data, {
+    headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+    }
+});
+  console.log(response);
+  return  response.data;
+}
+
+export async function get_user_info(data: any): Promise<IAuthUser> {
+  const response = await axiosInstance.get(`/auth/users/me`, data);
+  return  response.data;
+}
+
+
 
 const createSuspenseFetcher = (fetchFunction: (...args: any[]) => Promise<any>) => {
   let cache: { [key: string]: any } = {}; // Add index signature to cache object

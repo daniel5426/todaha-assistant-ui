@@ -85,8 +85,8 @@ export function processStatistics(
         thread_count: 0,
         client_message_count: 0,
     }));
-    const last7DaysStats: DashboardChartStats[] = Array.from(
-        { length: 7 },
+    const last30DaysStats: DashboardChartStats[] = Array.from(
+        { length: 30 },
         () => ({ thread_count: 0, client_message_count: 0 })
     );
     const last3MonthsStats: DashboardChartStats[] = Array.from(
@@ -123,9 +123,9 @@ export function processStatistics(
                 (today.getTime() - entryDateTime.getTime()) / (1000 * 3600 * 24)
             );
             console.log("diffDays", diffDays);
-            if (diffDays >= 0 && diffDays < 7) {
-                last7DaysStats[diffDays].thread_count += threadCount;
-                last7DaysStats[diffDays].client_message_count += messageCount;
+            if (diffDays >= 0 && diffDays < 30) {
+                last30DaysStats[diffDays].thread_count += threadCount;
+                last30DaysStats[diffDays].client_message_count += messageCount;
             }
 
             // Check if the entry is within the last 3 months
@@ -139,7 +139,7 @@ export function processStatistics(
         }
     });
 
-    return [todayStats, last7DaysStats, last3MonthsStats];
+    return [todayStats, last30DaysStats, last3MonthsStats];
 }
 
 export function hourlyStats(
@@ -222,15 +222,15 @@ export function daylyStats(stats: DashboardChartStats[]): IGraphStat {
     const totalMessages = dayly_stats.reduce((sum, stat) => sum + stat.value2, 0);
     const totalThread = dayly_stats.reduce((sum, stat) => sum + stat.value1, 0);
     const messagePercent =
-        dayly_stats[0].value2 !== 0
-            ? (dayly_stats[dayly_stats.length - 1].value2 / dayly_stats[0].value2) *
+        dayly_stats[dayly_stats.length - 2].value2 !== 0
+            ? (dayly_stats[dayly_stats.length - 1].value2 / dayly_stats[dayly_stats.length - 2].value2) *
             100
-            : 100;
+            : dayly_stats[dayly_stats.length - 1].value2 !== 0 ? 100:0;
     const threadPercent =
-        dayly_stats[0].value1 !== 0
-            ? (dayly_stats[dayly_stats.length - 1].value1 / dayly_stats[0].value1) *
+        dayly_stats[dayly_stats.length - 2].value1 !== 0
+            ? (dayly_stats[dayly_stats.length - 1].value1 / dayly_stats[dayly_stats.length - 2].value1) *
             100
-            : 100;
+            : dayly_stats[dayly_stats.length - 1].value1 !== 0 ? 100:0;
 
     return {
         total1: totalThread,
@@ -254,14 +254,14 @@ export function monthlyStats(stats: DashboardChartStats[]): IGraphStat {
     const totalThread = month_stats.reduce((sum, stat) => sum + stat.value1, 0);
     const messagePercent =
         month_stats[0].value2 !== 0
-            ? (month_stats[month_stats.length - 1].value2 / month_stats[0].value2) *
+            ? (month_stats[month_stats.length - 1].value2 / month_stats[month_stats.length - 2].value2) *
             100
-            : 100;
+            : month_stats[month_stats.length - 1].value2 !== 0 ? 100:0;
     const threadPercent =
         month_stats[0].value1 !== 0
-            ? (month_stats[month_stats.length - 1].value1 / month_stats[0].value1) *
+            ? (month_stats[month_stats.length - 1].value1 / month_stats[month_stats.length - 2].value1) *
             100
-            : 100;
+            : month_stats[month_stats.length - 1].value1 !== 0 ? 100:0;
 
     console.log("month_stats", month_stats);
 
@@ -275,23 +275,25 @@ export function monthlyStats(stats: DashboardChartStats[]): IGraphStat {
 }
 
 export function statsToChartData(stats: ServerStat[]): any {
-    const [todayStats, last7DaysStats, last3MonthsStats] =
+    const [todayStats, last30DaysStats, last3MonthsStats] =
         processStatistics(stats);
-    console.log("last7DaysStats", last7DaysStats);
+    console.log("last7DaysStats", last30DaysStats);
 
     // Process the data to calculate hourly, daily, monthly, and yearly stats
-    const dailyData = daylyStats(last7DaysStats);
+    const dailyData = daylyStats(last30DaysStats.slice(0, 7));
     const hourlyData = hourlyStats(todayStats, dailyData.series);
     const monthlyData = monthlyStats(last3MonthsStats);
+    const monthly_thread = daylyStats(last30DaysStats);
 
     // Construct the final result
     const result: Record<IGraphDuration, IGraphStat> = {
         hour: hourlyData,
         day: dailyData,
         month: monthlyData,
+
     };
 
-    return result;
+    return [result, monthly_thread];
 }
 
 export function StatsToCounterData(
@@ -323,20 +325,50 @@ export function StatsToCounterData(
     return [threadsTodayCounter, messagesThisMonthCounter];
 }
 
-export function createCounterData(
-    icon: any,
-    total: number,
-    percentChange: number,
-    changesAmount: number,
-    inMoney: boolean,
-    title: string
-): any {
-    return {
-        icon: icon,
-        amount: total,
-        title: title,
-        changes: percentChange,
-        changesAmount: changesAmount,
-        inMoney: inMoney,
+export function StatsToCounterData2(
+    stats: Record<IGraphDuration, IGraphStat>
+): CounterCard[] {
+    const threadsTodayCounter = {
+        icon: usersIcon,
+        amount: stats.day.total1,
+        title: "Clients helped this week",
+        changes: stats.day.percent1,
+        changesAmount: stats.day.percent1!==0?(stats.day.total1 * 100) / stats.day.percent1:0,
+        inMoney: false,
+        subTitle: "than past week",
     };
+    const daylyAvgThreads = {
+        icon: usersIcon,
+        amount: Number((stats.day.total1/7).toFixed(3)),
+        title: "avg conversation per day - this week",
+        changes: Number(stats.day.percent1.toFixed(1)),
+        changesAmount: Number(((stats.day.percent1!==0?(stats.day.total1 * 100) / stats.day.percent1:0)/7).toFixed(1)),
+        inMoney: false,
+        subTitle: "than past week",
+    };
+    const daylyAvgmessages = {
+        icon: usersIcon,
+        amount: Number(((stats.day.total2)/7).toFixed(3)),
+        title: "avg messages per day - this week",
+        changes: Number(stats.day.percent2.toFixed(1)),
+        changesAmount: Number(((stats.day.percent2!==0?(stats.day.total2 * 100) / stats.day.percent2:0)/7).toFixed(1)),
+        inMoney: false,
+        subTitle: "than past week",
+    };
+
+    const thisMonth = stats.month.series.length - 1;
+    const messagesThisMonthCounter = {
+        icon: packageIcon,
+        amount: stats.month.series[thisMonth].value2,
+        title: "AI Messages this month",
+        changes:
+        stats.month.series[thisMonth - 1].value2!==0?(stats.month.series[thisMonth].value2 * 100) /
+            stats.month.series[thisMonth - 1].value2:(stats.month.series[thisMonth].value2!==0?100:0),
+        changesAmount:
+            stats.month.series[thisMonth].value2 -
+            stats.month.series[thisMonth - 1].value2,
+        inMoney: false,
+        subTitle: "than past month",
+    };
+    return [daylyAvgThreads, daylyAvgmessages, threadsTodayCounter, messagesThisMonthCounter];
 }

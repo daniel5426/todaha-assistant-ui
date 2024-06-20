@@ -5,14 +5,9 @@ import useContact from "./use-contact";
 import Topbar from "../components/Topbar";
 import useTranslation from "next-translate/useTranslation";
 
-export type FormData = {
-  name: string;
-  email: string;
-  message: string;
-};
 
-export default async function Page() {
-  const { isLoading, control, onSubmit, showPassword, toggleShowPassword } =
+export default function Page() {
+  const { isLoading, control, onSubmit } =
     useContact();
     const { t } = useTranslation("common");
 

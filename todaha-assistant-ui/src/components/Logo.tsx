@@ -6,7 +6,7 @@ type ILogoProp = {
     size?: number;
 };
 
-const Logo = ({ size = 20 }: ILogoProp) => {
+const Logo = ({ size = 50 }: ILogoProp) => {
     return (
         <div className="inline">
             <img src={logoDark.src} alt="logo-dark" className="hidden dark:inline" style={{ height: size }} />

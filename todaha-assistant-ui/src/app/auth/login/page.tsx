@@ -8,6 +8,7 @@ import logInIcon from "@iconify/icons-lucide/log-in";
 import mailIcon from "@iconify/icons-lucide/mail";
 
 import Link from "next/link";
+import userIcon from "@iconify/icons-lucide/user";
 
 import { Button, Checkbox } from "@/components/daisyui";
 import Image from "next/image";
@@ -41,14 +42,14 @@ const LoginPage = () => {
                     <div>
                         <div className="form-control">
                             <label className="label">
-                                <span className="label-text">Email Address</span>
+                                <span className="label-text">username</span>
                             </label>
                             <FormInput
                                 size="sm"
-                                startIcon={<Icon icon={mailIcon} className="text-base-content/80" fontSize={18} />}
+                                startIcon={<Icon icon={userIcon} className="text-base-content/80" fontSize={18} />}
                                 control={control}
-                                name={"email"}
-                                placeholder="Email Address"
+                                name={"username"}
+                                placeholder="username"
                                 className="w-full focus:border-transparent focus:outline-0"
                                 bordered={false}
                                 borderOffset={false}></FormInput>
@@ -108,16 +109,6 @@ const LoginPage = () => {
                             fullWidth
                             startIcon={<Icon icon={logInIcon} fontSize={16} />}>
                             Login
-                        </Button>
-                    </div>
-                    <div className="mt-4">
-                        <Button
-                            size={"md"}
-                            fullWidth
-                            className="flex items-center gap-3 border-base-content/10  !text-base-content hover:border-transparent hover:bg-base-content/10"
-                            variant={"outline"}>
-                            <Image src={googleMiniImage} className="size-6" alt="" />
-                            <span className="text-base">Login with Google</span>
                         </Button>
                     </div>
                     <p className="mt-6 text-center text-sm text-base-content/80">
