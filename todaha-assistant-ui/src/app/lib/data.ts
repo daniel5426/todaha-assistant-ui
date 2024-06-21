@@ -65,6 +65,15 @@ export async function fetchStatistics(): Promise<ServerStat[]> {
     return stats
 }
 
+export async function uploadFile(formData: any, fileId: string): Promise<any> {
+  const response = await axiosInstance.post(`/admin/ai/upload-file?old_file_id=${fileId}`, formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+  return response;
+  }
+
 export async function updateAiConfiguration(data: any) {
   const response = await axiosInstance.post('/admin/ai/configure', data);
   return response.data;

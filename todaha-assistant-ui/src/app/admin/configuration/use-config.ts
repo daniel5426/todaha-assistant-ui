@@ -14,8 +14,8 @@ const useConfig = () => {
 
   const [isLoading, setIsLoading] = useState(false);
   const { toaster } = useToast();
-  const { state,setLoggedInUser } = useAuthContext();
-  
+  const { state, setLoggedInUser } = useAuthContext();
+  const [files, setFiles] = useState(state.user?.files || []);
   const contactSchema = z.object({
     welcome_message: z.string().optional(),
     instruction: z.string().optional(),
@@ -60,6 +60,7 @@ const useConfig = () => {
     isLoading,
     control,
     onSubmit,
+    files,
   };
 };
 

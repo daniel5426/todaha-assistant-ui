@@ -8,10 +8,26 @@ import { Button, Card, CardBody, FileInput } from "@/components/daisyui";
 import FormInput from "@/components/forms/FormInput";
 import useConfig from "./use-config";
 import useTranslation from "next-translate/useTranslation";
+import FileUpload from "./component/file-upload";
+import { useAuthContext } from "@/states/auth";
+import { UserFile } from "@/types/auth";
 
 const Configuration = () => {
   const { isLoading, control, onSubmit } = useConfig();
+  const { state } = useAuthContext();
   const { t } = useTranslation("common");
+  const defaultFiles: UserFile[] = [
+    { id: '', name: '' },
+    { id: '', name: '' },
+    { id: '', name: '' },
+  ];
+
+  state.user?.files.forEach((file, index) => {
+    if (index < 3) {
+      defaultFiles[index] = file;
+    }
+  });
+
   return (
     <>
       <PageMetaData title={"Chat"} />
@@ -37,14 +53,16 @@ const Configuration = () => {
                       First Message
                     </label>
                     <label className="message">
-                      <span className="text-sm text-gray-500">This will be the welcome message of your chatbot</span>
+                      <span className="text-sm text-gray-500">
+                        This will be the welcome message of your chatbot
+                      </span>
                     </label>
                     <FormInput
                       type="text"
                       control={control}
                       name={"welcome_message"}
                       placeholder="Hi my name is John, how can I help you today?"
-                      className="w-full focus:border-transparent border-transparent focus:outline-0 h-24"
+                      className="w-full focus:border-transparent border-transparent focus:outline-0 h-18"
                       bordered={false}
                       borderOffset={false}
                       isTextArea={true}
@@ -59,7 +77,10 @@ const Configuration = () => {
                       Instruction
                     </label>
                     <label className="message">
-                      <span className=" text-sm text-gray-500">Give your AI instruction about who he is and what his job is</span>
+                      <span className=" text-sm text-gray-500">
+                        Give your AI instruction about who he is and what his
+                        job is
+                      </span>
                     </label>
                     <FormInput
                       type="text"
@@ -87,15 +108,15 @@ const Configuration = () => {
                     </div>
                   </div>
 
-                  <div className="form-control w-full max-w-64 sm:max-w-xs mt-10">
+                  <div className=" w-full mt-5">
                     <label
                       htmlFor="message"
                       className="mb-3 block text-base font-medium"
                     >
-                      Upload a file for the assistant
+                      Upload files for the assistant
                     </label>
 
-                    <FileInput className="bg-base-200" />
+                    <FileUpload files={defaultFiles} />
                     <label className="label">
                       <span className="label-text-alt">Max 2 MB</span>
                     </label>

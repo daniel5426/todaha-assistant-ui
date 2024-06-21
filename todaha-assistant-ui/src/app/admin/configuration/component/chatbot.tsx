@@ -19,7 +19,7 @@ const Chatbot = () => {
   const initialMessages = [
     {
       role: "ai",
-      text: "היי, מה נשמע? מדברת שרה, תפקידי לענות על כל שאלה לגבי שירות עוזר בינה מלאכותי המותאם אישית שלנו.",
+      text: state.user?.assistant.welcome_message,
     },
   ];
 
