@@ -16,7 +16,7 @@ import { get_token, get_user_info } from "@/app/lib/data";
 const useLogin = () => {
   const router = useRouter();
   const { toaster } = useToast();
-  const { setLoggedInUser, setToken } = useAuthContext();
+  const { updateUserInfo, setToken } = useAuthContext();
 
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
@@ -49,10 +49,8 @@ const useLogin = () => {
         setToken({
           access_token: response.access_token,
         });
+        await updateUserInfo();
     
-        const user_info = await get_user_info(data);
-        console.log(user_info);
-        setLoggedInUser(user_info);
         toaster.success("Login successfully...");
         router.push(routes.admin.dashboard);
       } catch (error : any) {

@@ -3,10 +3,7 @@ import {
   ReactNode,
   createContext,
   useContext,
-  useEffect,
-  useRef,
   useState,
-  useTransition,
 } from "react";
 
 import { IChat } from "@/types/apps/chat";
@@ -15,33 +12,34 @@ import { set } from "react-hook-form";
 import { transformChatsToIChat } from "@/app/lib/serialize/serialize";
 import { useAuthContext } from "@/states/auth";
 
-const useChatHook = () => {
-  const [isPending, startTransition] = useTransition();
+const useChatHook = (resource: any) => {
+  const data = resource.read();
+  const [isPending, setIsPending] = useState(false);
   const [selectedChat, setSelectedChat] = useState<IChat | undefined>(
     undefined
   );
-  const [chats, setChats] = useState<IChat[]>([]);
+  const transformedChats = transformChatsToIChat(data, 1);
+
+  const [chats, setChats] = useState<IChat[]>(transformedChats);
   const [currentPage, setCurrentPage] = useState<number>(1);
 
-  function fetchData(page: number) {
+
+  async function fetchData(page: number) {
+    setIsPending(true);
     try {
-      startTransition(async () => {
-        const fetchedChats = await fetchChats(page);
-        const transformedChats = transformChatsToIChat(fetchedChats, page);
-        setCurrentPage(page);
-        setChats(transformedChats);
-        console.log("Fetched Chats:", transformedChats);
-      });
+      const fetchedChats = await fetchChats(page);
+      const transformedChats = transformChatsToIChat(fetchedChats, page);
+      setCurrentPage(page);
+      setChats(transformedChats);
+      console.log("Fetched Chats:", transformedChats);
     } catch (error) {
       console.error("Error fetching chats:", error);
+      setIsPending(false);
     }
+    setIsPending(false);
   }
 
-    useEffect(() => {
-      fetchData(currentPage);    
-        }, []);
-  
-  
+
   return {
     chats: chats,
     selectedChat,
@@ -56,7 +54,17 @@ type HookReturnType = ReturnType<typeof useChatHook>;
 
 const Context = createContext({} as HookReturnType);
 
-export const ChatContextProvider = ({ children }: { children: ReactNode }) => {
-  return <Context.Provider value={useChatHook()}>{children}</Context.Provider>;
+export const ChatContextProvider = ({
+  children,
+  resource,
+}: {
+  children: ReactNode;
+  resource: any;
+}) => {
+  return (
+    <Context.Provider value={useChatHook(resource)}>
+      {children}
+    </Context.Provider>
+  );
 };
 export const useChat = () => useContext(Context);

@@ -1,3 +1,4 @@
+"use client";
 import PageMetaData from "@/components/PageMetaData";
 
 import { ChatList } from "./components/ChatList";
@@ -5,8 +6,12 @@ import { MessageList } from "./components/MessageList";
 import { ChatContextProvider } from "./use-chat";
 import { Suspense } from "react";
 import { LatestInvoicesSkeleton } from "../components/loading";
+import { fetchChatsWithSuspense } from "@/app/lib/data";
 
-const ChatApp = () => {
+export default function ChatApp () {
+
+    const resource = fetchChatsWithSuspense(1, 7);
+
 
     return (
         <>
@@ -20,7 +25,8 @@ const ChatApp = () => {
                 </div>
             </div>
             <div className="mt-6">
-                <ChatContextProvider>
+            <Suspense fallback={<LatestInvoicesSkeleton numberOfInvoices={7}/>}>
+                <ChatContextProvider resource={resource} >
                     <div className="grid gap-6 lg:grid-cols-12">
                         <div className="lg:col-span-5 xl:col-span-4 2xl:col-span-3">
                             <ChatList />
@@ -30,9 +36,8 @@ const ChatApp = () => {
                         </div>
                     </div>
                 </ChatContextProvider>
+                </Suspense>
             </div>
         </>
     );
 };
-
-export default ChatApp;

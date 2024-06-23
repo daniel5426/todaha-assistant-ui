@@ -65,8 +65,8 @@ export async function fetchStatistics(): Promise<ServerStat[]> {
     return stats
 }
 
-export async function uploadFile(formData: any, fileId: string): Promise<any> {
-  const response = await axiosInstance.post(`/admin/ai/upload-file?old_file_id=${fileId}`, formData, {
+export async function uploadFile(formData: any): Promise<any> {
+  const response = await axiosInstance.post(`/admin/ai/upload-file`, formData, {
     headers: {
       'Content-Type': 'multipart/form-data',
     },
@@ -77,6 +77,11 @@ export async function uploadFile(formData: any, fileId: string): Promise<any> {
 export async function updateAiConfiguration(data: any) {
   const response = await axiosInstance.post('/admin/ai/configure', data);
   return response.data;
+}
+
+export async function deleteFile(file_id: any) {
+  const response = await axiosInstance.post(`/admin/ai/delete-file?file_id=${file_id}`);
+  return response;
 }
 
 
@@ -101,8 +106,8 @@ export async function get_token(data: any): Promise<Token> {
   return  response.data;
 }
 
-export async function get_user_info(data: any): Promise<IAuthUser> {
-  const response = await axiosInstance.get(`/auth/users/me`, data);
+export async function get_user_info(): Promise<IAuthUser> {
+  const response = await axiosInstance.get(`/auth/users/me`);
   return  response.data;
 }
 

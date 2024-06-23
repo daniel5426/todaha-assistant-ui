@@ -75,7 +75,7 @@ export function DashboardCounterWidget  () {
     
     const data = useMemo(() => {
         return StatsToCounterData(chartStats)
-    }, []);
+    }, [chartStats]);
     return (
         <>
             {data.map((counter, index) => (
@@ -90,7 +90,7 @@ export function StatsCounterWidget  () {
     
     const data = useMemo(() => {
         return StatsToCounterData2(chartStats)
-    }, []);
+    }, [chartStats]);
     return (
         <>
             {data.map((counter, index) => (

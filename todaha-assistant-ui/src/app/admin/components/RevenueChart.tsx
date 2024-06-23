@@ -128,11 +128,11 @@ export default function RevenueChart() {
     
   const options = useMemo(() => {
     return getOption(chartStats, overviewDuration, state.theme);
-  }, [overviewDuration, state.theme]);
+  }, [overviewDuration, state.theme, chartStats]);
 
   const currentStat = useMemo(() => {
     return chartStats[overviewDuration];
-  }, [overviewDuration]);
+  }, [overviewDuration, chartStats]);
 
 
   return (

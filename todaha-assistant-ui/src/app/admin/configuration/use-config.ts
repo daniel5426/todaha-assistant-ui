@@ -1,12 +1,12 @@
 "use client";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { use, useState } from "react";
+import { use, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { z } from "zod";
 import useToast from "@/hooks/use-toast";
 import routes from "@/services/routes";
-import {get_user_info, updateAiConfiguration } from "@/app/lib/data";
+import { get_user_info, updateAiConfiguration } from "@/app/lib/data";
 import { useAuthContext } from "@/states/auth";
 
 const useConfig = () => {
@@ -14,7 +14,7 @@ const useConfig = () => {
 
   const [isLoading, setIsLoading] = useState(false);
   const { toaster } = useToast();
-  const { state, setLoggedInUser } = useAuthContext();
+  const { state, setLoggedInUser, updateUserInfo } = useAuthContext();
   const [files, setFiles] = useState(state.user?.files || []);
   const contactSchema = z.object({
     welcome_message: z.string().optional(),
@@ -32,6 +32,10 @@ const useConfig = () => {
     },
   });
 
+  useEffect(() => {
+     updateUserInfo();
+  }, []);
+
   const transformErrorToForm = (
     errors: { [s: string]: unknown } | ArrayLike<unknown>
   ) => {
@@ -46,15 +50,13 @@ const useConfig = () => {
     setIsLoading(true);
     try {
       const result = await updateAiConfiguration(data);
-      toaster.success('Saved successfully.');
-      const user_info = await get_user_info(data);
-      console.log(user_info);
-      setLoggedInUser(user_info);
+      toaster.success("Saved successfully.");
+      await updateUserInfo();
     } catch (error: any) {
       toaster.error(error.response.detail);
     }
     setIsLoading(false);
-    });
+  });
 
   return {
     isLoading,
@@ -64,4 +66,4 @@ const useConfig = () => {
   };
 };
 
-export default  useConfig;
+export default useConfig;

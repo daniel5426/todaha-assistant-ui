@@ -1,69 +1,124 @@
-import { uploadFile } from "@/app/lib/data";
+import { deleteFile, uploadFile } from "@/app/lib/data";
 import { Button, FileInput } from "@/components/daisyui";
 import useToast from "@/hooks/use-toast";
-import React, { useState } from "react";
+import { useAuthContext } from "@/states/auth";
+import React, { useState, useEffect } from "react";
+import Icon from "@/components/Icon";
+import TrashIcon from "@iconify/icons-lucide/trash";
 
-const FileUpload = ({ files }: any) => {
-  const [selectedFiles, setSelectedFiles] = useState<any>([]);
-  const [isLoading, setIsLoading] = useState(false);
+const FileUpload = () => {
+  const [selectedFile, setSelectedFile] = useState<any>(null);
+  const [files, setFiles] = useState<any[]>([]);
+  const { updateUserInfo, state } = useAuthContext();
   const { toaster } = useToast();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isDeleting, setIsDeleting] = useState<{ [key: string]: boolean }>({});
 
-
-  const handleFileChange = (fileId: any, event: any) => {
-    setSelectedFiles({
-      ...selectedFiles,
-      [fileId]: event.target.files[0],
+  useEffect(() => {
+    const initialFiles: any[] = [];
+    state.user?.files.forEach((file, index) => {
+      if (index < 3) {
+        initialFiles[index] = file;
+      }
     });
+    setFiles(initialFiles);
+  }, [state.user?.files]);
+
+  const handleFileChange = (event: any) => {
+    setSelectedFile(event.target.files[0]);
   };
 
-  const handleUpload = async (fileId: any) => {
+  const handleUpload = async () => {
     setIsLoading(true);
-    const file = selectedFiles[fileId];
-    if (!file) {
-      toaster.error('No file selected for upload');
+    if (!selectedFile) {
+      toaster.error("No file selected for upload");
       setIsLoading(false);
       return;
     }
 
     const formData = new FormData();
-    formData.append('file', file);
+    formData.append("file", selectedFile);
 
     try {
-      const response = await uploadFile(formData, fileId);
+      const response = await uploadFile(formData);
       if (response.status === 200) {
-        toaster.success('File uploaded successfully');
+        await updateUserInfo();
+        toaster.success("File uploaded successfully");
+        // Refresh the files after upload
+        setFiles(prevFiles => [...prevFiles, { id: selectedFile.name, name: selectedFile.name }]);
       } else {
-        toaster.error('Failed to upload file');
+        toaster.error("Failed to upload file");
       }
     } catch (error) {
-      console.error('Error uploading file:', error);
-      toaster.error('Error uploading file');
+      toaster.error("Error uploading file");
+    } finally {
       setIsLoading(false);
     }
-    setIsLoading(false);
+  };
+
+  const handleDelete = async (fileId: string) => {
+    setIsDeleting(prevState => ({ ...prevState, [fileId]: true }));
+    try {
+      await deleteFile(fileId);
+      await updateUserInfo();
+      toaster.success("File deleted successfully");
+      // Update files state to remove the deleted file
+      setFiles(files.filter(file => file.id !== fileId));
+    } catch (error) {
+      toaster.error("Error deleting file");
+    } finally {
+      setIsDeleting(prevState => ({ ...prevState, [fileId]: false }));
+    }
   };
 
   return (
     <div>
+      <div className="mb-3">
+        <FileInput
+          className="max-w-64 bg-base-200 sm:max-w-xs mt-1 col-auto mr-2"
+          size={"md"}
+          color="neutral"
+          onChange={handleFileChange}
+        />
+        <button
+          className="btn right-full"
+          onClick={handleUpload}
+          disabled={isLoading}
+        >
+          {isLoading ? (
+            <>
+              <span className="loading loading-bars loading-xs"></span>
+              <span>Loading</span>
+            </>
+          ) : (
+            "Upload"
+          )}
+        </button>
+        <label className="label">
+          <span className="label-text-alt">Max 3 files - 50 MB Max</span>
+        </label>
+      </div>
+
       {files.map((file: any) => (
         <div key={file.id} className="">
-          <div className="file-name">{file.name}</div>
-          <div className="gap-2 grid grid-cols-5">
-            <div className=" col-span-3">
-              <FileInput
-                className=" max-w-64 bg-base-200  sm:max-w-xs mt-1 col-auto"
-                size={"sm"}
-                color="info"
-                onChange={(event) => handleFileChange(file.id, event)}
-                name={file.name}
-              />
-            </div>
-            <div className=" col-span-2">
-              <button className="btn btn-sm" onClick={() => handleUpload(file.id)}>
-                {isLoading ? <><span className="loading loading-bars loading-xs"></span><span>loading</span></>
- : 'Upload'}
-              </button>
-            </div>
+          <div className="join join-vertical lg:join-horizontal mb-2">
+            <button className="btn join-item w-64 text-left no-animation rounded-none">
+              {file.name}
+            </button>
+            <button
+              className="btn join-item bg-red-400"
+              onClick={() => handleDelete(file.id)}
+              disabled={isDeleting[file.id]}
+            >
+              {isDeleting[file.id] ? (
+                <>
+                  <span className="loading loading-bars loading-xs"></span>
+                  <span>Deleting</span>
+                </>
+              ) : (
+                <Icon icon={TrashIcon} fontSize={18} />
+              )}
+            </button>
           </div>
         </div>
       ))}

@@ -18,7 +18,10 @@ import { StringUtil } from "@/helpers/utils/string";
 import { ILayoutThemeMode } from "@/types/layout/admin";
 
 const getOption = (
-data: any, isValue1: boolean, theme: ILayoutThemeMode): ApexOptions => {
+  data: any,
+  isValue1: boolean,
+  theme: ILayoutThemeMode
+): ApexOptions => {
   return {
     theme: {
       mode: theme,
@@ -45,11 +48,11 @@ data: any, isValue1: boolean, theme: ILayoutThemeMode): ApexOptions => {
     },
     series: [
       {
-        name: isValue1?"Conversation":"Messages",
+        name: isValue1 ? "Conversation" : "Messages",
         type: "area",
-        data: data.map((r: {
-          value2: any; value1: any 
-}) => isValue1?r.value1:r.value2),
+        data: data.map((r: { value2: any; value1: any }) =>
+          isValue1 ? r.value1 : r.value2
+        ),
       },
     ],
     xaxis: {
@@ -92,13 +95,13 @@ data: any, isValue1: boolean, theme: ILayoutThemeMode): ApexOptions => {
       enabled: true,
       shared: true,
       intersect: false,
-    },  
+    },
     legend: {
       show: true,
       horizontalAlign: "center",
       offsetX: 0,
       offsetY: 6,
-    },  
+    },
 
     fill: {
       type: "gradient",
@@ -144,15 +147,15 @@ data: any, isValue1: boolean, theme: ILayoutThemeMode): ApexOptions => {
   };
 };
 
-export function ThreadChart ()  {
-  const { chartStats, monthly_thread } = useStats();
-  const thread_series = monthly_thread.series;
+export function ThreadChart() {
+  const { chartStats, monthlyThread } = useStats();
+  const thread_series = monthlyThread.series;
 
   const { state } = useLayoutContext();
 
   const options: ApexOptions = useMemo(() => {
     return getOption(thread_series, false, state.theme);
-  }, [state.theme]);
+  }, [state.theme, monthlyThread]);
 
   return (
     <Card className="bg-base-100">
@@ -160,24 +163,21 @@ export function ThreadChart ()  {
         <div className="px-6">
           <div className="flex items-center justify-between">
             <span className="font-medium">
-            AI Assistant - users interaction 
+              AI Assistant - users interaction
             </span>
             <Tabs variant="boxed" size={"md"}>
-              <Tab active={true}
-              >
-                Last 30 days
-              </Tab>
-              </Tabs>
+              <Tab active={true}>Last 30 days</Tab>
+            </Tabs>
           </div>
           <div className="mt-2 border-y border-base-content/10  py-2">
-          <div className="mt-2 flex items-center gap-3">
-            <span className="text-3xl/none font-semibold">
-              {StringUtil.convertToCurrency(monthly_thread.total2)} messages
+            <div className="mt-2 flex items-center gap-3">
+              <span className="text-3xl/none font-semibold">
+                {StringUtil.convertToCurrency(monthlyThread.total2)} messages
+              </span>
+            </div>
+            <span className="text-sm text-base-content/70">
+              Total number of messages in the last 30 days
             </span>
-          </div>
-          <span className="text-sm text-base-content/70">
-            Total number of messages in the last 30 days
-          </span>
           </div>
         </div>
         <div className="overflow-hidden rounded-xl">
@@ -191,17 +191,17 @@ export function ThreadChart ()  {
       </CardBody>
     </Card>
   );
-};
+}
 
-export function MessagesChart ()  {
-  const { chartStats, monthly_thread } = useStats();
-  const thread_series = monthly_thread.series;
+export function MessagesChart() {
+  const { chartStats, monthlyThread } = useStats();
+  const thread_series = monthlyThread.series;
 
   const { state } = useLayoutContext();
 
   const options: ApexOptions = useMemo(() => {
     return getOption(thread_series, true, state.theme);
-  }, [state.theme]);
+  }, [state.theme, monthlyThread]);
 
   return (
     <Card className="bg-base-100">
@@ -209,24 +209,22 @@ export function MessagesChart ()  {
         <div className="px-6">
           <div className="flex items-center justify-between">
             <span className="font-medium">
-              AI Assistant - users interaction 
+              AI Assistant - users interaction
             </span>
             <Tabs variant="boxed" size={"md"}>
-              <Tab active={true}
-              >
-                Last 30 days
-              </Tab>
-              </Tabs>
+              <Tab active={true}>Last 30 days</Tab>
+            </Tabs>
           </div>
           <div className="mt-2 border-y border-base-content/10  py-2">
-          <div className="mt-2 flex items-center gap-3">
-            <span className="text-3xl/none font-semibold">
-              {StringUtil.convertToCurrency(monthly_thread.total1)} conversations
+            <div className="mt-2 flex items-center gap-3">
+              <span className="text-3xl/none font-semibold">
+                {StringUtil.convertToCurrency(monthlyThread.total1)}{" "}
+                conversations
+              </span>
+            </div>
+            <span className="text-sm text-base-content/70">
+              Total number of conversations in the last 30 days
             </span>
-          </div>
-          <span className="text-sm text-base-content/70">
-            Total number of conversations in the last 30 days
-          </span>
           </div>
         </div>
         <div className="overflow-hidden rounded-xl">
@@ -240,4 +238,4 @@ export function MessagesChart ()  {
       </CardBody>
     </Card>
   );
-};
+}

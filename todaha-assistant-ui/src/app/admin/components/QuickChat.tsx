@@ -1,6 +1,6 @@
 import messagesSquareIcon from "@iconify/icons-lucide/messages-square";
 
-import { use } from "react";
+import { use, useEffect, useState } from "react";
 import  Link  from "next/link";
 import Image from "next/image";
 import { Button, Card, CardBody, Mask } from "@/components/daisyui";
@@ -19,6 +19,18 @@ const QuickChat = ({ resource }: { resource: any }) => {
     const fetchdata = resource.read();
 
     const data = chatsToQuickChat(fetchdata);
+    const [chats, setChats] = useState(data);
+
+    useEffect(() => {
+        const fetchChatsData = async () => {
+            const chats = await fetchChats(1, 7);
+            setChats(chatsToQuickChat(chats));
+        };
+        const interval = setInterval(() => {
+            fetchChatsData();
+        }, 10000);
+        return () => clearInterval(interval);
+    }, []);
 
     return (
         <Card className="bg-base-100">
@@ -28,7 +40,7 @@ const QuickChat = ({ resource }: { resource: any }) => {
                     <span className="font-medium">Latest client question answered</span>
                 </div>
                 <div className="mt-2">
-                    {data.slice(0, 7).map((chat, index) => (
+                    {chats.slice(0, 7).map((chat, index) => (
                         <div
                             key={index}
                             className="flex cursor-pointer gap-4 rounded-box bg-transparent p-2.5 transition-all hover:bg-base-content/10 active:scale-[.98] active:bg-base-content/15">
@@ -70,7 +82,3 @@ const QuickChat = ({ resource }: { resource: any }) => {
 };
 
 export default QuickChat;
-function wrapPromise(arg0: Promise<any[]>) {
-    throw new Error("Function not implemented.");
-}
-

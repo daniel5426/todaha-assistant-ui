@@ -123,7 +123,7 @@ export const ChatList = () => {
           </div>
 
           <div className="mt-2">
-            {isPending?<LatestInvoicesSkeleton numberOfInvoices={5}/>:chats.map((chat, index) => (
+            {chats.map((chat, index) => (
               <div onClick={() => setSelectedChat(chat)} key={index}>
                 <SingleChat
                   chat={chat}

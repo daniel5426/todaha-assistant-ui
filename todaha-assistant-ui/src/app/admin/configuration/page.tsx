@@ -16,17 +16,6 @@ const Configuration = () => {
   const { isLoading, control, onSubmit } = useConfig();
   const { state } = useAuthContext();
   const { t } = useTranslation("common");
-  const defaultFiles: UserFile[] = [
-    { id: '', name: '' },
-    { id: '', name: '' },
-    { id: '', name: '' },
-  ];
-
-  state.user?.files.forEach((file, index) => {
-    if (index < 3) {
-      defaultFiles[index] = file;
-    }
-  });
 
   return (
     <>
@@ -48,7 +37,7 @@ const Configuration = () => {
                   <div className="form-control mb-5">
                     <label
                       htmlFor="message"
-                      className="mb-3 block text-base font-medium"
+                      className="block text-base font-medium"
                     >
                       First Message
                     </label>
@@ -72,7 +61,7 @@ const Configuration = () => {
                   <div className="form-control mb-5 mt-5">
                     <label
                       htmlFor="message"
-                      className="mb-3 block text-base font-medium"
+                      className=" block text-base font-medium"
                     >
                       Instruction
                     </label>
@@ -87,7 +76,7 @@ const Configuration = () => {
                       control={control}
                       name={"instruction"}
                       placeholder="You are a sales assistant, you will answer sales related questions."
-                      className="w-full focus:border-transparent border-transparent focus:outline-0 h-48"
+                      className=" w-full focus:border-transparent border-transparent focus:outline-0 h-48"
                       bordered={false}
                       borderOffset={false}
                       isTextArea={true}
@@ -111,15 +100,14 @@ const Configuration = () => {
                   <div className=" w-full mt-5">
                     <label
                       htmlFor="message"
-                      className="mb-3 block text-base font-medium"
+                      className=" block text-base font-medium"
                     >
                       Upload files for the assistant
                     </label>
+                    <span className="text-sm text-gray-500 mb-3">
+                      Upload files that you want the assistant to have access to (max 3 files)</span>
 
-                    <FileUpload files={defaultFiles} />
-                    <label className="label">
-                      <span className="label-text-alt">Max 2 MB</span>
-                    </label>
+                    <FileUpload />
                   </div>
                 </div>
                 <div className="mt-2 text-center"></div>

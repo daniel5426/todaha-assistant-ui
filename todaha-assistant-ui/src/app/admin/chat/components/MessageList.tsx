@@ -13,7 +13,7 @@ import squareUserIcon from "@iconify/icons-lucide/user";
 import userPlusIcon from "@iconify/icons-lucide/user-plus";
 import videoIcon from "@iconify/icons-lucide/video";
 
-import { useEffect, useRef } from "react";
+import { Key, useEffect, useRef } from "react";
 import SimpleBarCore from "simplebar-core";
 import SimpleBar from "simplebar-react";
 
@@ -56,8 +56,9 @@ const SingleMessage = ({ chat, message }: { chat: IChat; message: IChatMessage }
                     className={cn("min-h-fit py-3 text-base/none", {
                         "bg-base-content/5 text-base-content ": message.from_me,
                         "bg-base-content/10 text-base-content": !message.from_me,
-                    })}      style={{ direction: isHebrew ? 'rtl' : 'ltr' }}
+                    })}      style={{ direction: isHebrew ? 'rtl' : 'ltr' , whiteSpace: 'pre-wrap', maxWidth: '900px',}} 
 >
+
                     {message.message}
                 </ChatBubbleMessage>
                 <ChatBubbleTime>{DateUtil.formatted(message.send_at, { format: "hh:mm A" })}</ChatBubbleTime>
@@ -94,7 +95,7 @@ export const MessageList = () => {
             </div>
             <hr className="border-base-content/10" />
             <SimpleBar className="p-5" style={{ height: "calc(100vh - 312px)" }} ref={ref}>
-                {chat.messages.map((message, index) => (
+                {chat.messages.map((message: IChatMessage, index: Key | null | undefined) => (
                     <SingleMessage chat={chat} message={message} key={index} />
                 ))}
             </SimpleBar>

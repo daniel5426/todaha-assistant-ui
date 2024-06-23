@@ -149,16 +149,26 @@ export function hourlyStats(
     console.log("stats", stats);
     const hourly_stats = stats.map((stat, index) => {
         const today = new Date();
+
+        // Get the timezone offset in minutes and convert it to milliseconds
+        const timezoneOffset = today.getTimezoneOffset() * 60 * 1000;
+        
+        // Get the current time in UTC by subtracting the timezone offset
+        const utcTime = today.getTime() + timezoneOffset;
+        
+        // Create a new Date object for the user's local time
+        const userTime = new Date(utcTime);
+        
+        // Set the time to midnight for the user's timezone
         const today_midnight = new Date(
-            today.getFullYear(),
-            today.getMonth(),
-            today.getDate(),
-            0,
-            0,
-            0,
-            0
+          userTime.getFullYear(),
+          userTime.getMonth(),
+          userTime.getDate(),
+          0, 0, 0, 0
         );
-        return {
+        
+        console.log(today_midnight);
+                return {
             date: DateUtil.minusHours(-index, today_midnight),
             value1: stat.thread_count || 0,
             value2: stat.client_message_count || 0,

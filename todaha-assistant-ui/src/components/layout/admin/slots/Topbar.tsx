@@ -31,8 +31,8 @@ import NotificationButton from "../components/NotificationButton";
 import SearchButton from "../components/SearchButton";
 
 const Topbar = () => {
-    const { toggleLeftbarDrawer, state } = useLayoutContext();
-    const { logout } = useAuthContext();
+    const { toggleLeftbarDrawer, state: layoutState } = useLayoutContext();
+    const { logout, state: authState } = useAuthContext();
     const navigate = useRouter();
 
     const doLogout = () => {
@@ -47,7 +47,7 @@ const Topbar = () => {
                     shape="square"
                     color="ghost"
                     size="sm"
-                    onClick={() => toggleLeftbarDrawer(!state.leftbar.drawerOpen)}>
+                    onClick={() => toggleLeftbarDrawer(!layoutState.leftbar.drawerOpen)}>
                     <Icon icon={menuIcon} className="inline-block" fontSize={20} />
                 </Button>
                 <SearchButton />
@@ -56,7 +56,6 @@ const Topbar = () => {
             <NavbarEnd className="gap-1.5">
                 <ThemeToggleButton shape="circle" color="ghost" size="sm" />
 
-                <NotificationButton />
                 <Dropdown vertical="bottom" end>
                     <DropdownToggle
                         className="btn btn-ghost rounded-btn px-1.5 hover:bg-base-content/20"
@@ -67,7 +66,7 @@ const Topbar = () => {
                                 size={30}
                                 innerClassName={Mask.className({ variant: "squircle" })}></Avatar>
                             <div className="flex flex-col items-start">
-                                <p className="text-sm/none">Denish</p>
+                                <p className="text-sm/none">Profile</p>
                                 <p className="mt-1 text-xs/none text-primary">Edit</p>
                             </div>
                         </div>
@@ -75,9 +74,6 @@ const Topbar = () => {
                     <DropdownMenu className="mt-4 w-52">
                         <DropdownItem>
                             <Icon icon={userIcon} fontSize={16} /> My Profile
-                        </DropdownItem>
-                        <DropdownItem>
-                            <Icon icon={bellIcon} fontSize={16} /> Notification
                         </DropdownItem>
                         <hr className="-mx-2 my-1 border-base-content/10" />
                         <DropdownItem className="text-error" onClick={doLogout}>
