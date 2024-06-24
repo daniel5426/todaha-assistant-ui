@@ -1,6 +1,4 @@
 "use client";
-import heroDarkLandingImg from "@/assets/images/landing/dashboard-hero-dark.png";
-import heroLandingImg from "@/assets/images/landing/dashboard-hero.png";
 import heroGradientImg from "@/assets/images/landing/hero-gradient.png";
 import whatsappImg from "@/assets/images/landing/whatsapp.png";
 import facebookImg from "@/assets/images/landing/facebook.png";
@@ -14,8 +12,10 @@ import {useTranslations} from 'next-intl';
 import { Button, Tooltip } from "@/components/daisyui";
 import Icon from "@/components/Icon";
 import routes from "@/services/routes";
+import dynamic from "next/dynamic";
+const Chatbot = dynamic(() => import("./chatbot"), { ssr: false });
 
-const Hero = async () => {
+const Hero = () => {
     const  t  = useTranslations('common');
 
     return (
@@ -84,18 +84,7 @@ const Hero = async () => {
                         </div>
                     </div>
                     <div className="order-1 xl:order-2 xl:col-span-4">
-                        <img
-                            src={heroLandingImg.src}
-                            className="inline rounded-md shadow-xl dark:hidden"
-                            width={1000}
-                            alt="hero-landing"
-                        />
-                        <img
-                            src={heroDarkLandingImg.src}
-                            className="hidden rounded-md  shadow-xl dark:inline"
-                            width={1000}
-                            alt="hero-landing"
-                        />
+                        <Chatbot />
                     </div>
                 </div>
             </div>

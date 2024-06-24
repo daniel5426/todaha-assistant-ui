@@ -2,23 +2,21 @@
 import { useRef, useState, useEffect } from "react";
 import axios from "axios";
 import { DeepChat } from "deep-chat-react";
-import AIcon from "../../../../../assets/images/avatars/logo.png";
-import { useAuthContext } from "@/states/auth";
+import AIcon from "../../../../assets/images/avatars/logo.png";
 import { useLocale } from "next-intl";
-import UserIcon from "../../../../../assets/images/avatars/user1.png";
+import UserIcon from "../../../../assets/images/avatars/user1.png";
 import { useLayoutContext } from "@/states/layout";
+
 
 // Helper function to retrieve query parameters from the URL
 
 const Chatbot = () => {
   const chatElementRef = useRef<any>(null); // Adjust type as per actual DeepChat component
-  const { state } = useAuthContext();
-  const { state: layoutState } = useLayoutContext();
-  const assistantId = state.user?.assistant.id!;
+  const assistantId = "asst_gE6RWQvul8PGsCRMJeSc2Elo"; // Adjust based on your assistant ID
   const initialMessages = [
     {
       role: "ai",
-      text: state.user?.assistant.welcome_message,
+      text: "Hi there! How can I help you today?",
     },
   ];
 
@@ -26,6 +24,7 @@ const Chatbot = () => {
   const [threadId, setThreadId] = useState<string | null>(null);
 
   const api_url = process.env.NEXT_PUBLIC_API_BASE_URL1!; // Adjust based on Next.js environment variable usage
+  const { state: layoutState } = useLayoutContext();
 
   const isWhite = layoutState.theme === "light"; // Change this to dynamically set the theme
 
@@ -46,18 +45,24 @@ const Chatbot = () => {
 
   // Fetch a new thread ID from the API when the component mounts or resets
   useEffect(() => {
-    axios
-      .get<{ thread_id: string }>(`${api_url}/chat/create-thread`, {
-        params: { assistant_id: assistantId },
-      })
-      .then((response) => {
+    const fetchThreadId = async () => {
+      try {
+        const response = await axios.get<{ thread_id: string }>(`${api_url}/chat/create-thread`, {
+          params: { assistant_id: assistantId },
+        });
         setThreadId(response.data.thread_id);
-      })
-      .catch((error) => {
+      } catch (error) {
         console.error(error);
-      });
+      }
+    };
+  
+    fetchThreadId();
   }, [reset, api_url, assistantId]);
-
+    
+  
+  
+  
+  
   // Toggle chat visibility and notify the parent window
 
   const handleRequestInterceptor = (requestDetails: any) => {
