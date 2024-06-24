@@ -77,13 +77,13 @@ const FileUpload = () => {
     <div>
       <div className="mb-3">
         <FileInput
-          className="max-w-64 bg-base-200 sm:max-w-xs mt-1 col-auto mr-2"
+          className="max-w-64 bg-base-200 sm:max-w-xs mt-1 col-auto"
           size={"md"}
           color="neutral"
           onChange={handleFileChange}
         />
         <button
-          className="btn right-full"
+          className="btn right-full m-2"
           onClick={handleUpload}
           disabled={isLoading}
         >

@@ -84,7 +84,9 @@ const Chatbot = () => {
   };
 
   const  locale  = useLocale();
-  const isRTL = locale === "he";
+  const isRTL = locale == "he";
+  const marginRight = isRTL ? "0px" : "auto";
+  const marginLeft = isRTL ? "auto" : "0px";
 
   return (
     <div className="App">
@@ -101,13 +103,12 @@ const Chatbot = () => {
                 boxShadow: "0px 0px 12px 12px rgba(230,233,236)",
                 borderRadius: "15px",
                 backgroundColor: "#ffffff",
-                direction: isRTL ? "rtl" : "ltr",
               }}
               avatars={{
                 ai: {
                   src: AIcon.src,
                   styles: {
-                    position: isRTL ? "left" : "right",
+                    position: "left",
                     avatar: {
                       width: "25px",
                       height: "25px",
@@ -116,7 +117,7 @@ const Chatbot = () => {
                 },
                 user: {
                   styles: {
-                    position: isRTL ? "left" : "right",
+                    position: "left",
                   },
                 },
               }}
@@ -163,8 +164,8 @@ const Chatbot = () => {
                       marginTop: "10px",
                       marginBottom: "10px",
                       maxWidth: "100%",
-                      marginRight: "0px",
-                      marginLeft: "auto",
+                      marginRight: marginRight,
+                      marginLeft: marginLeft,
                       fontSize: "1.1em",
                     },
                   },
@@ -217,13 +218,11 @@ const Chatbot = () => {
                 loading: {
                   text: {
                     styles: {
-                      default: { marginRight: "0px", marginLeft: "auto" },
                     },
                   },
                   svg: {
                     styles: {
                       default: {
-                        marginRight: "0px" ,
                         filter:
                           "brightness(0) saturate(100%) invert(72%) sepia(0%) saturate(3044%) hue-rotate(322deg) brightness(100%) contrast(96%)",
                       },
