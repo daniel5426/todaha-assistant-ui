@@ -262,16 +262,21 @@ export function monthlyStats(stats: DashboardChartStats[]): IGraphStat {
 
     const totalMessages = month_stats.reduce((sum, stat) => sum + stat.value2, 0);
     const totalThread = month_stats.reduce((sum, stat) => sum + stat.value1, 0);
-    const messagePercent =
-        month_stats[0].value2 !== 0
-            ? (month_stats[month_stats.length - 1].value2 / month_stats[month_stats.length - 2].value2) *
-            100
-            : month_stats[month_stats.length - 1].value2 !== 0 ? 100:0;
-    const threadPercent =
-        month_stats[0].value1 !== 0
-            ? (month_stats[month_stats.length - 1].value1 / month_stats[month_stats.length - 2].value1) *
-            100
-            : month_stats[month_stats.length - 1].value1 !== 0 ? 100:0;
+
+    const last7DaysThreadCount = month_stats.slice(-7).reduce((sum, stat) => sum + stat.value1, 0);
+    const previous7DaysThreadCount = month_stats.slice(-14, -7).reduce((sum, stat) => sum + stat.value1, 0);
+
+    const threadPercent = previous7DaysThreadCount === 0 
+        ? (last7DaysThreadCount > 0 ? 100 : 0) 
+        : ((last7DaysThreadCount - previous7DaysThreadCount) / previous7DaysThreadCount) * 100;
+
+    // Assuming a similar calculation is needed for messagePercent
+    const last7DaysMessageCount = month_stats.slice(-7).reduce((sum, stat) => sum + stat.value2, 0);
+    const previous7DaysMessageCount = month_stats.slice(-14, -7).reduce((sum, stat) => sum + stat.value2, 0);
+
+    const messagePercent = previous7DaysMessageCount === 0 
+        ? (last7DaysMessageCount > 0 ? 100 : 0) 
+        : ((last7DaysMessageCount - previous7DaysMessageCount) / previous7DaysMessageCount) * 100;
 
     console.log("month_stats", month_stats);
 
@@ -313,8 +318,8 @@ export function StatsToCounterData(
         icon: usersIcon,
         amount: stats.day.total1,
         title: "Clients helped this week",
-        changes: stats.day.percent1,
-        changesAmount: stats.day.percent1!==0?(stats.day.total1 * 100) / stats.day.percent1:0,
+        changes: Number((stats.month.percent1).toFixed(1)),
+        changesAmount: Number((stats.month.percent1!==0?(stats.month.total1 * 100) / stats.month.percent1:0).toFixed(1)),
         inMoney: false,
         subTitle: "than past week",
     };
@@ -342,26 +347,26 @@ export function StatsToCounterData2(
         icon: usersIcon,
         amount: stats.day.total1,
         title: "Clients helped this week",
-        changes: stats.day.percent1,
-        changesAmount: stats.day.percent1!==0?(stats.day.total1 * 100) / stats.day.percent1:0,
+        changes: Number((stats.month.percent1).toFixed(1)),
+        changesAmount: Number((stats.month.percent1!==0?(stats.month.total1 * 100) / stats.month.percent1:0).toFixed(1)),
         inMoney: false,
         subTitle: "than past week",
     };
     const daylyAvgThreads = {
         icon: usersIcon,
-        amount: Number((stats.day.total1/7).toFixed(3)),
+        amount: Number((stats.day.total1/7).toFixed(1)),
         title: "avg conversation per day - this week",
-        changes: Number(stats.day.percent1.toFixed(1)),
-        changesAmount: Number(((stats.day.percent1!==0?(stats.day.total1 * 100) / stats.day.percent1:0)/7).toFixed(1)),
+        changes: Number((stats.month.percent1).toFixed(1)),
+        changesAmount: Number(((stats.month.percent1!==0?(stats.month.total1 * 100) / stats.month.percent1:0)/7).toFixed(1)),
         inMoney: false,
         subTitle: "than past week",
     };
     const daylyAvgmessages = {
         icon: usersIcon,
-        amount: Number(((stats.day.total2)/7).toFixed(3)),
+        amount: Number(((stats.month.total2)/7).toFixed(1)),
         title: "avg messages per day - this week",
-        changes: Number(stats.day.percent2.toFixed(1)),
-        changesAmount: Number(((stats.day.percent2!==0?(stats.day.total2 * 100) / stats.day.percent2:0)/7).toFixed(1)),
+        changes: Number((stats.month.percent2).toFixed(1)),
+        changesAmount: Number(((stats.month.percent2!==0?(stats.month.total2 * 100) / stats.month.percent2:0)/7).toFixed(1)),
         inMoney: false,
         subTitle: "than past week",
     };

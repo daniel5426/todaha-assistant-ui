@@ -1,4 +1,4 @@
-// axiosConfig.ts
+import { getToken } from '@/states/auth';
 import axios from 'axios';
 
 const axiosInstance = axios.create({
@@ -14,7 +14,7 @@ axiosInstance.interceptors.response.use(
     },
     (error) => {
         // If the response is an error, check for the 401 status code
-        if (error.response && error.response.status === 408) {
+        if (error.response && error.response.status === 401) {
             // Redirect to the login page
             window.location.href = '/auth/login';
             return new Promise(() => {});
@@ -23,5 +23,16 @@ axiosInstance.interceptors.response.use(
         return Promise.reject(error);
     }
 );
+
+axiosInstance.interceptors.request.use((config) => {
+    const token = getToken();
+    if (token && token !== '') {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  }, (error) => {
+    return Promise.reject(error);
+  });
+    
 
 export default axiosInstance;

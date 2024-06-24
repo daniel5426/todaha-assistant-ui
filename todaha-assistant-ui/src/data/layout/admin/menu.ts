@@ -64,36 +64,10 @@ export const adminMenuItems: IMenuItem[] = [
         url: routes.landing,
     },
     {
-        key: "auth",
-        icon: shieldCheckIcon,
-        label: "Auth",
-        children: [
-            {
-                key: "auth-login",
-                label: "Login",
-                url: routes.auth.login,
-            },
-            {
-                key: "auth-register",
-                label: "Register",
-                url: routes.auth.register,
-            },
-            {
-                key: "auth-forgot-password",
-                label: "Forgot Password",
-                url: routes.auth.forgotPassword,
-            },
-            {
-                key: "auth-reset-password",
-                label: "Reset Password",
-                url: routes.auth.resetPassword,
-            },
-        ],
+        key: "contact",
+        icon: fileIcon,
+        label: "Contact",
+        url: routes.contact,
     },
-    {
-        key: "docs",
-        icon: bookOpenTextIcon,
-        label: "Documentation",
-        url: routes.docs,
-    },
+
 ];

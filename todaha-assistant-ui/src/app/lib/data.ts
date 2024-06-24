@@ -5,9 +5,10 @@ import axios from 'axios';
 import { IAuthUser, Token } from '@/types/auth';
 import httpRequest from '@/services/api/request';
 import axiosInstance from './axiosConfig';
+import { getToken } from '@/states/auth';
+import Cookies from "js-cookie";
 
-
-const api_url = process.env.NEXT_PUBLIC_API_BASE_URL1;
+const api_url = process.env.NEXT_PUBLIC_API_BASE_URL1
 
 const wrapPromise = (promise: Promise<any>) => {
   let status = 'pending';
@@ -35,6 +36,32 @@ const wrapPromise = (promise: Promise<any>) => {
   };
 };
 
+export const fetchWithInterceptor = async (url: string , options: any = {}) => {
+  const token = Cookies.get('token');
+  const headers = {
+    ...options?.headers,
+    // Example: Add Authorization header with bearer token
+    ...(token && { 'Authorization': `Bearer ${token}` }),
+  };
+
+  const fetchOptions = {
+    ...options,
+    headers,
+  };
+
+  try {
+    const response = await fetch(url, fetchOptions);
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    return response.json(); // or response.text() or response.blob(), etc.
+  } catch (error) {
+    console.error('Fetch error:', error);
+    throw error;
+  }
+};
+
+
  export async function sendEmail(data: any) {
   const apiEndpoint = '/api/mail';
 
@@ -58,11 +85,45 @@ export async function fetchChats(page: number, num_per_page: number = 7): Promis
   return data['last-chats'];
 }
 
+export async function fetchChat(page: number, num_per_page: number = 7): Promise<any[]> {
+  // Retrieve the token from cookies
+  const token = Cookies.get('token');
+  console.log("-------------------", token);
+  
+  // Construct the fetch request
+  const response = await fetch(`${api_url}/admin/get-chats-history?index=${page}&number=${num_per_page}`, {
+    method: 'GET', // HTTP method (GET, POST, etc.)
+    headers: {
+      'Authorization': `Bearer ${token}`, // Include the token in the Authorization header
+      'Content-Type': 'application/json', // Example of other headers
+      // Add other headers as needed
+    },
+  });
+
+  // Check if the response is OK
+  if (!response.ok) {
+    throw new Error('Failed to fetch chats');
+  }
+
+  // Parse and return the response data
+  const data = await response.json();
+  return data['last-chats'];
+}
+
+
+export async function fetchStats(): Promise<ServerStat[]> {
+  // Fetch the data from the endpoint
+  const response = await fetch(api_url + `/admin/get-statistics`);
+  const data = await response.json();
+  const stats = data.statistics;
+  return stats;
+}
+
 export async function fetchStatistics(): Promise<ServerStat[]> {
-      // Fetch the data from the endpoint
-    const response = await axiosInstance.get<ApiResponse>(`/admin/get-statistics`);
-    const stats = response.data.statistics;
-    return stats
+  // Fetch the data from the endpoint
+const response = await axiosInstance.get<ApiResponse>(`/admin/get-statistics`);
+const stats = response.data.statistics;
+return stats
 }
 
 export async function uploadFile(formData: any): Promise<any> {

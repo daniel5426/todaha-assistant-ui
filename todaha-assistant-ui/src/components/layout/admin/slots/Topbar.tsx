@@ -50,7 +50,6 @@ const Topbar = () => {
                     onClick={() => toggleLeftbarDrawer(!layoutState.leftbar.drawerOpen)}>
                     <Icon icon={menuIcon} className="inline-block" fontSize={20} />
                 </Button>
-                <SearchButton />
             </NavbarStart>
             <NavbarCenter></NavbarCenter>
             <NavbarEnd className="gap-1.5">

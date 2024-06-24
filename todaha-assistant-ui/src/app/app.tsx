@@ -13,10 +13,11 @@ const ClientProviders: React.FC<{ children: React.ReactNode }> = ({ children }) 
   return (
       <Theme dataTheme={theme}>
         <LayoutContextProvider>
-          <AuthContextProvider>
+        <AuthContextProvider>
             {children}
             <Toaster richColors />
-          </AuthContextProvider>
+            </AuthContextProvider>
+
         </LayoutContextProvider>
       </Theme>
   );

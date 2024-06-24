@@ -1,3 +1,4 @@
+"use client";
 import { useMemo } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -11,14 +12,15 @@ import Logo from "@/components/Logo";
 import { getActivatedLeftbarParentKeys } from "@/helpers/layout/admin/leftbar";
 import { cn } from "@/helpers/utils/cn";
 import { IMenuItem } from "@/types/layout/admin";
+import { useLocale, useTranslations } from "next-intl";
 
 const LeftMenuItem = ({ menuItem, activated }: { menuItem: IMenuItem; activated: Set<string> }) => {
     const { icon, isTitle, label, children, url } = menuItem;
-
+    const t = useTranslations("menue");
     const selected = activated.has(menuItem.key);
 
     if (isTitle) {
-        return <MenuTitle className="font-semibold">{label}</MenuTitle>;
+        return <MenuTitle className="font-semibold">{t(label)}</MenuTitle>;
     }
 
     if (!children) {
@@ -31,7 +33,7 @@ const LeftMenuItem = ({ menuItem, activated }: { menuItem: IMenuItem; activated:
                     })}>
                     <div className="flex items-center gap-2">
                         {icon && <Icon icon={icon} fontSize={18} />}
-                        {label}
+                        {t(label)}
                     </div>
                 </Link>
             </MenuItem>
@@ -61,12 +63,14 @@ const Leftbar = ({ hide, menuItems }: { hide?: boolean; menuItems: IMenuItem[] }
     const  pathname  = usePathname();
 
     const activatedParents = useMemo(() => new Set(getActivatedLeftbarParentKeys(menuItems, pathname as any)), [pathname]);
+    const locale = useLocale();
+    const isRTL = locale === "he";
 
     return (
         <div
             className={cn("leftmenu-wrapper", {
                 hide: hide,
-            })}>
+            }) } style={{ direction: isRTL ? 'rtl' : 'ltr' }}>
             <div className="flex h-16 items-center justify-center">
                 <Logo />
             </div>
@@ -77,16 +81,6 @@ const Leftbar = ({ hide, menuItems }: { hide?: boolean; menuItems: IMenuItem[] }
                     ))}
                 </Menu>
             </SimpleBar>
-
-            <div className={"mx-4 hidden rounded bg-base-200 px-3 py-4 lg:block"}>
-                <p className="text-center text-base font-medium">Need Premium?</p>
-                <p className="mt-3 text-center text-sm">Access all features with single time purchase</p>
-                <div className="mt-3 text-center">
-                    <Button color={"primary"} size={"sm"}>
-                        Purchase
-                    </Button>
-                </div>
-            </div>
         </div>
     );
 };

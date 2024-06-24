@@ -8,9 +8,13 @@ import { IAuthState, IAuthUser, Token } from "@/types/auth";
 import axiosInstance from "@/app/lib/axiosConfig";
 import { get_user_info } from "@/app/lib/data";
 
+export const getToken = () => {
+  return Cookies.get('token');
+}
+
 const useHook = () => {
+  
   const [state, setState] = useSessionStorage<IAuthState>("__ADMIN_AUTH__", {});
-  const [token, setToken] = useSessionStorage<Token>("__SESSION_TOKEN__", {});
 
   const setLoggedInUser = (user: IAuthUser) => {
     updateState({ user });
@@ -19,22 +23,13 @@ const useHook = () => {
     return state.user != undefined;
   }, [state.user]);
 
-  const initializeToken = () => {
-    if (token.access_token) {
-      axiosInstance.defaults.headers.common[
-        "Authorization"
-      ] = `Bearer ${token.access_token}`;
-    }
-  };
 
-  useEffect(() => {
-    console.log("Token changed", token.access_token);
-    initializeToken();
+  const setToken = (token: any) => {
     if (token.access_token) {
       Cookies.set("loggedIn", "true", { expires: 1 });
       Cookies.set("token", token.access_token, { expires: 1 });
     }
-  }, [token]);
+  };
 
   const updateState = (changes: Partial<IAuthState>) => {
     setState({
@@ -57,7 +52,8 @@ const useHook = () => {
       access_token: undefined,
     });
     Cookies.set("loggedIn", "false", { expires: 1 });
-  };
+    Cookies.set("token", "", { expires: 1 });
+};
 
   return {
     state,
