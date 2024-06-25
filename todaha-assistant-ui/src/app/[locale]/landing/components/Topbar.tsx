@@ -12,28 +12,31 @@ import Icon from "@/components/Icon";
 import Logo from "@/components/Logo";
 import { cn } from "@/helpers/utils/cn";
 import routes from "@/services/routes";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 const Topbar = () => {
     const [drawerOpened, setDrawerOpened] = useState(false);
     const [atTop, setAtTop] = useState(true);
     const  t  = useTranslations('common');
     console.log(t('home'));
-
+    const locale = useLocale();
+    const isRTL = locale === "he";
+  
     return (
         <>
             <div
                 className={cn("fixed inset-x-0 top-0 z-[60] backdrop-blur-sm transition-all duration-500", {
                     "z-20 border-b border-base-content/10 bg-base-100 lg:bg-opacity-90 dark:lg:bg-opacity-95": !atTop,
                     "border-transparent": atTop,
-                })}>
+                })}  style={{ direction: !isRTL ? "rtl" : "ltr" }}>
                 <div className="container">
                     <Navbar className="px-0">
                         <NavbarStart className="gap-2">
-                            <div className="flex-none ">
-                                <Drawer
+                            <div className="flex-none " >
+                                <Drawer 
                                     open={drawerOpened}
                                     onClickOverlay={() => setDrawerOpened(!drawerOpened)}
+                                    end={isRTL}
                                     side={
                                         <Menu className="min-h-full w-80 gap-2 bg-base-100 p-4 text-base-content">
                                             <MenuItem className="font-medium">

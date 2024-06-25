@@ -29,6 +29,11 @@ const Chatbot = () => {
 
   const isWhite = layoutState.theme === "light"; // Change this to dynamically set the theme
 
+  useEffect(() => {
+    handleResetClick();
+    console.log("reset");
+  }, [state]);
+
   // Handle window resize events to adjust the layout dynamically
   useEffect(() => {
     const handleResize = (event: MessageEvent) => {

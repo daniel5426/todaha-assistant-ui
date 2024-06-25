@@ -1,4 +1,5 @@
 
+"use client";
 import javascriptLandingImg from "@/assets/images/landing/logo-js.svg";
 import nextLandingImg from "@/assets/images/landing/logo-next.svg";
 import reactLandingImg from "@/assets/images/landing/logo-react.svg";
@@ -14,8 +15,11 @@ import { Tooltip } from "@/components/daisyui";
 
 import Icon from "@/components/Icon";
 import routes from "@/services/routes";
+import Image from "next/image";
+import { useTranslations } from "next-intl";
 
-const Package = async () => {
+const Package = () => {
+    const t = useTranslations("package");
     return (
         <div className="">
             <div className="container py-24">
@@ -23,139 +27,95 @@ const Package = async () => {
                     <div className="inline-block rounded border border-green-500/5 bg-green-500/5 p-2.5">
                         <Icon icon={dollarSignIcon} fontSize={20} className="text-green-600" />
                     </div>
-                    <p className="mt-1 text-3xl font-semibold">Packages</p>
+                    <p className="mt-1 text-3xl font-semibold">{t("Packages")}</p>
                     <p className="mt-3 inline-block max-w-sm text-base-content/70">
-                        Discover clear, flexible pricing options to fit any budget, with no hidden fees
+                        {t("Packages_b")}
                     </p>
                 </div>
                 <div className="mt-8 grid gap-6 lg:grid-cols-3 xl:gap-12">
                     <div className="rounded border border-base-content/10 p-6">
                         <div className="inline rounded bg-primary/5 px-3 py-1 text-sm font-medium text-primary">
-                            Base
+                            {t("Base")}
                         </div>
+                        <p className="mt-8 text-sm text-base-content/70">{t("Perfect for small bussisness")}</p>
                         <div className="mt-2 flex items-center justify-between">
-                            <p className="text-xl font-medium">Starter</p>
-                            <p className="text-2xl font-semibold">$29</p>
+                            <p className="text-xl font-medium">{t("Starter")}</p>
+                            <p className="text-2xl font-semibold">{t("$300")}</p>
                         </div>
-                        <div className="mt-3 flex items-center gap-3">
-                            <Tooltip message={"Javascript"}>
-                                <img src={javascriptLandingImg} width={20} height={20} alt="Javascript" />
-                            </Tooltip>
-                            <Tooltip message={"Typescript"}>
-                                <img src={typescriptLandingImg} width={20} height={20} alt="Typescript" />
-                            </Tooltip>
-                            <Tooltip message={"React"}>
-                                <img src={reactLandingImg} width={20} height={20} alt="React" />
-                            </Tooltip>
-                        </div>
-                        <p className="mt-8 text-sm text-base-content/70">What&apos;s Included:</p>
+                        <p className="mt-8 text-sm text-base-content/70">{t("What&apos;s Included:")}</p>
                         <div className="mt-3 space-y-2">
                             <div className="flex items-center gap-3">
                                 <Icon icon={checkIcon} fontSize={16} className="text-green-500" />
-                                <p>React Version</p>
-                            </div>
-                            <div className="flex items-center gap-3">
-                                <Icon icon={xCircleIcon} fontSize={16} className="text-base-content/40" />
-                                <p>Next.JS Version</p>
-                            </div>
-                            <div className="">
-                                <div className="my-3 block border border-dashed  border-base-content/10" />
+                                <p>{t("5000 Messages")}</p>
                             </div>
                             <div className="flex items-center gap-3">
                                 <Icon icon={checkIcon} fontSize={16} className="text-green-500" />
-                                <p>Ecommerce Dashboard</p>
+                                <p>{t("1 AI Assistant")}</p>
                             </div>
                             <div className="flex items-center gap-3">
-                                <Icon icon={xCircleIcon} fontSize={16} className="text-base-content/40" />
-                                <p>Apps</p>
+                                <Icon icon={checkIcon} fontSize={16} className="text-green-500" />
+                                <p>{t("Our Platform")}</p>
                             </div>
                             <div className="flex items-center gap-3">
-                                <Icon icon={xCircleIcon} fontSize={16} className="text-base-content/40" />
-                                <p>Components</p>
+                                <Icon icon={checkIcon} fontSize={16} className="text-green-500" />
+                                <p>{t("Customization Service")}</p>
                             </div>
                             <div className="flex items-center gap-3">
-                                <Icon icon={xCircleIcon} fontSize={16} className="text-base-content/40" />
-                                <p>Authentication</p>
+                                <Icon icon={xCircleIcon} fontSize={16} className="" />
+                                <p>{t("support")}</p>
                             </div>
-
                             <div className="flex items-center gap-3">
-                                <Icon icon={xCircleIcon} fontSize={16} className="text-base-content/40" />
-                                <p>Extra Pages</p>
+                                <Icon icon={xCircleIcon} fontSize={16} className="" />
+                                <p>{t("Custom development by our team")}</p>
                             </div>
                         </div>
                         <Link
                             className="btn btn-ghost btn-block mt-10 border-base-content/10"
-                            href={routes.externalLinks.purchase}
-                            target={"_blank"}>
-                            Buy Now
+                            href={routes.contact}
+                            >
+                            {t("Buy Now")}
                         </Link>
                     </div>
                     <div className="rounded border border-base-content/10 p-6">
                         <div className="inline rounded bg-primary px-3 py-1 text-sm font-medium text-primary-content">
-                            Most Popular
+                            {t("Most Popular")}
                         </div>
+                        <p className="mt-8 text-sm text-base-content/70">{t("Perfect for medium bussisness")}</p>
                         <div className="mt-2 flex items-center justify-between">
-                            <p className="text-xl font-medium">Standard</p>
-                            <p className="text-2xl font-semibold">$59</p>
-                        </div>
-                        <div className="mt-3 flex items-center gap-3">
-                            <img
-                                src={javascriptLandingImg}
-                                className="size-5"
-                                width={20}
-                                height={20}
-                                alt="Javascript"
-                            />
-                            <img
-                                src={typescriptLandingImg}
-                                className="size-5"
-                                width={20}
-                                height={20}
-                                alt="Typescript"
-                            />
-                            <Tooltip message={"React"}>
-                                <img src={reactLandingImg} width={20} height={20} alt="React" />
-                            </Tooltip>
+                            <p className="text-xl font-medium">{t("Standard")}</p>
+                            <p className="text-2xl font-semibold">{t("$500")}</p>
                         </div>
                         <p className="mt-8 text-sm text-base-content/70">What&apos;s Included:</p>
                         <div className="mt-3 space-y-2">
                             <div className="flex items-center gap-3">
                                 <Icon icon={checkIcon} fontSize={16} className="text-green-500" />
-                                <p>React Version</p>
-                            </div>
-                            <div className="flex items-center gap-3">
-                                <Icon icon={xCircleIcon} fontSize={16} className="text-base-content/40" />
-                                <p>Next.JS Version</p>
-                            </div>
-                            <div className="">
-                                <div className="my-3 block border border-dashed border-base-content/10" />
+                                <p>7000 Messages</p>
                             </div>
                             <div className="flex items-center gap-3">
                                 <Icon icon={checkIcon} fontSize={16} className="text-green-500" />
-                                <p>Dashboard</p>
+                                <p>2 AI Assistant</p>
                             </div>
                             <div className="flex items-center gap-3">
                                 <Icon icon={checkIcon} fontSize={16} className="text-green-500" />
-                                <p>3 Apps</p>
+                                <p>Our Platform</p>
                             </div>
                             <div className="flex items-center gap-3">
                                 <Icon icon={checkIcon} fontSize={16} className="text-green-500" />
-                                <p>26 Components</p>
+                                <p>Customization Service</p>
                             </div>
                             <div className="flex items-center gap-3">
                                 <Icon icon={checkIcon} fontSize={16} className="text-green-500" />
-                                <p>4 Auth Pages</p>
+                                <p>support</p>
                             </div>
-
                             <div className="flex items-center gap-3">
                                 <Icon icon={checkIcon} fontSize={16} className="text-green-500" />
-                                <p>Extra Pages</p>
+                                <p>Custom development by our team</p>
                             </div>
                         </div>
                         <Link
                             className="btn btn-primary btn-block mt-10 border-base-content/10"
-                            href={routes.externalLinks.purchase}
-                            target={"_blank"}>
+                            href={routes.contact}
+                            >
                             Buy Now
                         </Link>
                     </div>
@@ -164,87 +124,46 @@ const Package = async () => {
                             Enhanced Version
                         </div>
 
+                        <p className="mt-8 text-sm text-base-content/70">Perfect for big bussisness</p>
                         <div className="mt-2 flex items-center justify-between">
                             <p className="text-xl font-medium">Pro</p>
-                            <p className="text-2xl font-semibold">$119</p>
-                        </div>
-                        <div className="mt-3 flex items-center gap-3">
-                            <img
-                                src={javascriptLandingImg}
-                                className="size-5"
-                                width={20}
-                                height={20}
-                                alt="Javascript"
-                            />
-                            <img
-                                src={typescriptLandingImg}
-                                className="size-5"
-                                width={20}
-                                height={20}
-                                alt="Typescript"
-                            />
-                            <Tooltip message={"React"}>
-                                <img src={reactLandingImg} width={20} height={20} alt="React" />
-                            </Tooltip>
-                            <img
-                                src={nextLandingImg}
-                                className="size-5  dark:invert"
-                                width={20}
-                                height={20}
-                                alt="Next"
-                            />
+                            <p className="text-2xl font-semibold">$700</p>
                         </div>
                         <p className="mt-8 text-sm text-base-content/70">What&apos;s Included:</p>
                         <div className="mt-3 space-y-2">
                             <div className="flex items-center gap-3">
                                 <Icon icon={checkIcon} fontSize={16} className="text-green-500" />
-                                <p>React Version</p>
+                                <p>10000 Messages</p>
                             </div>
                             <div className="flex items-center gap-3">
                                 <Icon icon={checkIcon} fontSize={16} className="text-green-500" />
-                                <p>Next.JS Version</p>
-                            </div>
-                            <div className="">
-                                <div className="my-3 block border border-dashed border-base-content/10" />
+                                <p>3 AI Assistant</p>
                             </div>
                             <div className="flex items-center gap-3">
                                 <Icon icon={checkIcon} fontSize={16} className="text-green-500" />
-                                <p>Dashboard</p>
+                                <p>Our Platform</p>
                             </div>
                             <div className="flex items-center gap-3">
                                 <Icon icon={checkIcon} fontSize={16} className="text-green-500" />
-                                <p>3 Apps</p>
+                                <p>Customization Service</p>
                             </div>
                             <div className="flex items-center gap-3">
                                 <Icon icon={checkIcon} fontSize={16} className="text-green-500" />
-                                <p>26 Components</p>
+                                <p>support</p>
                             </div>
                             <div className="flex items-center gap-3">
                                 <Icon icon={checkIcon} fontSize={16} className="text-green-500" />
-                                <p>4 Auth Pages</p>
-                            </div>
-                            <div className="flex items-center gap-3">
-                                <Icon icon={checkIcon} fontSize={16} className="text-green-500" />
-                                <p>Extra Pages</p>
+                                <p>Custom development by our team</p>
                             </div>
                         </div>
 
                         <Link
                             className="btn btn-ghost btn-outline btn-block mt-10 border-base-content/10"
-                            href={routes.externalLinks.purchase}
-                            target={"_blank"}>
+                            href={routes.contact}
+                            >
                             Buy Now
                         </Link>
                     </div>
-                </div>
-
-                <div className="">
-                    <p className="mt-3">
-                        You can check full details:{" "}
-                        <Link href={"/docs/package"} className="text-primary">
-                            Packages
-                        </Link>
-                    </p>
                 </div>
             </div>
         </div>

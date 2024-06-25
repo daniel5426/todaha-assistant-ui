@@ -16,7 +16,15 @@ const Chatbot = () => {
   const initialMessages = [
     {
       role: "ai",
-      text: "Hi there! How can I help you today?",
+      text: "Hi there! How can I help you today?",      
+    },
+    {
+      role: "user",
+      text: "Are you a human?",
+    },
+    {
+      role: "ai",
+      text: "I'm an AI, I'm here to answer any question you have!",
     },
   ];
 

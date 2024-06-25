@@ -81,7 +81,12 @@
         "order_demo": "Demo",
         "herro_b": "Introducing your ultimate business partner: A custom AI assistant that learns, answers, and take action to automates and transform your customer service.",
         "integration": "Integration",
+        "conf_show_h": "Configure ,Test and Improve",
+        "conf_show_b": "Easily configure and fine-tune your AI assistant using our intuitive platform. Seamlessly test different configurations and updates to ensure optimal performance. Manage settings, integrations, and updates centrally, empowering you to iterate and enhance your AI's capabilities efficiently.",
+        "metrics_show_h": "Detailed Insights and Analytics",
+        "metrics_show_b": "Gain comprehensive insights into your AI assistant's performance and client interactions. Track usage statistics such as the number of messages sent, total conversations handled, and access detailed logs of every conversation between the AI and clients. Analyze trends and patterns to optimize your AI's effectiveness in real-world scenarios.",
         "send": "Send",
+        "Our Platform": "Our Platform",
         "plat_h": "AI Assistant Dashboard",
         "plat_b": "Easily configure and monitor your AI assistant through our unified platform, which provides detailed insights into client interactions, usage statistics, performance metrics, and much more."
         }

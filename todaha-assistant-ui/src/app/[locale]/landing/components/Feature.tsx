@@ -39,7 +39,7 @@ const Feature =async  () => {
   ] as const;
   
   return (
-    <div className="relative z-10">
+    <div className="relative z-10 mt-20">
       <div className="container py-12 2xl:py-24">
         <div className="text-center">
           <div className="inline-block rounded border border-indigo-500/5 bg-indigo-500/5 p-2.5">

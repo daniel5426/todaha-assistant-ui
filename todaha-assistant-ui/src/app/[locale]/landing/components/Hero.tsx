@@ -13,16 +13,29 @@ import { Button, Tooltip } from "@/components/daisyui";
 import Icon from "@/components/Icon";
 import routes from "@/services/routes";
 import dynamic from "next/dynamic";
+import { useEffect, useState } from "react";
 const Chatbot = dynamic(() => import("./chatbot"), { ssr: false });
 
 const Hero = () => {
     const  t  = useTranslations('common');
+    const [showChatbot, setShowChatbot] = useState(false);
+
+    useEffect(() => {
+        // Delay showing the chatbot to ensure other content has loaded
+        const timer = setTimeout(() => {
+            setShowChatbot(true);
+        }, 200); // Adjust the delay time as needed
+
+        return () => clearTimeout(timer);
+    }, []);
 
     return (
         <div>
             <div
                 className=" absolute inset-0 rotate-180 bg-cover bg-center bg-no-repeat opacity-20 dark:hidden"
                 style={{ backgroundImage: `url(${heroGradientImg.src})`, filter: "blur(4px)"}}></div>
+                                        <div className={`transition-opacity duration-500 ${showChatbot ? 'opacity-100' : 'opacity-0'}`}>
+
             <div className="container relative z-10 py-20 xl:py-40">
                 <div className="grid items-center  gap-8 xl:grid-cols-7 xl:gap-20">
                     <div className="order-2 xl:order-1 xl:col-span-3">
@@ -84,9 +97,11 @@ const Hero = () => {
                         </div>
                     </div>
                     <div className="order-1 xl:order-2 xl:col-span-4">
-                        <Chatbot />
+                        {/* Apply animation classes based on showChatbot state */}
+                            <Chatbot />
                     </div>
                 </div>
+            </div>
             </div>
         </div>
     );

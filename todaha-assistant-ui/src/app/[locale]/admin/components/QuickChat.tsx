@@ -66,7 +66,7 @@ const QuickChat = ({ resource }: { resource: any }) => {
                                         {DateUtil.formatted(chat.date, { format: "hh:mm A" })}
                                     </span>
                                 </div>
-                                <p className="line-clamp-1 text-ellipsis text-lg/none text-base-content/80">
+                                <p className="line-clamp-1 text-ellipsis text-base/normal text-base-content/80">
                                     {chat.message}
                                 </p>
                             </div>

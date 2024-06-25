@@ -52,26 +52,30 @@ export function transformChatsToIChat(chats: any[], page: number): IChat[] {
 
 export function chatsToQuickChat(chats: any[]): IDashboardMessage[] {
     return chats.map((chat, index) => {
-        var lastQ = ""
-        var date = new Date();
+        let lastQ = "";
+        let date = new Date(0); // Start with a very old date to compare
+        let lastMsgTime = 0;
+    
+        // Find the most recent message from the user
         for (const msg of chat.data) {
-            if (msg.role !== "assistant")
-            {
+            if (msg.role !== "assistant" && msg.created_at > lastMsgTime) {
                 lastQ = msg.content[0].text.value;
                 date = new Date(msg.created_at * 1000);
-                break;
+                lastMsgTime = msg.created_at;
             }
         }
-
-        // Choose a random image URL from the array
-
+    
+        // Return the mapped object
         return {
             message: lastQ,
             date: date,
             image: userImg,
         };
+    }).sort((a, b) => {
+        // Compare dates by their timestamp in milliseconds (most recent first)
+        return new Date(b.date).getTime() - new Date(a.date).getTime();
     });
-}
+            }
 
 
 export function processStatistics(
