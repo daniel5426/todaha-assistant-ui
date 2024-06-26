@@ -25,6 +25,9 @@
         "Upload info": "Upload files that you want the assistant to have access to (max 3 files)"
     },
     "dashboard": {
+        "Profile": "Profile",
+        "Logout": "Logout",
+        "Edit": "Edit",
         "Dashboard": "Dashboard",
         "AI Assistant - clients usage statistics": "AI Assistant - clients usage statistics",
         "Today": "Today",
@@ -53,7 +56,21 @@
         "avg conversation per day - this week": "avg conversation per day - this week",
         "avg messages per day - this week": "avg messages per day - this week"
     },
+    "auth":{
+        "Login": "Login",
+        "Email Address": "Email Address",
+        "Password": "Password",
+        "Register": "Register",
+        "Username": "Username",
+        "Forgot Password?": "Forgot Password?",
+        "Haven't account": "Haven't account",
+        "Create One": "Create One",
+        "I have already to": "I have already to",
+        "login_b": "Seamless Access, Secure Connection: Your Gateway to a Personalized Experience.",
+        "register_b": "Join the Todaha community and unlock the power of AI to transform your customer service experience."
+    },
     "common": {
+        "Login": "Login",
         "HOME_HERRO": "Answer client questions, instantly.",
         "Contact": "Contact Us",
         "shoose": "What do we offer?",

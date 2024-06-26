@@ -26,11 +26,13 @@ import ThemeToggleButton from "@/components/ThemeToggleButton";
 import routes from "@/services/routes";
 import { useAuthContext } from "@/states/auth";
 import { useLayoutContext } from "@/states/layout";
+import { useTranslations } from "next-intl";
 
 const Topbar = () => {
     const { toggleLeftbarDrawer, state: layoutState } = useLayoutContext();
     const { logout, state: authState } = useAuthContext();
     const navigate = useRouter();
+    const  t  = useTranslations("dashboard");
 
     const doLogout = () => {
         logout();
@@ -62,19 +64,16 @@ const Topbar = () => {
                                 size={30}
                                 innerClassName={Mask.className({ variant: "squircle" })}></Avatar>
                             <div className="flex flex-col items-start">
-                                <p className="text-sm/none">Profile</p>
-                                <p className="mt-1 text-xs/none text-primary">Edit</p>
+                                <p className="text-sm/none">{t("Profile")}</p>
+                                <p className="mt-1 text-xs/none text-primary">{t("Edit")}</p>
                             </div>
                         </div>
                     </DropdownToggle>
                     <DropdownMenu className="mt-4 w-52">
-                        <DropdownItem>
-                            <Icon icon={userIcon} fontSize={16} /> My Profile
-                        </DropdownItem>
                         <hr className="-mx-2 my-1 border-base-content/10" />
                         <DropdownItem className="text-error" onClick={doLogout}>
                             <Icon icon={logoutIcon} fontSize={16} />
-                            Logout
+                            {t("Logout")}
                         </DropdownItem>
                     </DropdownMenu>
                 </Dropdown>

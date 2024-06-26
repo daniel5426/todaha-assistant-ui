@@ -21,10 +21,11 @@ import routes from "@/services/routes";
 
 import ThemeToggle from "../components/ThemeToggle";
 import useRegister from "@/app/[locale]/auth/register/use-register";
+import { useTranslations } from "next-intl";
 
 export default function RegisterPage () {
     const { isLoading, control, onSubmit, showPassword, toggleShowPassword } = useRegister();
-
+    const t = useTranslations("auth");
     return (
         <>
             <PageMetaData title={"Register"} />
@@ -33,50 +34,50 @@ export default function RegisterPage () {
                     <Logo />
                     <ThemeToggle />
                 </div>
-                <h3 className="mt-12 text-center text-xl font-semibold lg:mt-24">Register</h3>
+                <h3 className="mt-12 text-center text-xl font-semibold lg:mt-24">{t("Register")}</h3>
                 <h3 className="mt-2 text-center text-sm text-base-content/70">
-                    Seamless Access, Secure Connection: Your Gateway to a Personalized Experience.
+                    {t("register_b")}
                 </h3>
                 <div className="mt-10">
                     <div>
                         <div className="form-control">
                             <label className="label">
-                                <span className="label-text">Username</span>
+                                <span className="label-text">{t("Username")}</span>
                             </label>
                             <FormInput
                                 size="sm"
                                 startIcon={<Icon icon={userIcon} className="text-base-content/80" fontSize={18} />}
                                 control={control}
                                 name={"username"}
-                                placeholder="Username"
+                                placeholder={t("Username")}
                                 className="w-full focus:border-transparent focus:outline-0"
                                 bordered={false}
                                 borderOffset={false}></FormInput>
                         </div>
                         <div className="form-control mt-3">
                             <label className="label">
-                                <span className="label-text">Email Address</span>
+                                <span className="label-text">{t("Email Address")}</span>
                             </label>
                             <FormInput
                                 size="sm"
                                 startIcon={<Icon icon={mailIcon} className="text-base-content/80" fontSize={18} />}
                                 control={control}
                                 name={"email"}
-                                placeholder="Email Address"
+                                placeholder={t("Email Address")}
                                 className="w-full focus:border-transparent focus:outline-0"
                                 bordered={false}
                                 borderOffset={false}></FormInput>
                         </div>
                         <div className="form-control mt-3">
                             <label className="label">
-                                <span className="label-text">Password</span>
+                                <span className="label-text">{t("Password")}</span>
                             </label>
                             <FormInput
                                 size="sm"
                                 startIcon={<Icon icon={keyRoundIcon} className="text-base-content/80" fontSize={18} />}
                                 control={control}
                                 name={"password"}
-                                placeholder="Password"
+                                placeholder={t("Password")}
                                 type={showPassword ? "text" : "password"}
                                 className="w-full focus:border-transparent focus:outline-0"
                                 bordered={false}
@@ -96,13 +97,6 @@ export default function RegisterPage () {
                                 }
                                 borderOffset={false}></FormInput>
                         </div>
-                        <div className="mt-6 flex items-center gap-3">
-                            <Checkbox name="agreement" id="agreement" size="xs" color="primary" />
-                            <label htmlFor="agreement">
-                                I agree with{" "}
-                                <span className="cursor-pointer text-primary underline">terms and conditions</span>
-                            </label>
-                        </div>
                     </div>
                     <div className="mt-6">
                         <Button
@@ -112,23 +106,13 @@ export default function RegisterPage () {
                             className="gap-3 text-base"
                             fullWidth
                             startIcon={<Icon icon={userPlusIcon} fontSize={16} />}>
-                            Register
-                        </Button>
-                    </div>
-                    <div className="mt-4">
-                        <Button
-                            size={"md"}
-                            fullWidth
-                            className="flex items-center gap-3 border-base-content/10  !text-base-content hover:border-transparent hover:bg-base-content/10"
-                            variant={"outline"}>
-                            <Image src={googleMiniImage} className="size-6" alt="" />
-                            <span className="text-base">Register with Google</span>
+                            {t("Register")}
                         </Button>
                     </div>
                     <p className="mt-6 text-center text-sm text-base-content/80">
-                        I have already to{" "}
+                        {t("I have already to")}{" "}
                         <Link className="text-primary  hover:underline" href={routes.auth.login}>
-                            Login
+                            {t("Login")}
                         </Link>
                     </p>
                 </div>

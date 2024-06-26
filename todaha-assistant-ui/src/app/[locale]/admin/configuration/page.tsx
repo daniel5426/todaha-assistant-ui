@@ -1,7 +1,11 @@
 "use client";
 import PageMetaData from "@/components/PageMetaData";
 
-import Chatbot from "./component/chatbot";
+import dynamic from "next/dynamic";
+
+const Chatbot = dynamic(() => import("./component/chatbot"), {
+  ssr: false,
+});
 import { Button, Card, CardBody, FileInput } from "@/components/daisyui";
 import FormInput from "@/components/forms/FormInput";
 import useConfig from "./use-config";
@@ -88,7 +92,7 @@ const Configuration = () => {
                         className="gap-3 text-base"
                         fullWidth
                       >
-                        Save
+                        {t("Save")}
                       </Button>
                     </div>
                   </div>
