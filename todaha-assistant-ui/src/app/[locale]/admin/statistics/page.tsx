@@ -14,7 +14,6 @@ import {
   fetchStatisticsWithSuspense,
 } from "@/app/lib/data";
 import { StatsContextProvider } from "../use-stats";
-import VisitorChart from "../components/VisitorChart";
 import { MessagesChart, ThreadChart } from "../components/StatisticsCharts";
 import { StatsCounterWidget } from "../components/CounterWidget";
 import { useAuthContext } from "@/states/auth";
