@@ -111,14 +111,6 @@ export async function fetchChat(page: number, num_per_page: number = 7): Promise
 }
 
 
-export async function fetchStats(): Promise<ServerStat[]> {
-  // Fetch the data from the endpoint
-  const response = await fetch(api_url + `/admin/get-statistics`);
-  const data = await response.json();
-  const stats = data.statistics;
-  return stats;
-}
-
 export async function fetchStatistics(): Promise<ServerStat[]> {
   // Fetch the data from the endpoint
 const response = await axiosInstance.get<ApiResponse>(`/admin/get-statistics`);
