@@ -70,18 +70,13 @@ const SingleMessage = ({
   );
 };
 
-const MessageList = forwardRef((props, componentRef) => {
-  const ref = useRef<SimpleBarCore | null>(null);
+const MessageList = () => {
 
   const { selectedChat } = useChat();
   const locale = useLocale();
   const isRTL = locale === "he";
 
-  useEffect(() => {
-    const scrollE = ref.current?.getScrollElement();
-    if (scrollE)
-      scrollE.scrollTo({ top: scrollE.scrollHeight, behavior: "smooth" });
-  }, [selectedChat, ref]);
+
   const firstMessage = selectedChat.messages[0];
   const date_started = DateUtil.formatted(firstMessage.send_at, {
     format: "DD MMM hh:mm A",
@@ -108,7 +103,6 @@ const MessageList = forwardRef((props, componentRef) => {
       <SimpleBar
         className="p-5"
         style={{ height: "calc(100vh - 312px)" }}
-        ref={ref}
       >
         {selectedChat.messages.map(
           (message: IChatMessage, index: Key | null | undefined) => (
@@ -118,7 +112,7 @@ const MessageList = forwardRef((props, componentRef) => {
       </SimpleBar>
     </Card>
   );
-});
+};
 MessageList.displayName = "MessageList";
 
 export default MessageList;

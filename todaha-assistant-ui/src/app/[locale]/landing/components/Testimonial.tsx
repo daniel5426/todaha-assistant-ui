@@ -11,7 +11,7 @@ import useTranslation from "next-translate/useTranslation";
 import Icon from "@/components/Icon";
 import { useTranslations } from "next-intl";
 
-const Testimonial = async () => {
+const Testimonial = () => {
     const  t  = useTranslations('common');
 
     return (

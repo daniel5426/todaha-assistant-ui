@@ -6,7 +6,7 @@ import logoutIcon from "@iconify/icons-lucide/log-out";
 import menuIcon from "@iconify/icons-lucide/menu";
 import userIcon from "@iconify/icons-lucide/user";
 
-import { usePathname , useRouter} from "next/navigation";
+import { useRouter} from "next/navigation";
 import {
     Avatar,
     Button,
@@ -26,9 +26,6 @@ import ThemeToggleButton from "@/components/ThemeToggleButton";
 import routes from "@/services/routes";
 import { useAuthContext } from "@/states/auth";
 import { useLayoutContext } from "@/states/layout";
-
-import NotificationButton from "../components/NotificationButton";
-import SearchButton from "../components/SearchButton";
 
 const Topbar = () => {
     const { toggleLeftbarDrawer, state: layoutState } = useLayoutContext();

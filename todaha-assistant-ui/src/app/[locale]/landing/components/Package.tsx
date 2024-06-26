@@ -1,21 +1,12 @@
 
-"use client";
-import javascriptLandingImg from "@/assets/images/landing/logo-js.svg";
-import nextLandingImg from "@/assets/images/landing/logo-next.svg";
-import reactLandingImg from "@/assets/images/landing/logo-react.svg";
-import typescriptLandingImg from "@/assets/images/landing/logo-ts.svg";
-
 import checkIcon from "@iconify/icons-lucide/check";
 import dollarSignIcon from "@iconify/icons-lucide/dollar-sign";
 import xCircleIcon from "@iconify/icons-lucide/x-circle";
 
 import Link from "next/link";
 
-import { Tooltip } from "@/components/daisyui";
-
 import Icon from "@/components/Icon";
 import routes from "@/services/routes";
-import Image from "next/image";
 import { useTranslations } from "next-intl";
 
 const Package = () => {

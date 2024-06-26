@@ -119,8 +119,8 @@ export default function ChatList ()  {
           </div>
           <div className="mt-2 text-center">
             <div className="mt-4 flex justify-center space-x-4">
-              <Button onClick={handleStart} disabled={currentPage === 1 || isPending === true}>{t("Start")}</Button>
-              <Button onClick={handlePrevious} disabled={isPending === true}>
+              <Button onClick={handleStart} disabled={currentPage === 1 || isPending === true} className="ml-2">{t("Start")}</Button>
+              <Button onClick={handlePrevious} disabled={isPending === true} >
                 {t("Previous")}
               </Button>
               <Button onClick={handleNext} disabled={isPending === true}>{t("Next")}</Button>

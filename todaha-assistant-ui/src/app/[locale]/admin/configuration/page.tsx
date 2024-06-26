@@ -1,16 +1,12 @@
 "use client";
 import PageMetaData from "@/components/PageMetaData";
 
-import { Suspense } from "react";
-import { LatestInvoicesSkeleton } from "../components/loading";
 import Chatbot from "./component/chatbot";
 import { Button, Card, CardBody, FileInput } from "@/components/daisyui";
 import FormInput from "@/components/forms/FormInput";
 import useConfig from "./use-config";
-import useTranslation from "next-translate/useTranslation";
 import FileUpload from "./component/file-upload";
 import { useAuthContext } from "@/states/auth";
-import { UserFile } from "@/types/auth";
 import { useTranslations } from "next-intl";
 
 const Configuration = () => {

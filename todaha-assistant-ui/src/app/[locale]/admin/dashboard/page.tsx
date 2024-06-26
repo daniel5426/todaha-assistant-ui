@@ -17,7 +17,7 @@ import { useTranslations } from "next-intl";
 export default function EcommerceDashboardPage () {
   const resource = fetchChatsWithSuspense(1, 7);
   const resource2 = fetchStatisticsWithSuspense();
-  const t = useTranslations();
+  const t = useTranslations("dashboard");
 
   return (
     <div>

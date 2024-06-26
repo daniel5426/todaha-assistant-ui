@@ -55,28 +55,14 @@ const Chatbot = () => {
 
   const isWhite = layoutState.theme === "light"; // Change this to dynamically set the theme
 
-  // Handle window resize events to adjust the layout dynamically
-  useEffect(() => {
-    const handleResize = (event: MessageEvent) => {
-      if (event.data.type === "resize") {
-        const width = event.data.width;
-        document.getElementById("deep-chat")!.style.width = `${width}px`;
-      }
-    };
 
-    window.addEventListener("message", handleResize);
-    return () => {
-      window.removeEventListener("message", handleResize);
-    };
-  }, []);
-
-  // Fetch a new thread ID from the API when the component mounts or resets
   useEffect(() => {
     const fetchThreadId = async () => {
       try {
         const response = await axios.get<{ thread_id: string }>(`${api_url}/chat/create-thread`, {
           params: { assistant_id: assistantId },
         });
+        console.log("Thread ID: ", response.data.thread_id );
         setThreadId(response.data.thread_id);
       } catch (error) {
         console.error(error);
@@ -84,7 +70,7 @@ const Chatbot = () => {
     };
   
     fetchThreadId();
-  }, [reset, api_url, assistantId]);
+  }, []);
     
   
   

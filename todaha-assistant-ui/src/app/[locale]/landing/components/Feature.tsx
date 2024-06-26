@@ -1,4 +1,3 @@
-"use client"; // Add this line at the very top
 
 import combineIcon from "@iconify/icons-lucide/combine";
 import hexagonIcon from "@iconify/icons-lucide/hexagon";
@@ -10,7 +9,7 @@ import Icon from "@/components/Icon";
 import { useTranslations } from "next-intl";
 
 
-const Feature =async  () => {
+const Feature = () => {
   const  t  = useTranslations('common');
 
   const features = [

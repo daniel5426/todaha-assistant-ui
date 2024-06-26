@@ -1,13 +1,9 @@
 
 "use client"; // Add this line at the very top
-
 import menuIcon from "@iconify/icons-lucide/menu";
-
 import { useState } from "react";
 import  Link  from "next/link";
-
 import { Button, Drawer, Menu, MenuItem, Navbar, NavbarEnd, NavbarStart } from "@/components/daisyui";
-import useTranslation from "next-translate/useTranslation";
 import Icon from "@/components/Icon";
 import Logo from "@/components/Logo";
 import { cn } from "@/helpers/utils/cn";
@@ -18,7 +14,6 @@ const Topbar = () => {
     const [drawerOpened, setDrawerOpened] = useState(false);
     const [atTop, setAtTop] = useState(true);
     const  t  = useTranslations('common');
-    console.log(t('home'));
     const locale = useLocale();
     const isRTL = locale === "he";
   
