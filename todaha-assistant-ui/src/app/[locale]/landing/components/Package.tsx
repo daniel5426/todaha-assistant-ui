@@ -42,7 +42,7 @@ const Package = () => {
                             <p className="text-xl font-medium">{t("Starter")}</p>
                             <p className="text-2xl font-semibold">{t("$300")}</p>
                         </div>
-                        <p className="mt-8 text-sm text-base-content/70">{t("What&apos;s Included:")}</p>
+                        <p className="mt-8 text-sm text-base-content/70">{t("What's Included:")}</p>
                         <div className="mt-3 space-y-2">
                             <div className="flex items-center gap-3">
                                 <Icon icon={checkIcon} fontSize={16} className="text-green-500" />
@@ -83,77 +83,78 @@ const Package = () => {
                         <p className="mt-8 text-sm text-base-content/70">{t("Perfect for medium bussisness")}</p>
                         <div className="mt-2 flex items-center justify-between">
                             <p className="text-xl font-medium">{t("Standard")}</p>
-                            <p className="text-2xl font-semibold">{t("$500")}</p>
+                            <p className="text-2xl font-semibold text-blue-600">{t("Free")}</p>
+                            <p className="mt-2 text-sm text-base-content/70">{t("The first month")}</p>
                         </div>
-                        <p className="mt-8 text-sm text-base-content/70">What&apos;s Included:</p>
+                        <p className="mt-8 text-sm text-base-content/70">{t("What's Included:")}</p>
                         <div className="mt-3 space-y-2">
                             <div className="flex items-center gap-3">
                                 <Icon icon={checkIcon} fontSize={16} className="text-green-500" />
-                                <p>7000 Messages</p>
+                                <p>{t("7000 Messages")}</p>
                             </div>
                             <div className="flex items-center gap-3">
                                 <Icon icon={checkIcon} fontSize={16} className="text-green-500" />
-                                <p>2 AI Assistant</p>
+                                <p>{t("2 AI Assistant")}</p>
                             </div>
                             <div className="flex items-center gap-3">
                                 <Icon icon={checkIcon} fontSize={16} className="text-green-500" />
-                                <p>Our Platform</p>
+                                <p>{t("Our Platform")}</p>
                             </div>
                             <div className="flex items-center gap-3">
                                 <Icon icon={checkIcon} fontSize={16} className="text-green-500" />
-                                <p>Customization Service</p>
+                                <p>{t("Customization Service")}</p>
                             </div>
                             <div className="flex items-center gap-3">
                                 <Icon icon={checkIcon} fontSize={16} className="text-green-500" />
-                                <p>support</p>
+                                <p>{t("support")}</p>
                             </div>
                             <div className="flex items-center gap-3">
                                 <Icon icon={checkIcon} fontSize={16} className="text-green-500" />
-                                <p>Custom development by our team</p>
+                                <p>{t("Custom development by our team")}</p>
                             </div>
                         </div>
                         <Link
                             className="btn btn-primary btn-block mt-10 border-base-content/10"
                             href={routes.contact}
                             >
-                            Buy Now
+                            {t("Buy Now")}
                         </Link>
                     </div>
                     <div className="rounded border border-base-content/10 p-6">
                         <div className="inline rounded bg-purple-500/10 px-3 py-1 text-sm font-medium text-purple-600">
-                            Enhanced Version
+                            {t("Enhanced Version")}
                         </div>
 
-                        <p className="mt-8 text-sm text-base-content/70">Perfect for big bussisness</p>
+                        <p className="mt-8 text-sm text-base-content/70">{t("Perfect for big bussisness")}</p>
                         <div className="mt-2 flex items-center justify-between">
-                            <p className="text-xl font-medium">Pro</p>
-                            <p className="text-2xl font-semibold">$700</p>
+                            <p className="text-xl font-medium">{t("Pro")}</p>
+                            <p className="text-2xl font-semibold">{t("$700")}</p>
                         </div>
-                        <p className="mt-8 text-sm text-base-content/70">What&apos;s Included:</p>
+                        <p className="mt-8 text-sm text-base-content/70">{t("What's Included:")}</p>
                         <div className="mt-3 space-y-2">
                             <div className="flex items-center gap-3">
                                 <Icon icon={checkIcon} fontSize={16} className="text-green-500" />
-                                <p>10000 Messages</p>
+                                <p>{t("10000 Messages")}</p>
                             </div>
                             <div className="flex items-center gap-3">
                                 <Icon icon={checkIcon} fontSize={16} className="text-green-500" />
-                                <p>3 AI Assistant</p>
+                                <p>{t("3 AI Assistant")}</p>
                             </div>
                             <div className="flex items-center gap-3">
                                 <Icon icon={checkIcon} fontSize={16} className="text-green-500" />
-                                <p>Our Platform</p>
+                                <p>{t("Our Platform")}</p>
                             </div>
                             <div className="flex items-center gap-3">
                                 <Icon icon={checkIcon} fontSize={16} className="text-green-500" />
-                                <p>Customization Service</p>
+                                <p>{t("Customization Service")}</p>
                             </div>
                             <div className="flex items-center gap-3">
                                 <Icon icon={checkIcon} fontSize={16} className="text-green-500" />
-                                <p>support</p>
+                                <p>{t("support")}</p>
                             </div>
                             <div className="flex items-center gap-3">
                                 <Icon icon={checkIcon} fontSize={16} className="text-green-500" />
-                                <p>Custom development by our team</p>
+                                <p>{t("Custom development by our team")}</p>
                             </div>
                         </div>
 
@@ -161,7 +162,7 @@ const Package = () => {
                             className="btn btn-ghost btn-outline btn-block mt-10 border-base-content/10"
                             href={routes.contact}
                             >
-                            Buy Now
+                            {t("Buy Now")}
                         </Link>
                     </div>
                 </div>

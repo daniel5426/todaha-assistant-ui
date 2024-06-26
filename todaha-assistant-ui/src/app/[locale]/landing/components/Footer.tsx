@@ -27,7 +27,7 @@ const Footer = async  () => {
                         <div className="mt-6 inline-flex items-center gap-3">
                             <Link href={routes.externalLinks.purchase}>
                                 <Button color={"primary"} startIcon={<Icon icon={shoppingCartIcon} fontSize={16} />}>
-                                    Contact Us
+                                    {t("Contact Us")}
                                 </Button>
                             </Link>
                         </div>

@@ -24,7 +24,7 @@ const Testimonial = async () => {
                     <div className="inline-block rounded border border-orange-500/5 bg-orange-500/5 p-2.5">
                         <Icon icon={sparklesIcon} fontSize={20} className="text-orange-600" />
                     </div>
-                    <h2 className="mt-1 text-3xl font-semibold">What People Say</h2>
+                    <h2 className="mt-1 text-3xl font-semibold">{t("What People Say")}</h2>
                 </div>
                 <div className="grid gap-12 mt-12 lg:grid-cols-2">
                 <div className="mt-16 text-center col-span-1">

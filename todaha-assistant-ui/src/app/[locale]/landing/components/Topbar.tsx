@@ -28,7 +28,7 @@ const Topbar = () => {
                 className={cn("fixed inset-x-0 top-0 z-[60] backdrop-blur-sm transition-all duration-500", {
                     "z-20 border-b border-base-content/10 bg-base-100 lg:bg-opacity-90 dark:lg:bg-opacity-95": !atTop,
                     "border-transparent": atTop,
-                })}  style={{ direction: !isRTL ? "rtl" : "ltr" }}>
+                })}  style={{ direction: "ltr" }}>
                 <div className="container">
                     <Navbar className="px-0">
                         <NavbarStart className="gap-2">

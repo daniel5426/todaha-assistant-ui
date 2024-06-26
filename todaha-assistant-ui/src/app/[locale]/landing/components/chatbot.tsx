@@ -13,7 +13,9 @@ import { useLayoutContext } from "@/states/layout";
 const Chatbot = () => {
   const chatElementRef = useRef<any>(null); // Adjust type as per actual DeepChat component
   const assistantId = "asst_gE6RWQvul8PGsCRMJeSc2Elo"; // Adjust based on your assistant ID
-  const initialMessages = [
+  const  locale  = useLocale();
+  const isRTL = locale == "he";
+  const initialMessagesen = [
     {
       role: "ai",
       text: "Hi there! How can I help you today?",      
@@ -27,6 +29,23 @@ const Chatbot = () => {
       text: "I'm an AI, I'm here to answer any question you have!",
     },
   ];
+  const initialMessageshe = [
+    {
+      role: "ai",
+      text: "שלום! איך אני יכול לעזור לך היום?",
+    },
+    {
+      role: "user",
+      text: "אתה בן אדם?",
+    },
+    {
+      role: "ai",
+      text: "אני עוזר AI, אני כאן כדי לענות על כל שאלה שיש לך!",
+    },
+  ];
+
+  const initialMessages = locale === "he" ? initialMessageshe : initialMessagesen;
+  
 
   const [reset, setReset] = useState<boolean>(false);
   const [threadId, setThreadId] = useState<string | null>(null);
@@ -101,8 +120,6 @@ const Chatbot = () => {
     }
   };
 
-  const  locale  = useLocale();
-  const isRTL = locale == "he";
   const marginRight = isRTL ? "0px" : "auto";
   const marginLeft = isRTL ? "auto" : "0px";
 

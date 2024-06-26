@@ -22,8 +22,8 @@ export default async function Page() {
             <Feature />
             <Showcase />
             <Testimonial />
-            <Footer />
             <Package />
+            <Footer />
         </>
     );
 };
