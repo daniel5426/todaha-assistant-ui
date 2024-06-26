@@ -1,16 +1,16 @@
 "use client";
 import PageMetaData from "@/components/PageMetaData";
 
-import { Suspense } from "react";
-import { LatestInvoicesSkeleton } from "../components/loading";
-import Chatbot from "./component/chatbot";
+import dynamic from "next/dynamic";
+
+const Chatbot = dynamic(() => import("./component/chatbot"), {
+  ssr: false,
+});
 import { Button, Card, CardBody, FileInput } from "@/components/daisyui";
 import FormInput from "@/components/forms/FormInput";
 import useConfig from "./use-config";
-import useTranslation from "next-translate/useTranslation";
 import FileUpload from "./component/file-upload";
 import { useAuthContext } from "@/states/auth";
-import { UserFile } from "@/types/auth";
 import { useTranslations } from "next-intl";
 
 const Configuration = () => {
@@ -92,7 +92,7 @@ const Configuration = () => {
                         className="gap-3 text-base"
                         fullWidth
                       >
-                        Save
+                        {t("Save")}
                       </Button>
                     </div>
                   </div>

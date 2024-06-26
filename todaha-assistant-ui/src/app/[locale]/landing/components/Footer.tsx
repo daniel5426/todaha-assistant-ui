@@ -12,7 +12,7 @@ import routes from "@/services/routes";
 import useTranslation from "next-translate/useTranslation";
 import { useTranslations } from "next-intl";
 
-const Footer = async  () => {
+const Footer =  () => {
     const  t  = useTranslations('common');
 
     return (

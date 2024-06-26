@@ -1,13 +1,9 @@
-"use client";
-import { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { redirect } from 'next/navigation';
 
 export default function Page() {
-  const router = useRouter();
+  // Perform the redirect on the server side
+  redirect('/landing');
 
-  useEffect(() => {
-    router.push('/landing');
-  }, [router]);
-
+  // This component doesn't need to render anything
   return null;
 }

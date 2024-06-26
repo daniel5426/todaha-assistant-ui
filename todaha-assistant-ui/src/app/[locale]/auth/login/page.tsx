@@ -21,49 +21,52 @@ import routes from "@/services/routes";
 
 import ThemeToggle from "../components/ThemeToggle";
 import useLogin from "./use-login";
+import { useLocale, useTranslations } from "next-intl";
 
 
 const LoginPage = () => {
     const { isLoading, control, onSubmit, showPassword, toggleShowPassword } = useLogin();
-
+    const t = useTranslations("auth");
+    const locale = useLocale();
+    const isRTL = locale === "he";
     return (
         <>
             <PageMetaData title={"Login"} />
-            <div className="flex flex-col items-stretch p-8 lg:p-16">
+            <div className="flex flex-col items-stretch p-8 lg:p-16" style={{ direction: isRTL? "rtl": "ltr"}}>
                 <div className="flex items-center justify-between">
                     <Logo />
                     <ThemeToggle />
                 </div>
-                <h3 className="mt-12 text-center text-xl font-semibold lg:mt-24">Login</h3>
+                <h3 className="mt-12 text-center text-xl font-semibold lg:mt-24">{t("Login")}</h3>
                 <h3 className="mt-2 text-center text-sm text-base-content/70">
-                    Seamless Access, Secure Connection: Your Gateway to a Personalized Experience.
+                    {t("login_b")}
                 </h3>
                 <div className="mt-10">
                     <div>
                         <div className="form-control">
                             <label className="label">
-                                <span className="label-text">username</span>
+                                <span className="label-text">{t("Username")}</span>
                             </label>
                             <FormInput
                                 size="sm"
                                 startIcon={<Icon icon={userIcon} className="text-base-content/80" fontSize={18} />}
                                 control={control}
                                 name={"username"}
-                                placeholder="username"
+                                placeholder={t("Username")}
                                 className="w-full focus:border-transparent focus:outline-0"
                                 bordered={false}
                                 borderOffset={false}></FormInput>
                         </div>
                         <div className="form-control mt-3">
                             <label className="label">
-                                <span className="label-text">Password</span>
+                                <span className="label-text">{t("Password")}</span>
                             </label>
                             <FormInput
                                 size="sm"
                                 startIcon={<Icon icon={keyRoundIcon} className="text-base-content/80" fontSize={18} />}
                                 control={control}
                                 name={"password"}
-                                placeholder="Password"
+                                placeholder={t("Password")}
                                 type={showPassword ? "text" : "password"}
                                 className="w-full focus:border-transparent focus:outline-0"
                                 bordered={false}
@@ -87,16 +90,9 @@ const LoginPage = () => {
                                 <span className="label-text"></span>
                                 <Link
                                     className="label-text text-xs text-base-content/80"
-                                    href={routes.auth.forgotPassword}>
-                                    Forgot Password?
+                                    href={routes.auth.register}>
+                                    {t("Forgot Password?")}
                                 </Link>
-                            </label>
-                        </div>
-                        <div className="mt-3 flex items-center gap-3">
-                            <Checkbox name="agreement" id="agreement" size="xs" color="primary" />
-                            <label htmlFor="agreement">
-                                I agree with{" "}
-                                <span className="cursor-pointer text-primary underline">terms and conditions</span>
                             </label>
                         </div>
                     </div>
@@ -108,13 +104,13 @@ const LoginPage = () => {
                             className="gap-3 text-base"
                             fullWidth
                             startIcon={<Icon icon={logInIcon} fontSize={16} />}>
-                            Login
+                            {t("Login")}
                         </Button>
                     </div>
                     <p className="mt-6 text-center text-sm text-base-content/80">
-                        Haven&apos;t account{" "}
+                        {t("Haven't account")}{" "}
                         <Link className="text-primary  hover:underline" href={routes.auth.register}>
-                            Create One
+                            {t("Create One")}
                         </Link>
                     </p>
                 </div>

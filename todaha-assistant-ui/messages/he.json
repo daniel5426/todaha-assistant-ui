@@ -10,6 +10,19 @@
         "Landing": "דף נחיתה",
         "Contact": "צור קשר"
     },
+    "auth": {
+        "Login": "התחברות",
+        "Email Address": "כתובת אימייל",
+        "Password": "סיסמה",
+        "Register": "הרשמה",
+        "Username": "שם משתמש",
+        "Forgot Password?": "שכחת סיסמה?",
+        "Haven't account": "אין לך חשבון",
+        "Create One": "צור אחד",
+        "I have already to": "כבר יש לי",
+        "login_b": "גישה חלקה, חיבור מאובטח: השער שלך לחווייה אישית.",
+        "register_b": "הצטרף לקהילת תודעה ופתח את עוצמת ה-AI לשדרוג חוויית שירות הלקוחות שלך."
+    },
     "configuration": {
         "Configuration": "הגדרות",
         "AI assistant": "עוזר AI",
@@ -25,6 +38,9 @@
         "Upload info": "העלה קבצים שהעוזר יצטרך (מקסימום 3 קבצים)"
     },
     "dashboard": {
+        "Profile": "פרופיל",
+        "Logout": "התנתקות",
+        "Edit": "עריכה",
         "Dashboard": "מסך ניהול",
         "AI Assistant - clients usage statistics": "עוזר AI - סטטיסטיקות שימוש של לקוחות",
         "Today": "היום",
@@ -54,6 +70,7 @@
         "avg messages per day - this week": "הודעות ממוצעות ביום - השבוע"
     },
     "common": {
+        "Login": "הזדהות",
         "HOME_HERRO": "ענה לשאלות הלקוחות, מיד.",
         "Contact": "צור קשר",
         "shoose": "מה אנחנו מציעים?",

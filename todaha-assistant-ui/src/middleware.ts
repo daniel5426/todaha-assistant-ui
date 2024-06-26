@@ -9,22 +9,17 @@ const intlMiddleware = createMiddleware({
 
 // Authentication middleware
 export function middleware(request: NextRequest) {
-  const token = request.cookies.get('isLoggedIn')?.value;
+  const loggedIn = request.cookies.get('loggedIn')?.value;
 
   // Handle internationalized routes first
-  const intlResponse = intlMiddleware(request);
-  if (intlResponse) {
-    return intlResponse;
-  }
-
   // Custom authentication logic
   if (request.nextUrl.pathname.includes('/admin/dashboard')) {
-    if (token === "false") {
+    if (loggedIn == "false") {
+      console.info('User is not authenticated');
       return NextResponse.redirect(new URL('/auth/login', request.url));
     }
   }
-
-  return NextResponse.next();
+  return intlMiddleware(request);
 }
 
 // Configuration for the combined middleware

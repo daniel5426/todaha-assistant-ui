@@ -7,16 +7,19 @@ import Showcase from "./components/Showcase";
 import Testimonial from "./components/Testimonial";
 import Topbar from "./components/Topbar";
 import Package from "./components/Package";
+import { useLocale } from "next-intl";
 
 //<Package />
 //<FAQ />
 
   
 
-export default async function Page() {
-
+export default function Page() {
+    const locale = useLocale();
+    const isRTL = locale === "he";
+  
     return (
-        <>
+<div >
         <Topbar />
             <Hero />
             <Feature />
@@ -24,6 +27,6 @@ export default async function Page() {
             <Testimonial />
             <Package />
             <Footer />
-        </>
+      </div>
     );
 };
