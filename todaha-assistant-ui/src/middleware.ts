@@ -9,14 +9,9 @@ const intlMiddleware = createMiddleware({
 
 // Authentication middleware
 export function middleware(request: NextRequest) {
-  const token = request.cookies.get('isLoggedIn')?.value;
+  const token = request.cookies.get('loggedIn')?.value;
 
   // Handle internationalized routes first
-  const intlResponse = intlMiddleware(request);
-  if (intlResponse) {
-    return intlResponse;
-  }
-
   // Custom authentication logic
   if (request.nextUrl.pathname.includes('/admin/dashboard')) {
     if (token === "false") {
@@ -24,7 +19,7 @@ export function middleware(request: NextRequest) {
     }
   }
 
-  return NextResponse.next();
+  return intlMiddleware(request);
 }
 
 // Configuration for the combined middleware
