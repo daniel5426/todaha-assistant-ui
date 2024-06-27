@@ -14,7 +14,7 @@ export function middleware(request: NextRequest) {
   // Handle internationalized routes first
   // Custom authentication logic
   if (request.nextUrl.pathname.includes('/admin/dashboard')) {
-    if (loggedIn == "false") {
+    if (!loggedIn || loggedIn == "false") {
       console.info('User is not authenticated');
       return NextResponse.redirect(new URL('/auth/login', request.url));
     }
