@@ -26,8 +26,6 @@ export default async function LocaleLayout({
         <NextIntlClientProvider messages={messages}>
           <ClientProviders>{children}</ClientProviders>
         </NextIntlClientProvider>
-        <ChatModal />
-        <ChatBot />
       </body>
     </html>
   );

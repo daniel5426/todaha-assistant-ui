@@ -8,7 +8,11 @@ import Testimonial from "./components/Testimonial";
 import Topbar from "./components/Topbar";
 import Package from "./components/Package";
 import { useLocale } from "next-intl";
-
+import dynamic from "next/dynamic";
+const ChatBot = dynamic(() => import('@/components/chatbots/ChatBot'), {
+    ssr: false,
+  });
+  
 //<Package />
 //<FAQ />
 
@@ -20,6 +24,7 @@ export default function Page() {
   
     return (
 <div >
+    <ChatBot />
         <Topbar />
             <Hero />
             <Feature />

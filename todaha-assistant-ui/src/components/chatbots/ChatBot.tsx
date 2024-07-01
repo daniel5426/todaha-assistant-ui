@@ -74,7 +74,7 @@ export const App = () => {
   };
 
   return (
-    <div className="bottom-3 right-3 flex fixed" style={{ zIndex: 9900 }}>
+    <div className="bottom-3 right-3 flex fixed" style={{ zIndex: 9900 , direction: "ltr"}}>
       <div className="relative inline-block text-left">
         <button
           onClick={toggleChatVisibility}
@@ -86,10 +86,10 @@ export const App = () => {
         {isChatVisible && (
           <div className="join join-vertical absolute right-0 z-10 mb-2 origin-bottom-right -translate-y-full bg-slate-900 rounded-2xl shadow-xl ring-1 ring-black ring-opacity-0">
             <div className="p-2">
-              <div className="flex flex-row rounded-md">
-                <div className="flex flex-row items-center">
+              <div className="flex flex-row rounded-2xl">
+                <div className="flex flex-row items-center ml-3">
                   <div className="pr-5 p-1">
-                    <div className="w-10 h-10 rounded-full">
+                    <div className="w-8 h-8 rounded-full">
                       <Image
                         src={LogoImg}
                         alt="Logo"
