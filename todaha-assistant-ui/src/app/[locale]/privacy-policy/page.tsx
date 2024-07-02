@@ -7,7 +7,7 @@ export default function Page() {
   
     return (
         <div className="flex justify-center items-center min-h-screen bg-gray-100">
-            <div className="bg-white p-8 rounded shadow-md w-full max-w-3xl">
+            <div className="bg-white p-8 rounded shadow-md w-full max-w-3xl text-black">
                 <h1 className="text-3xl font-bold mb-6 text-center">Privacy Policy</h1>
                 <p className="mb-4">
                     At Todaha, we respect your privacy and are committed to protecting your personal data.
@@ -29,7 +29,7 @@ export default function Page() {
                 </p>
                 <h2 className="text-2xl font-semibold mb-4">Contact Us</h2>
                 <p className="mb-4">
-                    If you have any questions about this privacy policy, please contact us at <a href="mailto:todaha26@gmail.com" className="text-blue-500">support@todaha.com</a>.
+                    If you have any questions about this privacy policy, please contact us at <a href="mailto:todaha26@gmail.com" className="text-blue-500">todaha26@gmail.com</a>.
                 </p>
             </div>
         </div>
