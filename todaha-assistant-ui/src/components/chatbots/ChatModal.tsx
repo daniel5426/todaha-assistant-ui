@@ -45,13 +45,6 @@ const ChatModal: React.FC = () => {
       adjustIframeSize();
     };
 
-    const handleIframeLoad = () => {
-      if (chatIframeRef.current && chatIframeRef.current.contentWindow) {
-        chatIframeRef.current.contentWindow?.document.body.addEventListener('click', (event) => {
-          event.stopPropagation();
-        });
-      }
-    };
 
     window.addEventListener('resize', handleResize);
 
@@ -59,17 +52,10 @@ const ChatModal: React.FC = () => {
       modalOverlayRef.current.addEventListener('click', handleClickOutside);
     }
 
-    if (chatIframeRef.current) {
-      chatIframeRef.current.addEventListener('load', handleIframeLoad);
-    }
-
     return () => {
       window.removeEventListener('resize', handleResize);
       if (modalOverlayRef.current) {
         modalOverlayRef.current.removeEventListener('click', handleClickOutside);
-      }
-      if (chatIframeRef.current) {
-        chatIframeRef.current.removeEventListener('load', handleIframeLoad);
       }
     };
   }, []);

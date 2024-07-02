@@ -2,10 +2,16 @@ import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import ClientProviders from "../app";
 import "../ui/globals.css";
-import ChatModal from "@/components/chatbots/ChatModal";
-import dynamic from "next/dynamic";
+import { Metadata } from "next";
 
-const ChatBot = dynamic(() => import("@/components/chatbots/ChatBot"), {ssr: false});
+export const metadata: Metadata = {
+  title: {
+    template: '%s | Todaha',
+    default: 'Todaha',
+  },
+  description: 'Todaha AI customer support assistant dashboard',
+  metadataBase: new URL('https://todaha-chat.com/he/'),
+};
 
 
 export default async function LocaleLayout({
@@ -21,7 +27,6 @@ export default async function LocaleLayout({
   return (
     
     <html lang={locale}>
-      <></>
       <body>
         <NextIntlClientProvider messages={messages}>
           <ClientProviders>{children}</ClientProviders>
