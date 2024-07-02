@@ -27,6 +27,9 @@ export default async function LocaleLayout({
   return (
     
     <html lang={locale}>
+      <head>
+      <meta name="facebook-domain-verification" content="je21x2p0aiqdhq8tztmvk0brmrq974" />
+        </head>
       <body>
         <NextIntlClientProvider messages={messages}>
           <ClientProviders>{children}</ClientProviders>
