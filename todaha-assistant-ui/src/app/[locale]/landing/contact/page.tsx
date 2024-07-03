@@ -3,19 +3,21 @@ import FormInput from "@/components/forms/FormInput";
 import { Button } from "@/components/daisyui";
 import useContact from "./use-contact";
 import Topbar from "../components/Topbar";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 
 export default function Page() {
   const { isLoading, control, onSubmit } =
     useContact();
     const  t  = useTranslations("common");
-
+    const locale = useLocale();
+    const isRTL = locale === "he";
+  
 
   return (
     <>
       <Topbar />
-      <div className="grid h-screen lg:grid-cols-3 items-center p-10 sm:grid-cols-1">
+      <div className="grid h-screen lg:grid-cols-3 items-center p-10 sm:grid-cols-1" style={{ direction: isRTL ? "rtl" : "ltr" }}>
         <div className=""></div>
         <div className="flex flex-col items-stretch self-center">
           <div className="flex items-center  justify-between"></div>
