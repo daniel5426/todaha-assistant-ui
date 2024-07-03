@@ -136,7 +136,7 @@ export const App = () => {
                 ref={chatElementRef}
                 style={{
                   height: he,
-                  width: window.innerWidth > 400 ? we : `${window.innerWidth - 10}px`,
+                  width: window.innerWidth > 400 ? we : `${window.innerWidth - 20}px`,
                   borderRadius: "7px",
                   border: "unset",
                   borderColor: "#dcdcdc",
