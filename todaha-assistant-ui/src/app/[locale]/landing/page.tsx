@@ -9,29 +9,26 @@ import Topbar from "./components/Topbar";
 import Package from "./components/Package";
 import { useLocale } from "next-intl";
 import dynamic from "next/dynamic";
-const ChatBot = dynamic(() => import('@/components/chatbots/ChatBot'), {
-    ssr: false,
-  });
-  
+const ChatBot = dynamic(() => import("@/components/chatbots/ChatBot"), {
+  ssr: false,
+});
+
 //<Package />
 //<FAQ />
 
-  
-
 export default function Page() {
-    const locale = useLocale();
-    const isRTL = locale === "he";
-  
-    return (
-<div >
-    <ChatBot />
-        <Topbar />
-            <Hero />
-            <Feature />
-            <Showcase />
-            <Testimonial />
-            <Package />
-            <Footer />
-      </div>
-    );
-};
+  const locale = useLocale();
+  const isRTL = locale === "he";
+
+  return (
+    <>
+      <Topbar />
+      <Hero />
+      <Feature />
+      <Showcase />
+      <Testimonial />
+      <Package />
+      <Footer />
+    </>
+  );
+}

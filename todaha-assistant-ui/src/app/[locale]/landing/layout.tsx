@@ -10,13 +10,10 @@ import ChatModal from '@/components/chatbots/ChatModal';
  
 export default function Layout({ children }: { children: any }) {
   return (
-    <div >
     <LandingLayout>
 
       {children}
-      <ChatModal />
 
       </LandingLayout>
-      </div >
   );
 }

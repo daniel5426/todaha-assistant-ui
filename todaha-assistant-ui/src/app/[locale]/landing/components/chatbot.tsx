@@ -88,15 +88,25 @@ const Chatbot = () => {
     return requestDetails;
   };
 
-  // Open WhatsApp in a new tab
-  const handleWhatsAppClick = () => {
-    window.open("https://wa.me/yourwhatsappnumber", "_blank");
-  };
+  useEffect(() => {
+    const handleResize = () => {
+      if (chatElementRef.current) {
+        const width = window.innerWidth < 700 ? window.innerWidth - 100 : 630; // 20px margin for smaller screens
+        chatElementRef.current.style.width = `${width}px`;
+      }
+    };
 
-  // Open Facebook in a new tab
-  const handleFacebookClick = () => {
-    window.open("https://www.facebook.com/yourfacebookpage", "_blank");
-  };
+    // Initial adjustment
+    handleResize();
+
+    // Add event listener
+    window.addEventListener('resize', handleResize);
+
+    // Clean up event listener
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   // Reset the chat messages
   const handleResetClick = () => {

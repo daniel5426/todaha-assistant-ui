@@ -7,9 +7,8 @@ export default function LandingLayout({ children }: { children: React.ReactNode 
   const locale = useLocale();
   const isRTL = locale === "he";
   return (
-    <><div className="size-full" style={{ direction: isRTL ? "rtl" : "ltr" }}>
+    <><div className="">
       {children}
-      <Toaster richColors />
 
       <div className="fixed bottom-5 end-5 z-10 ">
         <ThemeToggleButton

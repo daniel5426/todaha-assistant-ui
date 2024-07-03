@@ -74,7 +74,7 @@ export const App = () => {
   };
 
   return (
-    <div className="bottom-3 right-3 flex fixed" style={{ zIndex: 9900 , direction: "ltr"}}>
+    <div className="fixed bottom-3 right-3 flex" style={{ direction: "ltr", zIndex: 9999}}>
       <div className="relative inline-block text-left">
         <button
           onClick={toggleChatVisibility}
