@@ -59,7 +59,9 @@ const ChatModal: React.FC = () => {
       }
       adjustIframeSize();
     };
-    adjustIframeSize();
+    setTimeout(() => {
+      adjustIframeSize();
+        }, 500);
 
 
     window.addEventListener('resize', handleResize);
