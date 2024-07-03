@@ -69,68 +69,6 @@ const Hero = () => {
                 </Link>
               </div>
               </div>
-              <div className="mt-8 ">
-                <p className="font-medium text-base-content/70" style={{ textAlign: isRTL ? "right": "left"}}>
-                  {" "}
-                  {t("integration")}
-                </p>
-                <div className="mt-3 flex gap-5" style={{ paddingLeft: isRTL ? "100px": "0px"}}>
-                  <Tooltip message={"whatssapp"}>
-                    <img
-                      src={whatsappImg.src}
-                      className="size-7"
-                      width={28}
-                      height={28}
-                      alt="Next"
-                    />
-                  </Tooltip>
-                  <Tooltip message={"facebook"}>
-                    <img
-                      src={facebookImg.src}
-                      className="size-7"
-                      width={28}
-                      height={28}
-                      alt="Javascript"
-                    />
-                  </Tooltip>
-                  <Tooltip message={"maill"}>
-                    <img
-                      src={gmailImg.src}
-                      className="size-7"
-                      width={28}
-                      height={28}
-                      alt="Typescript"
-                    />
-                  </Tooltip>
-                  <Tooltip message={"shopify"}>
-                    <img
-                      src={shopifyImg.src}
-                      className="size-7"
-                      width={28}
-                      height={28}
-                      alt="React"
-                    />
-                  </Tooltip>
-                  <Tooltip message={"Wordpress"}>
-                    <img
-                      src={wordpressImg.src}
-                      className="size-7"
-                      width={28}
-                      height={28}
-                      alt="Vite"
-                    />
-                  </Tooltip>
-                  <Tooltip message={"messages"}>
-                    <img
-                      src={commentImg.src}
-                      className="size-7 dark:invert"
-                      width={28}
-                      height={28}
-                      alt="Next"
-                    />
-                  </Tooltip>
-                </div>
-              </div>
             </div>
             <div className="order-1 xl:order-2 xl:col-span-4 self-center justify-center" style={{ direction: isRTL ? "rtl" : "ltr" }}>
                 <Chatbot />

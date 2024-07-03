@@ -28,7 +28,7 @@ const ChatModal: React.FC = () => {
         chatIframeRef.current.contentWindow.postMessage({
           type: 'resize',
           width: screenWidth - 20,
-          height: screenHeight/2,
+          height: screenHeight/1.5,
         }, '*');
       } else if (chatIframeRef.current?.contentWindow){
         chatIframeRef.current.contentWindow.postMessage({
