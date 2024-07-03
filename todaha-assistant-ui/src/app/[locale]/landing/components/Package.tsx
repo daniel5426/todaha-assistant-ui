@@ -34,7 +34,8 @@ const Package = () => {
                         <p className="mt-8 text-sm text-base-content/70">{t("Perfect for small bussisness")}</p>
                         <div className="mt-2 flex items-center justify-between">
                             <p className="text-xl font-medium">{t("Starter")}</p>
-                            <p className="text-2xl font-semibold">{t("$300")}</p>
+                            <p className="text-2xl font-semibold text-blue-600">{t("Free")}</p>
+                            <p className="mt-2 text-sm text-base-content/70">{t("The first month")}</p>
                         </div>
                         <p className="mt-8 text-sm text-base-content/70">{t("What's Included:")}</p>
                         <div className="mt-3 space-y-2">
