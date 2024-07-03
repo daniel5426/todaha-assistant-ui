@@ -5,40 +5,41 @@ const ChatModal: React.FC = () => {
   const modalOverlayRef = useRef<HTMLDivElement>(null);
   const chatIframeRef = useRef<HTMLIFrameElement>(null);
 
+  const adjustIframeSize = () => {
+    const screenWidth = window.innerWidth;
+    const screenHeight = window.innerHeight;
+    const width = 630;
+    const height = 640;
+    
+    if (chatIframeRef.current) {
+      if (screenWidth < width + 70) {
+        chatIframeRef.current.style.width = `${screenWidth - 20}px`;
+        chatIframeRef.current.style.height = `${screenHeight/1.5}px`;
+        chatIframeRef.current.style.borderRadius = '15px';
+      } else {
+        chatIframeRef.current.style.width = `${width}px`;
+        chatIframeRef.current.style.height = `${height}px`;
+        chatIframeRef.current.style.borderRadius = '15px';
+      }
+    }
+
+    if (chatIframeRef.current?.contentWindow && screenWidth < width + 70) { // Adjust the width threshold as needed
+      chatIframeRef.current.contentWindow.postMessage({
+        type: 'resize',
+        width: screenWidth - 20,
+        height: screenHeight/1.5,
+      }, '*');
+    } else if (chatIframeRef.current?.contentWindow){
+      chatIframeRef.current.contentWindow.postMessage({
+        type: 'resize',
+        width: width,
+        height: height,
+      }, '*');
+    }
+  };
+
+
   useEffect(() => {
-    const adjustIframeSize = () => {
-      const screenWidth = window.innerWidth;
-      const screenHeight = window.innerHeight;
-      const width = 630;
-      const height = 640;
-      
-      if (chatIframeRef.current) {
-        if (screenWidth < width + 70) {
-          chatIframeRef.current.style.width = `${screenWidth - 20}px`;
-          chatIframeRef.current.style.height = `${screenHeight/1.5}px`;
-          chatIframeRef.current.style.borderRadius = '15px';
-        } else {
-          chatIframeRef.current.style.width = `${width}px`;
-          chatIframeRef.current.style.height = `${height}px`;
-          chatIframeRef.current.style.borderRadius = '15px';
-        }
-      }
-
-      if (chatIframeRef.current?.contentWindow && screenWidth < width + 70) { // Adjust the width threshold as needed
-        chatIframeRef.current.contentWindow.postMessage({
-          type: 'resize',
-          width: screenWidth - 20,
-          height: screenHeight/1.5,
-        }, '*');
-      } else if (chatIframeRef.current?.contentWindow){
-        chatIframeRef.current.contentWindow.postMessage({
-          type: 'resize',
-          width: width,
-          height: height,
-        }, '*');
-      }
-    };
-
     const handleResize = () => {
       adjustIframeSize();
     };
@@ -80,6 +81,7 @@ const ChatModal: React.FC = () => {
       <button
         id="chat-toggle"
         onClick={() => {
+          adjustIframeSize();
           if (modalOverlayRef.current) {
             modalOverlayRef.current.style.display = 'block';
             modalOverlayRef.current.style.opacity = '0';
