@@ -14,14 +14,26 @@ const ChatModal: React.FC = () => {
       
       if (chatIframeRef.current) {
         if (screenWidth < width + 70) {
-          chatIframeRef.current.style.width = `${screenWidth - 70}px`;
-          chatIframeRef.current.style.height = `${screenHeight - 70}px`;
+          chatIframeRef.current.style.width = `${screenWidth - 20}px`;
           chatIframeRef.current.style.borderRadius = '15px';
         } else {
           chatIframeRef.current.style.width = `${width}px`;
-          chatIframeRef.current.style.height = `${height}px`;
           chatIframeRef.current.style.borderRadius = '15px';
         }
+      }
+
+      if (chatIframeRef.current?.contentWindow && screenWidth < width + 70) { // Adjust the width threshold as needed
+        chatIframeRef.current.contentWindow.postMessage({
+          type: 'resize',
+          width: screenWidth - 20,
+          height: screenHeight*(height/width),
+        }, '*');
+      } else if (chatIframeRef.current?.contentWindow){
+        chatIframeRef.current.contentWindow.postMessage({
+          type: 'resize',
+          width: 500,
+          height: 600,
+        }, '*');
       }
     };
 
@@ -44,6 +56,7 @@ const ChatModal: React.FC = () => {
       }
       adjustIframeSize();
     };
+    adjustIframeSize();
 
 
     window.addEventListener('resize', handleResize);

@@ -17,11 +17,9 @@ const ChatBot = dynamic(() => import("@/components/chatbots/ChatBot"), {
 //<FAQ />
 
 export default function Page() {
-  const locale = useLocale();
-  const isRTL = locale === "he";
-
   return (
     <>
+        <ChatBot />
       <Topbar />
       <Hero />
       <Feature />

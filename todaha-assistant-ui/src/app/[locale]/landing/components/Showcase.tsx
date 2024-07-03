@@ -9,12 +9,11 @@ import { useState } from "react";
 import Link from "next/link";
 
 import { Button } from "@/components/daisyui";
-import useTranslation from "next-translate/useTranslation";
 import wand2Icon from "@iconify/icons-lucide/wand-2";
 
 import Icon from "@/components/Icon";
 import routes from "@/services/routes";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import heroLandingImg from "@/assets/images/landing/landing1.png";
 import confImg from "@/assets/images/landing/conf1.png";
 import confDarkImg from "@/assets/images/landing/conf2.png";
@@ -25,6 +24,8 @@ const Showcase = () => {
   const [rating, setRating] = useState(4);
 
   const [toast, setToast] = useState(false);
+  const locale = useLocale();
+  const isRTL = locale === "he";
 
   const showToast = () => {
     setToast(true);
@@ -36,19 +37,19 @@ const Showcase = () => {
 
   return (
     <div className=" mt-56" id="features">
-              <div className="text-center">
-          <div className="inline-block rounded border border-indigo-500/5 bg-indigo-500/5 p-2.5">
-            <Icon icon={wand2Icon} fontSize={20} className="text-indigo-600" />
-          </div>
-          <p className="mt-2 text-4xl font-semibold">{t("Our Platform")}</p>
+      <div className="text-center">
+        <div className="inline-block rounded border border-indigo-500/5 bg-indigo-500/5 p-2.5">
+          <Icon icon={wand2Icon} fontSize={20} className="text-indigo-600" />
         </div>
+        <p className="mt-2 text-4xl font-semibold" >{t("Our Platform")}</p>
+      </div>
       <div className="container relative py-24">
         <div
           className="absolute -start-8 -top-8 size-[350px] bg-cover bg-center bg-no-repeat opacity-20 dark:hidden sm:size-[600px]"
           style={{ backgroundImage: `url(${bgVector1Img})` }}
         ></div>
         <div className="relative z-10 grid gap-12 lg:grid-cols-6 lg:gap-24 mb-36">
-          <div className="lg:col-span-3">
+          <div className="lg:col-span-3" style={{ direction: isRTL? "rtl": "ltr"}}>
             <div className="inline-block rounded border border-teal-500/5 bg-teal-500/5 p-2.5">
               <Icon icon={boxIcon} fontSize={20} className="text-teal-600" />
             </div>
@@ -84,23 +85,7 @@ const Showcase = () => {
           </div>
         </div>
         <div className="relative z-10 grid gap-12 lg:grid-cols-6 lg:gap-24">
-          <div className="md:col-span-3">
-            <div className="">
-              <Image
-                src={confImg}
-                className="inline rounded-md shadow-xl dark:hidden"
-                width={1000}
-                alt="third-image"
-              />
-              <Image
-                src={confDarkImg}
-                className="hidden rounded-md shadow-xl dark:inline"
-                width={1000}
-                alt="third-image"
-              />
-            </div>
-          </div>
-          <div className="lg:col-span-3">
+          <div className="lg:col-span-3" style={{ direction: isRTL? "rtl": "ltr"}}>
             <div className="inline-block rounded border border-teal-500/5 bg-teal-500/5 p-2.5">
               <Icon icon={boxIcon} fontSize={20} className="text-teal-600" />
             </div>
@@ -118,6 +103,23 @@ const Showcase = () => {
               </Link>
             </div>
           </div>
+          <div className="md:col-span-3">
+            <div className="">
+              <Image
+                src={confImg}
+                className="inline rounded-md shadow-xl dark:hidden"
+                width={1000}
+                alt="third-image"
+              />
+              <Image
+                src={confDarkImg}
+                className="hidden rounded-md shadow-xl dark:inline"
+                width={1000}
+                alt="third-image"
+              />
+            </div>
+          </div>
+
         </div>
       </div>
     </div>

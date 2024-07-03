@@ -8,7 +8,7 @@ import wordpressImg from "@/assets/images/landing/wordpress.png";
 import commentImg from "@/assets/images/landing/comment.png";
 import airplayIcon from "@iconify/icons-lucide/airplay";
 import Link from "next/link";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { Button, Loading, Tooltip } from "@/components/daisyui";
 import Icon from "@/components/Icon";
 import routes from "@/services/routes";
@@ -31,6 +31,10 @@ const Hero = () => {
     return () => clearTimeout(timer);
   }, []);
 
+  const locale = useLocale();
+  const isRTL = locale === "he";
+
+
   return (
     <div>
       <div
@@ -48,6 +52,7 @@ const Hero = () => {
         <div className="container relative z-10 py-20 xl:py-40">
           <div className="grid items-center  gap-8 xl:grid-cols-7 xl:gap-20">
             <div className="order-2 xl:order-1 xl:col-span-3">
+              <div style={{ direction: isRTL ? "rtl" : "ltr" }}>
               <p className="text-5xl font-semibold leading-normal">
                 {t("HOME_HERRO")}
               </p>
@@ -63,13 +68,14 @@ const Hero = () => {
                   </Button>
                 </Link>
               </div>
-              <div className="mt-8">
-                <p className="font-medium text-base-content/70">
+              </div>
+              <div className="mt-8 ">
+                <p className="font-medium text-base-content/70" style={{ textAlign: isRTL ? "right": "left"}}>
                   {" "}
                   {t("integration")}
                 </p>
-                <div className="mt-3 flex gap-5">
-                  <Tooltip message={"daisyUI - Component Library"}>
+                <div className="mt-3 flex gap-5" style={{ paddingLeft: isRTL ? "100px": "0px"}}>
+                  <Tooltip message={"whatssapp"}>
                     <img
                       src={whatsappImg.src}
                       className="size-7"
@@ -126,7 +132,7 @@ const Hero = () => {
                 </div>
               </div>
             </div>
-            <div className="order-1 xl:order-2 xl:col-span-4">
+            <div className="order-1 xl:order-2 xl:col-span-4 self-center justify-center" style={{ direction: isRTL ? "rtl" : "ltr" }}>
                 <Chatbot />
             </div>
           </div>

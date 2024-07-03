@@ -7,7 +7,7 @@ export default function LandingLayout({ children }: { children: React.ReactNode 
   const locale = useLocale();
   const isRTL = locale === "he";
   return (
-    <><div className="">
+    <><div className="" style={{ direction: isRTL ? "rtl" : "ltr" }}>
       {children}
 
       <div className="fixed bottom-5 end-5 z-10 ">

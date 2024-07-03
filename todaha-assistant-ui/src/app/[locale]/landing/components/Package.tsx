@@ -7,12 +7,15 @@ import Link from "next/link";
 
 import Icon from "@/components/Icon";
 import routes from "@/services/routes";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 const Package = () => {
     const t = useTranslations("package");
+    const locale = useLocale();
+    const isRTL = locale === "he";
+  
     return (
-        <div className="">
+        <div className="" style={{ direction: isRTL ? "rtl" : "ltr" }}>
             <div className="container py-24">
                 <div className="text-center">
                     <div className="inline-block rounded border border-green-500/5 bg-green-500/5 p-2.5">

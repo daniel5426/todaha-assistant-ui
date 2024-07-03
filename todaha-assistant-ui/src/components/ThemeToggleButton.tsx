@@ -12,9 +12,9 @@ const ThemeToggleButton = (props: ButtonProps) => {
 
     return (
         <>
-            <Button {...props} onClick={() => changeTheme(state.theme == "dark" ? "light" : "dark")}>
-                {state.theme == "dark" && <Icon icon={sunIcon} fontSize={20} />}
-                {state.theme == "light" && <Icon icon={moonIcon} fontSize={20} />}
+            <Button {...props} onClick={() => changeTheme(state.theme == "dark" ? "light" : "dark")} className=" bg-sky-500">
+                {state.theme == "light" && <Icon icon={sunIcon} fontSize={20} />}
+                {state.theme == "dark" && <Icon icon={moonIcon} fontSize={20} />}
             </Button>
         </>
     );
