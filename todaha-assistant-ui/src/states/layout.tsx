@@ -8,7 +8,7 @@ import useLocalStorage from "@/hooks/use-local-storage";
 import { ILayoutState } from "@/types/layout/admin";
 
 const INIT_STATE: ILayoutState = {
-    theme: "dark",
+    theme: "light",
     leftbar: {
         hide: false,
         drawerOpen: false,
