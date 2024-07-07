@@ -3,7 +3,7 @@ import { NextResponse, type NextRequest } from 'next/server';
 
 // Internationalization middleware
 const intlMiddleware = createMiddleware({
-  locales: ['en', 'he'],
+  locales: ['en', 'he', 'fr'],
   defaultLocale: 'he'
 });
 
