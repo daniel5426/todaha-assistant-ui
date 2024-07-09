@@ -62,7 +62,7 @@ const Testimonial = () => {
                         <Icon icon={starIcon} className="text-orange-400 svg-path:fill-orange-400" fontSize={20} />
                     </div>
                     <p className="mt-4 inline-block max-w-[600px] text-center">
-                        {t("client_1")}
+                        {t("client_2")}
                     </p>
                     <p className="mt-8 text-lg font-medium">Daniel Ben Yeshoua</p>
                     <p className="text-sm text-base-content/70">CTO of Todaha Corp</p>
