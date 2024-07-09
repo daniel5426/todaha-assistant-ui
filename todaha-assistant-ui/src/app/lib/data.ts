@@ -88,7 +88,6 @@ export async function fetchChats(page: number, num_per_page: number = 7): Promis
 export async function fetchChat(page: number, num_per_page: number = 7): Promise<any[]> {
   // Retrieve the token from cookies
   const token = Cookies.get('token');
-  console.log("-------------------", token);
   
   // Construct the fetch request
   const response = await fetch(`${api_url}/admin/get-chats-history?index=${page}&number=${num_per_page}`, {
@@ -140,7 +139,6 @@ export async function deleteFile(file_id: any) {
 
 export async function register(data: any): Promise<any> {
     const response = await axiosInstance.post(`/auth/register`, data);
-    console.log(response);
     if (response.status === 400) {
         return response;
     }
@@ -149,13 +147,11 @@ export async function register(data: any): Promise<any> {
 }
 
 export async function get_token(data: any): Promise<Token> {
-  console.log(data);
   const response = await axiosInstance.post(`/auth/token`, data, {
     headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
     }
 });
-  console.log(response);
   return  response.data;
 }
 

@@ -63,7 +63,6 @@ const Chatbot = () => {
             params: { assistant_id: assistantId },
           }
         );
-        console.log("Thread ID: ", response.data.thread_id);
         setThreadId(response.data.thread_id);
       } catch (error) {
         console.error(error);

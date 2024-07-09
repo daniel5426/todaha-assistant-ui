@@ -82,7 +82,6 @@ export default function ChatList ()  {
   const t = useTranslations("dashboard");
   const locale = useLocale();
 
-  console.log(locale);
 
   const handleStart = () => {
     // Load the first page of chats

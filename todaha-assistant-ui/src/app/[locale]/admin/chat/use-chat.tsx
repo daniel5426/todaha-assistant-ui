@@ -26,7 +26,6 @@ const useChatHook = (resource: any) => {
       const transformedChats = transformChatsToIChat(fetchedChats, page);
       setCurrentPage(page);
       setChats(transformedChats);
-      console.log("Fetched Chats:", transformedChats);
     } catch (error) {
       console.error("Error fetching chats:", error);
       setIsPending(false);

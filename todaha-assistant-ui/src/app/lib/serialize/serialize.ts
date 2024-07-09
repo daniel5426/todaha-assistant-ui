@@ -29,7 +29,6 @@ const imageUrls = [
 
 export function transformChatsToIChat(chats: any[], page: number): IChat[] {
     return chats.map((chat, index) => {
-        console.log("chat", chat);
         const messages = chat.data.reverse().map((message: any) => ({
             message: message.content[0].text.value,
             send_at: new Date(message.created_at * 1000),
@@ -113,7 +112,6 @@ export function processStatistics(
         ) {
             const threadCount = entry.thread_count;
             const messageCount = entry.client_message_count;
-            console.log("entryDate", entryDate);
 
             // Check if the entry is today
             if (entryDate === todayString) {
@@ -126,7 +124,6 @@ export function processStatistics(
             const diffDays = Math.floor(
                 (today.getTime() - entryDateTime.getTime()) / (1000 * 3600 * 24)
             );
-            console.log("diffDays", diffDays);
             if (diffDays >= 0 && diffDays < 30) {
                 last30DaysStats[diffDays].thread_count += threadCount;
                 last30DaysStats[diffDays].client_message_count += messageCount;
@@ -150,7 +147,6 @@ export function hourlyStats(
     stats: DashboardChartStats[],
     dayly_stats: IGraphStatSeries[]
 ): IGraphStat {
-    console.log("stats", stats);
     const hourly_stats = stats.map((stat, index) => {
         const today = new Date();
 
@@ -171,7 +167,6 @@ export function hourlyStats(
           0, 0, 0, 0
         );
         
-        console.log(today_midnight);
                 return {
             date: DateUtil.minusHours(-index, today_midnight),
             value1: stat.thread_count || 0,
@@ -201,7 +196,6 @@ export function hourlyStats(
     }
     var today_t = dayly_stats[today_index].value1;
     var yesterday_t = dayly_stats[today_index - 1].value1;
-    console.log("today_t", today_t, "yesterday_t", yesterday_t)
     var threadPercent = 34;
     if (yesterday_t < today_t) {
         yesterday_t = yesterday_t === 0 ? 1 : yesterday_t;
@@ -213,7 +207,6 @@ export function hourlyStats(
     } else {
         threadPercent = 0;
     }
-    console.log("kkkkkkkk", threadPercent)
 
     return {
         total1: totalThread,
@@ -282,7 +275,6 @@ export function monthlyStats(stats: DashboardChartStats[]): IGraphStat {
         ? (last7DaysMessageCount > 0 ? 100 : 0) 
         : ((last7DaysMessageCount - previous7DaysMessageCount) / previous7DaysMessageCount) * 100;
 
-    console.log("month_stats", month_stats);
 
     return {
         total1: totalThread,
@@ -296,7 +288,6 @@ export function monthlyStats(stats: DashboardChartStats[]): IGraphStat {
 export function statsToChartData(stats: ServerStat[]): any {
     const [todayStats, last30DaysStats, last3MonthsStats] =
         processStatistics(stats);
-    console.log("last7DaysStats", last30DaysStats);
 
     // Process the data to calculate hourly, daily, monthly, and yearly stats
     const dailyData = daylyStats(last30DaysStats.slice(0, 7));

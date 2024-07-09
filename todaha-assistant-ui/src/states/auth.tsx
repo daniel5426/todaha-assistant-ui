@@ -40,7 +40,6 @@ const useHook = () => {
 
   const updateUserInfo = async () => {
     const user_info = await get_user_info();
-    console.log(user_info);
     setLoggedInUser(user_info);
   };
 
