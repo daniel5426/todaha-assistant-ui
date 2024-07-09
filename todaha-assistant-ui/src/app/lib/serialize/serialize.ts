@@ -313,8 +313,8 @@ export function StatsToCounterData(
         icon: usersIcon,
         amount: stats.day.total1,
         title: "Clients helped this week",
-        changes: Number((stats.month.percent1).toFixed(1)),
-        changesAmount: Number((stats.month.percent1!==0?(stats.month.total1 * 100) / stats.month.percent1:0).toFixed(1)),
+        changes: Number((stats.day.percent1).toFixed(1)),
+        changesAmount: Number((stats.day.percent1!==0?(stats.day.total1 * 100) / stats.day.percent1:0).toFixed(1)),
         inMoney: false,
         subTitle: "than past week",
     };
@@ -324,8 +324,8 @@ export function StatsToCounterData(
         amount: stats.month.series[thisMonth].value2,
         title: "AI Messages this month",
         changes:
-        stats.month.series[thisMonth - 1].value2!==0?(stats.month.series[thisMonth].value2 * 100) /
-            stats.month.series[thisMonth - 1].value2:(stats.month.series[thisMonth].value2!==0?100:0),
+        Number((stats.month.series[thisMonth - 1].value2!==0?(stats.month.series[thisMonth].value2 ) /
+            stats.month.series[thisMonth - 1].value2 * 100:(stats.month.series[thisMonth].value2!==0?100:0)).toFixed(1)),
         changesAmount:
             stats.month.series[thisMonth].value2 -
             stats.month.series[thisMonth - 1].value2,
@@ -342,8 +342,8 @@ export function StatsToCounterData2(
         icon: usersIcon,
         amount: stats.day.total1,
         title: "Clients helped this week",
-        changes: Number((stats.month.percent1).toFixed(1)),
-        changesAmount: Number((stats.month.percent1!==0?(stats.month.total1 * 100) / stats.month.percent1:0).toFixed(1)),
+        changes: Number((stats.day.percent1).toFixed(1)),
+        changesAmount: Number((stats.day.percent1!==0?(stats.day.total1 * 100) / stats.day.percent1:0).toFixed(1)),
         inMoney: false,
         subTitle: "than past week",
     };
@@ -351,17 +351,17 @@ export function StatsToCounterData2(
         icon: usersIcon,
         amount: Number((stats.day.total1/7).toFixed(1)),
         title: "avg conversation per day - this week",
-        changes: Number((stats.month.percent1).toFixed(1)),
-        changesAmount: Number(((stats.month.percent1!==0?(stats.month.total1 * 100) / stats.month.percent1:0)/7).toFixed(1)),
+        changes: Number((stats.day.percent1).toFixed(1)),
+        changesAmount: Number(((stats.day.percent1!==0?(stats.day.total1 * 100) / stats.day.percent1:0)/7).toFixed(1)),
         inMoney: false,
         subTitle: "than past week",
     };
     const daylyAvgmessages = {
         icon: usersIcon,
-        amount: Number(((stats.month.total2)/7).toFixed(1)),
+        amount: Number(((stats.day.total2)/7).toFixed(1)),
         title: "avg messages per day - this week",
-        changes: Number((stats.month.percent2).toFixed(1)),
-        changesAmount: Number(((stats.month.percent2!==0?(stats.month.total2 * 100) / stats.month.percent2:0)/7).toFixed(1)),
+        changes: Number((stats.day.percent1).toFixed(1)),
+        changesAmount: Number(((stats.day.percent2!==0?(stats.day.total2 * 100) / stats.day.percent2:0)/7).toFixed(1)),
         inMoney: false,
         subTitle: "than past week",
     };
@@ -372,8 +372,8 @@ export function StatsToCounterData2(
         amount: stats.month.series[thisMonth].value2,
         title: "AI Messages this month",
         changes:
-        stats.month.series[thisMonth - 1].value2!==0?(stats.month.series[thisMonth].value2 * 100) /
-            stats.month.series[thisMonth - 1].value2:(stats.month.series[thisMonth].value2!==0?100:0),
+        Number((stats.month.series[thisMonth - 1].value2!==0?(stats.month.series[thisMonth].value2 ) /
+            stats.month.series[thisMonth - 1].value2 * 100:(stats.month.series[thisMonth].value2!==0?100:0)).toFixed(1)),
         changesAmount:
             stats.month.series[thisMonth].value2 -
             stats.month.series[thisMonth - 1].value2,

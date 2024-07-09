@@ -31,7 +31,7 @@ const SingleCounter = ({ counter }: { counter: CounterCard }) => {
                                 {amount}
                             </h5>
                             <>
-                                {changes !== 0?(changes > 0 ? (
+                                {changesAmount !== 0?(changesAmount > 0 ? (
                                     <Badge
                                         className="gap-1 border-0 bg-success/10 py-3 text-xs font-semibold text-success"
                                         size="sm">
@@ -43,7 +43,7 @@ const SingleCounter = ({ counter }: { counter: CounterCard }) => {
                                         className="gap-1 border-0 bg-error/10 py-3 text-xs font-semibold text-error"
                                         size="sm">
                                         <Icon icon={arrowDownIcon} fontSize={14} />
-                                        {-changes}%
+                                        { 100 - changes}%-
                                     </Badge>
                                 )):(
                                     <Badge
@@ -61,9 +61,9 @@ const SingleCounter = ({ counter }: { counter: CounterCard }) => {
                 </div>
 
                 <p className="text-sm font-medium">
-                    <span className={changes !== 0?(changes > 0 ? "text-success" : "text-error"):"text-warning"}>
-                        {changes !== 0?(changes > 0 ? "+" : "-"):""}
+                    <span className={changesAmount !== 0?(changesAmount > 0 ? "text-success" : "text-error"):"text-warning"}>
                         {Math.abs(changesAmount)}
+                        {changesAmount !== 0?(changesAmount > 0 ? "+" : "-"):""}
                     </span>
                     <span className="ms-1.5 text-base-content/60">{t(subTitle)}</span>
                 </p>
