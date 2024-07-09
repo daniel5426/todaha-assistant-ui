@@ -10,16 +10,18 @@ import { Button, Link } from "@/components/daisyui";
 import Icon from "@/components/Icon";
 import routes from "@/services/routes";
 import useTranslation from "next-translate/useTranslation";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 const Footer =  () => {
     const  t  = useTranslations('common');
+    const locale = useLocale();
+    const isRTL = locale === "he";
 
     return (
         <div className="">
             <div className="container py-16">
                 <div className="relative grid items-center overflow-hidden rounded-xl bg-primary/5 py-0 lg:grid-cols-3">
-                    <div className="col-span-2 p-4 text-center md:p-8">
+                    <div className="col-span-2 p-4 text-center md:p-8" style={{ direction: isRTL ? "rtl" : "ltr" }}>
                         <p className="text-xl font-medium md:text-2xl"> {t("footer_h")}</p>
                         <p className="mt-4 text-base-content/70"> {t("footer_b1")}
                         <br/>  {t("footer_b2")} </p>

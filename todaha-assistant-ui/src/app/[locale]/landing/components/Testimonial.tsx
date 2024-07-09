@@ -9,17 +9,19 @@ import starIcon from "@iconify/icons-lucide/star";
 import useTranslation from "next-translate/useTranslation";
 
 import Icon from "@/components/Icon";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 const Testimonial = () => {
     const  t  = useTranslations('common');
-
+    const locale = useLocale();
+    const isRTL = locale === "he";
+  
     return (
         <section id="testimonial" className="container relative py-8 lg:py-24 mt-40">
             <div
                 className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-15 dark:opacity-50"
                 style={{ backgroundImage: `url(${worldMapLandingImg})` }}></div>
-            <div className="relative">
+            <div className="relative"  style={{ direction: isRTL ? "rtl" : "ltr" }}>
                 <div className="text-center">
                     <div className="inline-block rounded border border-orange-500/5 bg-orange-500/5 p-2.5">
                         <Icon icon={sparklesIcon} fontSize={20} className="text-orange-600" />

@@ -6,11 +6,14 @@ import pencilRulerIcon from "@iconify/icons-lucide/pencil-ruler";
 import wand2Icon from "@iconify/icons-lucide/wand-2";
 import useTranslation from "next-translate/useTranslation";
 import Icon from "@/components/Icon";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 
 const Feature = () => {
   const  t  = useTranslations('common');
+  const locale = useLocale();
+  const isRTL = locale == "he";
+
 
   const features = [
     {
@@ -38,7 +41,7 @@ const Feature = () => {
   ] as const;
   
   return (
-    <div className="relative z-10 mt-20">
+    <div className="relative z-10 mt-20" style={{ direction: isRTL ? "rtl" : "ltr" }}>
       <div className="container py-12 2xl:py-24">
         <div className="text-center">
           <div className="inline-block rounded border border-indigo-500/5 bg-indigo-500/5 p-2.5">
