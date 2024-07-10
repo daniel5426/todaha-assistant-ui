@@ -8,7 +8,7 @@ import { useTranslations } from "next-intl";
 
 export const App = () => {
   const he = "480px";
-  const we = "400px";
+  const we = "360px";
   console.log(he, we);
 
   const chatElementRef = useRef<any>(null);
@@ -96,9 +96,9 @@ export const App = () => {
         {isChatVisible && (
           <div className={`join join-vertical -top-4 absolute right-0 -translate-y-full bg-slate-900 rounded-2xl shadow-xl ring-1 ring-black ring-opacity-0 transition-opacity duration-300 ease-in-out transform ${isAnimating ? 'scale-100 opacity-100' : 'scale-85 opacity-0'}`}>
             <div className="p-2">
-              <div className="flex flex-row rounded-2xl">
+              <div className="flex flex-col rounded-2xl">
                 <div className="flex flex-row items-center ml-3">
-                  <div className="pr-5 p-1">
+                  <div className=" pr-5 p-1">
                     <div className="w-8 h-8 rounded-full">
                       <Image
                         src={LogoImg}
@@ -107,14 +107,37 @@ export const App = () => {
                       />
                     </div>
                   </div>
-                  <span className="text-white self-center">Todaha & Co</span>
+                  <span className="text-white  text-lg  text-center self-center ">Todaha</span>
+
                 </div>
                 <div className="flex flex-row absolute right-2 top-2">
                   <button
                     className="p-1 rounded-full text-white bg-transparent hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-600 mr-1"
                     onClick={handleResetClick}
                   >
-                    {t('reset')}
+    <svg
+    fill="#ffffff"
+    className="w-5 h-5"
+    viewBox="0 0 1920 1920"
+    xmlns="http://www.w3.org/2000/svg"
+    stroke="#ffffff"
+  >
+    <g id="SVGRepo_bgCarrier" stroke-width="0" />
+
+    <g
+      id="SVGRepo_tracerCarrier"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+
+    <g id="SVGRepo_iconCarrier">
+      {" "}
+      <path
+        d="M960 0v213.333c411.627 0 746.667 334.934 746.667 746.667S1371.627 1706.667 960 1706.667 213.333 1371.733 213.333 960c0-197.013 78.4-382.507 213.334-520.747v254.08H640V106.667H53.333V320h191.04C88.64 494.08 0 720.96 0 960c0 529.28 430.613 960 960 960s960-430.72 960-960S1489.387 0 960 0"
+        fill-rule="evenodd"
+      />{" "}
+    </g>
+  </svg>
                   </button>
                   <button
                     className="p-1 rounded-full text-white bg-transparent hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-600"
@@ -145,6 +168,7 @@ export const App = () => {
                 ref={chatElementRef}
                 style={{
                   height: he,
+                  fontSize: "0.95em",
                   width: window.innerWidth > 400 ? we : `${window.innerWidth - 20}px`,
                   borderRadius: "0 0 15px 15px",
                   border: "unset",
@@ -168,8 +192,7 @@ export const App = () => {
                       border: "unset",
                       width: "78%",
                       marginLeft: "-px",
-                      boxShadow:
-                        "0px 0px 3px 2px rgba(0, 0, 0, 0.16)",
+                      boxShadow: "2px 2px 5px rgba(0, 0, 0, 0.16)"
                     },
                     text: {
                       padding: "10px",
@@ -180,7 +203,7 @@ export const App = () => {
                     },
                   },
                   placeholder: {
-                    text: "תשאל אותי כל שאלה",
+                    text: "תשאל אותי כל דבר ...",
                     style: {
                       color: "#606060",
                       textAlign: "right",
