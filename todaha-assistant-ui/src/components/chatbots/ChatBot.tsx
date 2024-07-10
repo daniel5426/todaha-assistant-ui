@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import LogoImg from "./images/1.png";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 
 export const App = () => {
   const he = "480px";
@@ -23,8 +24,10 @@ export const App = () => {
   const [isChatVisible, setIsChatVisible] = useState(false);
   const [reset, setReset] = useState(false);
   const [threadId, setThreadId] = useState(null);
+  const [isAnimating, setAnimating] = useState(false);
 
   const api_url = process.env.NEXT_PUBLIC_API_BASE_URL1;
+  const  t  = useTranslations('common');
 
   useEffect(() => {
     axios
@@ -50,7 +53,13 @@ export const App = () => {
   };
 
   const toggleChatVisibility = () => {
-    setIsChatVisible((prevVisible) => !prevVisible);
+    if (isChatVisible) {
+      setAnimating(false);
+      setTimeout(() => setIsChatVisible(false), 300); // match this duration with the CSS transition duration
+    } else {
+      setIsChatVisible(true);
+      setTimeout(() => setAnimating(true), 10); // allow the state to update before starting the animation
+    }
     setReset((prevReset) => !prevReset);
   };
 
@@ -74,8 +83,9 @@ export const App = () => {
   };
 
   return (
-    <div className="fixed bottom-3 right-3 flex" style={{ zIndex: 9999}}>
+    <div className="fixed bottom-3 right-3 flex" style={{ zIndex: 9999 }}>
       <div className="relative inline-block text-left">
+
         <button
           onClick={toggleChatVisibility}
           className="inline-flex justify-center items-center w-16 h-16 rounded-full bg-slate-900 text-white hover:bg-slate-900 transition-all duration-300 ease-in-out transform hover:scale-110 gap-2"
@@ -84,7 +94,7 @@ export const App = () => {
         </button>
 
         {isChatVisible && (
-          <div className="join join-vertical absolute right-0 z-10 mb-2 origin-bottom-right -translate-y-full bg-slate-900 rounded-2xl shadow-xl ring-1 ring-black ring-opacity-0">
+          <div className={`join join-vertical -top-4 absolute right-0 -translate-y-full bg-slate-900 rounded-2xl shadow-xl ring-1 ring-black ring-opacity-0 transition-opacity duration-300 ease-in-out transform ${isAnimating ? 'scale-100 opacity-100' : 'scale-85 opacity-0'}`}>
             <div className="p-2">
               <div className="flex flex-row rounded-2xl">
                 <div className="flex flex-row items-center ml-3">
@@ -104,13 +114,12 @@ export const App = () => {
                     className="p-1 rounded-full text-white bg-transparent hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-600 mr-1"
                     onClick={handleResetClick}
                   >
-                    reset
+                    {t('reset')}
                   </button>
                   <button
                     className="p-1 rounded-full text-white bg-transparent hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-600"
-                    onClick={closeChatVisibility}
+                    onClick={toggleChatVisibility}
                   >
-                    <span className="sr-only">Close</span>
                     <svg
                       className="h-6 w-6"
                       fill="none"
@@ -137,7 +146,7 @@ export const App = () => {
                 style={{
                   height: he,
                   width: window.innerWidth > 400 ? we : `${window.innerWidth - 20}px`,
-                  borderRadius: "7px",
+                  borderRadius: "0 0 15px 15px",
                   border: "unset",
                   borderColor: "#dcdcdc",
                   backgroundColor: "#f3f6fc",

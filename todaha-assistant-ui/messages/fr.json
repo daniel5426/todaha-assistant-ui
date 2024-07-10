@@ -70,6 +70,7 @@
         "register_b": "Rejoignez la communauté Todaha et débloquez la puissance de l'IA pour transformer votre expérience de service client."
     },
     "common": {
+        "reset": "reset",
         "Login": "Connexion",
         "HOME_HERRO": "Répondez aux questions des clients, instantanément.",
         "Contact": "Contactez-nous",

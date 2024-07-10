@@ -130,10 +130,10 @@ const Chatbot = () => {
           boxShadow: isWhite
             ? "0px 0px 12px 12px rgba(230,233,236)"
             : "0px 0px 12px 12px rgb(11,13,17)",
-          borderRadius: "15px",
+          borderRadius: "20px",
           backgroundColor: isWhite ? "#ffffff" : "#191E23",
         }}
-        avatars={{
+          avatars={{
           ai: {
             src: AIcon.src,
             styles: {

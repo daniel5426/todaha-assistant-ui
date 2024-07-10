@@ -79,7 +79,7 @@ const ChatModal: React.FC = () => {
   }, []);
 
   return (
-    <div id="ai-chat-container" style={{ position: 'fixed', bottom: '90px', right: '20px', zIndex: 1000 }}>
+    <div id="ai-chat-container" style={{ position: 'fixed', bottom: '100px', right: '20px', zIndex: 1000 }}>
       <button
         id="chat-toggle"
         onClick={() => {
