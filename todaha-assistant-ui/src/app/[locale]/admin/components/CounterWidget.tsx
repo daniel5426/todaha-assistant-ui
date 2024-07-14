@@ -7,8 +7,6 @@ import { useMemo } from "react";
 import { Badge, Card, CardBody } from "@/components/daisyui";
 
 import Icon from "@/components/Icon";
-import { getEcommerceDashboardCounterData } from "@/data/dashboards/ecommerce";
-import { IEcommerceDashboardCounter } from "@/types/dashboards/ecommerce";
 import { useStats } from "../use-stats";
 import { StatsToCounterData, StatsToCounterData2 } from "@/app/lib/serialize/serialize";
 import { CounterCard } from "@/types/dashboards/chat_statistics";
@@ -31,7 +29,7 @@ const SingleCounter = ({ counter }: { counter: CounterCard }) => {
                                 {amount}
                             </h5>
                             <>
-                                {changesAmount !== 0?(changesAmount > 0 ? (
+                                {changesAmount !== 0 && title != "AI Messages this month"?(changesAmount > 0 ? (
                                     <Badge
                                         className="gap-1 border-0 bg-success/10 py-3 text-xs font-semibold text-success"
                                         size="sm">
@@ -47,7 +45,7 @@ const SingleCounter = ({ counter }: { counter: CounterCard }) => {
                                     </Badge>
                                 )):(
                                     <Badge
-                                        className="gap-1 border-0 bg-error/10 py-3 text-xs font-semibold text-warning"
+                                        className="gap-1 border-0 bg-gray-100 py-3 text-xs font-semibold text-indigo-500"
                                         size="sm">
                                         {changes}%
                                     </Badge>
@@ -61,7 +59,7 @@ const SingleCounter = ({ counter }: { counter: CounterCard }) => {
                 </div>
 
                 <p className="text-sm font-medium">
-                    <span className={changesAmount !== 0?(changesAmount > 0 ? "text-success" : "text-error"):"text-warning"}>
+                    <span className={(changesAmount !== 0 && title != "AI Messages this month")?(changesAmount > 0 ? "text-success" : "text-error"):"text-indigo-500"}>
                         {Math.abs(changesAmount)}
                         {changesAmount !== 0?(changesAmount > 0 ? "+" : "-"):""}
                     </span>

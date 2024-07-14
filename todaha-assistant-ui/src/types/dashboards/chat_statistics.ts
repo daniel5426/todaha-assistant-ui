@@ -5,6 +5,8 @@ import { StaticImageData } from "next/image";
 export type IGraphStat = {
     total1: number;
     total2: number;
+    change1: number;
+    change2: number;
     percent1: number;
     percent2: number;
     series: IGraphStatSeries[];

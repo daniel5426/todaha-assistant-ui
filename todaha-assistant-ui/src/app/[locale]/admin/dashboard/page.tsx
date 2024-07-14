@@ -15,8 +15,6 @@ import { useTranslations } from "next-intl";
 
 // Create a context to hold your data
 export default function EcommerceDashboardPage () {
-  const resource = fetchChatsWithSuspense(1, 7);
-  const resource2 = fetchStatisticsWithSuspense();
   const t = useTranslations("dashboard");
 
   return (
@@ -27,7 +25,6 @@ export default function EcommerceDashboardPage () {
         <div className="mt-6 grid gap-6 xl:grid-cols-12">
         <div className="xl:col-span-6">
         <Suspense fallback={<RevenueChartAndCardSkeleton />}>
-        <StatsContextProvider resource={resource2}>
           <div className="grid gap-5 lg:grid-cols-2 xl:grid-cols-2 md:grid-cols-2">
             <DashboardCounterWidget />
           </div>
@@ -36,13 +33,12 @@ export default function EcommerceDashboardPage () {
                 <RevenueChart />
             </div>
           </div>
-          </StatsContextProvider>
           </Suspense>
           </div>
 
           <div className="xl:col-span-6 h-full">
           <Suspense fallback={<LatestInvoicesSkeleton numberOfInvoices={6} />}>
-            <QuickChat resource={resource} />
+            <QuickChat />
           </Suspense>
           </div>
         </div>

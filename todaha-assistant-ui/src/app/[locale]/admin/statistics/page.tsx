@@ -4,7 +4,7 @@ import PageTitle from "@/components/PageTitle";
 
 import QuickChat from "../components/QuickChat";
 import RevenueChart from "../components/RevenueChart";
-import { Suspense } from "react";
+import { Suspense, useState } from "react";
 import {
   LatestInvoicesSkeleton,
   RevenueChartAndCardSkeleton,
@@ -17,13 +17,13 @@ import { StatsContextProvider } from "../use-stats";
 import { MessagesChart, ThreadChart } from "../components/StatisticsCharts";
 import { StatsCounterWidget } from "../components/CounterWidget";
 import { useAuthContext } from "@/states/auth";
+import ProgressCard from "../components/ProgressCard";
 
 // Create a context to hold your data
 export default function EcommerceDashboardPage() {
   const { state } = useAuthContext();
-
-  const resource2 = fetchStatisticsWithSuspense(
-  );
+  const data = fetchStatisticsWithSuspense().read();
+  const [resource, setResource] = useState(data);
 
   return (
     <div>
@@ -31,8 +31,10 @@ export default function EcommerceDashboardPage() {
       <PageTitle title={"Overview"} subMenu={"Dashboard"} />
       <div className="mt-6">
         <Suspense fallback={<RevenueChartAndCardSkeleton />}>
-          <StatsContextProvider resource={resource2}>
             <div className="grid gap-5 lg:grid-cols-2 xl:grid-cols-4">
+              <div className="xl:col-span-2">
+                <ProgressCard />
+              </div>
               <StatsCounterWidget />
             </div>
             <div className="mt-6 grid gap-6 xl:grid-cols-12">
@@ -43,7 +45,6 @@ export default function EcommerceDashboardPage() {
                 <ThreadChart />
               </div>
             </div>
-          </StatsContextProvider>
         </Suspense>
       </div>
       <div className="mt-6 grid gap-6 lg:grid-cols-5 2xl:grid-cols-12">

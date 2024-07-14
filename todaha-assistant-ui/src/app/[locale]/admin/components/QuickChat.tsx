@@ -16,7 +16,8 @@ import { chatsToQuickChat } from "@/app/lib/serialize/serialize";
 import { useTranslations } from "next-intl";
 
 
-const QuickChat = ({ resource }: { resource: any }) => {
+const QuickChat = () => {
+    const resource = fetchChatsWithSuspense(1, 7);
 
     const fetchdata = resource.read();
 
@@ -30,7 +31,7 @@ const QuickChat = ({ resource }: { resource: any }) => {
         };
         const interval = setInterval(() => {
             fetchChatsData();
-        }, 10000);
+        }, 3000);
         return () => clearInterval(interval);
     }, []);
 

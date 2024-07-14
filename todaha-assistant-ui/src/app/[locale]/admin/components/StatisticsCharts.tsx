@@ -196,7 +196,7 @@ export function ThreadChart() {
 }
 
 export function MessagesChart() {
-  const { chartStats, monthlyThread } = useStats();
+  const { monthlyThread, loading } = useStats();
   const thread_series = monthlyThread.series;
 
   const { state } = useLayoutContext();
