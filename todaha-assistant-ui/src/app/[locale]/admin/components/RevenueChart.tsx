@@ -12,7 +12,6 @@ import { useLayoutContext } from "@/states/layout";
 import { IEcommerceDashboardRevenueDuration } from "@/types/dashboards/ecommerce";
 import { ILayoutThemeMode } from "@/types/layout/admin";
 import { IGraphDuration, IGraphStat } from "@/types/dashboards/chat_statistics";
-import { useStats } from "../use-stats";
 import { useTranslations } from "next-intl";
 
 const getOption = (
