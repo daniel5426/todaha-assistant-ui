@@ -34,20 +34,20 @@ const SingleCounter = ({ counter }: { counter: CounterCard }) => {
                                         className="gap-1 border-0 bg-success/10 py-3 text-xs font-semibold text-success"
                                         size="sm">
                                         <Icon icon={arrowUpIcon} fontSize={14} />
-                                        {changes}%
+                                        {changes.toFixed(1)}%
                                     </Badge>
                                 ) : (
                                     <Badge
                                         className="gap-1 border-0 bg-error/10 py-3 text-xs font-semibold text-error"
                                         size="sm">
                                         <Icon icon={arrowDownIcon} fontSize={14} />
-                                        { 100 - changes}%-
+                                        { (100 - changes).toFixed(1)}%-
                                     </Badge>
                                 )):(
                                     <Badge
                                         className="gap-1 border-0 bg-gray-100 py-3 text-xs font-semibold text-indigo-500"
                                         size="sm">
-                                        {changes}%
+                                        {changes.toFixed(1)}%
                                     </Badge>
                                 )}
                             </>
