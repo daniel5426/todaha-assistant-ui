@@ -25,6 +25,9 @@
         "Upload info": "Upload files that you want the assistant to have access to (max 3 files)"
     },
     "dashboard": {
+        "token used": "Token used - this month",
+        "token left 1": "You have ",
+        "token left 2": "tokens left for this month",
         "Profile": "Profile",
         "Logout": "Logout",
         "Edit": "Edit",
@@ -70,6 +73,7 @@
         "register_b": "Join the Todaha community and unlock the power of AI to transform your customer service experience."
     },
     "common": {
+        "ask ai": "Ask AI",
         "reset": "reset",
         "Login": "Login",
         "HOME_HERRO": "Answer client questions, instantly.",

@@ -7,8 +7,8 @@ import Image from "next/image";
 import { useTranslations } from "next-intl";
 
 export const App = () => {
-  const he = "480px";
-  const we = "360px";
+  const he = "520px";
+  const we = "385px";
   console.log(he, we);
 
   const chatElementRef = useRef<any>(null);
@@ -17,7 +17,7 @@ export const App = () => {
   const initialMessages = [
     {
       role: "ai",
-      text: "היי, מה נשמע? מדברת שרה, תפקידי לענות על כל שאלה לגבי שירות עוזר בינה מלאכותי המותאם אישית שלנו.",
+      text: "היי, מה נשמע? מדברת שרה, תפקידי לענות על כל שאלה לגבי פיתוח עוזר AI לאתר שלך.",
     },
   ];
 
@@ -90,7 +90,10 @@ export const App = () => {
           onClick={toggleChatVisibility}
           className="inline-flex justify-center items-center w-16 h-16 rounded-full bg-slate-900 text-white hover:bg-slate-900 transition-all duration-300 ease-in-out transform hover:scale-110 gap-2"
         >
-          <Image src={LogoImg} className="w-8 h-8" alt={""} />
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" style={{ width: '44px', height: '44px' }}>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 01-2.555-.337A5.972 5.972 0 015.41 20.97a5.969 5.969 0 01-.474-.065 4.48 4.48 0 00.978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25z" />
+        </svg>
+
         </button>
 
         {isChatVisible && (
@@ -99,15 +102,21 @@ export const App = () => {
               <div className="flex flex-col rounded-2xl">
                 <div className="flex flex-row items-center ml-3">
                   <div className=" pr-5 p-1">
-                    <div className="w-8 h-8 rounded-full">
+                    <div className="w-9 h-9 rounded-full">
                       <Image
                         src={LogoImg}
                         alt="Logo"
-                        className="w-full h-full object-cover"
+                        className="w-full h-full object-cover "
                       />
                     </div>
                   </div>
-                  <span className="text-white  text-lg  text-center self-center ">Todaha</span>
+                  <div className="grow">
+                  <span className="text-white  text-[17px]  text-center self-center ">Todaha</span>
+                  <div className="flex items-center gap-2 mt-[-2px]">
+                        <div className="size-2 rounded-full bg-success"></div>
+                        <p className="text-[12px] text-white">Active</p>
+                    </div>
+                    </div>
 
                 </div>
                 <div className="flex flex-row absolute right-2 top-2">
