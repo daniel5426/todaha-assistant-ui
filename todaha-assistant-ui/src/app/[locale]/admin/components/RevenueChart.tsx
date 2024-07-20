@@ -129,6 +129,7 @@ export default function RevenueChart() {
   const { state } = useLayoutContext();
     
   const options = useMemo(() => {
+    console.log( state.theme);
     return getOption(chartStats, overviewDuration, state.theme);
   }, [overviewDuration, state.theme, chartStats]);
 

@@ -1,10 +1,12 @@
 "use client";
+import { useLayoutContext } from '@/states/layout';
 import { useLocale, useTranslations } from 'next-intl';
 import React, { useEffect, useRef } from 'react';
 
-const ChatModal: React.FC = () => {
+export default function ChatModal () {
   const modalOverlayRef = useRef<HTMLDivElement>(null);
   const chatIframeRef = useRef<HTMLIFrameElement>(null);
+  const { state } = useLayoutContext();
   const  t  = useTranslations('common');
   const locale = useLocale();
   const isRTL = locale === "he";
@@ -42,20 +44,21 @@ const ChatModal: React.FC = () => {
     }
   };
 
+  const handleResize = () => {
+    adjustIframeSize();
+  };
+
+  const handleClickOutside = (event: MouseEvent) => {
+    if (modalOverlayRef.current && chatIframeRef.current && event.target === modalOverlayRef.current) {
+      modalOverlayRef.current.style.display = 'none';
+      chatIframeRef.current.style.width = '630px';
+      chatIframeRef.current.style.height = '640px';
+      chatIframeRef.current.style.borderRadius = '15px';
+    }
+  };
+
 
   useEffect(() => {
-    const handleResize = () => {
-      adjustIframeSize();
-    };
-
-    const handleClickOutside = (event: MouseEvent) => {
-      if (modalOverlayRef.current && chatIframeRef.current && event.target === modalOverlayRef.current) {
-        modalOverlayRef.current.style.display = 'none';
-        chatIframeRef.current.style.width = '630px';
-        chatIframeRef.current.style.height = '640px';
-        chatIframeRef.current.style.borderRadius = '15px';
-      }
-    };
 
     const handleToggleClick = () => {
       if (modalOverlayRef.current) {
@@ -80,7 +83,7 @@ const ChatModal: React.FC = () => {
         modalOverlayRef.current.removeEventListener('click', handleClickOutside);
       }
     };
-  }, []);
+  }, [state.theme]);
 
   return (
     <div id="ai-chat-container" style={{ position: 'fixed', bottom: '100px', right: '20px', zIndex: 1000 }}>
@@ -126,7 +129,7 @@ const ChatModal: React.FC = () => {
       >
         {t("ask ai")}
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" style={{ width: '24px', height: '24px' }}>
-          <path strokeLinecap="round" strokeLinejoin="round" d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 01-2.555-.337A5.972 5.972 0 015.41 20.97a5.969 5.969 0 01-.474-.065 4.48 4.48 0 00.978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25z" />
+          <path strokeLinecap="round" strokeLinejoin="round" d="M8.625 12</svg>a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 01-2.555-.337A5.972 5.972 0 015.41 20.97a5.969 5.969 0 01-.474-.065 4.48 4.48 0 00.978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25z" />
         </svg>
       </button>
       <div
@@ -148,7 +151,7 @@ const ChatModal: React.FC = () => {
         <iframe
           id="chat-iframe"
           ref={chatIframeRef}
-          src="https://chatbot-web-3.vercel.app"
+          src={`https://chatbot-web-3.vercel.app?rtl=${isRTL}&theme=${state.theme}`} // Use the boolean variable here
           frameBorder="0"
           scrolling="no"
           style={{
@@ -168,5 +171,3 @@ const ChatModal: React.FC = () => {
     </div>
   );
 }
-
-export default ChatModal;
