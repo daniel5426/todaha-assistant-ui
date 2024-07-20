@@ -4,20 +4,40 @@ import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import LogoImg from "./images/1.png";
 import Image from "next/image";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 export const App = () => {
   const he = "520px";
   const we = "385px";
   console.log(he, we);
+  const locale = useLocale();
+  const isRTL = locale === "he";
 
   const chatElementRef = useRef<any>(null);
 
   const assistantId = "asst_YPWyIo8l9IYB9QFWaI2mRvS1";
+
+  const welcomeMessages = {
+    en: "Hi There! I'm Dan, and my role is to answer any questions about developing an AI assistant for your website.",
+    he: "היי, מה נשמע? מדברת שרה, תפקידי לענות על כל שאלה לגבי פיתוח עוזר AI לאתר שלך.",
+    fr: "Bonjour ! Je suis Dan, et mon rôle est de répondre à toutes vos questions concernant le développement d'un assistant IA pour votre site web.",
+    // Add more languages as needed
+  } as any;
+
+  const placeholderTexts = {
+    en: "Type a message...",
+    he: "הקלד הודעה...",
+    fr: "Tapez un message...",
+    // Add more languages as needed
+  } as any;
+
+  const welcomeMsg = welcomeMessages[locale] || welcomeMessages.en;
+  const placeholderText = placeholderTexts[locale] || placeholderTexts.en;
+
   const initialMessages = [
     {
       role: "ai",
-      text: "היי, מה נשמע? מדברת שרה, תפקידי לענות על כל שאלה לגבי פיתוח עוזר AI לאתר שלך.",
+      text: welcomeMsg,
     },
   ];
 
@@ -27,7 +47,7 @@ export const App = () => {
   const [isAnimating, setAnimating] = useState(false);
 
   const api_url = process.env.NEXT_PUBLIC_API_BASE_URL1;
-  const  t  = useTranslations('common');
+  const t = useTranslations("common");
 
   useEffect(() => {
     axios
@@ -42,7 +62,15 @@ export const App = () => {
       });
   }, [reset, api_url, assistantId]);
 
-  const handleRequestInterceptor = (requestDetails: { body: { messages?: any; text?: any; role?: string; thread_id?: null; assistant_id?: string; }; }) => {
+  const handleRequestInterceptor = (requestDetails: {
+    body: {
+      messages?: any;
+      text?: any;
+      role?: string;
+      thread_id?: null;
+      assistant_id?: string;
+    };
+  }) => {
     requestDetails.body = {
       text: requestDetails.body.messages[0].text,
       role: "user",
@@ -85,19 +113,32 @@ export const App = () => {
   return (
     <div className="fixed bottom-3 right-3 flex" style={{ zIndex: 9999 }}>
       <div className="relative inline-block text-left">
-
         <button
           onClick={toggleChatVisibility}
           className="inline-flex justify-center items-center w-16 h-16 rounded-full bg-slate-900 text-white hover:bg-slate-900 transition-all duration-300 ease-in-out transform hover:scale-110 gap-2"
         >
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" style={{ width: '44px', height: '44px' }}>
-          <path strokeLinecap="round" strokeLinejoin="round" d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 01-2.555-.337A5.972 5.972 0 015.41 20.97a5.969 5.969 0 01-.474-.065 4.48 4.48 0 00.978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25z" />
-        </svg>
-
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={1.5}
+            stroke="currentColor"
+            style={{ width: "44px", height: "44px" }}
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 01-2.555-.337A5.972 5.972 0 015.41 20.97a5.969 5.969 0 01-.474-.065 4.48 4.48 0 00.978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25z"
+            />
+          </svg>
         </button>
 
         {isChatVisible && (
-          <div className={`join join-vertical -top-4 absolute right-0 -translate-y-full bg-slate-900 rounded-2xl shadow-xl ring-1 ring-black ring-opacity-0 transition-opacity duration-300 ease-in-out transform ${isAnimating ? 'scale-100 opacity-100' : 'scale-85 opacity-0'}`}>
+          <div
+            className={`join join-vertical -top-4 absolute right-0 -translate-y-full bg-slate-900 rounded-2xl shadow-xl ring-1 ring-black ring-opacity-0 transition-opacity duration-300 ease-in-out transform ${
+              isAnimating ? "scale-100 opacity-100" : "scale-85 opacity-0"
+            }`}
+          >
             <div className="p-2">
               <div className="flex flex-col rounded-2xl">
                 <div className="flex flex-row items-center ml-3">
@@ -111,42 +152,43 @@ export const App = () => {
                     </div>
                   </div>
                   <div className="grow">
-                  <span className="text-white  text-[17px]  text-center self-center ">Todaha</span>
-                  <div className="flex items-center gap-2 mt-[-2px]">
-                        <div className="size-2 rounded-full bg-success"></div>
-                        <p className="text-[12px] text-white">Active</p>
+                    <span className="text-white  text-[17px]  text-center self-center ">
+                      Todaha
+                    </span>
+                    <div className="flex items-center gap-2 mt-[-2px]">
+                      <div className="size-2 rounded-full bg-success"></div>
+                      <p className="text-[12px] text-white">Active</p>
                     </div>
-                    </div>
-
+                  </div>
                 </div>
                 <div className="flex flex-row absolute right-2 top-2">
                   <button
                     className="p-1 rounded-full text-white bg-transparent hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-600 mr-1"
                     onClick={handleResetClick}
                   >
-    <svg
-    fill="#ffffff"
-    className="w-5 h-5"
-    viewBox="0 0 1920 1920"
-    xmlns="http://www.w3.org/2000/svg"
-    stroke="#ffffff"
-  >
-    <g id="SVGRepo_bgCarrier" stroke-width="0" />
+                    <svg
+                      fill="#ffffff"
+                      className="w-5 h-5"
+                      viewBox="0 0 1920 1920"
+                      xmlns="http://www.w3.org/2000/svg"
+                      stroke="#ffffff"
+                    >
+                      <g id="SVGRepo_bgCarrier" stroke-width="0" />
 
-    <g
-      id="SVGRepo_tracerCarrier"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-    />
+                      <g
+                        id="SVGRepo_tracerCarrier"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
 
-    <g id="SVGRepo_iconCarrier">
-      {" "}
-      <path
-        d="M960 0v213.333c411.627 0 746.667 334.934 746.667 746.667S1371.627 1706.667 960 1706.667 213.333 1371.733 213.333 960c0-197.013 78.4-382.507 213.334-520.747v254.08H640V106.667H53.333V320h191.04C88.64 494.08 0 720.96 0 960c0 529.28 430.613 960 960 960s960-430.72 960-960S1489.387 0 960 0"
-        fill-rule="evenodd"
-      />{" "}
-    </g>
-  </svg>
+                      <g id="SVGRepo_iconCarrier">
+                        {" "}
+                        <path
+                          d="M960 0v213.333c411.627 0 746.667 334.934 746.667 746.667S1371.627 1706.667 960 1706.667 213.333 1371.733 213.333 960c0-197.013 78.4-382.507 213.334-520.747v254.08H640V106.667H53.333V320h191.04C88.64 494.08 0 720.96 0 960c0 529.28 430.613 960 960 960s960-430.72 960-960S1489.387 0 960 0"
+                          fill-rule="evenodd"
+                        />{" "}
+                      </g>
+                    </svg>
                   </button>
                   <button
                     className="p-1 rounded-full text-white bg-transparent hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-600"
@@ -178,7 +220,10 @@ export const App = () => {
                 style={{
                   height: he,
                   fontSize: "0.95em",
-                  width: window.innerWidth > 400 ? we : `${window.innerWidth - 20}px`,
+                  width:
+                    window.innerWidth > 400
+                      ? we
+                      : `${window.innerWidth - 20}px`,
                   borderRadius: "0 0 15px 15px",
                   border: "unset",
                   borderColor: "#dcdcdc",
@@ -201,21 +246,20 @@ export const App = () => {
                       border: "unset",
                       width: "78%",
                       marginLeft: "-px",
-                      boxShadow: "2px 2px 5px rgba(0, 0, 0, 0.16)"
+                      boxShadow: "2px 2px 5px rgba(0, 0, 0, 0.16)",
                     },
                     text: {
                       padding: "10px",
-                      textAlign: "right",
-                      direction: "rtl",
+                      textAlign: isRTL ? "right" : "left",
+                      direction: isRTL ? "rtl" : "ltr",
                       paddingLeft: "15px",
                       paddingRight: "34px",
                     },
                   },
                   placeholder: {
-                    text: "תשאל אותי כל דבר ...",
+                    text: placeholderText,
                     style: {
                       color: "#606060",
-                      textAlign: "right",
                     },
                   },
                 }}
@@ -223,8 +267,7 @@ export const App = () => {
                   default: {
                     shared: {
                       bubble: {
-                        textAlign: "right",
-                        direction: "rtl",
+                        direction: isRTL ? "rtl" : "ltr",
                         backgroundColor: "unset",
                         marginTop: "10px",
                         marginBottom: "10px",
@@ -234,8 +277,7 @@ export const App = () => {
                     },
                     user: {
                       bubble: {
-                        textAlign: "right",
-                        direction: "rtl",
+                        direction: isRTL ? "rtl" : "ltr",
                         background:
                           "linear-gradient(130deg, #2DC3EF 20%, #2DC3EF 77.5%)",
                       },
