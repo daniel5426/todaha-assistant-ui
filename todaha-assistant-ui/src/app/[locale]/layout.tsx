@@ -7,6 +7,7 @@ import Head from 'next/head';
 import FacebookPixel from "../facebook/FacebookPixel";
 import Script from "next/script";
 import { Analytics } from "@vercel/analytics/react"
+import { SpeedInsights } from "@vercel/speed-insights/next"
 export const metadata: Metadata = {
   title: {
     template: '%s | Todaha',
@@ -59,6 +60,7 @@ fbq('track', 'PageView');
           </ClientProviders>
         </NextIntlClientProvider>
         <Analytics />
+        <SpeedInsights/>
 
       </body>
     </html>
