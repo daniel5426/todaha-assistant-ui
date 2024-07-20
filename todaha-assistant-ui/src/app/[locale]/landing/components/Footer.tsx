@@ -27,7 +27,7 @@ const Footer =  () => {
                         <br/>  {t("footer_b2")} </p>
 
                         <div className="mt-6 inline-flex items-center gap-3">
-                            <Link href={routes.externalLinks.purchase}>
+                            <Link href={routes.contact}>
                                 <Button color={"primary"} startIcon={<Icon icon={shoppingCartIcon} fontSize={16} />}>
                                     {t("Contact Us")}
                                 </Button>
