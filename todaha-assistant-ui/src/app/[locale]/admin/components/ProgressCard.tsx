@@ -8,7 +8,7 @@ import { useStats } from "../(stats)/use-stats";
 
 export default function ProgressCard() {
     const { tokenCount } = useStats();
-    const maxToken = 1000;
+    const maxToken = 10000;
     const t = useTranslations("dashboard");
     const locale = useLocale();
     const isRTL = locale === "he";
