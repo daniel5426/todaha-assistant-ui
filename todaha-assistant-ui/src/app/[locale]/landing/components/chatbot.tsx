@@ -11,7 +11,7 @@ import { useLayoutContext } from "@/states/layout";
 
 const Chatbot = () => {
   const chatElementRef = useRef<any>(null); // Adjust type as per actual DeepChat component
-  const assistantId = "asst_gE6RWQvul8PGsCRMJeSc2Elo"; // Adjust based on your assistant ID
+  const assistantId = "asst_RTpyDTujpSkjYe7rhoVc66ut"; // Adjust based on your assistant ID
   const locale = useLocale();
   const isRTL = locale == "he";
   const initialMessagesen = [
