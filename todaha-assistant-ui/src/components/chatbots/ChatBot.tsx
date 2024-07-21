@@ -15,7 +15,7 @@ export const App = () => {
 
   const chatElementRef = useRef<any>(null);
 
-  const assistantId = "asst_YPWyIo8l9IYB9QFWaI2mRvS1";
+  const assistantId = "asst_RTpyDTujpSkjYe7rhoVc66ut";
 
   const welcomeMessages = {
     en: "Hi There! I'm Dan, and my role is to answer any questions about developing an AI assistant for your website.",
