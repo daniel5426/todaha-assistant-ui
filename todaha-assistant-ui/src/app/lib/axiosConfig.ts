@@ -1,5 +1,6 @@
-import { getToken } from '@/states/auth';
+"use client";
 import axios from 'axios';
+import Cookies from "js-cookie";
 
 const axiosInstance = axios.create({
     baseURL: process.env.NEXT_PUBLIC_API_BASE_URL1, // Replace with your API base URL
@@ -25,9 +26,11 @@ axiosInstance.interceptors.response.use(
 );
 
 axiosInstance.interceptors.request.use((config) => {
-    const token = getToken();
+    const token = Cookies.get('token');
     if (token && token !== '') {
       config.headers.Authorization = `Bearer ${token}`;
+    } else {
+      console.error('No token found5555555555' + config.url);
     }
     return config;
   }, (error) => {

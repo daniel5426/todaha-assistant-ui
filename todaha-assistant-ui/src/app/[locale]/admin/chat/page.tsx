@@ -90,7 +90,7 @@ export default function ChatApp () {
     const t = useTranslations("dashboard");
     return (
         <>
-                  <ReactApexChart
+          <ReactApexChart
             options={options}
             height={0}
             type={"bar"}

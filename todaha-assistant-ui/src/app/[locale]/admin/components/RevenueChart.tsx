@@ -13,7 +13,7 @@ import { IEcommerceDashboardRevenueDuration } from "@/types/dashboards/ecommerce
 import { ILayoutThemeMode } from "@/types/layout/admin";
 import { IGraphDuration, IGraphStat } from "@/types/dashboards/chat_statistics";
 import { useTranslations } from "next-intl";
-import { useStats } from "../use-stats";
+import { useStats } from "../(stats)/use-stats";
 
 const getOption = (
   dataF: Record<IGraphDuration, IGraphStat>,

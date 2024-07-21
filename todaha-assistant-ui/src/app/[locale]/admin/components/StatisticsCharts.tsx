@@ -12,7 +12,7 @@ import Icon from "@/components/Icon";
 import { getEcommerceDashboardUserInteractionData } from "@/data/dashboards/ecommerce";
 import { useLayoutContext } from "@/states/layout";
 import { IEcommerceDashboardUserInteraction } from "@/types/dashboards/ecommerce";
-import { useStats } from "../use-stats";
+import { useStats } from "../(stats)/use-stats";
 import DateUtil from "@/helpers/utils/date";
 import { StringUtil } from "@/helpers/utils/string";
 import { ILayoutThemeMode } from "@/types/layout/admin";

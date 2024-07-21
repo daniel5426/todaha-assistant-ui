@@ -13,7 +13,7 @@ export function middleware(request: NextRequest) {
 
   // Handle internationalized routes first
   // Custom authentication logic
-  if (request.nextUrl.pathname.includes('/admin/dashboard')) {
+  if (request.nextUrl.pathname.includes('/admin')) {
     if (!loggedIn || loggedIn == "false") {
       console.log('User is not authenticated');
       return NextResponse.redirect(new URL('/auth/login', request.url));

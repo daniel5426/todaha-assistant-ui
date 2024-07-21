@@ -11,6 +11,7 @@
         "Contact": "Contact"
     },
     "configuration": {
+        "Dashboard": "Dashboard",
         "Configuration": "Configuration",
         "AI assistant": "AI assistant",
         "First Message": "First Message",

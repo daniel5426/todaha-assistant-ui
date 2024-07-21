@@ -2,22 +2,22 @@
 import PageMetaData from "@/components/PageMetaData";
 import PageTitle from "@/components/PageTitle";
 
-import QuickChat from "../components/QuickChat";
-import RevenueChart from "../components/RevenueChart";
+import QuickChat from "../../components/QuickChat";
+import RevenueChart from "../../components/RevenueChart";
 import { Suspense, useState } from "react";
 import {
   LatestInvoicesSkeleton,
   RevenueChartAndCardSkeleton,
-} from "../components/loading";
+} from "../../components/loading";
 import {
   fetchChatsWithSuspense,
   fetchStatisticsWithSuspense,
 } from "@/app/lib/data";
 import { StatsContextProvider } from "../use-stats";
-import { MessagesChart, ThreadChart } from "../components/StatisticsCharts";
-import { StatsCounterWidget } from "../components/CounterWidget";
+import { MessagesChart, ThreadChart } from "../../components/StatisticsCharts";
+import { StatsCounterWidget } from "../../components/CounterWidget";
 import { useAuthContext } from "@/states/auth";
-import ProgressCard from "../components/ProgressCard";
+import ProgressCard from "../../components/ProgressCard";
 
 // Create a context to hold your data
 export default function EcommerceDashboardPage() {

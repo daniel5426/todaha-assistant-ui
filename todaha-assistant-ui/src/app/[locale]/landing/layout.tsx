@@ -25,7 +25,7 @@ export default function Layout({ children }: { children: any }) {
           shape="circle"
           color="ghost"
           className={
-            "border border-base-content/10 text-base-content/70 hover:bg-base-content/10 bg-slate-500"
+            "border border-base-content/10 text-base-content/70 hover:bg-base-content/10 bg-slate-300"
           }
         />
       </div>

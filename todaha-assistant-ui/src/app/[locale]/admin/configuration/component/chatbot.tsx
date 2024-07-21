@@ -56,7 +56,8 @@ const Chatbot = () => {
       .catch((error) => {
         console.error(error);
       });
-  }, [reset, state]);
+    console.log("6666666666-------");
+  }, [state]);
 
   // Toggle chat visibility and notify the parent window
 

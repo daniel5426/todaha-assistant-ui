@@ -2,7 +2,7 @@
 import { ReactNode, createContext, useContext, useState, useEffect } from "react";
 
 import { statsToChartData } from "@/app/lib/serialize/serialize";
-import { fetchStatistics, fetchStatisticsWithSuspense } from "../../lib/data";
+import { fetchStatistics, fetchStatisticsWithSuspense } from "../../../lib/data";
 
 const useChatHook = () => {
   const data = fetchStatisticsWithSuspense().read();
@@ -11,7 +11,6 @@ const useChatHook = () => {
   const [ chartStats, setChartStats] = useState<any>(chartStats1);
   const [ tokenCount, setTokenCount] = useState<any>(tokenThisMonth);
   const [loading, setLoading] = useState(true);
-  console.log("------------------")
   // Function to update stats
   const updateStats = async () => {
     setLoading(true);

@@ -1,3 +1,4 @@
+"use client";
 import { unstable_noStore as noStore } from 'next/cache';
 import { ApiResponse, ServerStat } from './serialize/server-models';
 import { IGraphDuration, IGraphStat,  } from '@/types/dashboards/chat_statistics';
@@ -108,6 +109,7 @@ export async function fetchChat(page: number, num_per_page: number = 7): Promise
   const data = await response.json();
   return data['last-chats'];
 }
+
 
 
 export async function fetchStatistics(): Promise<ServerStat[]> {

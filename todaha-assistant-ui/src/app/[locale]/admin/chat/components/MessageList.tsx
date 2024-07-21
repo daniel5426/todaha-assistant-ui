@@ -30,6 +30,7 @@ const SingleMessage = ({
   message: IChatMessage;
 }) => {
   const isHebrew = containsHebrew(message.message);
+  if (!chat.messages) return null;
   const firstMessage = chat.messages[0];
   const date_started = DateUtil.formatted(firstMessage.send_at, {
     format: "hh:mm A",
@@ -76,7 +77,7 @@ const MessageList = () => {
   const locale = useLocale();
   const isRTL = locale === "he";
 
-
+  if (!selectedChat) return null;
   const firstMessage = selectedChat.messages[0];
   const date_started = DateUtil.formatted(firstMessage.send_at, {
     format: "DD MMM hh:mm A",

@@ -2,14 +2,11 @@
 import PageMetaData from "@/components/PageMetaData";
 import PageTitle from "@/components/PageTitle";
 
-import  { DashboardCounterWidget } from "../components/CounterWidget";
-import QuickChat from "../components/QuickChat";
-import RevenueChart from "../components/RevenueChart";
-import { StatsContextProvider } from "../use-stats";
+import  { DashboardCounterWidget } from "../../components/CounterWidget";
+import QuickChat from "../../components/QuickChat";
+import RevenueChart from "../../components/RevenueChart";
 import { Suspense } from "react";
-import {LatestInvoicesSkeleton, RevenueChartAndCardSkeleton} from "../components/loading";
-import { fetchChatsWithSuspense, fetchStatisticsWithSuspense } from "@/app/lib/data";
-import { useAuthContext } from "@/states/auth";
+import {LatestInvoicesSkeleton, RevenueChartAndCardSkeleton} from "../../components/loading";
 import { useTranslations } from "next-intl";
 
 

@@ -4,7 +4,7 @@ import { Badge, Card, CardBody } from "@/components/daisyui";
 
 import Icon from "@/components/Icon";
 import { useLocale, useTranslations } from "next-intl";
-import { useStats } from "../use-stats";
+import { useStats } from "../(stats)/use-stats";
 
 export default function ProgressCard() {
     const { tokenCount } = useStats();

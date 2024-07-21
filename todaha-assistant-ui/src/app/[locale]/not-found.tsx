@@ -1,7 +1,7 @@
 import error404Image from "@/assets/images/landscape/error-404.svg";
 import Image from "next/image";
 import Link from "next/link";
-import "./ui/globals.css";
+import "../ui/globals.css";
 import PageMetaData from "@/components/PageMetaData";
 import routes from "@/services/routes";
 

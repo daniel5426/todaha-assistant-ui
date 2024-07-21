@@ -15,7 +15,7 @@ const useChatHook = (resource: any) => {
   const transformedChats = transformChatsToIChat(data, 1);
 
   const [chats, setChats] = useState<any[]>(transformedChats);
-  const [selectedChat, setSelectedChat] = useState<any>(transformedChats[0]);
+  const [selectedChat, setSelectedChat] = useState<any>(transformedChats[0] || null);
   const [currentPage, setCurrentPage] = useState<number>(1);
 
 
@@ -41,6 +41,7 @@ const useChatHook = (resource: any) => {
     loadMore,
     currentPage,
     isPending,
+    setIsPending,
   };
 };
 

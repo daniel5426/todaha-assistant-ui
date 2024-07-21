@@ -16,7 +16,7 @@ const ClientProviders: React.FC<{ children: React.ReactNode }> = ({ children }) 
         <AuthContextProvider>
             {children}
             <Toaster richColors />
-            </AuthContextProvider>
+          </AuthContextProvider>
 
         </LayoutContextProvider>
       </Theme>

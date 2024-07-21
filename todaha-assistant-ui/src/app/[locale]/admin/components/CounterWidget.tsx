@@ -7,7 +7,7 @@ import { useMemo } from "react";
 import { Badge, Card, CardBody } from "@/components/daisyui";
 
 import Icon from "@/components/Icon";
-import { useStats } from "../use-stats";
+import { useStats } from "../(stats)/use-stats";
 import { StatsToCounterData, StatsToCounterData2 } from "@/app/lib/serialize/serialize";
 import { CounterCard } from "@/types/dashboards/chat_statistics";
 import { useLocale, useTranslations } from "next-intl";

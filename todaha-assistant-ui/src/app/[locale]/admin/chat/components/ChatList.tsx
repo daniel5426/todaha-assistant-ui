@@ -78,9 +78,20 @@ export default function ChatList ()  {
     loadMore,
     currentPage,
     isPending,
+    setIsPending
   } = useChat();
   const t = useTranslations("dashboard");
   const locale = useLocale();
+
+  if (chats.length === 0) {
+    return (
+      <Card className="bg-base-100">
+        <CardBody>
+          <LatestInvoicesSkeleton numberOfInvoices={0} />
+        </CardBody>
+      </Card>
+    );
+  }
 
 
   const handleStart = () => {
