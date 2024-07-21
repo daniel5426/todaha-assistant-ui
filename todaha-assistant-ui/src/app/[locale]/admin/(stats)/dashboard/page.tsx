@@ -34,7 +34,7 @@ export default function EcommerceDashboardPage () {
           </div>
 
           <div className="xl:col-span-6 h-full">
-          <Suspense fallback={<LatestInvoicesSkeleton numberOfInvoices={6} />}>
+          <Suspense fallback={<LatestInvoicesSkeleton numberOfInvoices={7} />}>
             <QuickChat />
           </Suspense>
           </div>
