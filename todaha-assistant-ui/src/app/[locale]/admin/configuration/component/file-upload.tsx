@@ -61,6 +61,7 @@ const FileUpload = () => {
     setIsDeleting(prevState => ({ ...prevState, [fileId]: true }));
     try {
       await deleteFile(fileId);
+      
       await updateUserInfo();
       toaster.success("File deleted successfully");
       // Update files state to remove the deleted file
@@ -77,7 +78,7 @@ const FileUpload = () => {
     <div>
       <div className="mb-3">
         <FileInput
-          className="max-w-64 bg-base-200 sm:max-w-xs mt-1 col-auto"
+          className="w-md bg-base-200 sm:max-w-xs mt-1 col-auto"
           size={"md"}
           color="neutral"
           onChange={handleFileChange}
@@ -104,7 +105,7 @@ const FileUpload = () => {
       {files.map((file: any) => (
         <div key={file.id} className="">
           <div className="join join-vertical lg:join-horizontal mb-2">
-            <button className="btn join-item w-64 text-left no-animation rounded-none">
+            <button className="btn join-item w-64 no-animation rounded-none truncate">
               {file.name}
             </button>
             <button
