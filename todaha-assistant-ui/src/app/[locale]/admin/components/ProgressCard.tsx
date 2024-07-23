@@ -25,7 +25,7 @@ export default function ProgressCard() {
                                 {tokenCount}
                             </h5>
                             <progress
-                                className="progress progress-info w-full sm:w-[20rem] md:w-[25rem] lg:w-[30rem] mr-2 ml-2"
+                                className="progress progress-info w-full sm:w-[5rem] md:w-[10rem] lg:w-[25rem] mr-2 ml-2"
                                 value={tokenCount}
                                 max={maxToken}
                             ></progress>
