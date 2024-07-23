@@ -5,11 +5,9 @@ import { statsToChartData } from "@/app/lib/serialize/serialize";
 import { fetchStatistics, fetchStatisticsWithSuspense } from "../../../lib/data";
 
 const useChatHook = () => {
-  const data = fetchStatisticsWithSuspense().read();
-  const [chartStats1, monthly_thread1, tokenThisMonth] = statsToChartData(data);
-  const [ monthlyThread, setMonthlyThread] = useState<any>(monthly_thread1);
-  const [ chartStats, setChartStats] = useState<any>(chartStats1);
-  const [ tokenCount, setTokenCount] = useState<any>(tokenThisMonth);
+  const [ monthlyThread, setMonthlyThread] = useState<any>(null);
+  const [ chartStats, setChartStats] = useState<any>(null);
+  const [ tokenCount, setTokenCount] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   // Function to update stats
   const updateStats = async () => {
@@ -29,6 +27,7 @@ const useChatHook = () => {
 
   // useEffect to run updateStats every 5 seconds
   useEffect(() => {
+    updateStats();
     const interval = setInterval(() => {
       updateStats();
     }, 5000); // 5000 milliseconds = 5 seconds
@@ -49,7 +48,7 @@ type HookReturnType = ReturnType<typeof useChatHook>;
 
 const Context = createContext({} as HookReturnType);
 
-export const StatsContextProvider = ({ children }: { children: ReactNode }) => {
+export const StatsContextProvider = ({ children }: { children: ReactNode}) => {
   return <Context.Provider value={useChatHook()}>{children}</Context.Provider>;
 };
 

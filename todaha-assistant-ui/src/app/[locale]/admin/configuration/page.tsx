@@ -19,87 +19,13 @@ import RevenueChart from "../components/RevenueChart";
 import ReactApexChart from "react-apexcharts";
 import { ApexOptions } from "apexcharts";
 
-const getOption = (
-): ApexOptions => {
-  return {
-    theme: {
-      mode: "light",},
-    chart: {
-      height: 380,
-      type: "bar",
-      stacked: true,
-      // parentHeightOffset: 0,
-      background: "transparent",
-
-      toolbar: {
-        show: false,
-      },
-    },
-
-    plotOptions: {
-    },
-    dataLabels: {
-      enabled: false,
-    },
-    colors: ["#3e60d5", "#3ed5b9"],
-    legend: {
-      show: true,
-      horizontalAlign: "center",
-      offsetX: 0,
-      offsetY: 6,
-    },
-    series: [
-      {
-        name: "Messages",
-        data: [],
-      },
-    ],
-    xaxis: {
-      axisBorder: {
-        show: false,
-      },
-      axisTicks: {
-        show: false,
-      },
-      labels: {
-      },
-    },
-    yaxis: {
-      axisBorder: {
-        show: false,
-      },
-      axisTicks: {
-        show: false,
-      },
-      labels: {
-    },
-  },
-
-    tooltip: {
-      enabled: true,
-      shared: true,
-      intersect: false,
-    },
-    grid: {
-      show: false,
-    },
-  };
-};
-
 
 export default function Configuration ()  {
   const { isLoading, control, onSubmit } = useConfig();
   const  t  = useTranslations("configuration");
-  const options = getOption();
 
   return (
     <div>
-                  <ReactApexChart
-            options={options}
-            height={0}
-            type={"bar"}
-            series={options.series}
-          ></ReactApexChart>
       <PageMetaData title={t("Configuration")} />
       <PageTitle title={t("Configuration")} subMenu={t("Dashboard")} />
       <div className="mt-6">

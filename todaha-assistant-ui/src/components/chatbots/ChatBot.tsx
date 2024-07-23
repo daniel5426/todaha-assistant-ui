@@ -47,7 +47,6 @@ export const App = () => {
   const [isAnimating, setAnimating] = useState(false);
 
   const api_url = process.env.NEXT_PUBLIC_API_BASE_URL1;
-  const t = useTranslations("common");
 
   useEffect(() => {
     axios

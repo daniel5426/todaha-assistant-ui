@@ -90,12 +90,6 @@ export default function ChatApp () {
     const t = useTranslations("dashboard");
     return (
         <>
-          <ReactApexChart
-            options={options}
-            height={0}
-            type={"bar"}
-            series={options.series}
-          ></ReactApexChart>
 
             <PageMetaData title={"Chat"} />
 

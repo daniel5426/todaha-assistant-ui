@@ -6,6 +6,7 @@ const routes = {
         chat: "/admin/chat",
         statistics: "/admin/statistics",
         configuration: "/admin/configuration",
+        customization: "/admin/customization",
     },
     dashboard: "/admin/dashboard",
     docs: "/docs/introduction",

@@ -133,6 +133,12 @@ export async function updateAiConfiguration(data: any) {
   return response.data;
 }
 
+export async function updateChatbot(data: any) {
+  console.log(data, "===========================")
+  const response = await axiosInstance.post('/admin/ai/update-chatbot', data);
+  return response.data;
+}
+
 export async function deleteFile(file_id: any) {
   const response = await axiosInstance.post(`/admin/ai/delete-file?file_id=${file_id}`);
   return response;

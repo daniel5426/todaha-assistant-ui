@@ -15,6 +15,7 @@ export const getToken = () => {
 const useHook = () => {
   
   const [state, setState] = useSessionStorage<IAuthState>("__ADMIN_AUTH__", {});
+  const [currentChatbotId, setCurrentChatbotId] = useSessionStorage<string>("__CURRENT_CHATBOT_ID__", "");
 
   const setLoggedInUser = (user: IAuthUser) => {
     updateState({ user });
@@ -41,6 +42,7 @@ const useHook = () => {
   const updateUserInfo = async () => {
     const user_info = await get_user_info();
     setLoggedInUser(user_info);
+    setCurrentChatbotId(user_info?.assistant?.chatbots[0]?.id || "");
   };
 
   const logout = () => {
@@ -60,6 +62,7 @@ const useHook = () => {
     isLoggedIn,
     logout,
     setToken,
+    currentChatbotId,
     updateUserInfo,
   };
 };
