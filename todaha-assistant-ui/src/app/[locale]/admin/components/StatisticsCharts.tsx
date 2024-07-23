@@ -174,7 +174,7 @@ export function ThreadChart() {
           <div className="mt-2 border-y border-base-content/10  py-2">
             <div className="mt-2 flex items-center gap-3">
               <span className="text-3xl/none font-semibold">
-                {StringUtil.convertToCurrency(monthlyThread.total2)} messages
+                {StringUtil.convertToCurrency(monthlyThread.total2)} {t("messages")}
               </span>
             </div>
             <span className="text-sm text-base-content/70">

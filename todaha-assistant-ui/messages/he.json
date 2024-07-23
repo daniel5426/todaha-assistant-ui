@@ -39,6 +39,7 @@
         "Upload info": "העלה קבצים שהעוזר יצטרך (מקסימום 3 קבצים)"
     },
     "dashboard": {
+        "messages": "הודעות",
         "token used": "מספר תוקנים - החודש",
         "token left 1": " נשארו לך",
         "token left 2": "תוקנים לשימוש החודש",
@@ -66,7 +67,7 @@
         "User at ": "משתמש ב- ",
         "Conversation Size": "גודל שיחה: {msg_number} הודעות",
         "Overview": "סקירה כללית",
-        "Clients helped this week": "לקוחות שטופלו ב-10 ימים אחרונים",
+        "Clients helped this week": "שיחות ב-10 ימים אחרונים",
         "than past week": "מ10 יום שעברו",
         "AI Messages this month": "הודעות AI החודש",
         "than past month": "מהחודש שעבר",

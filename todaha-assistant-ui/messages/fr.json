@@ -26,6 +26,7 @@
         "Upload info": "Téléchargez les fichiers auxquels vous voulez que l'assistant ait accès (max 3 fichiers)"
     },
     "dashboard": {
+        "messages": "messages",
         "token used": "Nombre de token - ce mois-ci",
         "token left 1": "Il vous reste ",
         "token left 2": "tokens pour ce mois",

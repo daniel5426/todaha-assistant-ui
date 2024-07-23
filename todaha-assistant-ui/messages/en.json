@@ -27,6 +27,7 @@
         "Upload info": "Upload files that you want the assistant to have access to (max 3 files)"
     },
     "dashboard": {
+        "messages": "messages",
         "token used": "Token used - this month",
         "token left 1": "You have ",
         "token left 2": "tokens left for this month",
