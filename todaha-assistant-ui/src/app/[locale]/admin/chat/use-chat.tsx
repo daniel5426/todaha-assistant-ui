@@ -3,29 +3,37 @@ import {
   ReactNode,
   createContext,
   useContext,
+  useEffect,
   useState,
 } from "react";
 
 import { fetchChats } from "@/app/lib/data";
 import { transformChatsToIChat } from "@/app/lib/serialize/serialize";
 
-const useChatHook = (resource: any) => {
-  const data = resource.read();
+const useChatHook = () => {
   const [isPending, setIsPending] = useState(false);
-  const transformedChats = transformChatsToIChat(data, 1);
 
-  const [chats, setChats] = useState<any[]>(transformedChats);
-  const [selectedChat, setSelectedChat] = useState<any>(transformedChats[0] || null);
+  const [chats, setChats] = useState<any[]>(null);
+  const [selectedChat, setSelectedChat] = useState<any>(null);
   const [currentPage, setCurrentPage] = useState<number>(1);
+
+  const updateChats = async (page: number) => {
+    const fetchedChats = await fetchChats(page);
+    const transformedChats = transformChatsToIChat(fetchedChats, page);
+    setCurrentPage(page);
+    setChats(transformedChats);
+    setSelectedChat(transformedChats[0] || null);
+  }
+
+  useEffect(() => {
+    updateChats(1);
+  }, []);
 
 
   const loadMore = async (page: number) => {
     setIsPending(true);
     try {
-      const fetchedChats = await fetchChats(page);
-      const transformedChats = transformChatsToIChat(fetchedChats, page);
-      setCurrentPage(page);
-      setChats(transformedChats);
+      updateChats(page);
     } catch (error) {
       console.error("Error fetching chats:", error);
       setIsPending(false);
@@ -49,8 +57,8 @@ type HookReturnType = ReturnType<typeof useChatHook>;
 
 const Context = createContext({} as HookReturnType);
 
-export const ChatContextProvider = ({ children, resource }: { children: ReactNode, resource: any }) => {
-  return <Context.Provider value={useChatHook(resource)}>{children}</Context.Provider>;
+export const ChatContextProvider = ({ children }: { children: ReactNode}) => {
+  return <Context.Provider value={useChatHook()}>{children}</Context.Provider>;
 };
 
 export const useChat = () => useContext(Context);

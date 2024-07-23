@@ -17,76 +17,8 @@ import ReactApexChart from "react-apexcharts";
 import { ApexOptions } from "apexcharts";
 import { useTranslations } from "next-intl";
 
-const getOption = (
-  ): ApexOptions => {
-    return {
-      theme: {
-        mode: "light",},
-      chart: {
-        height: 380,
-        type: "bar",
-        stacked: true,
-        // parentHeightOffset: 0,
-        background: "transparent",
-  
-        toolbar: {
-          show: false,
-        },
-      },
-  
-      plotOptions: {
-      },
-      dataLabels: {
-        enabled: false,
-      },
-      colors: ["#3e60d5", "#3ed5b9"],
-      legend: {
-        show: true,
-        horizontalAlign: "center",
-        offsetX: 0,
-        offsetY: 6,
-      },
-      series: [
-        {
-          name: "Messages",
-          data: [],
-        },
-      ],
-      xaxis: {
-        axisBorder: {
-          show: false,
-        },
-        axisTicks: {
-          show: false,
-        },
-        labels: {
-        },
-      },
-      yaxis: {
-        axisBorder: {
-          show: false,
-        },
-        axisTicks: {
-          show: false,
-        },
-        labels: {
-      },
-    },
-  
-      tooltip: {
-        enabled: true,
-        shared: true,
-        intersect: false,
-      },
-      grid: {
-        show: false,
-      },
-    };
-  };
   
 export default function ChatApp () {
-    const resource = fetchChatsWithSuspense(1, 7);
-    const options = getOption();
     const t = useTranslations("dashboard");
     return (
         <>
@@ -102,7 +34,7 @@ export default function ChatApp () {
             </div>
             <div className="mt-6">
             <Suspense fallback={<LatestInvoicesSkeleton numberOfInvoices={7}/>}>
-                <ChatContextProvider resource={resource} >
+                <ChatContextProvider >
                     <div className="grid gap-6 lg:grid-cols-12">
                         <div className="lg:col-span-5 xl:col-span-4 2xl:col-span-3">
                             <ChatList />

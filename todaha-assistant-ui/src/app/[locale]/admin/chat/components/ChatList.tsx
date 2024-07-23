@@ -83,6 +83,8 @@ export default function ChatList ()  {
   const t = useTranslations("dashboard");
   const locale = useLocale();
 
+  if (!chats) return <LatestInvoicesSkeleton numberOfInvoices={7} />;
+
   if (chats.length === 0) {
     return (
       <Card className="bg-base-100">

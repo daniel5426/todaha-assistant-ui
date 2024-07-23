@@ -14,28 +14,27 @@ import routes from "@/services/routes";
 import { fetchChats, fetchChatsWithSuspense } from "@/app/lib/data";
 import { chatsToQuickChat } from "@/app/lib/serialize/serialize";
 import { useTranslations } from "next-intl";
+import { LatestInvoicesSkeleton } from "./loading";
 
 
 const QuickChat = () => {
-    const resource = fetchChatsWithSuspense(1, 7);
-
-    const fetchdata = resource.read();
-
-    const data = chatsToQuickChat(fetchdata);
-    const [chats, setChats] = useState(data);
+    const [chats, setChats] = useState(null);
+    const t = useTranslations("dashboard");
 
     useEffect(() => {
         const fetchChatsData = async () => {
             const chats = await fetchChats(1, 7);
             setChats(chatsToQuickChat(chats));
         };
+        fetchChatsData();
         const interval = setInterval(() => {
             fetchChatsData();
         }, 3000);
         return () => clearInterval(interval);
     }, []);
 
-    const t = useTranslations("dashboard");
+    if (!chats) return <LatestInvoicesSkeleton numberOfInvoices={7} />;
+
 
     return (
         <Card className="bg-base-100">
