@@ -57,7 +57,7 @@ const SingleMessage = ({
             "bg-base-content/10 text-base-content": from_me,
           })}
           style={{
-            direction: isRTL ? "rtl" : "ltr",
+            direction: isHebrew ? "rtl" : "ltr",
             textAlign: isHebrew ? "right" : "left",
             whiteSpace: "pre-wrap",
             maxWidth: "900px",
