@@ -32,6 +32,7 @@ export type Assistant = {
     name: string;
     top_name: string;
     welcome_message: string;
+    whatsapp_number: string;
     instruction: string;
     chatbots: ChatBot[];
 };
