@@ -38,9 +38,11 @@ const SingleMessage = ({
 
   if (!chat.messages) return null;
   const firstMessage = chat.messages[0];
-  const date_started = DateUtil.formatted(firstMessage.send_at, {
-    format: "hh:mm A",
-  });
+  const date_started = firstMessage
+    ? DateUtil.formatted(firstMessage.send_at, {
+        format: "hh:mm A",
+      })
+    : "";
 
   return (
     <div>
