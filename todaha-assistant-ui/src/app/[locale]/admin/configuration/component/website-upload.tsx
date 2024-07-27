@@ -1,6 +1,5 @@
-"use client";
-import { deleteFile, uploadFile } from "@/app/lib/data";
-import { Button, FileInput } from "@/components/daisyui";
+import { deleteFile, deleteWebsiteUrl, uploadFile, uploadWebsiteUrl } from "@/app/lib/data";
+import { Button, FileInput, Input } from "@/components/daisyui";
 import useToast from "@/hooks/use-toast";
 import { useAuthContext } from "@/states/auth";
 import React, { useState, useEffect } from "react";
@@ -8,46 +7,48 @@ import Icon from "@/components/Icon";
 import TrashIcon from "@iconify/icons-lucide/trash";
 import { useTranslations } from "next-intl";
 
-const FileUpload = () => {
-  const [selectedFile, setSelectedFile] = useState<any>(null);
-  const [files, setFiles] = useState<any[]>([]);
+const WebsiteUpload = () => {
+  const [websiteUrl, setWebsiteUrl] = useState<string>("");
+  const [existingWebsiteUrl, setExistingWebsiteUrl] = useState<string>("");
   const { updateUserInfo, state } = useAuthContext();
   const { toaster } = useToast();
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [isDeleting, setIsDeleting] = useState<{ [key: string]: boolean }>({});
+  const [isDeleting, setIsDeleting] = useState<boolean>(false);
 
   useEffect(() => {
-    const initialFiles: any[] = [];
-    state.user?.assistant.files.forEach((file, index) => {
-      if (index < 3) {
-        initialFiles[index] = file;
-      }
-    });
-    setFiles(initialFiles);
-  }, [state.user?.assistant.files]);
+    setExistingWebsiteUrl(state.user?.assistant.website_url);
+  }, [state.user?.assistant.website_url]);
 
-  const handleFileChange = (event: any) => {
-    setSelectedFile(event.target.files[0]);
-  };
 
   const handleUpload = async () => {
+    if (websiteUrl === "") {
+      toaster.error("No URL provided");
+      return;
+    }
+    if (state.user?.assistant.website_url !== "") {
+      toaster.error("URL already uploaded");
+      return;
+    }
     setIsLoading(true);
-    if (!selectedFile) {
-      toaster.error("No file selected for upload");
+    const urlPattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
+      '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.?)+[a-z]{2,}|'+ // domain name
+      '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
+      '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
+      '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
+      '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
+    if (!urlPattern.test(websiteUrl)) {
+      toaster.error("Invalid URL");
       setIsLoading(false);
       return;
     }
 
-    const formData = new FormData();
-    formData.append("file", selectedFile);
-
     try {
-      const response = await uploadFile(formData);
+      const response = await uploadWebsiteUrl(websiteUrl);
       if (response.status === 200) {
         await updateUserInfo();
         toaster.success("File uploaded successfully");
         // Refresh the files after upload
-        setFiles(prevFiles => [...prevFiles, { id: selectedFile.name, name: selectedFile.name }]);
+        setWebsiteUrl("");
       } else {
         toaster.error("Failed to upload file");
       }
@@ -58,19 +59,19 @@ const FileUpload = () => {
     }
   };
 
-  const handleDelete = async (fileId: string) => {
-    setIsDeleting(prevState => ({ ...prevState, [fileId]: true }));
+  const handleDelete = async () => {
+    setIsDeleting(true);
     try {
-      await deleteFile(fileId);
+        await deleteWebsiteUrl();
       
       await updateUserInfo();
       toaster.success("File deleted successfully");
       // Update files state to remove the deleted file
-      setFiles(files.filter(file => file.id !== fileId));
+      setWebsiteUrl("");
     } catch (error) {
       toaster.error("Error deleting file");
     } finally {
-      setIsDeleting(prevState => ({ ...prevState, [fileId]: false }));
+      setIsDeleting(false);
     }
   };
   const t = useTranslations("configuration");
@@ -78,11 +79,10 @@ const FileUpload = () => {
   return (
     <div>
       <div className="mb-3">
-        <FileInput
-          className="w-md bg-base-200 sm:max-w-xs mt-1 col-auto"
-          size={"md"}
-          color="neutral"
-          onChange={handleFileChange}
+        <Input
+          type="text"
+          value={websiteUrl}
+          onChange={(e) => setWebsiteUrl(e.target.value)}
         />
         <button
           className="btn right-full m-2"
@@ -100,18 +100,18 @@ const FileUpload = () => {
         </button>
       </div>
 
-      {files.map((file: any) => (
-        <div key={file.id} className="">
+      {existingWebsiteUrl !== "" && (
+        <div className="">
           <div className="join join-vertical lg:join-horizontal mb-2">
             <button className="btn join-item w-64 no-animation rounded-none truncate">
-              {file.name}
+              {existingWebsiteUrl}
             </button>
             <button
               className="btn join-item bg-red-400"
-              onClick={() => handleDelete(file.id)}
-              disabled={isDeleting[file.id]}
+              onClick={handleDelete}
+              disabled={isDeleting}
             >
-              {isDeleting[file.id] ? (
+              {isDeleting ? (
                 <>
                   <span className="loading loading-bars loading-xs"></span>
                   <span>{t("Deleting")}</span>
@@ -122,9 +122,9 @@ const FileUpload = () => {
             </button>
           </div>
         </div>
-      ))}
+      )}
     </div>
   );
 };
 
-export default FileUpload;
+export default WebsiteUpload;

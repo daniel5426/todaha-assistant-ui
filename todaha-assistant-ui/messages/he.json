@@ -24,6 +24,8 @@
         "register_b": "הצטרף לקהילת תודעה ופתח את עוצמת ה-AI לשדרוג חוויית שירות הלקוחות שלך."
     },
     "configuration": {
+        "Upload Your Website Content": "תעלה את תוכן אתר האינטרנט שלך",
+        "upload_website_info": "כל התוכן של אתר האינטרנט שלך יהיה זמין לעוזר AI",
         "Dashboard": "מסך ניהול",
         "Configuration": "הגדרות",
         "AI assistant": "עוזר AI",

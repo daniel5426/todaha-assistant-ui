@@ -11,6 +11,8 @@
         "Contact": "Contact"
     },
     "configuration": {
+        "Upload Your Website Content": "Rajouter le contenu de votre site web",
+        "upload_website_info": "Tout le contenu de votre site web sera disponible à l'assistant",
         "Dashboard": "Tableau de bord",
         "Configuration": "Configuration",
         "AI assistant": "Assistant IA",
@@ -22,8 +24,8 @@
         "Loading": "Chargement",
         "files limit": "Max 3 fichiers - 50 Mo Max",
         "Deleting": "Suppression",
-        "Upload": "Télécharger des fichiers pour l'assistant",
-        "Upload info": "Téléchargez les fichiers auxquels vous voulez que l'assistant ait accès (max 3 fichiers)"
+        "Upload": "Rajouter des fichiers pour l'assistant",
+        "Upload info": "Rajoutez les fichiers auxquels vous voulez que l'assistant ait accès (max 3 fichiers)"
     },
     "dashboard": {
         "messages": "messages",

@@ -12,12 +12,7 @@ import useConfig from "./use-config";
 import FileUpload from "./component/file-upload";
 import { useTranslations } from "next-intl";
 import PageTitle from "@/components/PageTitle";
-import { Suspense } from "react";
-import { DashboardCounterWidget } from "../components/CounterWidget";
-import { RevenueChartAndCardSkeleton } from "../components/loading";
-import RevenueChart from "../components/RevenueChart";
-import ReactApexChart from "react-apexcharts";
-import { ApexOptions } from "apexcharts";
+import WebsiteUpload from "./component/website-upload";
 
 
 export default function Configuration ()  {
@@ -95,6 +90,18 @@ export default function Configuration ()  {
                       </Button>
                     </div>
                   </div>
+                  <div className=" w-full mt-5">
+                    <label
+                      htmlFor="message"
+                      className=" block text-base font-medium"
+                    >
+                      {t("Upload Your Website Content")}
+                    </label>
+                    <span className="text-sm text-gray-500 mb-3">
+                      {t('upload_website_info')}</span>
+
+                    <WebsiteUpload />
+                  </div>
 
                   <div className=" w-full mt-5">
                     <label
@@ -109,7 +116,6 @@ export default function Configuration ()  {
                     <FileUpload />
                   </div>
                 </div>
-                <div className="mt-2 text-center"></div>
               </CardBody>
             </Card>
 

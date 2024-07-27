@@ -18,8 +18,9 @@ const useHook = () => {
   const [currentChatbotId, setCurrentChatbotId] = useSessionStorage<string>("__CURRENT_CHATBOT_ID__", "");
 
   const setLoggedInUser = (user: IAuthUser) => {
-    updateState({ user });
+    setState({ user: user });
   };
+
   const isLoggedIn = useCallback(() => {
     return state.user != undefined;
   }, [state.user]);

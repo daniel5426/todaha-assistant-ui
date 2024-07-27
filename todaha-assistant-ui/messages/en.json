@@ -12,6 +12,8 @@
         "Chatbot customization": "Chatbot customization"
     },
     "configuration": {
+        "Upload Your Website Content": "Upload Your Website Content",
+        "upload_website_info": "All the content of your website will be available to the assistant",
         "Dashboard": "Dashboard",
         "Configuration": "Configuration",
         "AI assistant": "AI assistant",

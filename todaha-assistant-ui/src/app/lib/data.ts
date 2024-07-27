@@ -133,6 +133,16 @@ export async function updateAiConfiguration(data: any) {
   return response.data;
 }
 
+export async function uploadWebsiteUrl(websiteUrl: string) {
+  const response = await axiosInstance.post(`/admin/ai/upload-website?website_url=${websiteUrl}`);
+  return response;
+}
+
+export async function deleteWebsiteUrl() {
+  const response = await axiosInstance.post('/admin/ai/delete-website');
+  return response;
+}
+
 export async function updateChatbot(data: any) {
   console.log(data, "===========================")
   const response = await axiosInstance.post('/admin/ai/update-chatbot', data);

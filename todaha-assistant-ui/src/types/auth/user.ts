@@ -5,7 +5,6 @@ export type IAuthUser = {
     username: string;
     password: string;
     assistant: Assistant;
-    files: UserFile[];
     firstName: string;
     lastName: string;
     avatar: string;
@@ -35,4 +34,6 @@ export type Assistant = {
     whatsapp_number: string;
     instruction: string;
     chatbots: ChatBot[];
+    files: UserFile[];
+    website_url: string;
 };
