@@ -9,7 +9,6 @@ const Chatbot = dynamic(() => import("./component/chatbot"), {
 import { Button, Card, CardBody, FileInput } from "@/components/daisyui";
 import FormInput from "@/components/forms/FormInput";
 import useConfig from "./use-custom";
-import FileUpload from "./component/file-upload";
 import { useTranslations } from "next-intl";
 import PageTitle from "@/components/PageTitle";
 import { Suspense } from "react";
