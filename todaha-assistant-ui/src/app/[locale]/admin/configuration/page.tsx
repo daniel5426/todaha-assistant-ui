@@ -100,7 +100,6 @@ export default function Configuration ()  {
                     <span className="text-sm text-gray-500 mb-3">
                       {t('upload_website_info')}</span>
 
-                    <WebsiteUpload />
                   </div>
 
                   <div className=" w-full mt-5">
@@ -113,6 +112,7 @@ export default function Configuration ()  {
                     <span className="text-sm text-gray-500 mb-3">
                       {t('Upload info')}</span>
 
+                    <FileUpload />
                   </div>
                 </div>
               </CardBody>
