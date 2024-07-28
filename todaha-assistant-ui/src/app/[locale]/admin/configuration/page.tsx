@@ -113,7 +113,6 @@ export default function Configuration ()  {
                     <span className="text-sm text-gray-500 mb-3">
                       {t('Upload info')}</span>
 
-                    <FileUpload />
                   </div>
                 </div>
               </CardBody>
