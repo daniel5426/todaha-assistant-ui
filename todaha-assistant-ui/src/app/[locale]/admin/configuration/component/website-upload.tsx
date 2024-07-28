@@ -1,5 +1,6 @@
-import { deleteFile, deleteWebsiteUrl, uploadFile, uploadWebsiteUrl } from "@/app/lib/data";
-import { Button, FileInput, Input } from "@/components/daisyui";
+"use client";
+import { deleteWebsiteUrl, uploadWebsiteUrl } from "@/app/lib/data";
+import { Input } from "@/components/daisyui";
 import useToast from "@/hooks/use-toast";
 import { useAuthContext } from "@/states/auth";
 import React, { useState, useEffect } from "react";
