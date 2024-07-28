@@ -15,7 +15,7 @@ const useConfig = () => {
   const [isLoading, setIsLoading] = useState(false);
   const { toaster } = useToast();
   const { state, setLoggedInUser, updateUserInfo } = useAuthContext();
-  const [files, setFiles] = useState(state.user?.files || []);
+  const [files, setFiles] = useState(state.user?.assistant.files || []);
   const contactSchema = z.object({
     welcome_message: z.string().optional(),
     instruction: z.string().optional(),
