@@ -46,14 +46,14 @@ const WebsiteUpload = () => {
       const response = await uploadWebsiteUrl(websiteUrl);
       if (response.status === 200) {
         await updateUserInfo();
-        toaster.success("File uploaded successfully");
+        toaster.success("Website uploaded successfully");
         // Refresh the files after upload
         setWebsiteUrl("");
       } else {
-        toaster.error("Failed to upload file");
+        toaster.error("Failed to upload website");
       }
     } catch (error) {
-      toaster.error("Error uploading file");
+      toaster.error("Error uploading website");
     } finally {
       setIsLoading(false);
     }
@@ -65,11 +65,11 @@ const WebsiteUpload = () => {
         await deleteWebsiteUrl();
       
       await updateUserInfo();
-      toaster.success("File deleted successfully");
+      toaster.success("Website deleted successfully");
       // Update files state to remove the deleted file
       setWebsiteUrl("");
     } catch (error) {
-      toaster.error("Error deleting file");
+      toaster.error("Error deleting website");
     } finally {
       setIsDeleting(false);
     }
