@@ -28,6 +28,7 @@
         "Upload info": "Rajoutez les fichiers auxquels vous voulez que l'assistant ait accès (max 3 fichiers)"
     },
     "dashboard": {
+        "No chats found": "Aucune conversation trouvée",
         "messages": "messages",
         "token used": "Nombre de token - ce mois-ci",
         "token left 1": "Il vous reste ",

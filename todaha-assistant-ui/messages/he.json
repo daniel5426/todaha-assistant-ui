@@ -55,6 +55,7 @@
         "Upload info": "העלה קבצים שהעוזר יצטרך (מקסימום 3 קבצים)"
     },
     "dashboard": {
+        "No chats found": "לא נמצאו שיחות",
         "messages": "הודעות",
         "token used": "מספר תוקנים - החודש",
         "token left 1": " נשארו לך",

@@ -90,7 +90,7 @@ export default function ChatList ()  {
       <Card className="bg-base-100">
         <CardBody>
           <div className="text-center">
-            <h1 className="text-2xl font-bold">No chats found</h1>
+            <h1 className="text-2xl font-bold">{t("No chats found")}</h1>
           </div>
         </CardBody>
       </Card>
