@@ -89,7 +89,9 @@ export default function ChatList ()  {
     return (
       <Card className="bg-base-100">
         <CardBody>
-          <LatestInvoicesSkeleton numberOfInvoices={0} />
+          <div className="text-center">
+            <h1 className="text-2xl font-bold">No chats found</h1>
+          </div>
         </CardBody>
       </Card>
     );
