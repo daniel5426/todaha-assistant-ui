@@ -103,7 +103,7 @@ export default function Configuration ()  {
                     <WebsiteUpload />
                   </div>
 
-                  <div className=" w-full mt-5">
+                  <div className=" w-full mt-2">
                     <label
                       htmlFor="message"
                       className=" block text-base font-medium"
