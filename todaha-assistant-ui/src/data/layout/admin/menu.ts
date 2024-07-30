@@ -49,12 +49,12 @@ export const adminMenuItems: IMenuItem[] = [
         label: "AI assistant",
         url: routes.admin.configuration,
     },
-    {
-        key: "config-chatbot",
-        icon: messagesSquareIcon,
-        label: "Chatbot",
-        url: routes.admin.customization,
-    },
+    // {
+    //     key: "config-chatbot",
+    //     icon: messagesSquareIcon,
+    //     label: "Chatbot",
+    //     url: routes.admin.customization,
+    // },
 
 
 
