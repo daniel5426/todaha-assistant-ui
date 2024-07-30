@@ -15,13 +15,26 @@
         "Email Address": "כתובת אימייל",
         "Password": "סיסמה",
         "Register": "הרשמה",
-        "Username": "שם משתמש",
+        "Username or Email": "שם משתמש / אימייל",
         "Forgot Password?": "שכחת סיסמה?",
         "Haven't account": "אין לך חשבון",
         "Create One": "צור אחד",
         "I have already to": "כבר יש לי",
         "login_b": "גישה חלקה, חיבור מאובטח: השער שלך לחווייה אישית.",
         "register_b": "הצטרף לקהילת תודעה ופתח את עוצמת ה-AI לשדרוג חוויית שירות הלקוחות שלך."
+    },
+    "customization": {
+        "Configuration": "Configuration",
+        "Dashboard": "Dashboard",
+        "Top bar text": "Top bar text",
+        "The Text that will be displayed in the top bar of the chatbot": "The Text that will be displayed in the top bar of the chatbot",
+        "Name text color": "Name text color",
+        "Choose Chatbot type": "Choose Chatbot type",
+        "Topbar color": "Topbar color",
+        "Button color": "Button color",
+        "Logo Image": "Logo Image",
+        "The image that will be displayed in the top bar of the chatbot": "The image that will be displayed in the top bar of the chatbot",
+        "Save": "Save"
     },
     "configuration": {
         "Upload Your Website Content": "תעלה את תוכן אתר האינטרנט שלך",

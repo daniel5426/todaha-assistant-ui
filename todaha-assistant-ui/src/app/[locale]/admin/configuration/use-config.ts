@@ -5,8 +5,7 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { z } from "zod";
 import useToast from "@/hooks/use-toast";
-import routes from "@/services/routes";
-import { get_user_info, updateAiConfiguration } from "@/app/lib/data";
+import { updateAiConfiguration } from "@/app/lib/data";
 import { useAuthContext } from "@/states/auth";
 
 const useConfig = () => {
@@ -35,16 +34,6 @@ const useConfig = () => {
   useEffect(() => {
      updateUserInfo();
   }, []);
-
-  const transformErrorToForm = (
-    errors: { [s: string]: unknown } | ArrayLike<unknown>
-  ) => {
-    Object.entries(errors).forEach(([key, value]) => {
-      if (typeof key === "string") {
-        setError(key as keyof ConfigSchemaType, { message: value as string });
-      }
-    });
-  };
 
   const onSubmit = handleSubmit(async (data) => {
     setIsLoading(true);

@@ -4,27 +4,42 @@ import Cookies from "js-cookie";
 import { useCallback, useEffect } from "react";
 import createHookedContext from "@/hooks/create-hooked-context";
 import useSessionStorage from "@/hooks/use-session-storage";
-import { IAuthState, IAuthUser, Token } from "@/types/auth";
+import { IAuthState, IAuthUser, IChatBot, Token } from "@/types/auth";
 import axiosInstance from "@/app/lib/axiosConfig";
 import { get_user_info } from "@/app/lib/data";
 
 export const getToken = () => {
-  return Cookies.get('token');
-}
+  return Cookies.get("token");
+};
 
 const useHook = () => {
-  
   const [state, setState] = useSessionStorage<IAuthState>("__ADMIN_AUTH__", {});
-  const [currentChatbotId, setCurrentChatbotId] = useSessionStorage<string>("__CURRENT_CHATBOT_ID__", "");
+  const [currentChatbot, setCurrentChatbot] = useSessionStorage<IChatBot>(
+    "__CURRENT_CHATBOT__",
+    {
+      button_color: "#000",
+      top_color: "#000",
+      name_text_color: "#000",
+      logo: "",
+      id: "",
+      name: "",
+      top_name: "",
+      is_modal: false,
+    }
+  );
+
 
   const setLoggedInUser = (user: IAuthUser) => {
     setState({ user: user });
   };
 
+  useEffect(() => {
+    updateUserInfo();
+  }, []);
+
   const isLoggedIn = useCallback(() => {
     return state.user != undefined;
   }, [state.user]);
-
 
   const setToken = (token: any) => {
     if (token.access_token) {
@@ -43,8 +58,9 @@ const useHook = () => {
   const updateUserInfo = async () => {
     const user_info = await get_user_info();
     setLoggedInUser(user_info);
-    setCurrentChatbotId(user_info?.assistant?.chatbots[0]?.id || "");
+    setCurrentChatbot(user_info?.assistant?.chatbots[0] || null);
   };
+
 
   const logout = () => {
     updateState({
@@ -55,7 +71,7 @@ const useHook = () => {
     });
     Cookies.set("loggedIn", "false", { expires: 1 });
     Cookies.set("token", "", { expires: 1 });
-};
+  };
 
   return {
     state,
@@ -63,7 +79,7 @@ const useHook = () => {
     isLoggedIn,
     logout,
     setToken,
-    currentChatbotId,
+    currentChatbot,
     updateUserInfo,
   };
 };

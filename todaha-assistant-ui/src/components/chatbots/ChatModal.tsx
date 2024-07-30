@@ -65,7 +65,7 @@ export default function ChatModal () {
         bottom: '0px',
         right: '2px',
         width: isChatbotVisible ? '100%' : '200px',
-        height: isChatbotVisible ? '100%' : '100px',
+        height: isChatbotVisible ? '100%' : '80px',
         border: 'none',
       }}
     />

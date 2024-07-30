@@ -1,98 +1,69 @@
-"use client";
-import { DeepChat } from "deep-chat-react";
-import { useState, useEffect, useRef } from "react";
-import axios from "axios";
-import LogoImg from "./images/1.png";
-import Image from "next/image";
-import { useLocale, useTranslations } from "next-intl";
+// components/CustomizableChatbot.tsx
 
-export const App = () => {
-  const he = "520px";
-  const we = "385px";
-  console.log(he, we);
-  const locale = useLocale();
-  const isRTL = locale === "he";
+import React, { useState, useEffect, useRef } from 'react';
+import Image from 'next/image';
+import { useAuthContext } from '@/states/auth';
+import AIcon from "../../../../../assets/images/avatars/logo.png";
+import { useLocale } from 'next-intl';
+import { DeepChat } from 'deep-chat-react';
+import axios from 'axios';
 
+interface CustomizableChatbotProps {
+  topName: string;
+  buttonColor: string;
+  topColor: string;
+  nameTextColor: string;
+  logo: string;
+}
+
+const ChatbotCorner: React.FC<CustomizableChatbotProps> = ({ topName, buttonColor, topColor, nameTextColor, logo} : CustomizableChatbotProps) => {
+  const [isOpen, setIsOpen] = useState(true);
+  const {state, currentChatbot, updateUserInfo} = useAuthContext();
+  const isRTL = useLocale() === "he";
+  const [reset, setReset] = useState(false);
   const chatElementRef = useRef<any>(null);
-
-  const assistantId = "asst_RTpyDTujpSkjYe7rhoVc66ut";
-
-  const welcomeMessages = {
-    en: "Hi There! I'm Dan, and my role is to answer any questions about developing an AI assistant for your website.",
-    he: "היי, מה נשמע? מדברת שרה, תפקידי לענות על כל שאלה לגבי פיתוח עוזר AI לאתר שלך.",
-    fr: "Bonjour ! Je suis Dan, et mon rôle est de répondre à toutes vos questions concernant le développement d'un assistant IA pour votre site web.",
-    // Add more languages as needed
-  } as any;
-
-  const placeholderTexts = {
-    en: "Type a message...",
-    he: "הקלד הודעה...",
-    fr: "Tapez un message...",
-    // Add more languages as needed
-  } as any;
-
-  const welcomeMsg = welcomeMessages[locale] || welcomeMessages.en;
-  const placeholderText = placeholderTexts[locale] || placeholderTexts.en;
-
+  const [threadId, setThreadId] = useState<string | null>(null);
+  const api_url = process.env.NEXT_PUBLIC_API_URL;
+  const placeholderText = "Type your message...";
   const initialMessages = [
     {
       role: "ai",
-      text: welcomeMsg,
+      text: "היי, מה נשמע? מדברת שרה, תפקידי לענות על כל שאלה לגבי שירות עוזר בינה מלאכותי המותאם אישית שלנו.",
     },
   ];
 
-  const [isChatVisible, setIsChatVisible] = useState(false);
-  const [reset, setReset] = useState(false);
-  const [threadId, setThreadId] = useState(null);
-  const [isAnimating, setAnimating] = useState(false);
+  
+  const toggleChatbot = () => {
+    setIsOpen(!isOpen);
+  };
 
-  const api_url = process.env.NEXT_PUBLIC_API_BASE_URL1;
-
-  useEffect(() => {
-    axios
-      .get(`${api_url}/chat/create-thread`, {
-        params: { assistant_id: assistantId },
-      })
-      .then((response) => {
-        setThreadId(response.data.thread_id);
-      })
-      .catch((error) => {
-        console.error(error);
+    // Fetch a new thread ID from the API when the component mounts or resets
+    useEffect(() => {
+        updateUserInfo().then(() => {
+        axios
+          .get(`${api_url}/chat/create-thread`, {
+            params: { assistant_id: state.user.assistant.id },
+          })
+          .then((response) => {
+            setThreadId(response.data.thread_id);
+          })
+          .catch((error) => {
+            console.error(error);
+          });
       });
-  }, [reset, api_url, assistantId]);
-
-  const handleRequestInterceptor = (requestDetails: {
-    body: {
-      messages?: any;
-      text?: any;
-      role?: string;
-      thread_id?: null;
-      assistant_id?: string;
-    };
-  }) => {
-    requestDetails.body = {
-      text: requestDetails.body.messages[0].text,
-      role: "user",
-      thread_id: threadId,
-      assistant_id: assistantId,
-    };
-    return requestDetails;
-  };
-
-  const toggleChatVisibility = () => {
-    if (isChatVisible) {
-      setAnimating(false);
-      setTimeout(() => setIsChatVisible(false), 300); // match this duration with the CSS transition duration
-    } else {
-      setIsChatVisible(true);
-      setTimeout(() => setAnimating(true), 10); // allow the state to update before starting the animation
-    }
-    setReset((prevReset) => !prevReset);
-  };
-
-  const closeChatVisibility = () => {
-    setIsChatVisible(false);
-  };
+      }, [reset]);
+    
+      // Intercept and modify the request details before sending
+      const handleRequestInterceptor = (requestDetails) => {
+        requestDetails.body = {
+          text: requestDetails.body.messages[0].text,
+          role: "user",
+          thread_id: threadId,
+          assistant_id: state.user.assistant.id,
+        };
+        return requestDetails;
+      };
+    
 
   const handleResetClick = () => {
     setReset((prevReset) => !prevReset);
@@ -101,20 +72,14 @@ export const App = () => {
     }
   };
 
-  const handleWhatsAppClick = () => {
-    window.open("https://wa.link/daywlr", "_blank");
-  };
-
-  const handleFacebookClick = () => {
-    window.open("https://www.facebook.com/yourfacebookpage", "_blank");
-  };
 
   return (
     <div className="fixed bottom-20 right-3 flex" style={{ zIndex: 9999 }}>
       <div className="relative inline-block text-left">
         <button
-          onClick={toggleChatVisibility}
-          className="inline-flex justify-center items-center w-16 h-16 rounded-full bg-slate-900 text-white hover:bg-slate-900 transition-all duration-300 ease-in-out transform hover:scale-110 gap-2"
+          onClick={toggleChatbot}
+          style={{ backgroundColor: buttonColor }}
+          className="inline-flex justify-center items-center w-16 h-16 rounded-full  text-white  transition-all duration-300 ease-in-out transform hover:scale-110 gap-2"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -132,19 +97,17 @@ export const App = () => {
           </svg>
         </button>
 
-        {isChatVisible && (
+        {isOpen && (
           <div
-            className={`join join-vertical -top-4 absolute right-0 -translate-y-full bg-slate-900 rounded-2xl shadow-xl ring-1 ring-black ring-opacity-0 transition-opacity duration-300 ease-in-out transform ${
-              isAnimating ? "scale-100 opacity-100" : "scale-85 opacity-0"
-            }`}
+            className={`join join-vertical -top-4 absolute right-0 -translate-y-full bg-slate-900 rounded-2xl shadow-xl ring-1 ring-black ring-opacity-0 transition-opacity duration-300 ease-in-out transform`}
           >
             <div className="p-2">
               <div className="flex flex-col rounded-2xl">
                 <div className="flex flex-row items-center ml-3">
                   <div className=" pr-5 p-1">
                     <div className="w-9 h-9 rounded-full">
-                      <Image
-                        src={LogoImg}
+                      <img
+                        src={logo || AIcon.src}
                         alt="Logo"
                         className="w-full h-full object-cover "
                       />
@@ -152,7 +115,7 @@ export const App = () => {
                   </div>
                   <div className="grow">
                     <span className="text-white  text-[17px]  text-center self-center ">
-                      Todaha
+                      {topName}
                     </span>
                     <div className="flex items-center gap-2 mt-[-2px]">
                       <div className="size-2 rounded-full bg-success"></div>
@@ -191,7 +154,7 @@ export const App = () => {
                   </button>
                   <button
                     className="p-1 rounded-full text-white bg-transparent hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-600"
-                    onClick={toggleChatVisibility}
+                    onClick={toggleChatbot}
                   >
                     <svg
                       className="h-6 w-6"
@@ -217,11 +180,11 @@ export const App = () => {
                 stream={true}
                 ref={chatElementRef}
                 style={{
-                  height: he,
+                  height: "300px",
                   fontSize: "0.95em",
                   width:
                     window.innerWidth > 400
-                      ? we
+                      ? "300px"
                       : `${window.innerWidth - 20}px`,
                   borderRadius: "0 0 15px 15px",
                   border: "unset",
@@ -388,4 +351,4 @@ export const App = () => {
   );
 };
 
-export default App;
+export default ChatbotCorner;

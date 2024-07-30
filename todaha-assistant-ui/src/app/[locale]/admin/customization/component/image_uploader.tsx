@@ -1,14 +1,22 @@
+"use client";
 import { useAuthContext } from "@/states/auth";
-import React from "react";
+import React, { useEffect } from "react";
 import ImageUploading from "react-images-uploading";
-import useCustom from "../use-custom";
+import { useCustomHook } from "../use-custom";
 
 export default function ImageUploader() {
-  const {state, currentChatbotId  } = useAuthContext()
-  const {setValue} = useCustom()
-  const initialLogo = state.user?.assistant?.chatbots.find(chatbot => chatbot.id === currentChatbotId)?.logo;
-  const [image, setImage] = React.useState(initialLogo ? [initialLogo] : []);
+  const {state, currentChatbot  } = useAuthContext()
+  const {setValue} = useCustomHook()
+  const initialLogo = currentChatbot?.logo;
+  const [image, setImage] = React.useState([]);
   const maxNumber = 1;
+
+  useEffect(() => {
+    const initialImage = {
+      data_url: initialLogo,
+    };  
+    setImage(initialLogo ? [initialImage] : []);
+  }, [initialLogo]);
 
   const onChange = (imageList, addUpdateIndex) => {
     // data for submit
@@ -29,7 +37,6 @@ export default function ImageUploader() {
         {({
           imageList,
           onImageUpload,
-          onImageRemoveAll,
           onImageUpdate,
           onImageRemove,
           isDragging,
@@ -49,7 +56,7 @@ export default function ImageUploader() {
               className="btn btn-primary btn-sm"
               {...dragProps}
             >
-              {imageList.length === 0 ? "Upload Image" : "Update Image"}
+              {"Update Image"}
             </button>
             &nbsp;
             {imageList.length > 0 && (

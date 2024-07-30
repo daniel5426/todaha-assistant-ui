@@ -9,9 +9,24 @@
         "Pages": "Pages",
         "Landing": "Landing",
         "Contact": "Contact",
-        "Chatbot customization": "Chatbot customization"
+        "Chatbot customization": "Chatbot customization",
+        "Chatbot": "Chatbot"
+    },
+    "customization": {
+        "Configuration": "Configuration",
+        "Dashboard": "Dashboard",
+        "Top bar text": "Top bar text",
+        "The Text that will be displayed in the top bar of the chatbot": "The Text that will be displayed in the top bar of the chatbot",
+        "Name text color": "Name text color",
+        "Choose Chatbot type": "Choose Chatbot type",
+        "Topbar color": "Topbar color",
+        "Button color": "Button color",
+        "Logo Image": "Logo Image",
+        "The image that will be displayed in the top bar of the chatbot": "Your company logo, displayed in the top bar of the chatbot",
+        "Save": "Save"
     },
     "configuration": {
+
         "Upload Your Website Content": "Upload Your Website Content",
         "upload_website_info": "All the content of your website will be available to the assistant",
         "Dashboard": "Dashboard",
@@ -69,7 +84,7 @@
         "Email Address": "Email Address",
         "Password": "Password",
         "Register": "Register",
-        "Username": "Username",
+        "Username or Email": "Username or Email",
         "Forgot Password?": "Forgot Password?",
         "Haven't account": "Haven't account",
         "Create One": "Create One",

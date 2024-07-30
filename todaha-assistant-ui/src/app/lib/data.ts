@@ -144,7 +144,6 @@ export async function deleteWebsiteUrl() {
 }
 
 export async function updateChatbot(data: any) {
-  console.log(data, "===========================")
   const response = await axiosInstance.post('/admin/ai/update-chatbot', data);
   return response.data;
 }

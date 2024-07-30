@@ -15,13 +15,14 @@ export type UserFile = {
     name: string ;
 };
 
-export type ChatBot = {
+export type IChatBot = {
     id: string;
     name: string;
-    topbar_color: string;
+    top_color: string;
     top_name: string;
     logo: string | null;
     button_color: string;
+    name_text_color: string;
     is_modal: boolean;
 }
 
@@ -33,7 +34,7 @@ export type Assistant = {
     welcome_message: string;
     whatsapp_number: string;
     instruction: string;
-    chatbots: ChatBot[];
+    chatbots: IChatBot[];
     files: UserFile[];
     website_url: string;
 };
