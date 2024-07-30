@@ -46,7 +46,7 @@ export default function Configuration ()  {
                       control={control}
                       name={"welcome_message"}
                       placeholder="Hi my name is John, how can I help you today?"
-                      className="w-full focus:border-transparent border-transparent focus:outline-0 h-18"
+                      className="w-full focus:border-transparent border-transparent focus:outline-0 h-12"
                       bordered={false}
                       borderOffset={false}
                       isTextArea={true}
