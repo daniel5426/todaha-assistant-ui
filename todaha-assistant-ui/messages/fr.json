@@ -27,6 +27,9 @@
         "Upload": "Rajouter des fichiers pour l'assistant",
         "Upload info": "Rajoutez les fichiers auxquels vous voulez que l'assistant ait accès (max 3 fichiers)"
     },
+    "chatbot": {
+        "type a message": "Écrivez un message..."
+    },
     "dashboard": {
         "No chats found": "Aucune conversation trouvée",
         "messages": "messages",

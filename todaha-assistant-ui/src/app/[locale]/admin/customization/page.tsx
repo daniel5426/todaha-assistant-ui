@@ -3,9 +3,6 @@ import PageMetaData from "@/components/PageMetaData";
 import {SketchPicker } from "react-color";
 import dynamic from "next/dynamic";
 
-const Chatbot = dynamic(() => import("./component/chatbot"), {
-  ssr: false,
-});
 import { Button, Card, CardBody } from "@/components/daisyui";
 import FormInput from "@/components/forms/FormInput";
 import { useTranslations } from "next-intl";
@@ -16,10 +13,10 @@ import { useEffect, useState } from "react";
 import ColorPicker from "./component/ColorPicker";
 import ChatbotCorner from "./component/ChatbotCorner";
 import { useAuthContext } from "@/states/auth";
+import ChatbotModalConfig from "./component/chatbot";
 
 export default function Customization() {
   const { isLoading, control, onSubmit, setValue, getValues } = useCustomHook();
-  const {state, currentChatbot} = useAuthContext();
   const t = useTranslations("customization");
   const [topbarColor, setTopbarColor] = useState("");
   const [buttonColor, setButtonColor] = useState("");
@@ -29,6 +26,8 @@ export default function Customization() {
   const [displayTopbarPicker, setDisplayTopbarPicker] = useState(false);
   const [displayButtonPicker, setDisplayButtonPicker] = useState(false);
   const [displayNameTextColorPicker, setDisplayNameTextColorPicker] = useState(false);
+  const [isModal, setIsModal] = useState(false);
+
 
   useEffect(() => {
     setNameTextColor(getValues("name_text_color"));
@@ -36,6 +35,7 @@ export default function Customization() {
     setButtonColor(getValues("button_color"));
     setTopName(getValues("top_name"));
     setLogo(getValues("logo"));
+    setIsModal(getValues("is_modal"));
   }, []);
 
   const handleTopbarColorChange = (color) => {
@@ -63,6 +63,11 @@ export default function Customization() {
 
   const toggleNameTextColorPicker = () => {
     setDisplayNameTextColorPicker(!displayNameTextColorPicker);
+  };
+
+  const handleLogoChange = (newLogo: string) => {
+    setLogo(newLogo);
+    setValue("logo", newLogo);
   };
 
 
@@ -125,8 +130,11 @@ export default function Customization() {
                       <span className="label-text">Modal Chatbot</span>
                       <input
                         type="radio"
-                        name="radio-10"
+                        name="chatbot-type"
                         className="radio checked:bg-red-500"
+                        value="modal"
+                        checked={isModal}
+                        onChange={() => {setIsModal(true); setValue("is_modal", true)}}
                       />
                     </label>
                   </div>
@@ -135,9 +143,11 @@ export default function Customization() {
                       <span className="label-text">Bottom Chatbot</span>
                       <input
                         type="radio"
-                        name="radio-10"
+                        name="chatbot-type"
                         className="radio checked:bg-blue-500"
-                        defaultChecked
+                        value="bottom"
+                        checked={!isModal}
+                        onChange={() => {setIsModal(false); setValue("is_modal", false)}}
                       />
                     </label>
                   </div>
@@ -172,7 +182,7 @@ export default function Customization() {
                         )}
                       </span>
                     </label>
-                    <ImageUploader />
+                    <ImageUploader onLogoChange={handleLogoChange} initialLogo={logo} />
                   </div>
                   <div className="mt-6">
                     <Button
@@ -191,7 +201,21 @@ export default function Customization() {
             </Card>
           </div>
           <div className="lg:col-span-7 xl:col-span-8 2xl:col-span-8 flex justify-center top-14">
-          <ChatbotCorner topName={topName} buttonColor={buttonColor} topColor={topbarColor} nameTextColor={nameTextColor} logo={logo} />
+          {isModal ? (
+            <ChatbotModalConfig
+              logo={logo}
+              buttonColor={buttonColor}
+              buttonText={t("Chat with us")}
+            />
+          ) : (
+            <ChatbotCorner
+              topName={topName}
+              buttonColor={buttonColor}
+              topColor={topbarColor}
+              nameTextColor={nameTextColor}
+              logo={logo}
+            />
+          )}
           </div>
         </div>
       </div>

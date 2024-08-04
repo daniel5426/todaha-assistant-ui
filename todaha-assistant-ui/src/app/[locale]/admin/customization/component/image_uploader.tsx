@@ -1,20 +1,25 @@
 "use client";
 import { useAuthContext } from "@/states/auth";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import ImageUploading from "react-images-uploading";
 import { useCustomHook } from "../use-custom";
 
-export default function ImageUploader() {
-  const {state, currentChatbot  } = useAuthContext()
-  const {setValue} = useCustomHook()
-  const initialLogo = currentChatbot?.logo;
+interface ImageUploaderProps {
+  onLogoChange: (logo: string) => void;
+  initialLogo: string;
+}
+
+export default function ImageUploader({ onLogoChange, initialLogo }: ImageUploaderProps) {
+  const { state, currentChatbot } = useAuthContext();
+  const { setValue } = useCustomHook();
+  const [logo, setLogo] = useState(initialLogo);
   const [image, setImage] = React.useState([]);
   const maxNumber = 1;
 
   useEffect(() => {
     const initialImage = {
       data_url: initialLogo,
-    };  
+    };
     setImage(initialLogo ? [initialImage] : []);
   }, [initialLogo]);
 
@@ -22,7 +27,16 @@ export default function ImageUploader() {
     // data for submit
     console.log(imageList, addUpdateIndex);
     setImage(imageList);
-    setValue("logo", imageList[0]?.data_url);
+    if (imageList[0]?.data_url) {
+      setLogo(imageList[0].data_url);
+      onLogoChange(imageList[0].data_url);
+      setValue("logo", imageList[0].data_url);
+    }
+    if (imageList.length === 0) {
+      setLogo("");
+      onLogoChange("");
+      setValue("logo", "");
+    }
   };
 
   return (

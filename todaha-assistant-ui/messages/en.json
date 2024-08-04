@@ -43,6 +43,9 @@
         "Upload": "Upload files for the assistant",
         "Upload info": "Upload files that you want the assistant to have access to (max 3 files)"
     },
+    "chatbot": {
+        "type a message": "type a message..."
+    },
     "dashboard": {
         "No chats found": "No chats found",
         "messages": "messages",

@@ -13,6 +13,7 @@ const useCustom = () => {
 
   const [isLoading, setIsLoading] = useState(false);
   const { toaster } = useToast();
+  
   const { state, updateUserInfo, currentChatbot } = useAuthContext();
 
   const chatbotSchema = z.object({
@@ -44,20 +45,19 @@ const useCustom = () => {
 
 
   const onSubmit = handleSubmit((data) => {
-    console.log("handleSubmit triggered with data:", data);
     setIsLoading(true);
     updateChatbot(data)
-      .then(() => {
+      .then(async () => {
         console.log("Chatbot updated successfully");
-        toaster.success("Saved successfully.");
-        return updateUserInfo();
+        await updateUserInfo();
+        setTimeout(() => {
+          setIsLoading(false);
+          toaster.success("Saved successfully.");
+        }, 200);
       })
       .catch((error) => {
         console.error("Error updating chatbot:", error);
         toaster.error(error.response?.detail || "An error occurred");
-      })
-      .finally(() => {
-        setIsLoading(false);
       });
   });
 

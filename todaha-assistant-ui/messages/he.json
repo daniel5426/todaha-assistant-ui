@@ -54,6 +54,9 @@
         "Upload": "העלה קבצים לעוזר",
         "Upload info": "העלה קבצים שהעוזר יצטרך (מקסימום 3 קבצים)"
     },
+    "chatbot": {
+        "type a message": "הקלד הודעה..."
+    },
     "dashboard": {
         "No chats found": "לא נמצאו שיחות",
         "messages": "הודעות",

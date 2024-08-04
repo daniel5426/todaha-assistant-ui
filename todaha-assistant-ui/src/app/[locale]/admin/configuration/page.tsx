@@ -13,10 +13,13 @@ import FileUpload from "./component/file-upload";
 import { useTranslations } from "next-intl";
 import PageTitle from "@/components/PageTitle";
 import WebsiteUpload from "./component/website-upload";
+import { useEffect } from "react";
+import { useAuthContext } from "@/states/auth";
 
 
 export default function Configuration ()  {
   const { isLoading, control, onSubmit } = useConfig();
+
   const  t  = useTranslations("configuration");
 
   return (

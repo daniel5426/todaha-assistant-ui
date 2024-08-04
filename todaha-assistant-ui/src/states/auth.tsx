@@ -34,7 +34,6 @@ const useHook = () => {
   };
 
   useEffect(() => {
-    updateUserInfo();
   }, []);
 
   const isLoggedIn = useCallback(() => {

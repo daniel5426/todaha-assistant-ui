@@ -31,20 +31,18 @@ const useConfig = () => {
     },
   });
 
-  useEffect(() => {
-     updateUserInfo();
-  }, []);
-
   const onSubmit = handleSubmit(async (data) => {
     setIsLoading(true);
     try {
-      const result = await updateAiConfiguration(data);
-      toaster.success("Saved successfully.");
+      await updateAiConfiguration(data);
       await updateUserInfo();
+      setTimeout(() => {
+        setIsLoading(false);
+        toaster.success("Saved successfully.");
+      }, 200);
     } catch (error: any) {
       toaster.error(error.response.detail);
     }
-    setIsLoading(false);
   });
 
   return {

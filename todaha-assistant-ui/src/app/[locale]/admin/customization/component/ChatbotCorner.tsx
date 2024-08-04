@@ -1,12 +1,12 @@
 // components/CustomizableChatbot.tsx
 
-import React, { useState, useEffect, useRef } from 'react';
-import Image from 'next/image';
-import { useAuthContext } from '@/states/auth';
-import AIcon from "../../../../../assets/images/avatars/logo.png";
-import { useLocale } from 'next-intl';
-import { DeepChat } from 'deep-chat-react';
-import axios from 'axios';
+import React, { useState, useEffect, useRef } from "react";
+import Image from "next/image";
+import { useAuthContext } from "@/states/auth";
+import AIcon from "../../../../../assets/images/avatars/fav.png";
+import { useLocale } from "next-intl";
+import { DeepChat } from "deep-chat-react";
+import axios from "axios";
 
 interface CustomizableChatbotProps {
   topName: string;
@@ -16,54 +16,54 @@ interface CustomizableChatbotProps {
   logo: string;
 }
 
-const ChatbotCorner: React.FC<CustomizableChatbotProps> = ({ topName, buttonColor, topColor, nameTextColor, logo} : CustomizableChatbotProps) => {
+const ChatbotCorner: React.FC<CustomizableChatbotProps> = ({
+  topName,
+  buttonColor,
+  topColor,
+  nameTextColor,
+  logo,
+}: CustomizableChatbotProps) => {
   const [isOpen, setIsOpen] = useState(true);
-  const {state, currentChatbot, updateUserInfo} = useAuthContext();
+  const { state, currentChatbot, updateUserInfo } = useAuthContext();
   const isRTL = useLocale() === "he";
   const [reset, setReset] = useState(false);
+  const [logo2, setLogo2] = useState(logo);
   const chatElementRef = useRef<any>(null);
   const [threadId, setThreadId] = useState<string | null>(null);
-  const api_url = process.env.NEXT_PUBLIC_API_URL;
+  const api_url = process.env.NEXT_PUBLIC_API_BASE_URL1;
   const placeholderText = "Type your message...";
-  const initialMessages = [
-    {
-      role: "ai",
-      text: "היי, מה נשמע? מדברת שרה, תפקידי לענות על כל שאלה לגבי שירות עוזר בינה מלאכותי המותאם אישית שלנו.",
-    },
-  ];
+  const initialMessages = [{ role: "ai", text: state.user?.assistant.welcome_message }];
 
-  
   const toggleChatbot = () => {
     setIsOpen(!isOpen);
   };
 
-    // Fetch a new thread ID from the API when the component mounts or resets
-    useEffect(() => {
-        updateUserInfo().then(() => {
-        axios
-          .get(`${api_url}/chat/create-thread`, {
-            params: { assistant_id: state.user.assistant.id },
-          })
-          .then((response) => {
-            setThreadId(response.data.thread_id);
-          })
-          .catch((error) => {
-            console.error(error);
-          });
-      });
-      }, [reset]);
-    
-      // Intercept and modify the request details before sending
-      const handleRequestInterceptor = (requestDetails) => {
-        requestDetails.body = {
-          text: requestDetails.body.messages[0].text,
-          role: "user",
-          thread_id: threadId,
-          assistant_id: state.user.assistant.id,
-        };
-        return requestDetails;
-      };
-    
+  // Fetch a new thread ID from the API when the component mounts or resets
+  useEffect(() => {
+    updateUserInfo().then(() => {
+      axios
+        .get(`${api_url}/chat/create-thread`, {
+          params: { assistant_id: state.user.assistant.id },
+        })
+        .then((response) => {
+          setThreadId(response.data.thread_id);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    });
+  }, [reset]);
+
+  // Intercept and modify the request details before sending
+  const handleRequestInterceptor = (requestDetails) => {
+    requestDetails.body = {
+      text: requestDetails.body.messages[0].text,
+      role: "user",
+      thread_id: threadId,
+      assistant_id: state.user.assistant.id,
+    };
+    return requestDetails;
+  };
 
   const handleResetClick = () => {
     setReset((prevReset) => !prevReset);
@@ -72,9 +72,8 @@ const ChatbotCorner: React.FC<CustomizableChatbotProps> = ({ topName, buttonColo
     }
   };
 
-
   return (
-    <div className="fixed bottom-20 right-3 flex" style={{ zIndex: 9999 }}>
+    <div className="fixed bottom-20 flex ml-60" style={{ zIndex: 9999 }}>
       <div className="relative inline-block text-left">
         <button
           onClick={toggleChatbot}
@@ -99,28 +98,41 @@ const ChatbotCorner: React.FC<CustomizableChatbotProps> = ({ topName, buttonColo
 
         {isOpen && (
           <div
-            className={`join join-vertical -top-4 absolute right-0 -translate-y-full bg-slate-900 rounded-2xl shadow-xl ring-1 ring-black ring-opacity-0 transition-opacity duration-300 ease-in-out transform`}
+            className={`join join-vertical -top-4 absolute right-0 -translate-y-full  rounded-xl shadow-xl ring-1 ring-gray-200 ring-opacity-1 transition-opacity duration-300 ease-in-out transform`}
           >
-            <div className="p-2">
-              <div className="flex flex-col rounded-2xl">
+            <div
+                className="p-2 join-item"
+              style={{
+                backgroundColor: topColor,
+              }}
+            >
+              <div
+                className="flex flex-col rounded-2xl"
+                style={{ direction: "ltr" }}
+              >
                 <div className="flex flex-row items-center ml-3">
-                  <div className=" pr-5 p-1">
-                    <div className="w-9 h-9 rounded-full">
-                      <img
-                        src={logo || AIcon.src}
-                        alt="Logo"
-                        className="w-full h-full object-cover "
-                      />
+                  {logo !== "" && (
+                    <div className="pr-5 p-1">
+                      <div className="w-9 h-9 rounded-full ">
+                        <img
+                          src={logo}
+                          alt="Logo"
+                          className="w-full h-full object-cover "
+                        />
+                      </div>
                     </div>
-                  </div>
-                  <div className="grow">
-                    <span className="text-white  text-[17px]  text-center self-center ">
+                  )}
+                  <div
+                    className="grow flex flex-row "
+                    style={{ color: nameTextColor }}
+                  >
+                    <span className="text-[17px] text-center self-center font-bold">
                       {topName}
+                      <div className="flex items-center gap-2">
+                        <div className="size-2 rounded-full bg-success"></div>
+                        <p className="text-[12px]">Active</p>
+                      </div>
                     </span>
-                    <div className="flex items-center gap-2 mt-[-2px]">
-                      <div className="size-2 rounded-full bg-success"></div>
-                      <p className="text-[12px] text-white">Active</p>
-                    </div>
                   </div>
                 </div>
                 <div className="flex flex-row absolute right-2 top-2">
@@ -135,20 +147,19 @@ const ChatbotCorner: React.FC<CustomizableChatbotProps> = ({ topName, buttonColo
                       xmlns="http://www.w3.org/2000/svg"
                       stroke="#ffffff"
                     >
-                      <g id="SVGRepo_bgCarrier" stroke-width="0" />
+                      <g id="SVGRepo_bgCarrier" strokeWidth="0" />
 
                       <g
                         id="SVGRepo_tracerCarrier"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
                       />
 
                       <g id="SVGRepo_iconCarrier">
-                        {" "}
                         <path
                           d="M960 0v213.333c411.627 0 746.667 334.934 746.667 746.667S1371.627 1706.667 960 1706.667 213.333 1371.733 213.333 960c0-197.013 78.4-382.507 213.334-520.747v254.08H640V106.667H53.333V320h191.04C88.64 494.08 0 720.96 0 960c0 529.28 430.613 960 960 960s960-430.72 960-960S1489.387 0 960 0"
-                          fill-rule="evenodd"
-                        />{" "}
+                          fillRule="evenodd"
+                        />
                       </g>
                     </svg>
                   </button>
@@ -180,16 +191,17 @@ const ChatbotCorner: React.FC<CustomizableChatbotProps> = ({ topName, buttonColo
                 stream={true}
                 ref={chatElementRef}
                 style={{
-                  height: "300px",
+                  height: "550px",
                   fontSize: "0.95em",
                   width:
                     window.innerWidth > 400
-                      ? "300px"
+                      ? "400px"
                       : `${window.innerWidth - 20}px`,
                   borderRadius: "0 0 15px 15px",
-                  border: "unset",
-                  borderColor: "#dcdcdc",
-                  backgroundColor: "#f3f6fc",
+                  border: "none",
+                  boxShadow: "none",
+                  outline: "none",
+                  backgroundColor: "#f8f8f8",
                 }}
                 initialMessages={initialMessages}
                 request={{
@@ -205,9 +217,8 @@ const ChatbotCorner: React.FC<CustomizableChatbotProps> = ({ topName, buttonColo
                   styles: {
                     container: {
                       borderRadius: "20px",
-                      border: "unset",
+                      border: "none",
                       width: "78%",
-                      marginLeft: "-px",
                       boxShadow: "2px 2px 5px rgba(0, 0, 0, 0.16)",
                     },
                     text: {
@@ -240,8 +251,8 @@ const ChatbotCorner: React.FC<CustomizableChatbotProps> = ({ topName, buttonColo
                     user: {
                       bubble: {
                         direction: isRTL ? "rtl" : "ltr",
-                        background:
-                          "linear-gradient(130deg, #2DC3EF 20%, #2DC3EF 77.5%)",
+                        background: "rgba(255,255,255,0.7)",
+                        color: "#000000",
                       },
                     },
                     ai: {
@@ -253,7 +264,7 @@ const ChatbotCorner: React.FC<CustomizableChatbotProps> = ({ topName, buttonColo
                   },
                 }}
                 submitButtonStyles={{
-                  position: "outside-right",
+                  position: isRTL ? "inside-left" : "inside-right",
                   submit: {
                     container: {
                       default: {
@@ -306,41 +317,6 @@ const ChatbotCorner: React.FC<CustomizableChatbotProps> = ({ topName, buttonColo
                       },
                     },
                   },
-                }}
-                dropupStyles={{
-                  button: {
-                    styles: {
-                      container: {
-                        default: { backgroundColor: "#eff8ff" },
-                        hover: { backgroundColor: "#e4f3ff" },
-                        click: { backgroundColor: "#d7edff" },
-                      },
-                    },
-                  },
-                  menu: {
-                    container: {
-                      boxShadow: "#e2e2e2 0px 1px 3px 2px",
-                    },
-                    item: {
-                      hover: {
-                        backgroundColor: "#e1f2ff",
-                      },
-                      click: {
-                        backgroundColor: "#cfeaff",
-                      },
-                    },
-                    iconContainer: {
-                      width: "1.8em",
-                    },
-                    text: {
-                      fontSize: "1.05em",
-                    },
-                  },
-                }}
-                attachmentContainerStyle={{
-                  backgroundColor: "unset",
-                  top: "-2.6em",
-                  height: "4em",
                 }}
               />
             </div>

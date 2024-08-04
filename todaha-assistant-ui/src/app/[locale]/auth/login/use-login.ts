@@ -33,7 +33,7 @@ const useLogin = () => {
   type LoginSchemaType = z.infer<typeof loginSchema>;
 
   const { control, handleSubmit, setError } = useForm<LoginSchemaType>({
-    resolver: zodResolver(loginSchema)
+    resolver: zodResolver(loginSchema),
   });
 
   const transformErrorToForm = (errors: Record<string, any>) => {
@@ -44,24 +44,23 @@ const useLogin = () => {
 
   const onSubmit = handleSubmit(async (data) => {
     setIsLoading(true);
-      try {
-        const response = await get_token(data);
-        setToken({
-          access_token: response.access_token,
-        });
-        await updateUserInfo();
-    
-        toaster.success("Login successfully...");
-        router.push(routes.admin.dashboard);
-      } catch (error : any) {
-        if (typeof error.response.data.detail === 'string') {
-          console.log(error.response);
-          toaster.error(error.response.data.detail);
-        } else {
-          toaster.error("An unexpected error occurred. Please try again.");
-        }
+    try {
+      const response = await get_token(data);
+      setToken({
+        access_token: response.access_token,
+      });
+      await updateUserInfo();
+      toaster.success("Login successfully...");
+      setTimeout(() => router.replace(routes.admin.dashboard), 100);
+    } catch (error: any) {
+      if (typeof error.response.data.detail === "string") {
+        console.log(error.response);
+        toaster.error(error.response.data.detail);
+      } else {
+        toaster.error("An unexpected error occurred. Please try again.");
       }
-        setIsLoading(false);
+    }
+    setIsLoading(false);
   });
 
   return {
