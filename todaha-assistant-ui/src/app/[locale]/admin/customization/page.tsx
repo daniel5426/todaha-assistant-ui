@@ -1,21 +1,26 @@
 "use client";
 import PageMetaData from "@/components/PageMetaData";
-import {SketchPicker } from "react-color";
-import dynamic from "next/dynamic";
 
 import { Button, Card, CardBody } from "@/components/daisyui";
 import FormInput from "@/components/forms/FormInput";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import PageTitle from "@/components/PageTitle";
 import { useCustomHook } from "./use-custom";
 import ImageUploader from "./component/image_uploader";
 import { useEffect, useState } from "react";
 import ColorPicker from "./component/ColorPicker";
 import ChatbotCorner from "./component/ChatbotCorner";
-import { useAuthContext } from "@/states/auth";
 import ChatbotModalConfig from "./component/chatbot";
 
+const languages = [
+  { code: 'en', name: 'English' },
+  { code: 'fr', name: 'Français' },
+  { code: 'he', name: 'עברית' },
+];
+
 export default function Customization() {
+  const locale = useLocale();
+  const [selectedLanguage, setSelectedLanguage] = useState(locale as string);
   const { isLoading, control, onSubmit, setValue, getValues } = useCustomHook();
   const t = useTranslations("customization");
   const [topbarColor, setTopbarColor] = useState("");
@@ -28,13 +33,13 @@ export default function Customization() {
   const [displayNameTextColorPicker, setDisplayNameTextColorPicker] = useState(false);
   const [isModal, setIsModal] = useState(false);
 
-
   useEffect(() => {
     setNameTextColor(getValues("name_text_color"));
     setTopbarColor(getValues("top_color"));
     setButtonColor(getValues("button_color"));
     setTopName(getValues("top_name"));
     setLogo(getValues("logo"));
+    setSelectedLanguage(getValues("lg"));
     setIsModal(getValues("is_modal"));
   }, []);
 
@@ -70,6 +75,10 @@ export default function Customization() {
     setValue("logo", newLogo);
   };
 
+  const handleLanguageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedLanguage(e.target.value);
+    setValue("lg", e.target.value);
+  };
 
   return (
     <div>
@@ -118,6 +127,25 @@ export default function Customization() {
                     togglePicker={toggleNameTextColorPicker}
                   />
 
+                  <div className="form-control mt-5">
+                    <label htmlFor="language" className="block text-base font-medium">
+                      {t("Language")}
+                    </label>
+                    <select
+                      id="language"
+                      value={selectedLanguage}
+                      onChange={handleLanguageChange}
+                      className="select select-sm select-bordered w-full mt-1"
+                    >
+                      {languages.map(lang => (
+                        <option key={lang.code} value={lang.code}>
+                          {lang.name}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                    <div className="divider"></div>
+                    <div className="mt-5">
                   <label
                     htmlFor="message"
                     className="block text-base font-medium"
@@ -151,22 +179,25 @@ export default function Customization() {
                       />
                     </label>
                   </div>
-
-                  <ColorPicker
-                    label="Topbar color"
-                    color={topbarColor}
-                    onChange={handleTopbarColorChange}
-                    displayPicker={displayTopbarPicker}
-                    togglePicker={toggleTopbarPicker}
-                  />
-
-                  <ColorPicker
-                    label="Button color"
-                    color={buttonColor}
-                    onChange={handleButtonColorChange}
-                    displayPicker={displayButtonPicker}
-                    togglePicker={toggleButtonPicker}
-                  />
+                  </div>
+                  <div className="divider"></div>
+                  <div className="flex justify-between w-full mt-5">
+                    <ColorPicker
+                      label="Topbar color"
+                      color={topbarColor}
+                      onChange={handleTopbarColorChange}
+                      displayPicker={displayTopbarPicker}
+                      togglePicker={toggleTopbarPicker}
+                    />
+                    <div className="divider lg:divider-horizontal"></div>
+                    <ColorPicker
+                      label="Button color"
+                      color={buttonColor}
+                      onChange={handleButtonColorChange}
+                      displayPicker={displayButtonPicker}
+                      togglePicker={toggleButtonPicker}
+                    />
+                  </div>
 
                   <div className="form-control mb-5 mt-5">
                     <label
@@ -182,7 +213,9 @@ export default function Customization() {
                         )}
                       </span>
                     </label>
+                    <div className=" flex justify-center">
                     <ImageUploader onLogoChange={handleLogoChange} initialLogo={logo} />
+                    </div>
                   </div>
                   <div className="mt-6">
                     <Button
@@ -211,6 +244,7 @@ export default function Customization() {
             <ChatbotCorner
               topName={topName}
               buttonColor={buttonColor}
+              selectedLanguage={selectedLanguage}
               topColor={topbarColor}
               nameTextColor={nameTextColor}
               logo={logo}

@@ -13,7 +13,7 @@ const useConfig = () => {
 
   const [isLoading, setIsLoading] = useState(false);
   const { toaster } = useToast();
-  const { state, setLoggedInUser, updateUserInfo } = useAuthContext();
+  const { state, updateAssistant } = useAuthContext();
   const [files, setFiles] = useState(state.user?.assistant.files || []);
   const contactSchema = z.object({
     welcome_message: z.string().optional(),
@@ -35,7 +35,7 @@ const useConfig = () => {
     setIsLoading(true);
     try {
       await updateAiConfiguration(data);
-      await updateUserInfo();
+      updateAssistant(data);
       setTimeout(() => {
         setIsLoading(false);
         toaster.success("Saved successfully.");

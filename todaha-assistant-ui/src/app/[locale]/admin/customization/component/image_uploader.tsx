@@ -3,7 +3,9 @@ import { useAuthContext } from "@/states/auth";
 import React, { useEffect, useState } from "react";
 import ImageUploading from "react-images-uploading";
 import { useCustomHook } from "../use-custom";
-
+import Icon from "@/components/Icon";
+import TrashIcon from "@iconify/icons-lucide/trash";
+import UploadIcon from "@iconify/icons-lucide/upload";
 interface ImageUploaderProps {
   onLogoChange: (logo: string) => void;
   initialLogo: string;
@@ -40,7 +42,7 @@ export default function ImageUploader({ onLogoChange, initialLogo }: ImageUpload
   };
 
   return (
-    <div className=" mt-2">
+    <div className=" mt-4">
       <ImageUploading
         multiple
         value={image}
@@ -57,34 +59,25 @@ export default function ImageUploader({ onLogoChange, initialLogo }: ImageUpload
           dragProps,
         }) => (
           // write your building UI
-          <div className="upload__image-wrapper">
+          <div className="upload__image-wrapper flex items-center space-x-2">
             <button
               style={isDragging ? { color: "red" } : undefined}
-              onClick={() => {
-                if (imageList.length === 0) {
-                  onImageUpload();
-                } else {
-                  onImageUpdate(0);
-                }
-              }}
+              onClick={() => imageList.length === 0 ? onImageUpload() : onImageUpdate(0)}
               className="btn btn-primary btn-sm"
               {...dragProps}
             >
-              {"Update Image"}
+              <Icon icon={UploadIcon} fontSize={18} />
             </button>
-            &nbsp;
             {imageList.length > 0 && (
-              <div className="image-item">
-                <img src={imageList[0]["data_url"]} alt="" width="100" className="p-2"/>
-                <div className="image-item__btn-wrapper">
-                  <button
-                    className="btn btn-primary btn-sm"
-                    onClick={() => onImageRemove(0)}
-                  >
-                    Remove Image
-                  </button>
-                </div>
-              </div>
+              <>
+                <img src={imageList[0]["data_url"]} alt="" className="rounded w-32 px-6"/>
+                <button
+                  className="btn btn-sm btn-error"
+                  onClick={() => onImageRemove(0)}
+                >
+                  <Icon icon={TrashIcon} fontSize={18} />
+                </button>
+              </>
             )}
           </div>
         )}

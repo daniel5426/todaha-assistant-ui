@@ -1,3 +1,4 @@
+"use client";
 import { Loading } from '@/components/daisyui/Loading';
 import AdminLayout from '@/components/layout/admin/index';
 import { Suspense } from 'react';

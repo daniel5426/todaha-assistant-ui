@@ -10,12 +10,14 @@ import { adminMenuItems } from "@/data/layout/admin";
 import { useLayoutContext } from "@/states/layout";
 import { useLocale } from "next-intl";
 import { cn } from "@/helpers/utils/cn";
+import { useAuthContext } from "@/states/auth";
 
 const AdminLayout = ({ children }: { children: any }) => {
     const {
         state: { leftbar },
         toggleLeftbarDrawer,
     } = useLayoutContext();
+    const { updateUserInfo, currentChatbot } = useAuthContext();
 
     const pathname = usePathname();
     const locale = useLocale();
@@ -23,8 +25,10 @@ const AdminLayout = ({ children }: { children: any }) => {
 
     useEffect(() => {
         toggleLeftbarDrawer(false);
+        updateUserInfo();
     }, [pathname]);
 
+    
     return (
         <div
             className={cn("size-full")}

@@ -4,7 +4,7 @@ export type IAuthUser = {
     email: string;
     username: string;
     password: string;
-    assistant: Assistant;
+    assistant: IAssistant;
     firstName: string;
     lastName: string;
     avatar: string;
@@ -17,6 +17,7 @@ export type UserFile = {
 
 export type IChatBot = {
     id: string;
+    lg: string;
     name: string;
     top_color: string;
     top_name: string;
@@ -27,7 +28,7 @@ export type IChatBot = {
 }
 
 
-export type Assistant = {
+export type IAssistant = {
     id: string;
     name: string;
     top_name: string;

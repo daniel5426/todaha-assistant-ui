@@ -1,10 +1,10 @@
 "use client";
 import Cookies from "js-cookie";
 
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import createHookedContext from "@/hooks/create-hooked-context";
 import useSessionStorage from "@/hooks/use-session-storage";
-import { IAuthState, IAuthUser, IChatBot, Token } from "@/types/auth";
+import { IAssistant, IAuthState, IAuthUser, IChatBot, Token } from "@/types/auth";
 import axiosInstance from "@/app/lib/axiosConfig";
 import { get_user_info } from "@/app/lib/data";
 
@@ -20,6 +20,7 @@ const useHook = () => {
       button_color: "#000",
       top_color: "#000",
       name_text_color: "#000",
+      lg: "en",
       logo: "",
       id: "",
       name: "",
@@ -28,13 +29,9 @@ const useHook = () => {
     }
   );
 
-
   const setLoggedInUser = (user: IAuthUser) => {
     setState({ user: user });
   };
-
-  useEffect(() => {
-  }, []);
 
   const isLoggedIn = useCallback(() => {
     return state.user != undefined;
@@ -54,12 +51,45 @@ const useHook = () => {
     });
   };
 
+  const updateAssistant = (changes: Partial<IAssistant>) => {
+    setState({
+      ...state,
+      user: {
+        ...state.user,
+        assistant: {
+          ...state.user?.assistant,
+          ...changes,
+        },
+      },
+    });
+  };
+
+  const updateChatbotState = (changes: Partial<IChatBot>) => {
+    setCurrentChatbot({
+      ...currentChatbot,
+      ...changes,
+    });
+  };
+
   const updateUserInfo = async () => {
     const user_info = await get_user_info();
     setLoggedInUser(user_info);
-    setCurrentChatbot(user_info?.assistant?.chatbots[0] || null);
+    const newChatbot = user_info?.assistant?.chatbots[0] || null;
+    
+    console.log('New chatbot:', newChatbot);
+    
+    setCurrentChatbot(prevChatbot => {
+      console.log('Previous currentChatbot:', prevChatbot);
+      console.log('Updated currentChatbot:', newChatbot);
+      return newChatbot;
+    });
   };
 
+  useEffect(() => {
+    if (isLoggedIn()) {
+      updateUserInfo();
+    }
+  }, []);
 
   const logout = () => {
     updateState({
@@ -67,6 +97,13 @@ const useHook = () => {
     });
     setToken({
       access_token: undefined,
+    });
+    updateChatbotState({
+      id: "",
+      name: "",
+      logo: "",
+      lg: "en",
+      is_modal: false,
     });
     Cookies.set("loggedIn", "false", { expires: 1 });
     Cookies.set("token", "", { expires: 1 });
@@ -80,6 +117,9 @@ const useHook = () => {
     setToken,
     currentChatbot,
     updateUserInfo,
+    updateChatbotState,
+    updateState,
+    updateAssistant,
   };
 };
 

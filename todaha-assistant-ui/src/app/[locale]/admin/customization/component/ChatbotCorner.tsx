@@ -14,6 +14,7 @@ interface CustomizableChatbotProps {
   topColor: string;
   nameTextColor: string;
   logo: string;
+  selectedLanguage: string;
 }
 
 const ChatbotCorner: React.FC<CustomizableChatbotProps> = ({
@@ -21,18 +22,21 @@ const ChatbotCorner: React.FC<CustomizableChatbotProps> = ({
   buttonColor,
   topColor,
   nameTextColor,
+  selectedLanguage,
   logo,
 }: CustomizableChatbotProps) => {
   const [isOpen, setIsOpen] = useState(true);
   const { state, currentChatbot, updateUserInfo } = useAuthContext();
-  const isRTL = useLocale() === "he";
+  const isRTL = selectedLanguage === "he";
   const [reset, setReset] = useState(false);
   const [logo2, setLogo2] = useState(logo);
   const chatElementRef = useRef<any>(null);
   const [threadId, setThreadId] = useState<string | null>(null);
   const api_url = process.env.NEXT_PUBLIC_API_BASE_URL1;
   const placeholderText = "Type your message...";
-  const initialMessages = [{ role: "ai", text: state.user?.assistant.welcome_message }];
+  const initialMessages = [
+    { role: "ai", text: state.user?.assistant?.welcome_message || "" },
+  ];
 
   const toggleChatbot = () => {
     setIsOpen(!isOpen);
@@ -43,12 +47,12 @@ const ChatbotCorner: React.FC<CustomizableChatbotProps> = ({
     updateUserInfo().then(() => {
       axios
         .get(`${api_url}/chat/create-thread`, {
-          params: { assistant_id: state.user.assistant.id },
-        })
-        .then((response) => {
-          setThreadId(response.data.thread_id);
-        })
-        .catch((error) => {
+        params: { assistant_id: state.user?.assistant?.id || "" },
+      })
+      .then((response) => {
+        setThreadId(response.data.thread_id);
+      })
+      .catch((error) => {
           console.error(error);
         });
     });
@@ -60,7 +64,7 @@ const ChatbotCorner: React.FC<CustomizableChatbotProps> = ({
       text: requestDetails.body.messages[0].text,
       role: "user",
       thread_id: threadId,
-      assistant_id: state.user.assistant.id,
+      assistant_id: state.user?.assistant?.id || "",
     };
     return requestDetails;
   };
@@ -101,7 +105,7 @@ const ChatbotCorner: React.FC<CustomizableChatbotProps> = ({
             className={`join join-vertical -top-4 absolute right-0 -translate-y-full  rounded-xl shadow-xl ring-1 ring-gray-200 ring-opacity-1 transition-opacity duration-300 ease-in-out transform`}
           >
             <div
-                className="p-2 join-item"
+              className="p-2 join-item"
               style={{
                 backgroundColor: topColor,
               }}
@@ -126,7 +130,7 @@ const ChatbotCorner: React.FC<CustomizableChatbotProps> = ({
                     className="grow flex flex-row "
                     style={{ color: nameTextColor }}
                   >
-                    <span className="text-[17px] text-center self-center font-bold">
+                    <span className="text-[17px] font-bold">
                       {topName}
                       <div className="flex items-center gap-2">
                         <div className="size-2 rounded-full bg-success"></div>

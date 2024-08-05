@@ -21,9 +21,11 @@ const ColorPicker: React.FC<ColorPickerProps> = ({
   const t = useTranslations("customization");
 
   return (
-    <div className="form-control mb-5 mt-5 flex flex-row items-center justify-between">
+    <div className="flex flex-row items-center justify-between">
       <label className="block text-base font-medium">{t(label)}</label>
-      <div style={{ position: "relative" }}>
+      <div className="px-2">
+      </div>
+      <div style={{ position: "relative" }} >
         <div
           style={{
             padding: "5px",
