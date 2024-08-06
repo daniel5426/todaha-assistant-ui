@@ -7,7 +7,7 @@ import Image from "next/image";
 import { useLocale, useTranslations } from "next-intl";
 
 export const App = () => {
-  const he = "520px";
+  const he = "420px";
   const we = "385px";
   console.log(he, we);
   const locale = useLocale();

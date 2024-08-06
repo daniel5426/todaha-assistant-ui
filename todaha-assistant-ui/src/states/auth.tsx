@@ -4,7 +4,13 @@ import Cookies from "js-cookie";
 import { useCallback, useEffect, useRef } from "react";
 import createHookedContext from "@/hooks/create-hooked-context";
 import useSessionStorage from "@/hooks/use-session-storage";
-import { IAssistant, IAuthState, IAuthUser, IChatBot, Token } from "@/types/auth";
+import {
+  IAssistant,
+  IAuthState,
+  IAuthUser,
+  IChatBot,
+  Token,
+} from "@/types/auth";
 import axiosInstance from "@/app/lib/axiosConfig";
 import { get_user_info } from "@/app/lib/data";
 
@@ -72,24 +78,20 @@ const useHook = () => {
   };
 
   const updateUserInfo = async () => {
-    const user_info = await get_user_info();
-    setLoggedInUser(user_info);
-    const newChatbot = user_info?.assistant?.chatbots[0] || null;
-    
-    console.log('New chatbot:', newChatbot);
-    
-    setCurrentChatbot(prevChatbot => {
-      console.log('Previous currentChatbot:', prevChatbot);
-      console.log('Updated currentChatbot:', newChatbot);
-      return newChatbot;
-    });
+    if (isLoggedIn()) {
+      const user_info = await get_user_info();
+      setLoggedInUser(user_info);
+      const newChatbot = user_info?.assistant?.chatbots[0] || null;
+      console.log("New chatbot:", newChatbot);
+
+      setCurrentChatbot((prevChatbot) => {
+        console.log("Previous currentChatbot:", prevChatbot);
+        console.log("Updated currentChatbot:", newChatbot);
+        return newChatbot;
+      });
+    }
   };
 
-  useEffect(() => {
-    if (isLoggedIn()) {
-      updateUserInfo();
-    }
-  }, []);
 
   const logout = () => {
     updateState({

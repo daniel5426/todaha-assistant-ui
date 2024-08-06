@@ -18,19 +18,21 @@ export default function ChatModal () {
       let height = 700;
 
       if (screenWidth < width + 70) {
+        console.log("screenWidth", screenWidth);
         iframeRef.current.contentWindow.postMessage({
           type: 'resize',
           width: screenWidth - 70,
-          height: screenHeight * (height / width),
+          height: screenHeight - 150,
         }, '*');
       } else {
         iframeRef.current.contentWindow.postMessage({
           type: 'resize',
-          width: 700,
-          height: 700,
+          width: 630,
+          height: 640,
         }, '*');
       }
     };
+    adjustIframeSize();
 
     window.addEventListener('resize', adjustIframeSize);
 
