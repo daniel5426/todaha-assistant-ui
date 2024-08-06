@@ -11,16 +11,22 @@ import axios from "axios";
 interface CustomizableChatbotProps {
   topName: string;
   buttonColor: string;
+  buttonTextColor: string;
+  buttonText: string;
   topColor: string;
   nameTextColor: string;
   logo: string;
+  bgColor: string;
   selectedLanguage: string;
 }
 
 const ChatbotCorner: React.FC<CustomizableChatbotProps> = ({
   topName,
   buttonColor,
+  buttonTextColor,
+  buttonText,
   topColor,
+  bgColor,
   nameTextColor,
   selectedLanguage,
   logo,
@@ -47,12 +53,12 @@ const ChatbotCorner: React.FC<CustomizableChatbotProps> = ({
     updateUserInfo().then(() => {
       axios
         .get(`${api_url}/chat/create-thread`, {
-        params: { assistant_id: state.user?.assistant?.id || "" },
-      })
-      .then((response) => {
-        setThreadId(response.data.thread_id);
-      })
-      .catch((error) => {
+          params: { assistant_id: state.user?.assistant?.id || "" },
+        })
+        .then((response) => {
+          setThreadId(response.data.thread_id);
+        })
+        .catch((error) => {
           console.error(error);
         });
     });
@@ -77,20 +83,31 @@ const ChatbotCorner: React.FC<CustomizableChatbotProps> = ({
   };
 
   return (
-    <div className="fixed bottom-20 flex ml-60" style={{ zIndex: 9999 }}>
+    <div
+      className=" mt-[638px] flex ml-60"
+      style={{ zIndex: 9999, direction: "ltr" }}
+    >
       <div className="relative inline-block text-left">
         <button
           onClick={toggleChatbot}
-          style={{ backgroundColor: buttonColor }}
-          className="inline-flex justify-center items-center w-16 h-16 rounded-full  text-white  transition-all duration-300 ease-in-out transform hover:scale-110 gap-2"
+          style={{ backgroundColor: buttonColor, color: buttonTextColor }}
+          className="inline-flex justify-center items-center rounded-full hover:scale-110 transition-all duration-300 ease-in-out transform gap-1 text-xl"
         >
+          {buttonText && (
+            <span
+              className="pl-4 mr-[-7px]"
+              style={{ direction: isRTL ? "rtl" : "ltr" }}
+            >
+              {buttonText}
+            </span>
+          )}
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            style={{ width: "44px", height: "44px" }}
+            className="w-14 h-14 py-2"
           >
             <path
               strokeLinecap="round"
@@ -102,7 +119,7 @@ const ChatbotCorner: React.FC<CustomizableChatbotProps> = ({
 
         {isOpen && (
           <div
-            className={`join join-vertical -top-4 absolute right-0 -translate-y-full  rounded-xl shadow-xl ring-1 ring-gray-200 ring-opacity-1 transition-opacity duration-300 ease-in-out transform`}
+            className={`join join-vertical -top-7 absolute right-0 -translate-y-full  rounded-xl shadow-xl ring-1 ring-gray-200 ring-opacity-20 transition-opacity duration-300 ease-in-out transform`}
           >
             <div
               className="p-2 join-item"
@@ -141,15 +158,16 @@ const ChatbotCorner: React.FC<CustomizableChatbotProps> = ({
                 </div>
                 <div className="flex flex-row absolute right-2 top-2">
                   <button
-                    className="p-1 rounded-full text-white bg-transparent hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-600 mr-1"
+                    style={{ color: nameTextColor }}
+                    className="p-1 rounded-full bg-transparent hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-600 mr-1"
                     onClick={handleResetClick}
                   >
                     <svg
-                      fill="#ffffff"
+                      fill={nameTextColor}
                       className="w-5 h-5"
                       viewBox="0 0 1920 1920"
                       xmlns="http://www.w3.org/2000/svg"
-                      stroke="#ffffff"
+                      stroke={nameTextColor}
                     >
                       <g id="SVGRepo_bgCarrier" strokeWidth="0" />
 
@@ -168,7 +186,8 @@ const ChatbotCorner: React.FC<CustomizableChatbotProps> = ({
                     </svg>
                   </button>
                   <button
-                    className="p-1 rounded-full text-white bg-transparent hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-600"
+                    style={{ color: nameTextColor }}
+                    className="p-1 rounded-full bg-transparent hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-600"
                     onClick={toggleChatbot}
                   >
                     <svg
@@ -188,141 +207,165 @@ const ChatbotCorner: React.FC<CustomizableChatbotProps> = ({
                 </div>
               </div>
             </div>
-            <div>
-              <DeepChat
-                id="deep-chat"
-                className="join-item"
-                stream={true}
-                ref={chatElementRef}
-                style={{
-                  height: "550px",
-                  fontSize: "0.95em",
-                  width:
-                    window.innerWidth > 400
-                      ? "400px"
-                      : `${window.innerWidth - 20}px`,
-                  borderRadius: "0 0 15px 15px",
-                  border: "none",
-                  boxShadow: "none",
-                  outline: "none",
-                  backgroundColor: "#f8f8f8",
-                }}
-                initialMessages={initialMessages}
-                request={{
-                  url: api_url + "/chat/start-chat",
-                  method: "POST",
-                }}
-                requestInterceptor={handleRequestInterceptor}
-                responseInterceptor={(responseDetails) => {
-                  console.log(responseDetails);
-                  return responseDetails;
-                }}
-                textInput={{
-                  styles: {
-                    container: {
-                      borderRadius: "20px",
-                      border: "none",
-                      width: "78%",
-                      boxShadow: "2px 2px 5px rgba(0, 0, 0, 0.16)",
-                    },
-                    text: {
-                      padding: "10px",
-                      textAlign: isRTL ? "right" : "left",
+            <DeepChat
+              id="deep-chat"
+              className="join-item"
+              stream={true}
+              ref={chatElementRef}
+              style={{
+                height: "550px",
+                fontSize: "0.95em",
+                zIndex: 50,
+                borderRadius: "0 0 12px 12px",
+                width:
+                  window.innerWidth > 400
+                    ? "400px"
+                    : `${window.innerWidth - 20}px`,
+                border: "none",
+                boxShadow: "none",
+                outline: "none",
+                backgroundColor: bgColor,
+              }}
+              initialMessages={initialMessages}
+              request={{
+                url: api_url + "/chat/start-chat",
+                method: "POST",
+              }}
+              requestInterceptor={handleRequestInterceptor}
+              responseInterceptor={(responseDetails) => {
+                console.log(responseDetails);
+                return responseDetails;
+              }}
+              textInput={{
+                styles: {
+                  container: {
+                    borderRadius: "20px",
+                    border: "none",
+                    width: "78%",
+                    boxShadow: "2px 2px 5px rgba(0, 0, 0, 0.16)",
+                  },
+                  text: {
+                    padding: "10px",
+                    textAlign: isRTL ? "right" : "left",
+                    direction: isRTL ? "rtl" : "ltr",
+                    paddingLeft: "15px",
+                    paddingRight: "34px",
+                  },
+                },
+                placeholder: {
+                  text: placeholderText,
+                  style: {
+                    color: "#606060",
+                  },
+                },
+              }}
+              messageStyles={{
+                default: {
+                  shared: {
+                    bubble: {
                       direction: isRTL ? "rtl" : "ltr",
-                      paddingLeft: "15px",
-                      paddingRight: "34px",
+                      backgroundColor: "unset",
+                      marginTop: "10px",
+                      marginBottom: "10px",
+                      boxShadow:
+                        "0px 0.3px 0.9px rgba(0, 0, 0, 0.12), 0px 1.6px 3.6px rgba(0, 0, 0, 0.16)",
                     },
                   },
-                  placeholder: {
-                    text: placeholderText,
-                    style: {
-                      color: "#606060",
+                  user: {
+                    bubble: {
+                      direction: isRTL ? "rtl" : "ltr",
+                      background: "rgba(255,255,255,0.7)",
+                      color: "#000000",
                     },
                   },
-                }}
-                messageStyles={{
-                  default: {
-                    shared: {
-                      bubble: {
-                        direction: isRTL ? "rtl" : "ltr",
-                        backgroundColor: "unset",
-                        marginTop: "10px",
-                        marginBottom: "10px",
-                        boxShadow:
-                          "0px 0.3px 0.9px rgba(0, 0, 0, 0.12), 0px 1.6px 3.6px rgba(0, 0, 0, 0.16)",
-                      },
+                  ai: {
+                    bubble: { background: "rgba(255,255,255,0.7)" },
+                  },
+                },
+                loading: {
+                  bubble: { padding: "0.6em 1.78em 0.6em 1.3em" },
+                },
+              }}
+              submitButtonStyles={{
+                position: isRTL ? "inside-left" : "inside-right",
+                submit: {
+                  container: {
+                    default: {
+                      bottom: "0.8em",
+                      borderRadius: "25px",
+                      padding: "6px 5px 4px",
+                      backgroundColor: "unset",
                     },
-                    user: {
-                      bubble: {
-                        direction: isRTL ? "rtl" : "ltr",
-                        background: "rgba(255,255,255,0.7)",
-                        color: "#000000",
-                      },
+                    hover: {
+                      backgroundColor: "#b0deff4f",
                     },
-                    ai: {
-                      bubble: { background: "rgba(255,255,255,0.7)" },
+                    click: {
+                      backgroundColor: "#b0deffb5",
                     },
                   },
-                  loading: {
-                    bubble: { padding: "0.6em 1.78em 0.6em 1.3em" },
-                  },
-                }}
-                submitButtonStyles={{
-                  position: isRTL ? "inside-left" : "inside-right",
-                  submit: {
-                    container: {
+                  svg: {
+                    content:
+                      '<?xml version="1.0" encoding="utf-8"?> <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m21.426 11.095-17-8A.999.999 0 0 0 3.03 4.242L4.969 12 3.03 19.758a.998.998 0 0 0 1.396 1.147l17-8a1 1 0 0 0 0-1.81zM5.481 18.197l.839-3.357L12 12 6.32 9.16l-.839-3.357L18.651 12l-13.17 6.197z"/></svg>',
+                    styles: {
                       default: {
-                        bottom: "0.8em",
-                        borderRadius: "25px",
-                        padding: "6px 5px 4px",
-                        backgroundColor: "unset",
-                      },
-                      hover: {
-                        backgroundColor: "#b0deff4f",
-                      },
-                      click: {
-                        backgroundColor: "#b0deffb5",
-                      },
-                    },
-                    svg: {
-                      content:
-                        '<?xml version="1.0" encoding="utf-8"?> <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m21.426 11.095-17-8A.999.999 0 0 0 3.03 4.242L4.969 12 3.03 19.758a.998.998 0 0 0 1.396 1.147l17-8a1 1 0 0 0 0-1.81zM5.481 18.197l.839-3.357L12 12 6.32 9.16l-.839-3.357L18.651 12l-13.17 6.197z"/></svg>',
-                      styles: {
-                        default: {
-                          width: "1.5em",
-                          filter:
-                            "brightness(0) saturate(100%) invert(10%) sepia(86%) saturate(6044%) hue-rotate(205deg) brightness(100%) contrast(100%)",
-                        },
+                        width: "1.5em",
+                        filter:
+                          "brightness(0) saturate(100%) invert(10%) sepia(86%) saturate(6044%) hue-rotate(205deg) brightness(100%) contrast(100%)",
                       },
                     },
                   },
-                  loading: {
-                    svg: {
-                      styles: {
-                        default: {
-                          filter:
-                            "brightness(0) saturate(100%) invert(72%) sepia(0%) saturate(3044%) hue-rotate(322deg) brightness(100%) contrast(96%)",
-                        },
+                },
+                loading: {
+                  svg: {
+                    styles: {
+                      default: {
+                        filter:
+                          "brightness(0) saturate(100%) invert(72%) sepia(0%) saturate(3044%) hue-rotate(322deg) brightness(100%) contrast(96%)",
                       },
                     },
                   },
-                  stop: {
-                    container: {
-                      hover: {
-                        backgroundColor: "#ededed94",
-                      },
+                },
+                stop: {
+                  container: {
+                    hover: {
+                      backgroundColor: "#ededed94",
                     },
-                    svg: {
-                      styles: {
-                        default: {
-                          filter:
-                            "brightness(0) saturate(100%) invert(72%) sepia(0%) saturate(3044%) hue-rotate(322deg) brightness(100%) contrast(96%)",
-                        },
+                  },
+                  svg: {
+                    styles: {
+                      default: {
+                        filter:
+                          "brightness(0) saturate(100%) invert(72%) sepia(0%) saturate(3044%) hue-rotate(322deg) brightness(100%) contrast(96%)",
                       },
                     },
                   },
-                }}
-              />
+                },
+              }}
+            />
+            <div
+              style={{
+                textAlign: "center",
+                zIndex: 9999,
+                backgroundColor: bgColor,
+                position: "absolute",
+                bottom: "-2px",
+                height: "0px",
+                left: 0,
+                right: 0,
+              }}
+              className="join-item"
+            >
+              <a
+                href="https://todaha-chat.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ fontSize: "12px", color: "#606060", zIndex: 9999}}
+              >
+                Powered by{" "}
+                <span style={{ color: "#206BAB", fontWeight: "bold" }}>
+                  Todaha
+                </span>
+              </a>
             </div>
           </div>
         )}

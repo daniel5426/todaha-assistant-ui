@@ -21,17 +21,16 @@ const ColorPicker: React.FC<ColorPickerProps> = ({
   const t = useTranslations("customization");
 
   return (
-    <div className="flex flex-row items-center justify-between">
-      <label className="block text-base font-medium">{t(label)}</label>
-      <div className="px-2">
-      </div>
-      <div style={{ position: "relative" }} >
+    <div className="flex flex-row items-center justify-between w-full">
+      <label className="block font-medium text-sm">{t(label)}</label>
+      <div className="p-1"></div>
+      <div style={{ position: "relative" }}>
         <div
           style={{
             padding: "5px",
-            background: "#fff",
-            borderRadius: "1px",
-            boxShadow: "0 0 0 1px rgba(0,0,0,.1)",
+            background: "#ffffff",
+            borderRadius: "5px",
+            border: "1px solid #3E5EFF",
             display: "inline-block",
             cursor: "pointer",
           }}
@@ -47,7 +46,7 @@ const ColorPicker: React.FC<ColorPickerProps> = ({
           />
         </div>
         {displayPicker && (
-          <div style={{ position: "absolute", zIndex: "2", right: 0 }}>
+          <div style={{ position: "absolute", zIndex: "99999999", right: 0 }}>
             <div
               style={{
                 position: "fixed",

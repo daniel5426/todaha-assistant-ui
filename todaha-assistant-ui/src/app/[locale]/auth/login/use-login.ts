@@ -53,7 +53,7 @@ const useLogin = () => {
       toaster.success("Login successfully...");
       setTimeout(() => router.replace(routes.admin.dashboard), 100);
     } catch (error: any) {
-      if (typeof error.response.data.detail === "string") {
+      if (typeof error?.response?.data?.detail === "string") {
         console.log(error.response);
         toaster.error(error.response.data.detail);
       } else {

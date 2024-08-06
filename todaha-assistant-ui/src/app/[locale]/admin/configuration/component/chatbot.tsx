@@ -95,7 +95,7 @@ const Chatbot = () => {
   const marginLeft = isRTL ? "auto" : "0px";
 
   return (
-    <div className="App">
+    <div className="App" style={{ direction: "ltr"  }}>
           <div>
             <DeepChat
               id="deep-chat"
@@ -182,16 +182,21 @@ const Chatbot = () => {
                       fontSize: "1.1em",
                       color: isWhite ? "#000000" : "#ffffff",
                     },
+                    outerContainer: {
+                      direction: isRTL ? "rtl" : "ltr",
+                    },
                   },
                   user: {
                     bubble: {
                       color: isWhite ? "black" : "white",
                     },
+                    outerContainer: {
+                      borderBottom: isWhite ? "1px solid rgba(230,233,236)" : "1px solid rgba(0,0,0,0.7)",
+                    },
                   },
                   ai: {
                     outerContainer: {
                       backgroundColor: isWhite ? "rgba(255,255,255)" : "rgb(25,30,35)",
-                      borderTop: isWhite ? "1px solid rgba(230,233,236)" : "1px solid rgba(0,0,0,0.7)",
                       borderBottom: isWhite ? "1px solid rgba(230,233,236)" : "1px solid rgba(0,0,0,0.7)",
                     },
                   },

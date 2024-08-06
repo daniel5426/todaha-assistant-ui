@@ -24,8 +24,11 @@ const useCustom = () => {
     top_color: z.string().optional(),
     top_name: z.string().optional(),
     button_color: z.string().optional(),
+    button_text_color: z.string().optional(),
+    button_text: z.string().optional(),
     name_text_color: z.string().optional(),
     name: z.string().optional(),
+    bg_color: z.string().optional(),
     is_modal: z.boolean().optional(),
     id: z.string().optional(),
   });
@@ -41,7 +44,10 @@ const useCustom = () => {
       lg: currentChatbot?.lg || locale,
       button_color: currentChatbot?.button_color || "",
       name_text_color: currentChatbot?.name_text_color || "",
+      button_text_color: currentChatbot?.button_text_color || "",
+      button_text: currentChatbot?.button_text || "",
       name: currentChatbot?.name || "",
+      bg_color: currentChatbot?.bg_color || "",
       is_modal: currentChatbot?.is_modal || false,
     },
   });

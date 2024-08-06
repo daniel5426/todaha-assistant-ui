@@ -10,6 +10,26 @@
         "Landing": "Page d'accueil",
         "Contact": "Contact"
     },
+    "customization": {
+        "Language": "Langue",
+        "Modal": "Modale",
+        "Default": "Défaut",
+        "Configuration": "Configuration",
+        "Background color": "Couleur de fond",
+        "Button text": "Texte du bouton",
+        "Button text color": "Couleur du texte du bouton",
+        "Dashboard": "Tableau de bord",
+        "Top bar text": "Texte de la barre du haut",
+        "The Text that will be displayed in the top bar of the chatbot": "Le texte qui sera affiché dans la barre du haut du chatbot",
+        "Top text color": "Couleur du texte du haut",
+        "Choose your chatbot type": "Choisissez votre type de chatbot",
+        "Topbar color": "Couleur de la barre du haut",
+        "Button color": "Couleur du bouton",
+        "Logo Image": "Logo Image",
+        "The image that will be displayed in the top bar of the chatbot": "L'image qui sera affichée dans la barre du haut du chatbot",
+        "Save": "Enregistrer"
+    },
+
     "configuration": {
         "Upload Your Website Content": "Rajouter le contenu de votre site web",
         "upload_website_info": "Tout le contenu de votre site web sera disponible à l'assistant",
@@ -72,6 +92,7 @@
         "Email Address": "Adresse e-mail",
         "Password": "Mot de passe",
         "Register": "S'inscrire",
+        "Username": "Nom d'utilisateur",
         "Username or Email": "Nom d'utilisateur ou Email",
         "Forgot Password?": "Mot de passe oublié ?",
         "Haven't account": "Pas de compte",

@@ -24,8 +24,11 @@ const useHook = () => {
     "__CURRENT_CHATBOT__",
     {
       button_color: "#000",
+      button_text_color: "#fff",
+      button_text: "",
       top_color: "#000",
       name_text_color: "#000",
+      bg_color: "#000",
       lg: "en",
       logo: "",
       id: "",
@@ -39,14 +42,14 @@ const useHook = () => {
     setState({ user: user });
   };
 
-  const isLoggedIn = useCallback(() => {
-    return state.user != undefined;
-  }, [state.user]);
+  const isLoggedIn = () => {
+    return Cookies.get("loggedIn") === "true";
+  };
 
   const setToken = (token: any) => {
     if (token.access_token) {
-      Cookies.set("loggedIn", "true", { expires: 1 });
-      Cookies.set("token", token.access_token, { expires: 1 });
+      Cookies.set("loggedIn", "true", { expires: 10 });
+      Cookies.set("token", token.access_token, { expires: 10 });
     }
   };
 
