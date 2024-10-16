@@ -39,10 +39,30 @@ const ChatbotCorner: React.FC<CustomizableChatbotProps> = ({
   const chatElementRef = useRef<any>(null);
   const [threadId, setThreadId] = useState<string | null>(null);
   const api_url = process.env.NEXT_PUBLIC_API_BASE_URL1;
-  const placeholderText = "Type your message...";
-  const initialMessages = [
-    { role: "ai", text: state.user?.assistant?.welcome_message || "" },
-  ];
+  const [activeText, setActiveText] = useState("");
+  const [placeholderText, setPlaceholderText] = useState("");
+  const [initialMessages, setInitialMessages] = useState<
+    Array<{ role: string; text: string }>
+  >([]);
+
+  useEffect(() => {
+    const active_lg = {
+      he: "מחובר",
+      en: "Active",
+      fr: "Actif",
+    };
+    const placeholder_text_possible_values = {
+      he: "הקלד הודעה...",
+      en: "Type your message...",
+      fr: "Écrivez votre message...",
+    };
+
+    setActiveText(active_lg[selectedLanguage]);
+    setPlaceholderText(placeholder_text_possible_values[selectedLanguage]);
+    setInitialMessages([
+      { role: "ai", text: state.user?.assistant?.welcome_message || "" },
+    ]);
+  }, [selectedLanguage, state.user?.assistant?.welcome_message]);
 
   const toggleChatbot = () => {
     setIsOpen(!isOpen);
@@ -147,11 +167,13 @@ const ChatbotCorner: React.FC<CustomizableChatbotProps> = ({
                     className="grow flex flex-row "
                     style={{ color: nameTextColor }}
                   >
-                    <span className="text-[17px] font-bold">
-                      {topName}
+                    <span className="flex flex-col">
+                      <span className="text-[17px] font-bold">
+                        {topName}
+                      </span>
                       <div className="flex items-center gap-2">
                         <div className="size-2 rounded-full bg-success"></div>
-                        <p className="text-[12px]">Active</p>
+                        <p className="text-[12px]">{activeText}</p>
                       </div>
                     </span>
                   </div>
@@ -213,7 +235,10 @@ const ChatbotCorner: React.FC<CustomizableChatbotProps> = ({
               stream={true}
               ref={chatElementRef}
               style={{
-                height: "550px",
+                height:
+                  window.innerWidth > 400
+                    ? "550px"
+                    : `${(window.innerWidth - 20) * (550 / 400)}px`,
                 fontSize: "0.95em",
                 zIndex: 50,
                 borderRadius: "0 0 12px 12px",
@@ -239,6 +264,7 @@ const ChatbotCorner: React.FC<CustomizableChatbotProps> = ({
               textInput={{
                 styles: {
                   container: {
+                    marginBottom: "30px",
                     borderRadius: "20px",
                     border: "none",
                     width: "78%",
@@ -291,6 +317,7 @@ const ChatbotCorner: React.FC<CustomizableChatbotProps> = ({
                 submit: {
                   container: {
                     default: {
+                      marginBottom: "20px",
                       bottom: "0.8em",
                       borderRadius: "25px",
                       padding: "6px 5px 4px",
@@ -345,13 +372,10 @@ const ChatbotCorner: React.FC<CustomizableChatbotProps> = ({
             <div
               style={{
                 textAlign: "center",
-                zIndex: 9999,
-                backgroundColor: bgColor,
-                position: "absolute",
-                bottom: "-2px",
-                height: "0px",
-                left: 0,
-                right: 0,
+                backgroundColor: "transparent",
+                position: "relative", // Changed from absolute to relative
+                marginTop: "-28px",
+                zIndex: 100,
               }}
               className="join-item"
             >
@@ -359,7 +383,7 @@ const ChatbotCorner: React.FC<CustomizableChatbotProps> = ({
                 href="https://todaha-chat.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                style={{ fontSize: "12px", color: "#606060", zIndex: 9999}}
+                style={{ fontSize: "12px", color: "#606060" }}
               >
                 Powered by{" "}
                 <span style={{ color: "#206BAB", fontWeight: "bold" }}>

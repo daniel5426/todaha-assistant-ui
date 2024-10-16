@@ -205,8 +205,9 @@ export default function Customization() {
                       </label>
 
                       <div className="form-control flex flex-row items-center">
-                        <label className="label cursor-pointer mr-4">
-                          <span className="label-text mr-2">{t("Modal")}</span>
+                        <label className="label cursor-pointer">
+                          <span className="label-text">{t("Modal")}</span>
+                          <div className="p-2"></div>
                           <input
                             type="radio"
                             name="chatbot-type"
@@ -219,8 +220,10 @@ export default function Customization() {
                             }}
                           />
                         </label>
+                        <div className="p-3"></div>
                         <label className="label cursor-pointer">
-                          <span className="label-text mr-2">{t("Default")}</span>
+                          <span className="label-text">{t("Default")}</span>
+                          <div className="p-2"></div>
                           <input
                             type="radio"
                             name="chatbot-type"

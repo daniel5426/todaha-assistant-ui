@@ -3,7 +3,7 @@
         "Dashboard": "מסך ניהול",
         "Metrics": "מדדים",
         "Chat": "צ'אט",
-        "Chatbot": "צ'אטבוט",
+        "Chatbot": "הגדרת צ'אטבוט",
         "Statistics": "סטטיסטיקות",
         "Configuration": "הגדרות",
         "AI assistant": "עוזר AI",
@@ -28,7 +28,7 @@
     "customization": {
         "The text on the button": "הטקסט שעל הכפתור",
         "Modal": "מודל",
-        "Default": "ברירת מחדל",
+        "Default": "רגיל",
         "Language": "שפה",
         "Configuration": "הגדרות",
         "Background color": "צבע רקע",

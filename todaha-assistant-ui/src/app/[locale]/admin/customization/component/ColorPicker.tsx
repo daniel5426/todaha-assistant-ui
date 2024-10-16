@@ -21,13 +21,13 @@ const ColorPicker: React.FC<ColorPickerProps> = ({
   const t = useTranslations("customization");
 
   return (
-    <div className="flex flex-row items-center justify-between w-full">
+    <div className="flex items-center justify-between w-full">
       <label className="block font-medium text-sm">{t(label)}</label>
-      <div className="p-1"></div>
-      <div style={{ position: "relative" }}>
+      <div className="flex items-center p-1"></div>
+      <div style={{ position: "relative" }} className="flex items-center">
         <div
           style={{
-            padding: "5px",
+            padding: "4px",
             background: "#ffffff",
             borderRadius: "5px",
             border: "1px solid #3E5EFF",
@@ -64,5 +64,4 @@ const ColorPicker: React.FC<ColorPickerProps> = ({
     </div>
   );
 };
-
 export default ColorPicker;

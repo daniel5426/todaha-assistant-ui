@@ -5,7 +5,8 @@ import { DeepChat } from "deep-chat-react";
 import { useAuthContext } from "@/states/auth";
 import { useLocale, useTranslations } from "next-intl";
 import { useLayoutContext } from "@/states/layout";
-
+import UserImg from "@/assets/images/avatars/user1.png";
+import ResetIcon from "./icons/ResetIcon";
 interface ChatbotModalConfigProps {
   logo: string;
   buttonColor: string;
@@ -30,6 +31,7 @@ const ChatbotModalConfig = ({
   const initialMessages = [
     { role: "ai", text: state.user?.assistant.welcome_message },
   ];
+  const [isResetHovered, setIsResetHovered] = useState(false);
 
   const [threadId, setThreadId] = useState<string | null>(null);
   const api_url = process.env.NEXT_PUBLIC_API_BASE_URL1!;
@@ -66,6 +68,18 @@ const ChatbotModalConfig = ({
     },
   });
 
+  const handleReset = () => {
+    axios
+    .get<{ thread_id: string }>(`${api_url}/chat/create-thread`, {
+      params: { assistant_id: assistantId },
+    })
+    .then((response) => setThreadId(response.data.thread_id))
+    .catch(console.error);
+    if (chatElementRef.current) {
+      chatElementRef.current.clearMessages();
+    }
+  };
+
   const locale = useLocale();
   const isRTL = lg === "he";
   const marginRight = isRTL ? "0px" : "auto";
@@ -75,6 +89,29 @@ const ChatbotModalConfig = ({
   return (
     <div className="flex flex-col items-center" style={{ direction: "ltr" }}>
       <div className="shadow-xl h-[600px] w-[595px] rounded-xl join join-vertical relative">
+      <button
+              onClick={handleReset}
+              onMouseEnter={() => setIsResetHovered(true)}
+              onMouseLeave={() => setIsResetHovered(false)}
+              style={{
+                position: 'absolute',
+                top: '10px',
+                [isRTL ? 'left' : 'right']: '10px',
+                zIndex: 1,
+                background: 'white',
+                border: 'none',
+                cursor: 'pointer',
+                padding: '5px',
+                borderRadius: '50%',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                transition: 'transform 0.3s ease-in-out',
+                transform: isResetHovered ? 'rotate(180deg)' : 'rotate(0deg)',
+              }}
+            >
+              <ResetIcon />
+            </button>
         <DeepChat
           id="deep-chat"
           className="join-item"
@@ -98,7 +135,7 @@ const ChatbotModalConfig = ({
               },
             },
             user: {
-              src: logo,
+              src: UserImg.src,
               styles: {
                 position: "left",
                 avatar: { width: "25px", height: "25px" },

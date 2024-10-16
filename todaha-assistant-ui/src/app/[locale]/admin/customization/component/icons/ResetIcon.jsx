@@ -2,11 +2,11 @@ import React from 'react';
 
 const ResetIcon = () => (
     <svg
-    fill="#ffffff"
+    fill="#000000"
     className="w-5 h-5"
     viewBox="0 0 1920 1920"
     xmlns="http://www.w3.org/2000/svg"
-    stroke="#ffffff"
+    stroke="#000000"
   >
     <g id="SVGRepo_bgCarrier" strokeWidth="0" />
 

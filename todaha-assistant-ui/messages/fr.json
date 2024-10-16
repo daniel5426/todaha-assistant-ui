@@ -8,7 +8,8 @@
         "AI assistant": "Assistant IA",
         "Pages": "Pages",
         "Landing": "Page d'accueil",
-        "Contact": "Contact"
+        "Contact": "Contact",
+        "Chatbot": "Customizer le chatbot"
     },
     "customization": {
         "Language": "Langue",
@@ -17,6 +18,7 @@
         "Configuration": "Configuration",
         "Background color": "Couleur de fond",
         "Button text": "Texte du bouton",
+        "The text on the button": "Le texte sur le bouton",
         "Button text color": "Couleur du texte du bouton",
         "Dashboard": "Tableau de bord",
         "Top bar text": "Texte de la barre du haut",
