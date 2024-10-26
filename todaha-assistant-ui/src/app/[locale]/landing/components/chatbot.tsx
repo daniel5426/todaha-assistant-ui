@@ -57,6 +57,8 @@ const Chatbot = () => {
   useEffect(() => {
     const fetchThreadId = async () => {
       try {
+        console.error(api_url);
+        console.error("dddddjdfjdfjndjfndjfnjdnfj");
         const response = await axios.get<{ thread_id: string }>(
           `${api_url}/chat/create-thread`,
           {

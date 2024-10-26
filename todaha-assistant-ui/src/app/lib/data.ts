@@ -1,4 +1,4 @@
-"use client";
+'use server'
 import { unstable_noStore as noStore } from 'next/cache';
 import { ApiResponse, ServerStat } from './serialize/server-models';
 import { IGraphDuration, IGraphStat,  } from '@/types/dashboards/chat_statistics';

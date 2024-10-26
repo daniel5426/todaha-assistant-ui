@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --turbo",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -39,6 +39,7 @@
     "react-filepond": "^7.1.2",
     "react-helmet-async": "^2.0.5",
     "react-hook-form": "^7.51.5",
+    "react-images-uploading": "^3.1.7",
     "simplebar": "^6.2.6",
     "simplebar-core": "^1.2.5",
     "simplebar-react": "^3.2.5",
