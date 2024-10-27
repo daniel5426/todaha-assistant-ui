@@ -47,11 +47,11 @@ const useLogin = () => {
         setToken({
           access_token: response.access_token,
         });
-        return updateUserInfo();
       })
       .then(() => {
         toaster.success("Login successful");
-        router.replace(routes.admin.dashboard); // Changed from push to replace
+        router.replace(routes.admin.dashboard + "?login_success=true");
+        updateUserInfo(); // This can happen after navigation since we know the token is set
       })
       .catch((error) => {
         if (typeof error?.response?.data?.detail === "string") {
