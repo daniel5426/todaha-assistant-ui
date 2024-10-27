@@ -7,6 +7,7 @@ const routes = {
         statistics: "/admin/statistics",
         configuration: "/admin/configuration",
         customization: "/admin/customization",
+        integration: "/admin/integration",
     },
     dashboard: "/admin/dashboard",
     docs: "/docs/introduction",

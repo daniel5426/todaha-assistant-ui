@@ -9,7 +9,8 @@
         "Pages": "Pages",
         "Landing": "Landing",
         "Contact": "Contact",
-        "Chatbot": "Customize Chatbot"
+        "Chatbot": "Customize Chatbot",
+        "Integration": "Integration"
     },
     "customization": {
         "Language": "Language",
@@ -17,6 +18,7 @@
         "Default": "Default",
         "Configuration": "Configuration",
         "Dashboard": "Dashboard",
+        "Customization": "Customization",
         "Top bar text": "Top bar text",
         "Background color": "Background color",
         "The text on the button": "Button text",
@@ -174,7 +176,67 @@
         "The first month": "The first month",
         "Our Platform": "Our Platform",
         "Customization Service": "Customization Service"
+    },
+    "integration": {
+        "title": "Integration",
+        "description": "Follow the instructions below to integrate your custom chatbot into your website. Choose your platform and follow the steps provided.",
+        "shopify": {
+            "title": "Shopify Integration",
+            "steps": {
+                "login": "Log in to your Shopify admin panel.",
+                "store": "Go to \"Online Store\" > \"Themes\".",
+                "theme": "Find your current theme and click \"Actions\" > \"Edit code\".",
+                "file": "In the left sidebar, and click on the \"theme.liquid\" file.",
+                "tag": "Find the closing body tag in the file.",
+                "paste": "Paste the following code just before the closing body tag:",
+                "save": "Click \"Save\" to apply the changes."
+            }
+        },
+        "wordpress": {
+            "title": "WordPress Integration",
+            "steps": {
+                "login": "Log in to your WordPress admin dashboard.",
+                "editor": "Go to \"Appearance\" > \"Theme Editor\".",
+                "file": "From the right sidebar, select \"Theme Files\" and click on \"footer.php\".",
+                "tag": "Locate the closing body tag in the file.",
+                "paste": "Paste the following code just before the closing body tag:",
+                "save": "Click \"Update File\" to save the changes."
+            }
+        },
+        "wix": {
+            "title": "Wix Integration",
+            "steps": {
+                "login": "Log in to your Wix account and go to your site's dashboard.",
+                "settings": "Click on \"Settings\" in the left sidebar.",
+                "custom": "Scroll down and click on \"Custom Code\" under \"Advanced Settings\".",
+                "add": "Click the \"+ Add Custom Code\" button.",
+                "name": "Give your custom code a name (e.g., \"Chatbot Integration\").",
+                "paste": "Paste the following code into the code editor:",
+                "body": "Set \"Place Code in\" to \"Body - end\".",
+                "pages": "Ensure \"Load code on\" is set to \"Every page\".",
+                "save": "Click \"Apply\" to save the changes."
+            }
+        },
+        "react": {
+            "title": "React Integration",
+            "steps": {
+                "open": "Open your React application's main HTML file (usually public/index.html).",
+                "tag": "Locate the closing body tag.",
+                "paste": "Paste the following code just before the closing body tag:",
+                "save": "Save the file and rebuild your application.",
+                "done": "The chatbot will now appear on all pages of your React application."
+            }
+        },
+        "squarespace": {
+            "title": "Squarespace Integration",
+            "steps": {
+                "login": "Log in to your Squarespace account.",
+                "settings": "Go to \"Settings\" > \"Advanced\" > \"Code Injection\".",
+                "scroll": "Scroll to the \"Footer\" section.",
+                "paste": "Paste the following code:",
+                "save": "Click \"Save\" to apply the changes."
+            }
+        },
+        "copy": "Copy"
     }
-  }
-  
-  
+}

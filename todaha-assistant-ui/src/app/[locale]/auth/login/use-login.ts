@@ -50,8 +50,8 @@ const useLogin = () => {
         access_token: response.access_token,
       });
       await updateUserInfo();
-      toaster.success("Login successfully...");
-      setTimeout(() => router.replace(routes.admin.dashboard), 100);
+      toaster.success("Login successful");
+      router.push(routes.admin.dashboard);
     } catch (error: any) {
       if (typeof error?.response?.data?.detail === "string") {
         console.log(error.response);

@@ -111,7 +111,7 @@ export default function Customization() {
   return (
     <div>
       <PageMetaData title={t("Configuration")} />
-      <PageTitle title={t("Configuration")} subMenu={t("Dashboard")} />
+      <PageTitle title={t("Customization")} subMenu={t("Dashboard")} />
       <div className="mt-6">
         <div className="grid gap-6 lg:grid-cols-12">
           <div className="lg:col-span-5 xl:col-span-5 2xl:col-span-3">

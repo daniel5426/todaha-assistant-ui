@@ -55,6 +55,12 @@ export const adminMenuItems: IMenuItem[] = [
         label: "Chatbot",
         url: routes.admin.customization,
     },
+    {
+        key: "config-integration",
+        icon: serverIcon,
+        label: "Integration",
+        url: routes.admin.integration,
+    },
 
 
 

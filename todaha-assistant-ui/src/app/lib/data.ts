@@ -1,12 +1,7 @@
-'use server'
-import { unstable_noStore as noStore } from 'next/cache';
+'use client'
 import { ApiResponse, ServerStat } from './serialize/server-models';
-import { IGraphDuration, IGraphStat,  } from '@/types/dashboards/chat_statistics';
-import axios from 'axios';
 import { IAuthUser, Token } from '@/types/auth';
-import httpRequest from '@/services/api/request';
 import axiosInstance from './axiosConfig';
-import { getToken } from '@/states/auth';
 import Cookies from "js-cookie";
 
 const api_url = process.env.NEXT_PUBLIC_API_BASE_URL1

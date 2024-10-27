@@ -1,8 +1,5 @@
 "use client";
 import PageMetaData from "@/components/PageMetaData";
-import { DeepChat } from "deep-chat-react";
-
-import dynamic from 'next/dynamic';
 
 // Dynamically import ChatList component
 import ChatList from './components/ChatList';
@@ -12,9 +9,6 @@ import { ChatContextProvider } from "./use-chat";
 
 import { Suspense } from "react";
 import { LatestInvoicesSkeleton } from "../components/loading";
-import { fetchChatsWithSuspense } from "@/app/lib/data";
-import ReactApexChart from "react-apexcharts";
-import { ApexOptions } from "apexcharts";
 import { useTranslations } from "next-intl";
 
   

@@ -9,7 +9,8 @@
         "Pages": "Pages",
         "Landing": "Page d'accueil",
         "Contact": "Contact",
-        "Chatbot": "Customizer le chatbot"
+        "Chatbot": "Customizer le chatbot",
+        "Integration": "Intégration"
     },
     "customization": {
         "Language": "Langue",
@@ -17,6 +18,7 @@
         "Default": "Défaut",
         "Configuration": "Configuration",
         "Background color": "Couleur de fond",
+        "Customization": "Customization",
         "Button text": "Texte du bouton",
         "The text on the button": "Le texte sur le bouton",
         "Button text color": "Couleur du texte du bouton",
@@ -175,5 +177,67 @@
         "The first month": "Le premier mois",
         "Our Platform": "Notre plateforme",
         "Customization Service": "Service de personnalisation"
+    },
+    "integration": {
+        "title": "Intégration",
+        "description": "Suivez les instructions ci-dessous pour intégrer votre chatbot personnalisé à votre site web. Choisissez votre plateforme et suivez les étapes indiquées.",
+        "shopify": {
+            "title": "Intégration Shopify",
+            "steps": {
+                "login": "Connectez-vous à votre panneau d'administration Shopify.",
+                "store": "Allez dans \"Boutique en ligne\" > \"Thèmes\".",
+                "theme": "Trouvez votre thème actuel et cliquez sur \"Actions\" > \"Modifier le code\".",
+                "file": "Dans la barre latérale gauche, localisez et cliquez sur le fichier \"theme.liquid\".",
+                "tag": "Trouvez la balise de fermeture body dans le fichier.",
+                "paste": "Collez le code suivant juste avant la balise de fermeture body :",
+                "save": "Cliquez sur \"Enregistrer\" pour appliquer les modifications."
+            }
+        },
+        "wordpress": {
+            "title": "Intégration WordPress",
+            "steps": {
+                "login": "Connectez-vous à votre tableau de bord WordPress.",
+                "editor": "Allez dans \"Apparence\" > \"Éditeur de thème\".",
+                "file": "Dans la barre latérale droite, sélectionnez \"Fichiers du thème\" et cliquez sur \"footer.php\".",
+                "tag": "Localisez la balise de fermeture body.",
+                "paste": "Collez le code suivant juste avant la balise de fermeture body :",
+                "save": "Cliquez sur \"Mettre à jour le fichier\" pour sauvegarder les modifications."
+            }
+        },
+        "wix": {
+            "title": "Intégration Wix",
+            "steps": {
+                "login": "Connectez-vous à votre compte Wix et accédez au tableau de bord de votre site.",
+                "settings": "Cliquez sur \"Paramètres\" dans la barre latérale gauche.",
+                "custom": "Faites défiler vers le bas et cliquez sur \"Code personnalisé\" sous \"Paramètres avancés\".",
+                "add": "Cliquez sur le bouton \"+ Ajouter un code personnalisé\".",
+                "name": "Donnez un nom à votre code personnalisé (ex: \"Intégration Chatbot\").",
+                "paste": "Collez le code suivant dans l'éditeur de code :",
+                "body": "Définissez \"Placer le code dans\" sur \"Body - fin\".",
+                "pages": "Assurez-vous que \"Charger le code sur\" est défini sur \"Toutes les pages\".",
+                "save": "Cliquez sur \"Appliquer\" pour sauvegarder les modifications."
+            }
+        },
+        "react": {
+            "title": "Intégration React",
+            "steps": {
+                "open": "Ouvrez le fichier HTML principal de votre application React (généralement public/index.html).",
+                "tag": "Localisez la balise de fermeture body.",
+                "paste": "Collez le code suivant juste avant la balise de fermeture body :",
+                "save": "Sauvegardez le fichier et recompilez votre application.",
+                "done": "Le chatbot apparaîtra maintenant sur toutes les pages de votre application React."
+            }
+        },
+        "squarespace": {
+            "title": "Intégration Squarespace",
+            "steps": {
+                "login": "Connectez-vous à votre compte Squarespace.",
+                "settings": "Allez dans \"Paramètres\" > \"Avancé\" > \"Injection de code\".",
+                "scroll": "Faites défiler jusqu'à la section \"Pied de page\".",
+                "paste": "Collez le code suivant :",
+                "save": "Cliquez sur \"Enregistrer\" pour appliquer les modifications."
+            }
+        },
+        "copy": "Copier"
     }
 }
