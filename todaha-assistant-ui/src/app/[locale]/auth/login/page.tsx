@@ -1,17 +1,14 @@
 "use client";
-import googleMiniImage from "@/assets/images/brand-logo/google-mini.svg";
 
 import eyeIcon from "@iconify/icons-lucide/eye";
 import eyeOffIcon from "@iconify/icons-lucide/eye-off";
 import keyRoundIcon from "@iconify/icons-lucide/key-round";
 import logInIcon from "@iconify/icons-lucide/log-in";
-import mailIcon from "@iconify/icons-lucide/mail";
 
 import Link from "next/link";
 import userIcon from "@iconify/icons-lucide/user";
 
 import { Button, Checkbox } from "@/components/daisyui";
-import Image from "next/image";
 
 import Icon from "@/components/Icon";
 import Logo from "@/components/Logo";

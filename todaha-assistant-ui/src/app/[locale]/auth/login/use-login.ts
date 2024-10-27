@@ -7,11 +7,9 @@ import { useRouter } from "next/navigation";
 import { z } from "zod";
 
 import useToast from "@/hooks/use-toast";
-import httpRequest from "@/services/api/request";
 import routes from "@/services/routes";
 import { useAuthContext } from "@/states/auth";
-import axios from "axios";
-import { get_token, get_user_info } from "@/app/lib/data";
+import { get_token } from "@/app/lib/data";
 
 const useLogin = () => {
   const router = useRouter();
@@ -42,25 +40,30 @@ const useLogin = () => {
     );
   };
 
-  const onSubmit = handleSubmit(async (data) => {
+  const onSubmit = handleSubmit((data) => {
     setIsLoading(true);
-    try {
-      const response = await get_token(data);
-      setToken({
-        access_token: response.access_token,
+    return get_token(data)
+      .then((response) => {
+        setToken({
+          access_token: response.access_token,
+        });
+        return updateUserInfo();
+      })
+      .then(() => {
+        toaster.success("Login successful");
+        router.replace(routes.admin.dashboard); // Changed from push to replace
+      })
+      .catch((error) => {
+        if (typeof error?.response?.data?.detail === "string") {
+          console.log(error.response);
+          toaster.error(error.response.data.detail);
+        } else {
+          toaster.error("An unexpected error occurred. Please try again.");
+        }
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
-      await updateUserInfo();
-      toaster.success("Login successful");
-      router.push(routes.admin.dashboard);
-    } catch (error: any) {
-      if (typeof error?.response?.data?.detail === "string") {
-        console.log(error.response);
-        toaster.error(error.response.data.detail);
-      } else {
-        toaster.error("An unexpected error occurred. Please try again.");
-      }
-    }
-    setIsLoading(false);
   });
 
   return {
