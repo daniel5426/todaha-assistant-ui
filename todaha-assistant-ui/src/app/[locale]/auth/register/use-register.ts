@@ -24,6 +24,8 @@ const useRegister = () => {
     username: z.string(),
     email: z.string().email(),
     password: z.string(),
+    company_name: z.string().optional(),
+    phone_number: z.string(),
   });
 
   type RegisterSchemaType = z.infer<typeof registerSchema>;

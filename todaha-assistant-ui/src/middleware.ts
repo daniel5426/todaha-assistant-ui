@@ -10,15 +10,15 @@ const intlMiddleware = createMiddleware({
 // Authentication middleware
 export function middleware(request: NextRequest) {
   const loggedIn = request.cookies.get('loggedIn')?.value;
+  const token = request.cookies.get('token')?.value;
 
   // Handle internationalized routes first
   // Custom authentication logic
-  if (request.nextUrl.pathname.includes('/login_success')) {
-    return NextResponse.redirect(new URL('/admin/dashboard', request.url));
-  }
   if (request.nextUrl.pathname.includes('/admin')) {
-    if (!loggedIn || loggedIn == "false") {
+    if (!loggedIn || !token || loggedIn === "false") {
       console.log('User is not authenticated');
+      
+      
       return NextResponse.redirect(new URL('/auth/login', request.url));
     }
   }
@@ -29,7 +29,7 @@ export function middleware(request: NextRequest) {
 export const config = {
   matcher: [
     '/',
-    '/(de|en)/:path*',
+    '/(de|en|he|fr)/:path*',
     '/((?!api|_next/static|_next/image|.*\\.png$|.*\\.ico$|.*pixel\\.js$).*)',
   ],
 };

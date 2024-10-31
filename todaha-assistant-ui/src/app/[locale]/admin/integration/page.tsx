@@ -5,6 +5,7 @@ import { useAuthContext } from "@/states/auth";
 import Image from 'next/image';
 import PageTitle from '@/components/PageTitle';
 import { useTranslations } from 'next-intl';
+import { Card, CardBody } from '@/components/daisyui/Card';
 
 export default function Customization() {
     const { state } = useAuthContext();
@@ -24,6 +25,8 @@ data-id="${state.user.assistant.id}"></script>`);
     };
 
     return (
+        <Card className="bg-base-100 ">
+            <CardBody>
         <div className="container mx-auto px-4" >
             <div className="grid grid-cols-4 gap-8">
                 {/* Tabs Column */}
@@ -78,8 +81,8 @@ data-id="${state.user.assistant.id}"></script>`);
                         </TabsList>
 
                         <TabsContent value="shopify">
-                            <h2 className="text-xl font-semibold mb-4">{t("shopify.title")}</h2>
-                            <ol className="list-decimal list-inside space-y-4 text-sm">
+                            <h2 className="text-2xl font-semibold mb-4">{t("shopify.title")}</h2>
+                            <ol className="list-decimal list-inside space-y-4 text-base">
                                 <li>{t("shopify.steps.login")}</li>
                                 <li>{t("shopify.steps.store")}</li>
                                 <li>{t("shopify.steps.theme")}</li>
@@ -87,12 +90,12 @@ data-id="${state.user.assistant.id}"></script>`);
                                 <li>{t("shopify.steps.tag").replace('body', '</body>')}</li>
                                 <li>{t("shopify.steps.paste").replace('body', '</body>')}</li>
                                 <div className="relative">
-                                    <pre className="text-sm font-light p-4 bg-gray-800 text-white rounded-md overflow-x-auto">
+                                    <pre className="text-base font-light p-4 bg-gray-800 text-white rounded-md overflow-x-auto">
                                         <code>{chatbotCode}</code>
                                     </pre>
                                     <button
                                         onClick={copyToClipboard}
-                                        className="absolute top-2 right-2 bg-blue-500 text-white px-2 py-1 rounded text-xs"
+                                        className="absolute top-2 right-2 bg-blue-500 text-white px-2 py-1 rounded text-sm"
                                     >
                                         {t("copy")}
                                     </button>
@@ -102,20 +105,20 @@ data-id="${state.user.assistant.id}"></script>`);
                         </TabsContent>
 
                         <TabsContent value="wordpress">
-                            <h2 className="text-xl font-semibold mb-4">{t("wordpress.title")}</h2>
-                            <ol className="list-decimal list-inside space-y-4 text-sm" >
+                            <h2 className="text-2xl font-semibold mb-4">{t("wordpress.title")}</h2>
+                            <ol className="list-decimal list-inside space-y-4 text-base">
                                 <li>{t("wordpress.steps.login")}</li>
                                 <li>{t("wordpress.steps.editor")}</li>
                                 <li>{t("wordpress.steps.file")}</li>
                                 <li>{t("wordpress.steps.tag").replace('body', '</body>')}</li>
                                 <li>{t("wordpress.steps.paste").replace('body', '</body>')}</li>
                                 <div className="relative">
-                                    <pre className="text-sm font-light p-4 bg-gray-800 text-white rounded-md overflow-x-auto">
+                                    <pre className="text-base font-light p-4 bg-gray-800 text-white rounded-md overflow-x-auto">
                                         <code>{chatbotCode}</code>
                                     </pre>
                                     <button
                                         onClick={copyToClipboard}
-                                        className="absolute top-2 right-2 bg-blue-500 text-white px-2 py-1 rounded text-xs"
+                                        className="absolute top-2 right-2 bg-blue-500 text-white px-2 py-1 rounded text-sm"
                                     >
                                         {t("copy")}
                                     </button>
@@ -125,8 +128,8 @@ data-id="${state.user.assistant.id}"></script>`);
                         </TabsContent>
 
                         <TabsContent value="wix">
-                            <h2 className="text-xl font-semibold mb-4">{t("wix.title")}</h2>
-                            <ol className="list-decimal list-inside space-y-4 text-sm">
+                            <h2 className="text-2xl font-semibold mb-4">{t("wix.title")}</h2>
+                            <ol className="list-decimal list-inside space-y-4 text-base">
                                 <li>{t("wix.steps.login")}</li>
                                 <li>{t("wix.steps.settings")}</li>
                                 <li>{t("wix.steps.custom")}</li>
@@ -134,12 +137,12 @@ data-id="${state.user.assistant.id}"></script>`);
                                 <li>{t("wix.steps.name")}</li>
                                 <li>{t("wix.steps.paste")}</li>
                                 <div className="relative">
-                                    <pre className="text-sm font-light p-4 bg-gray-800 text-white rounded-md overflow-x-auto">
+                                    <pre className="text-base font-light p-4 bg-gray-800 text-white rounded-md overflow-x-auto">
                                         <code>{chatbotCode}</code>
                                     </pre>
                                     <button
                                         onClick={copyToClipboard}
-                                        className="absolute top-2 right-2 bg-blue-500 text-white px-2 py-1 rounded text-xs"
+                                        className="absolute top-2 right-2 bg-blue-500 text-white px-2 py-1 rounded text-sm"
                                     >
                                         {t("copy")}
                                     </button>
@@ -151,18 +154,18 @@ data-id="${state.user.assistant.id}"></script>`);
                         </TabsContent>
 
                         <TabsContent value="react">
-                            <h2 className="text-xl font-semibold mb-4">{t("react.title")}</h2>
-                            <ol className="list-decimal list-inside space-y-4 text-sm">
+                            <h2 className="text-2xl font-semibold mb-4">{t("react.title")}</h2>
+                            <ol className="list-decimal list-inside space-y-4 text-base">
                                 <li>{t("react.steps.open")}</li>
                                 <li>{t("react.steps.tag").replace('body', '</body>')}</li>
                                 <li>{t("react.steps.paste").replace('body', '</body>')}</li>
                                 <div className="relative">
-                                    <pre className="text-sm font-light p-4 bg-gray-800 text-white rounded-md overflow-x-auto">
+                                    <pre className="text-base font-light p-4 bg-gray-800 text-white rounded-md overflow-x-auto">
                                         <code>{chatbotCode}</code>
                                     </pre>
                                     <button
                                         onClick={copyToClipboard}
-                                        className="absolute top-2 right-2 bg-blue-500 text-white px-2 py-1 rounded text-xs"
+                                        className="absolute top-2 right-2 bg-blue-500 text-white px-2 py-1 rounded text-sm"
                                     >
                                         {t("copy")}
                                     </button>
@@ -173,19 +176,19 @@ data-id="${state.user.assistant.id}"></script>`);
                         </TabsContent>
 
                         <TabsContent value="squarespace">
-                            <h2 className="text-xl font-semibold mb-4">{t("squarespace.title")}</h2>
-                            <ol className="list-decimal list-inside space-y-4 text-sm">
+                            <h2 className="text-2xl font-semibold mb-4">{t("squarespace.title")}</h2>
+                            <ol className="list-decimal list-inside space-y-4 text-base">
                                 <li>{t("squarespace.steps.login")}</li>
                                 <li>{t("squarespace.steps.settings")}</li>
                                 <li>{t("squarespace.steps.scroll")}</li>
                                 <li>{t("squarespace.steps.paste")}</li>
                                 <div className="relative">
-                                    <pre className="text-sm font-light p-4 bg-gray-800 text-white rounded-md overflow-x-auto">
+                                    <pre className="text-base font-light p-4 bg-gray-800 text-white rounded-md overflow-x-auto">
                                         <code>{chatbotCode}</code>
                                     </pre>
                                     <button
                                         onClick={copyToClipboard}
-                                        className="absolute top-2 right-2 bg-blue-500 text-white px-2 py-1 rounded text-xs"
+                                        className="absolute top-2 right-2 bg-blue-500 text-white px-2 py-1 rounded text-sm"
                                     >
                                         {t("copy")}
                                     </button>
@@ -199,13 +202,15 @@ data-id="${state.user.assistant.id}"></script>`);
                 {/* Description Column */}
                 <div className="col-span-1">
                     <div className="bg-gray-800 text-white rounded-lg p-6">
-                        <h2 className="text-xl font-semibold mb-4">{t("title")}</h2>
-                        <p className="text-sm">
+                        <h2 className="text-2xl font-semibold mb-4">{t("title")}</h2>
+                        <p className="text-base">
                             {t("description")}
                         </p>
                     </div>
                 </div>
+                </div>
             </div>
-        </div>
+        </CardBody>
+        </Card>
     );
 }

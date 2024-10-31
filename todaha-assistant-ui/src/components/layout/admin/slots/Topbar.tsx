@@ -70,6 +70,14 @@ const Topbar = () => {
                         </div>
                     </DropdownToggle>
                     <DropdownMenu className="mt-4 w-52">
+                        <DropdownItem onClick={() => navigate.push(routes.dashboard)}>
+                            <Icon icon={userIcon} fontSize={16} />
+                            {t("Dashboard")}
+                        </DropdownItem>
+                        <DropdownItem onClick={() => navigate.push(routes.dashboard)}>
+                            <Icon icon={userIcon} fontSize={16} />
+                            {t("Account")}
+                        </DropdownItem>
                         <hr className="-mx-2 my-1 border-base-content/10" />
                         <DropdownItem className="text-error" onClick={doLogout}>
                             <Icon icon={logoutIcon} fontSize={16} />

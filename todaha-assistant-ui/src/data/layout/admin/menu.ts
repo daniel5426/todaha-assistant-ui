@@ -9,7 +9,7 @@ import serverIcon from "@iconify/icons-lucide/server";
 import shieldCheckIcon from "@iconify/icons-lucide/shield-check";
 import graphIcon from "@iconify/icons-lucide/area-chart";
 import starIcon from "@iconify/icons-lucide/star";
-
+import userIcon from "@iconify/icons-lucide/user";
 import routes from "@/services/routes";
 import { IMenuItem } from "@/types/layout/admin";
 
@@ -61,6 +61,18 @@ export const adminMenuItems: IMenuItem[] = [
         label: "Integration",
         url: routes.admin.integration,
     },
+    {
+        key: "settig-pages",
+        isTitle: true,
+        label: "Settings",
+    },
+    {
+        key: "account",
+        icon: userIcon,
+        label: "Account",
+        url: routes.admin.account,
+    },
+
 
 
 

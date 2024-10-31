@@ -5,9 +5,12 @@ export type IAuthUser = {
     username: string;
     password: string;
     assistant: IAssistant;
-    firstName: string;
-    lastName: string;
+    full_name: string;        
     avatar: string;
+    token_limit: number;  
+    token_used: number;      
+    company_name: string;     
+    phone_number: string;     
 };
 
 export type UserFile = {

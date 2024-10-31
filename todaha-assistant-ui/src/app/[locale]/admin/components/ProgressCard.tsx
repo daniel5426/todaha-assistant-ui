@@ -5,13 +5,16 @@ import { Badge, Card, CardBody } from "@/components/daisyui";
 import Icon from "@/components/Icon";
 import { useLocale, useTranslations } from "next-intl";
 import { useStats } from "../(stats)/use-stats";
+import { useAuthContext } from "@/states/auth";
 
 export default function ProgressCard() {
-    const { tokenCount } = useStats();
-    const maxToken = 10000;
     const t = useTranslations("dashboard");
     const locale = useLocale();
     const isRTL = locale === "he";
+    const { state } = useAuthContext();
+    const tokenCount = state?.user?.token_used || 0;
+    const maxToken = state?.user?.token_limit || 100000;
+
     return (
         <Card className="bg-base-100 shadow h-full" bordered={false}>
             <CardBody className="gap-2">

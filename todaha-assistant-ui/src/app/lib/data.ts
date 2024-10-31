@@ -158,13 +158,13 @@ export async function register(data: any): Promise<any> {
     return user
 }
 
-export async function get_token(data: any): Promise<Token> {
-  const response = await axiosInstance.post(`/auth/token`, data, {
+export function get_token(data: any): Promise<Token> {
+  return axiosInstance.post(`/auth/token`, data, {
     headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
+      'Content-Type': 'application/x-www-form-urlencoded'
     }
-});
-  return  response.data;
+  })
+  .then(response => response.data);
 }
 
 export async function get_user_info(): Promise<IAuthUser> {

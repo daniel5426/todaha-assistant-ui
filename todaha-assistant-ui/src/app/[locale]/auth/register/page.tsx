@@ -7,6 +7,8 @@ import keyRoundIcon from "@iconify/icons-lucide/key-round";
 import mailIcon from "@iconify/icons-lucide/mail";
 import userIcon from "@iconify/icons-lucide/user";
 import userPlusIcon from "@iconify/icons-lucide/user-plus";
+import buildingIcon from "@iconify/icons-lucide/building";
+import phoneIcon from "@iconify/icons-lucide/phone";
 import Image from "next/image";
 
 import  Link  from "next/link";
@@ -34,11 +36,11 @@ export default function RegisterPage () {
                     <Logo />
                     <ThemeToggle />
                 </div>
-                <h3 className="mt-12 text-center text-xl font-semibold lg:mt-24">{t("Register")}</h3>
+                <h3 className="mt-2 text-center text-xl font-semibold lg:mt-10">{t("Register")}</h3>
                 <h3 className="mt-2 text-center text-sm text-base-content/70">
                     {t("register_b")}
                 </h3>
-                <div className="mt-10">
+                <div className="mt-8">
                     <div>
                         <div className="form-control">
                             <label className="label">
@@ -64,6 +66,34 @@ export default function RegisterPage () {
                                 control={control}
                                 name={"email"}
                                 placeholder={t("Email Address")}
+                                className="w-full focus:border-transparent focus:outline-0"
+                                bordered={false}
+                                borderOffset={false}></FormInput>
+                        </div>
+                        <div className="form-control mt-3">
+                            <label className="label">
+                                <span className="label-text">{t("Company Name")}</span>
+                            </label>
+                            <FormInput
+                                size="sm"
+                                startIcon={<Icon icon={buildingIcon} className="text-base-content/80" fontSize={18} />}
+                                control={control}
+                                name={"company_name"}
+                                placeholder={t("Company Name")}
+                                className="w-full focus:border-transparent focus:outline-0"
+                                bordered={false}
+                                borderOffset={false}></FormInput>
+                        </div>
+                        <div className="form-control mt-3">
+                            <label className="label">
+                                <span className="label-text">{t("Phone Number")}</span>
+                            </label>
+                            <FormInput
+                                size="sm"
+                                startIcon={<Icon icon={phoneIcon} className="text-base-content/80" fontSize={18} />}
+                                control={control}
+                                name={"phone_number"}
+                                placeholder={t("Phone Number")}
                                 className="w-full focus:border-transparent focus:outline-0"
                                 bordered={false}
                                 borderOffset={false}></FormInput>

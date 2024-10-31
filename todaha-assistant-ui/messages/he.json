@@ -2,6 +2,8 @@
     "menue": {
         "Dashboard": "מסך ניהול",
         "Metrics": "מדדים",
+        "Account": "פרופיל",
+        "Settings": "הגדרות",
         "Chat": "צ'אט",
         "Chatbot": "הגדרת צ'אטבוט",
         "Statistics": "סטטיסטיקות",
@@ -12,11 +14,26 @@
         "Contact": "צור קשר",
         "Integration": "אינטגרציה"
     },
+    "Account": {
+        "edit": "עריכה",
+        "save": "שמור",
+        "cancel": "ביטול",
+        "accountInformation": "פרטי חשבון",
+        "email": "דוא\"ל",
+        "firstName": "שם פרטי",
+        "companyName": "שם החברה",
+        "username": "שם משתמש",
+        "phoneNumber": "מספר טלפון",
+        "chatbots": "צ'אטבוטים",
+        "tokenUsage": "שימוש בטוקנים"
+    },
     "auth": {
         "Login": "התחברות",
         "Email Address": "כתובת אימייל",
         "Password": "סיסמה",
         "Register": "הרשמה",
+        "Company Name": "שם העסק",
+        "Phone Number": "מספר טלפון",
         "Username": "שם משתמש",
         "Username or Email": "שם משתמש / אימייל",
         "Forgot Password?": "שכחת סיסמה?",
@@ -68,6 +85,7 @@
         "type a message": "הקלד הודעה..."
     },
     "dashboard": {
+        "Account": "פרופיל",
         "No chats found": "לא נמצאו שיחות",
         "messages": "הודעות",
         "token used": "מספר תוקנים - החודש",
@@ -105,6 +123,8 @@
         "avg messages per day - this week": "הודעות ממוצעות ביום - השבוע"
     },
     "common": {
+        "Account": "פרופיל",
+        "Logout": "התנתקות",
         "ask ai": "תשאל AI",
         "reset": "איפוס",
         "Login": "הזדהות",

@@ -71,7 +71,7 @@ const Leftbar = ({ hide, menuItems }: { hide?: boolean; menuItems: IMenuItem[] }
             className={cn("leftmenu-wrapper", {
                 hide: hide,
             }) } style={{ direction: isRTL ? 'rtl' : 'ltr' }}>
-            <div className="flex h-12 items-center justify-center">
+            <div className="flex h-12 items-center justify-center p-10">
                 <Logo />
             </div>
             <SimpleBar className="h-[calc(100vh-64px)] lg:h-[calc(100vh-230px)] ">

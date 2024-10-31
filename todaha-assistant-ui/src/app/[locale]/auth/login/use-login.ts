@@ -42,20 +42,20 @@ const useLogin = () => {
 
   const onSubmit = handleSubmit((data) => {
     setIsLoading(true);
-    return get_token(data)
+    
+    get_token(data)
       .then((response) => {
         setToken({
           access_token: response.access_token,
         });
+        return updateUserInfo();
       })
       .then(() => {
         toaster.success("Login successful");
-        router.replace(routes.admin.dashboard + "?login_success=true");
-        updateUserInfo(); // This can happen after navigation since we know the token is set
+        router.replace(routes.admin.dashboard);
       })
       .catch((error) => {
         if (typeof error?.response?.data?.detail === "string") {
-          console.log(error.response);
           toaster.error(error.response.data.detail);
         } else {
           toaster.error("An unexpected error occurred. Please try again.");

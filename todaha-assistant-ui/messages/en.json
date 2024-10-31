@@ -1,6 +1,8 @@
 {
     "menue": {
         "Dashboard": "Dashboard",
+        "Account": "Account",
+        "Settings": "Settings",
         "Metrics": "Metrics",
         "Chat": "Chat",
         "Statistics": "Statistics",
@@ -11,6 +13,19 @@
         "Contact": "Contact",
         "Chatbot": "Customize Chatbot",
         "Integration": "Integration"
+    },
+    "Account": {
+        "edit": "Edit",
+        "save": "Save",
+        "cancel": "Cancel",
+        "accountInformation": "Account Information",
+        "email": "Email",
+        "firstName": "First Name",
+        "companyName": "Company Name",
+        "username": "Username",
+        "phoneNumber": "Phone Number",
+        "chatbots": "Chatbots",
+        "tokenUsage": "Token Usage"
     },
     "customization": {
         "Language": "Language",
@@ -54,6 +69,7 @@
         "type a message": "type a message..."
     },
     "dashboard": {
+        "Account": "Account",
         "No chats found": "No chats found",
         "messages": "messages",
         "token used": "Token used - this month",
@@ -95,6 +111,8 @@
         "Email Address": "Email Address",
         "Password": "Password",
         "Register": "Register",
+        "Company Name": "Company Name",
+        "Phone Number": "Phone Number",
         "Username": "Username",
         "Username or Email": "Username or Email",
         "Forgot Password?": "Forgot Password?",
@@ -105,6 +123,8 @@
         "register_b": "Join the Todaha community and unlock the power of AI to transform your customer service experience."
     },
     "common": {
+        "Account": "Account",
+        "Logout": "Logout",
         "ask ai": "Ask AI",
         "reset": "reset",
         "Login": "Login",

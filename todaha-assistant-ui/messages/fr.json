@@ -2,6 +2,8 @@
     "menue": {
         "Dashboard": "Tableau de bord",
         "Metrics": "Métriques",
+        "Account": "Compte",
+        "Settings": "Paramètres",
         "Chat": "Discussion",
         "Statistics": "Statistiques",
         "Configuration": "Configuration",
@@ -11,6 +13,19 @@
         "Contact": "Contact",
         "Chatbot": "Customizer le chatbot",
         "Integration": "Intégration"
+    },
+    "Account": {
+        "edit": "Modifier",
+        "save": "Enregistrer",
+        "cancel": "Annuler",
+        "accountInformation": "Informations du compte",
+        "email": "Email",
+        "firstName": "Prénom",
+        "companyName": "Nom de l'entreprise",
+        "username": "Nom d'utilisateur",
+        "phoneNumber": "Numéro de téléphone",
+        "chatbots": "Chatbots",
+        "tokenUsage": "Utilisation des tokens"
     },
     "customization": {
         "Language": "Langue",
@@ -55,6 +70,7 @@
         "type a message": "Écrivez un message..."
     },
     "dashboard": {
+        "Account": "Compte",
         "No chats found": "Aucune conversation trouvée",
         "messages": "messages",
         "token used": "Nombre de token - ce mois-ci",
@@ -96,6 +112,8 @@
         "Email Address": "Adresse e-mail",
         "Password": "Mot de passe",
         "Register": "S'inscrire",
+        "Company Name": "Nom de l'entreprise",
+        "Phone Number": "Numéro de téléphone",
         "Username": "Nom d'utilisateur",
         "Username or Email": "Nom d'utilisateur ou Email",
         "Forgot Password?": "Mot de passe oublié ?",
@@ -106,6 +124,8 @@
         "register_b": "Rejoignez la communauté Todaha et débloquez la puissance de l'IA pour transformer votre expérience de service client."
     },
     "common": {
+        "Account": "Compte",
+        "Logout": "Déconnexion",
         "ask ai": "Demander à l'IA",
         "reset": "reset",
         "Login": "Connexion",
