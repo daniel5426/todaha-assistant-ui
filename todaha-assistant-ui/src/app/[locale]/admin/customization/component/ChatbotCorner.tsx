@@ -41,7 +41,6 @@ const ChatbotCorner: React.FC<CustomizableChatbotProps> = ({
   const api_url = process.env.NEXT_PUBLIC_API_BASE_URL1;
   const [activeText, setActiveText] = useState("");
   const [placeholderText, setPlaceholderText] = useState("");
-  const [isResetHovered, setIsResetHovered] = useState(false);
   const [initialMessages, setInitialMessages] = useState<
     Array<{ role: string; text: string }>
   >([]);
@@ -97,10 +96,10 @@ const ChatbotCorner: React.FC<CustomizableChatbotProps> = ({
   };
 
   const handleResetClick = () => {
-    setReset((prevReset) => !prevReset);
     if (chatElementRef.current) {
       chatElementRef.current.clearMessages();
     }
+    setReset((prevReset) => !prevReset);
   };
 
   return (
@@ -182,15 +181,10 @@ const ChatbotCorner: React.FC<CustomizableChatbotProps> = ({
                 <div className="flex flex-row absolute right-2 top-2">
                   <button
                     style={{
-                        color: nameTextColor,
-                        transition: 'transform 0.3s ease-in-out',
-                        transform: isResetHovered ? 'rotate(180deg)' : 'rotate(0deg)',
-              }}
-                    className="p-1 rounded-full bg-transparent  focus:outline-none focus:ring-2 focus:ring-gray-600 mr-1"
+                      color: nameTextColor,
+                    }}
+                    className="p-1 rounded-full bg-transparent hover:rotate-180 transition-transform duration-300 focus:outline-none focus:ring-2 focus:ring-gray-600 mr-1"
                     onClick={handleResetClick}
-                    onMouseEnter={() => setIsResetHovered(true)}
-                    onMouseLeave={() => setIsResetHovered(false)}
-
                   >
                     <svg
                       fill={nameTextColor}
