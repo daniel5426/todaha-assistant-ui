@@ -23,8 +23,8 @@ const QuickChat = () => {
 
     useEffect(() => {
         const fetchChatsData = async () => {
-            const chats = await fetchChats(1, 7);
-            setChats(chatsToQuickChat(chats));
+            const result = await fetchChats(1, 7);
+            setChats(chatsToQuickChat(result.last_chat));
         };
         fetchChatsData();
         const interval = setInterval(() => {

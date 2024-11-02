@@ -31,12 +31,11 @@ const ChatbotModalConfig = ({
   const initialMessages = [
     { role: "ai", text: state.user?.assistant.welcome_message },
   ];
-  const [isResetHovered, setIsResetHovered] = useState(false);
 
   const [threadId, setThreadId] = useState<string | null>(null);
   const api_url = process.env.NEXT_PUBLIC_API_BASE_URL1!;
   const isWhite = layoutState.theme === "light";
-
+  const [reset, setReset] = useState(false);
   useEffect(() => {
     const handleResize = (event: MessageEvent) => {
       if (event.data.type === "resize") {
@@ -56,7 +55,7 @@ const ChatbotModalConfig = ({
       })
       .then((response) => setThreadId(response.data.thread_id))
       .catch(console.error);
-  }, [state, api_url, assistantId]);
+  }, [state, reset, assistantId]);
 
   const handleRequestInterceptor = (requestDetails: any) => ({
     ...requestDetails,
@@ -69,15 +68,10 @@ const ChatbotModalConfig = ({
   });
 
   const handleReset = () => {
-    axios
-    .get<{ thread_id: string }>(`${api_url}/chat/create-thread`, {
-      params: { assistant_id: assistantId },
-    })
-    .then((response) => setThreadId(response.data.thread_id))
-    .catch(console.error);
     if (chatElementRef.current) {
       chatElementRef.current.clearMessages();
     }
+    setReset((prevReset) => !prevReset);
   };
 
   const locale = useLocale();
@@ -89,29 +83,26 @@ const ChatbotModalConfig = ({
   return (
     <div className="flex flex-col items-center" style={{ direction: "ltr" }}>
       <div className="shadow-xl h-[600px] w-[595px] rounded-xl join join-vertical relative">
-      <button
-              onClick={handleReset}
-              onMouseEnter={() => setIsResetHovered(true)}
-              onMouseLeave={() => setIsResetHovered(false)}
-              style={{
-                position: 'absolute',
-                top: '10px',
-                [isRTL ? 'left' : 'right']: '10px',
-                zIndex: 1,
-                background: 'white',
-                border: 'none',
-                cursor: 'pointer',
-                padding: '5px',
-                borderRadius: '50%',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                transition: 'transform 0.3s ease-in-out',
-                transform: isResetHovered ? 'rotate(180deg)' : 'rotate(0deg)',
-              }}
-            >
-              <ResetIcon />
-            </button>
+        <button
+          onClick={handleReset}
+          style={{
+            position: 'absolute',
+            top: '10px',
+            [isRTL ? 'left' : 'right']: '10px',
+            zIndex: 1,
+            background: 'transparent',
+            border: 'none',
+            cursor: 'pointer',
+            padding: '5px',
+            borderRadius: '50%',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+          className="p-1 rounded-full bg-transparent hover:rotate-180 transition-transform duration-300 mr-1"
+        >
+          <ResetIcon color="black" />
+        </button>
         <DeepChat
           id="deep-chat"
           className="join-item"
