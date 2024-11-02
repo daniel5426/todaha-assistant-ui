@@ -111,6 +111,7 @@ const ChatbotModalConfig = ({
           style={{
             height: "600px",
             width: "595px",
+            fontSize: "0.93em",
             border: isWhite
               ? "1px solid rgba(230,233,236)"
               : "1px solid rgba(0,0,0,0.7)",
