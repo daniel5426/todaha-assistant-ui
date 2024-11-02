@@ -70,7 +70,7 @@ export const fetchWithInterceptor = async (url: string , options: any = {}) => {
     return result.message;
 }
 
-export async function fetchChats(page: number, num_per_page: number = 7): Promise<any[]> {
+export async function fetchChats(page: number, num_per_page: number = 7): Promise<any> {
   const response = await axiosInstance.get(`/admin/get-chats-history?index=${page}&number=${num_per_page}`)
 
   if (!response.data) {
@@ -78,7 +78,7 @@ export async function fetchChats(page: number, num_per_page: number = 7): Promis
   }
 
   const data = response.data;
-  return data['last-chats'];
+  return {last_chat: data['last-chats'], total_chats: data['total-chats']};
 }
 
 export async function fetchChat(page: number, num_per_page: number = 7): Promise<any[]> {

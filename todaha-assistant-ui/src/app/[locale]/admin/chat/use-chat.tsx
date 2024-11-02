@@ -16,13 +16,20 @@ const useChatHook = () => {
   const [chats, setChats] = useState<any[]>(null);
   const [selectedChat, setSelectedChat] = useState<any>(null);
   const [currentPage, setCurrentPage] = useState<number>(1);
-
+  const [totalChats, setTotalChats] = useState<number>(0);
   const updateChats = async (page: number) => {
-    const fetchedChats = await fetchChats(page);
-    const transformedChats = transformChatsToIChat(fetchedChats, page);
-    setCurrentPage(page);
-    setChats(transformedChats);
-    setSelectedChat(transformedChats[0] || null);
+    setIsPending(true);
+    try {
+      const {last_chat, total_chats} = await fetchChats(page);
+      const transformedChats = transformChatsToIChat(last_chat, page);
+      setCurrentPage(page);
+      setChats(transformedChats);
+      setSelectedChat(transformedChats[0] || null);
+      setTotalChats(total_chats);
+    } catch (error) {
+      console.error("Error fetching chats:", error);
+    }
+    setIsPending(false);
   }
 
   useEffect(() => {
@@ -36,7 +43,6 @@ const useChatHook = () => {
       updateChats(page);
     } catch (error) {
       console.error("Error fetching chats:", error);
-      setIsPending(false);
     }
     setIsPending(false);
   }
@@ -47,6 +53,7 @@ const useChatHook = () => {
     selectedChat,
     setSelectedChat,
     loadMore,
+    totalChats,
     currentPage,
     isPending,
     setIsPending,

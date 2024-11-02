@@ -32,53 +32,58 @@ data-id="${state.user.assistant.id}"></script>`);
                 {/* Tabs Column */}
                 <div className="col-span-3">
                     <Tabs defaultValue="shopify" className="w-full">
-                        <TabsList className="grid w-full grid-cols-5 mb-8 ">
-                            <TabsTrigger value="shopify" className="flex items-center gap-2">
+                        <TabsList className="grid w-full grid-cols-5 mb-8 [&>[data-state=active]]:shadow-md">
+                            <TabsTrigger 
+                                value="shopify" 
+                                className="flex items-center justify-start gap-3 text-lg py-3 px-4 data-[state=active]:shadow-[0_2px_10px_rgba(0,0,0,0.2)]"
+                            >
                                 <Image
                                     src="/images/shopify-logo.png"
                                     alt="Shopify"
-                                    width={20}
-                                    height={20}
+                                    width={24}
+                                    height={24}
                                 />
                                 Shopify
                             </TabsTrigger>
-                            <TabsTrigger value="wordpress" className="flex items-center gap-2">
+                            <TabsTrigger value="wordpress" className="flex items-center gap-3 text-lg py-3">
                                 <Image
                                     src="/images/wordpress-logo.png"
                                     alt="WordPress"
-                                    width={20}
-                                    height={20}
+                                    width={24}
+                                    height={24}
                                 />
                                 WordPress
                             </TabsTrigger>
-                            <TabsTrigger value="wix" className="flex items-center gap-2">
+                            <TabsTrigger value="wix" className="flex items-center gap-3 text-lg py-3">
                                 <Image
                                     src="/images/wix-logo.png"
                                     alt="Wix"
-                                    width={20}
-                                    height={20}
+                                    width={24}
+                                    height={24}
                                 />
                                 Wix
                             </TabsTrigger>
-                            <TabsTrigger value="react" className="flex items-center gap-2">
+                            <TabsTrigger value="react" className="flex items-center gap-3 text-lg py-3">
                                 <Image
                                     src="/images/react-logo.png"
                                     alt="React"
-                                    width={20}
-                                    height={20}
+                                    width={24}
+                                    height={24}
                                 />
                                 React
                             </TabsTrigger>
-                            <TabsTrigger value="squarespace" className="flex items-center gap-2">
+                            <TabsTrigger value="squarespace" className="flex items-center gap-3 text-lg py-3">
                                 <Image
                                     src="/images/squarespace-logo.png"
                                     alt="Squarespace"
-                                    width={20}
-                                    height={20}
+                                    width={24}
+                                    height={24}
                                 />
                                 Squarespace
                             </TabsTrigger>
                         </TabsList>
+
+                        <div className="p-3"></div>
 
                         <TabsContent value="shopify">
                             <h2 className="text-2xl font-semibold mb-4">{t("shopify.title")}</h2>

@@ -17,7 +17,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
   return (
     <div>
-      <Suspense fallback={<div><h1>test...</h1></div>}>
+      <Suspense fallback={<div><h1>Loading...</h1></div>}>
         
           <StatsContextProvider>
             <WaitComponent>

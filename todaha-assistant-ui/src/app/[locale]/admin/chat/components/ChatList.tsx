@@ -1,6 +1,5 @@
-import plusIcon from "@iconify/icons-lucide/plus";
-import searchIcon from "@iconify/icons-lucide/search";
-import usersIcon from "@iconify/icons-lucide/users";
+import chevronLeftIcon from "@iconify/icons-lucide/chevron-left";
+import chevronRightIcon from "@iconify/icons-lucide/chevron-right";
 
 import {
   Badge,
@@ -78,7 +77,8 @@ export default function ChatList ()  {
     loadMore,
     currentPage,
     isPending,
-    setIsPending
+    setIsPending,
+    totalChats
   } = useChat();
   const t = useTranslations("dashboard");
   const locale = useLocale();
@@ -132,12 +132,84 @@ export default function ChatList ()  {
             }
           </div>
           <div className="mt-2 text-center">
-            <div className="mt-4 flex justify-center space-x-4">
-              <Button onClick={handleStart} disabled={currentPage === 1 || isPending === true} className="ml-2">{t("Start")}</Button>
-              <Button onClick={handlePrevious} disabled={isPending === true} >
-                {t("Previous")}
+            <div className="mt-4 flex justify-center items-center gap-1">
+              <Button 
+                onClick={handlePrevious} 
+                disabled={currentPage === 1 || isPending} 
+                className="btn-ghost btn-sm px-2"
+              >
+                <Icon icon={chevronLeftIcon} className="h-4 w-4" />
               </Button>
-              <Button onClick={handleNext} disabled={isPending === true}>{t("Next")}</Button>
+
+              {/* First page */}
+              <Button 
+                onClick={() => loadMore(1)}
+                disabled={isPending}
+                className={cn("btn-ghost btn-sm px-3", {
+                  'btn-active': currentPage === 1
+                })}
+              >
+                1
+              </Button>
+
+              {/* Show dots if there are many pages before current */}
+              {currentPage > 3 && <span className="px-2">...</span>}
+
+              {/* Pages before current */}
+              {currentPage > 2 && (
+                <Button 
+                  onClick={() => loadMore(currentPage - 1)}
+                  disabled={isPending}
+                  className="btn-ghost btn-sm px-3"
+                >
+                  {currentPage - 1}
+                </Button>
+              )}
+
+              {/* Current page (if not 1) */}
+              {currentPage !== 1 && (
+                <Button 
+                  onClick={() => loadMore(currentPage)}
+                  disabled={isPending}
+                  className="btn-ghost btn-sm px-3 btn-active"
+                >
+                  {currentPage}
+                </Button>
+              )}
+
+              {/* Next page button if not on last page */}
+              {currentPage < Math.ceil(totalChats / 7) && (
+                <Button 
+                  onClick={() => loadMore(currentPage + 1)}
+                  disabled={isPending}
+                  className="btn-ghost btn-sm px-3"
+                >
+                  {currentPage + 1}
+                </Button>
+              )}
+
+              {/* Show dots if there are more pages after current */}
+              {currentPage < Math.ceil(totalChats / 7) - 1 && <span className="px-2">...</span>}
+
+              {/* Last page if not already shown */}
+              {currentPage < Math.ceil(totalChats / 7) && (
+                <Button 
+                  onClick={() => loadMore(Math.ceil(totalChats / 7))}
+                  disabled={isPending}
+                  className="btn-ghost btn-sm px-3"
+                >
+                  {Math.ceil(totalChats / 7)}
+                </Button>
+              )}
+
+              <Button 
+                onClick={handleNext} 
+                disabled={currentPage === Math.ceil(totalChats / 7) || isPending || totalChats === 0}
+                loading={isPending}
+                className="btn-ghost btn-sm px-2"
+              >
+                <Icon icon={chevronRightIcon} className="h-4 w-4" />
+              </Button>
             </div>
           </div>
         </CardBody>
