@@ -38,13 +38,11 @@ const useChatHook = () => {
 
 
   const loadMore = async (page: number) => {
-    setIsPending(true);
     try {
-      updateChats(page);
+      await updateChats(page);
     } catch (error) {
       console.error("Error fetching chats:", error);
     }
-    setIsPending(false);
   }
 
 

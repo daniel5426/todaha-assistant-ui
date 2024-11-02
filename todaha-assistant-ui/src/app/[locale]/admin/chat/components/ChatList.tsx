@@ -120,16 +120,22 @@ export default function ChatList ()  {
       <Card className="bg-base-100">
         <CardBody>
 
-          <div className="mt-2">
-            {chats.map((chat, index) => (
-              <div onClick={() => setSelectedChat(chat)} key={index}>
-                <SingleChat
-                  chat={chat}
-                  selected={selectedChat?.id == chat.id}
-                />
+          <div className="mt-2 relative">
+            {isPending && (
+              <div className="absolute inset-0 bg-base-100/50 flex items-center justify-center z-10">
+                <Loading size="lg" />
               </div>
-            ))
-            }
+            )}
+            <div className={cn({ "opacity-50": isPending })}>
+              {chats.map((chat, index) => (
+                <div onClick={() => setSelectedChat(chat)} key={index}>
+                  <SingleChat
+                    chat={chat}
+                    selected={selectedChat?.id == chat.id}
+                  />
+                </div>
+              ))}
+            </div>
           </div>
           <div className="mt-2 text-center">
             <div className="mt-4 flex justify-center items-center gap-1">
@@ -152,22 +158,11 @@ export default function ChatList ()  {
                 1
               </Button>
 
-              {/* Show dots if there are many pages before current */}
-              {currentPage > 3 && <span className="px-2">...</span>}
+              {/* Show dots if there are pages between first and current */}
+              {currentPage > 2 && <span className="px-2">...</span>}
 
-              {/* Pages before current */}
-              {currentPage > 2 && (
-                <Button 
-                  onClick={() => loadMore(currentPage - 1)}
-                  disabled={isPending}
-                  className="btn-ghost btn-sm px-3"
-                >
-                  {currentPage - 1}
-                </Button>
-              )}
-
-              {/* Current page (if not 1) */}
-              {currentPage !== 1 && (
+              {/* Current page (if not first or last) */}
+              {currentPage !== 1 && currentPage !== Math.ceil(totalChats / 7) && (
                 <Button 
                   onClick={() => loadMore(currentPage)}
                   disabled={isPending}
@@ -177,26 +172,17 @@ export default function ChatList ()  {
                 </Button>
               )}
 
-              {/* Next page button if not on last page */}
-              {currentPage < Math.ceil(totalChats / 7) && (
-                <Button 
-                  onClick={() => loadMore(currentPage + 1)}
-                  disabled={isPending}
-                  className="btn-ghost btn-sm px-3"
-                >
-                  {currentPage + 1}
-                </Button>
-              )}
-
-              {/* Show dots if there are more pages after current */}
+              {/* Show dots if there are pages between current and last */}
               {currentPage < Math.ceil(totalChats / 7) - 1 && <span className="px-2">...</span>}
 
-              {/* Last page if not already shown */}
-              {currentPage < Math.ceil(totalChats / 7) && (
+              {/* Last page (if not first page) */}
+              {Math.ceil(totalChats / 7) > 1 && (
                 <Button 
                   onClick={() => loadMore(Math.ceil(totalChats / 7))}
                   disabled={isPending}
-                  className="btn-ghost btn-sm px-3"
+                  className={cn("btn-ghost btn-sm px-3", {
+                    'btn-active': currentPage === Math.ceil(totalChats / 7)
+                  })}
                 >
                   {Math.ceil(totalChats / 7)}
                 </Button>
@@ -205,7 +191,6 @@ export default function ChatList ()  {
               <Button 
                 onClick={handleNext} 
                 disabled={currentPage === Math.ceil(totalChats / 7) || isPending || totalChats === 0}
-                loading={isPending}
                 className="btn-ghost btn-sm px-2"
               >
                 <Icon icon={chevronRightIcon} className="h-4 w-4" />
