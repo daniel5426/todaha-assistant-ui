@@ -241,7 +241,7 @@ const ChatbotCorner: React.FC<CustomizableChatbotProps> = ({
                   window.innerWidth > 400
                     ? "550px"
                     : `${(window.innerWidth - 20) * (550 / 400)}px`,
-                fontSize: "0.90em",
+                fontSize: "0.925em",
                 zIndex: 50,
                 borderRadius: "0 0 12px 12px",
                 width:
