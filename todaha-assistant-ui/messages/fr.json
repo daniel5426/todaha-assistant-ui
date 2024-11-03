@@ -51,7 +51,7 @@
 
     "configuration": {
         "Upload Your Website Content": "Rajouter le contenu de votre site web",
-        "upload_website_info": "Tout le contenu de votre site web sera disponible à l'assistant",
+        "upload_website_info": "Tout le contenu de votre site web sera disponible à l'assistant (max 50 pages du site web seront uploadées)",
         "Dashboard": "Tableau de bord",
         "Configuration": "Configuration",
         "AI assistant": "Assistant IA",

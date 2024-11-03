@@ -6,7 +6,7 @@ import logoutIcon from "@iconify/icons-lucide/log-out";
 import menuIcon from "@iconify/icons-lucide/menu";
 import userIcon from "@iconify/icons-lucide/user";
 
-import { useRouter} from "next/navigation";
+import { useRouter } from "next/navigation";
 import {
     Avatar,
     Button,
@@ -32,7 +32,7 @@ const Topbar = () => {
     const { toggleLeftbarDrawer, state: layoutState } = useLayoutContext();
     const { logout, state: authState } = useAuthContext();
     const navigate = useRouter();
-    const  t  = useTranslations("dashboard");
+    const t = useTranslations("dashboard");
 
     const doLogout = () => {
         logout();
@@ -51,7 +51,7 @@ const Topbar = () => {
                 </Button>
             </NavbarStart>
             <NavbarCenter></NavbarCenter>
-            <NavbarEnd className="gap-1.5">
+            <NavbarEnd className="gap-1.5 px-5">
                 <ThemeToggleButton shape="circle" color="ghost" size="sm" />
 
                 <Dropdown vertical="bottom" end>
@@ -59,14 +59,13 @@ const Topbar = () => {
                         className="btn btn-ghost rounded-btn px-1.5 hover:bg-base-content/20"
                         button={false}>
                         <div className="flex items-center gap-2">
+                            {authState.user.username && (
                             <Avatar
-                                src={avatar1.src}
-                                size={30}
-                                innerClassName={Mask.className({ variant: "squircle" })}></Avatar>
-                            <div className="flex flex-col items-start">
-                                <p className="text-sm/none">{t("Profile")}</p>
-                                <p className="mt-1 text-xs/none text-primary">{t("Edit")}</p>
-                            </div>
+                                letters={authState.user.username.slice(0, 2)}
+                                    color="secondary"
+                                    size={30}
+                                    innerClassName={Mask.className({ variant: "squircle" })} />
+                            )}
                         </div>
                     </DropdownToggle>
                     <DropdownMenu className="mt-4 w-52">

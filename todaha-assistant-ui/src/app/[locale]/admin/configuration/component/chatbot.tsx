@@ -57,8 +57,7 @@ const Chatbot = () => {
       .catch((error) => {
         console.error(error);
       });
-    console.log("6666666666-------");
-  }, [state]);
+  }, [state, reset]);
 
   // Toggle chat visibility and notify the parent window
 
@@ -73,15 +72,10 @@ const Chatbot = () => {
   };
 
   const handleReset = () => {
-    axios
-      .get<{ thread_id: string }>(`${api_url}/chat/create-thread`, {
-        params: { assistant_id: assistantId },
-      })
-      .then((response) => setThreadId(response.data.thread_id))
-      .catch(console.error);
     if (chatElementRef.current) {
       chatElementRef.current.clearMessages();
     }
+    setReset((prevReset) => !prevReset);
   };
 
 

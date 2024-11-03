@@ -21,20 +21,25 @@ import {
     DropdownToggle,
     Mask,
 } from "@/components/daisyui";
+import { useAuthContext } from "@/states/auth";
+
 
 const Topbar = () => {
     const [drawerOpened, setDrawerOpened] = useState(false);
     const [atTop, setAtTop] = useState(true);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
+
     const router = useRouter();
     const  t  = useTranslations('common');
     const locale = useLocale();
     const isRTL = locale === "he";
-  
+    const { state } = useAuthContext();
     useEffect(() => {
         // Check authentication status whenever component mounts or updates
         const loggedIn = Cookies.get("loggedIn") === "true";
         setIsAuthenticated(loggedIn);
+        setIsLoading(false);
     }, []);
 
     const handleDashboardClick = (e: React.MouseEvent) => {
@@ -106,38 +111,41 @@ const Topbar = () => {
                                     <Link href={routes.contact}>{t('Contact')}</Link>
                                 </MenuItem>
                             </Menu>
-                            {isAuthenticated ? (
-                                <Dropdown vertical="bottom" end>
-                                    <DropdownToggle
-                                        className="btn btn-ghost rounded-btn px-1.5 hover:bg-base-content/20"
-                                        button={false}>
-                                        <div className="flex items-center gap-2">
-                                            <Avatar
-                                                src={avatar1.src}
-                                                size={30}
-                                                innerClassName={Mask.className({ variant: "squircle" })}/>
-                                        </div>
-                                    </DropdownToggle>
-                                    <DropdownMenu className="mt-4 w-52">
-                                        <DropdownItem onClick={() => router.push(routes.dashboard)}>
-                                            <Icon icon={userIcon} fontSize={16} />
-                                            {t('dashboard')}
-                                        </DropdownItem>
-                                        <DropdownItem onClick={() => router.push(routes.dashboard)}>
-                                            <Icon icon={userIcon} fontSize={16} />
-                                            {t('Account')}
-                                        </DropdownItem>
-                                        <hr className="-mx-2 my-1 border-base-content/10" />
-                                        <DropdownItem className="text-error" onClick={doLogout}>
-                                            <Icon icon={logoutIcon} fontSize={16} />
-                                            {t('Logout')}
-                                        </DropdownItem>
-                                    </DropdownMenu>
-                                </Dropdown>
-                            ) : (
-                                <Button size={"sm"} color="primary">
-                                    <Link href={routes.auth.login}>{t('Login')}</Link>
-                                </Button>
+                            {!isLoading && (
+                                isAuthenticated ? (
+                                    <Dropdown vertical="bottom" end>
+                                        <DropdownToggle
+                                            className="btn btn-ghost rounded-btn px-1.5 hover:bg-base-content/20"
+                                            button={false}>
+                                            <div className="flex items-center gap-2">
+                                                <Avatar
+                                    letters={state.user?.username.slice(0, 2) || ""}
+                                                    color="secondary"
+                                                    size={30}
+                                                    innerClassName={Mask.className({ variant: "squircle" })}/>
+                                            </div>
+                                        </DropdownToggle>
+                                        <DropdownMenu className="mt-4 w-52">
+                                            <DropdownItem onClick={() => router.push(routes.dashboard)}>
+                                                <Icon icon={userIcon} fontSize={16} />
+                                                {t('dashboard')}
+                                            </DropdownItem>
+                                            <DropdownItem onClick={() => router.push(routes.dashboard)}>
+                                                <Icon icon={userIcon} fontSize={16} />
+                                                {t('Account')}
+                                            </DropdownItem>
+                                            <hr className="-mx-2 my-1 border-base-content/10" />
+                                            <DropdownItem className="text-error" onClick={doLogout}>
+                                                <Icon icon={logoutIcon} fontSize={16} />
+                                                {t('Logout')}
+                                            </DropdownItem>
+                                        </DropdownMenu>
+                                    </Dropdown>
+                                ) : (
+                                    <Button size={"sm"} color="primary">
+                                        <Link href={routes.auth.login}>{t('Login')}</Link>
+                                    </Button>
+                                )
                             )}
                         </NavbarEnd>
                     </Navbar>
