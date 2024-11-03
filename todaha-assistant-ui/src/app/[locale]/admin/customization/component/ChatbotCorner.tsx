@@ -238,16 +238,16 @@ const ChatbotCorner: React.FC<CustomizableChatbotProps> = ({
               ref={chatElementRef}
               style={{
                 height:
-                  window.innerWidth > 400
-                    ? "550px"
-                    : `${(window.innerWidth - 20) * (550 / 400)}px`,
-                fontSize: "0.95em",
+                window.innerWidth > 380
+                  ? "540px"
+                  : `${(window.innerWidth - 20) * (540 / 380)}px`,
+              fontSize: "0.90em",
+              width:
+                window.innerWidth > 380
+                  ? "380px"
+                  : `${window.innerWidth - 20}px`,
                 zIndex: 50,
                 borderRadius: "0 0 12px 12px",
-                width:
-                  window.innerWidth > 400
-                    ? "400px"
-                    : `${window.innerWidth - 20}px`,
                 border: "none",
                 boxShadow: "none",
                 outline: "none",

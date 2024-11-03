@@ -15,7 +15,7 @@ export default function Customization() {
     useEffect(() => {
         if (state.user?.assistant.id) {
             setChatbotCode(`<chatbot-component assistantid="${state.user.assistant.id}"></chatbot-component>
-<script src="https://todaha-chatbots-q9x.vercel.app/base-lib.js"
+<script src="https://todaha-chatbots.vercel.app/base-lib.js"
 data-id="${state.user.assistant.id}"></script>`);
         }
     }, [state.user?.assistant.id]);
