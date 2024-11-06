@@ -127,6 +127,21 @@ export default function RegisterPage () {
                                 }
                                 borderOffset={false}></FormInput>
                         </div>
+                        <div className="form-control">
+                            <label className="label">
+                                <span className="label-text">{t("Full Name")}</span>
+                            </label>
+                            <FormInput
+                                size="sm"
+                                startIcon={<Icon icon={userIcon} className="text-base-content/80" fontSize={18} />}
+                                control={control}
+                                name="full_name"
+                                placeholder={t("Full Name")}
+                                className="w-full focus:border-transparent focus:outline-0"
+                                bordered={false}
+                                borderOffset={false}
+                            />
+                        </div>
                     </div>
                     <div className="mt-6">
                         <Button

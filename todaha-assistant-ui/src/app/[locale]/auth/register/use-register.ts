@@ -21,11 +21,18 @@ const useRegister = () => {
   };
 
   const registerSchema = z.object({
-    username: z.string(),
-    email: z.string().email(),
-    password: z.string(),
+    username: z.string().min(3, "Username must be at least 3 characters"),
+    email: z.string().email("Invalid email address"),
+    password: z
+      .string()
+      .min(8, "Password must be at least 8 characters")
+      .regex(/[A-Z]/, "Password must contain at least one uppercase letter")
+      .regex(/[a-z]/, "Password must contain at least one lowercase letter")
+      .regex(/[0-9]/, "Password must contain at least one number")
+      .regex(/[^A-Za-z0-9]/, "Password must contain at least one special character"),
     company_name: z.string().optional(),
-    phone_number: z.string(),
+    phone_number: z.string().regex(/^\+?[1-9]\d{1,14}$/, "Invalid phone number format"),
+    full_name: z.string().min(2, "Full name must be at least 2 characters"),
   });
 
   type RegisterSchemaType = z.infer<typeof registerSchema>;

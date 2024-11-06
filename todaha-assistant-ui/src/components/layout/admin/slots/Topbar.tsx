@@ -73,7 +73,7 @@ const Topbar = () => {
                             <Icon icon={userIcon} fontSize={16} />
                             {t("Dashboard")}
                         </DropdownItem>
-                        <DropdownItem onClick={() => navigate.push(routes.dashboard)}>
+                        <DropdownItem onClick={() => navigate.push(routes.admin.account)}>
                             <Icon icon={userIcon} fontSize={16} />
                             {t("Account")}
                         </DropdownItem>

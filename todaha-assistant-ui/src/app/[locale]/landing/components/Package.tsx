@@ -1,4 +1,3 @@
-
 import checkIcon from "@iconify/icons-lucide/check";
 import dollarSignIcon from "@iconify/icons-lucide/dollar-sign";
 import xCircleIcon from "@iconify/icons-lucide/x-circle";
@@ -8,12 +7,35 @@ import Link from "next/link";
 import Icon from "@/components/Icon";
 import routes from "@/services/routes";
 import { useLocale, useTranslations } from "next-intl";
+import { useState } from "react";
+import axios from "axios";
+const api_url = process.env.NEXT_PUBLIC_API_BASE_URL1!; // Adjust based on Next.js environment variable usage
 
 const Package = () => {
     const t = useTranslations("package");
     const locale = useLocale();
     const isRTL = locale === "he";
-  
+    const [isLoading, setIsLoading] = useState(false);
+
+    const handleCheckout = async (priceId: string) => {
+        setIsLoading(true);
+        try {
+            const response = await axios.get<{ url: string }>(
+                `${api_url}/stripe/create-checkout-session`,
+                {
+                  params: { price_id: priceId },
+                }
+            );
+            
+            const { url } = response.data;
+            window.location.href = url;
+        } catch (error) {
+            console.error('Error:', error);
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
     return (
         <div className="" style={{ direction: isRTL ? "rtl" : "ltr" }}>
             <div className="container py-24">
@@ -64,12 +86,13 @@ const Package = () => {
                                 <p>{t("Custom development by our team")}</p>
                             </div>
                         </div>
-                        <Link
+                        <button
                             className="btn btn-ghost btn-block mt-10 border-base-content/10"
-                            href={routes.contact}
-                            >
-                            {t("Buy Now")}
-                        </Link>
+                            onClick={() => handleCheckout('price_1QHRGuB16lQffSxJZsYPRlHW')}
+                            disabled={isLoading}
+                        >
+                            {isLoading ? t("Processing...") : t("Buy Now")}
+                        </button>
                     </div>
                     <div className="rounded border border-base-content/10 p-6">
                         <div className="inline rounded bg-primary px-3 py-1 text-sm font-medium text-primary-content">
@@ -108,12 +131,13 @@ const Package = () => {
                                 <p>{t("Custom development by our team")}</p>
                             </div>
                         </div>
-                        <Link
+                        <button
                             className="btn btn-primary btn-block mt-10 border-base-content/10"
-                            href={routes.contact}
-                            >
-                            {t("Buy Now")}
-                        </Link>
+                            onClick={() => handleCheckout('price_1QH4cjB16lQffSxJZTGQLYvi')}
+                            disabled={isLoading}
+                        >
+                            {isLoading ? t("Processing...") : t("Buy Now")}
+                        </button>
                     </div>
                     <div className="rounded border border-base-content/10 p-6">
                         <div className="inline rounded bg-purple-500/10 px-3 py-1 text-sm font-medium text-purple-600">
@@ -153,12 +177,13 @@ const Package = () => {
                             </div>
                         </div>
 
-                        <Link
+                        <button
                             className="btn btn-ghost btn-outline btn-block mt-10 border-base-content/10"
-                            href={routes.contact}
-                            >
-                            {t("Buy Now")}
-                        </Link>
+                            onClick={() => handleCheckout('price_1QH4cjB16lQffSxJZTGQLYvi')}
+                            disabled={isLoading}
+                        >
+                            {isLoading ? t("Processing...") : t("Buy Now")}
+                        </button>
                     </div>
                 </div>
             </div>
