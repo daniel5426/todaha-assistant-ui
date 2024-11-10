@@ -5,6 +5,11 @@ import axiosInstance from "@/app/lib/axiosConfig";
 import useToast from "@/hooks/use-toast";
 import { useTranslations } from 'next-intl';
 import { useLocale } from 'next-intl';
+import Link from 'next/link';
+import axios from "axios";
+import { createPortalSession } from '@/app/lib/data';
+
+const api_url = process.env.NEXT_PUBLIC_API_BASE_URL1!; // Adjust based on Next.js environment variable usage
 export default function AccountPage() {
     const { state, updateUserInfo } = useAuthContext();
     const user = state.user;
@@ -53,6 +58,21 @@ export default function AccountPage() {
             phone_number: user?.phone_number || ''
         });
     };
+
+    const handlePortal = async () => {
+        setIsLoading(true);
+        try {
+            console.log(user.stripe_customer_id)
+            const { url } = await createPortalSession(user.stripe_customer_id);
+            window.location.href = url;
+        } catch (error) {
+            console.error('Error:', error);
+            toaster.error(t('errorPortalAccess'));
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
 
     const handleSave = async () => {
         try {
@@ -249,6 +269,25 @@ export default function AccountPage() {
                                 <div className="stat-value">{user.assistant?.chatbots?.length || 0}</div>
                             </div>
                             <div className="stat">
+                                <div className="stat-title">{t('subscription')}</div>
+                                <div className="stat-value capitalize text-primary">
+                                    {user?.subscription_type || 'free'}
+                                </div>
+                                <div className="stat-desc mt-2">
+                                    {user?.subscription_end_date && (
+                                        <div className="text-sm mb-2">
+                                            {t('validUntil')}: {new Date(user.subscription_end_date).toLocaleDateString()}
+                                        </div>
+                                    )}
+                                    <button 
+                                        onClick={handlePortal}
+                                        className="btn btn-xs btn-primary"
+                                    >
+                                        {t('manageSubscription')}
+                                    </button>
+                                </div>
+                            </div>
+                            <div className="stat">
                                 <div className="stat-title">{t('tokenUsage')}</div>
                                 <div className="stat-value text-base">
                                     {user?.token_used || 0} / {user?.token_limit || 0}
@@ -256,7 +295,13 @@ export default function AccountPage() {
                                 <div className="mt-2 flex items-center gap-2">
                                     <div className="flex-grow">
                                         <progress 
-                                            className="progress progress-primary w-full" 
+                                            className={`progress w-full ${
+                                                tokenPercentage > 90 
+                                                    ? 'progress-error' 
+                                                    : tokenPercentage > 70 
+                                                        ? 'progress-warning' 
+                                                        : 'progress-primary'
+                                            }`}
                                             value={tokenPercentage} 
                                             max="100"
                                         ></progress>

@@ -10,7 +10,14 @@ export type IAuthUser = {
     token_limit: number;  
     token_used: number;      
     company_name: string;     
-    phone_number: string;     
+    phone_number: string;
+    
+    // New Stripe-related fields
+    stripe_customer_id?: string;
+    subscription_plan_id?: string;
+    subscription_type: 'free' | 'basic' | 'premium';
+    subscription_status?: string;
+    subscription_end_date?: string; // ISO date string
 };
 
 export type UserFile = {

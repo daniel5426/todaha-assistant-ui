@@ -25,7 +25,10 @@
         "username": "Username",
         "phoneNumber": "Phone Number",
         "chatbots": "Chatbots",
-        "tokenUsage": "Token Usage"
+        "tokenUsage": "Token Usage",
+        "subscription": "Subscription Plan",
+        "manageSubscription": "Manage Plan",
+        "validUntil": "Valid until"
     },
     "customization": {
         "Language": "Language",

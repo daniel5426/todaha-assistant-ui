@@ -128,6 +128,20 @@ export async function updateAiConfiguration(data: any) {
   return response.data;
 }
 
+export async function createPortalSession(customerId: string) {
+  const response = await axiosInstance.get('/stripe/create-portal-session', {
+    params: { customer_id: customerId }
+  });
+  return response.data;
+}
+
+export async function createCheckoutSession(priceId: string) {
+  const response = await axiosInstance.get('/stripe/create-checkout-session', {
+    params: { price_id: priceId }
+  });
+  return response.data;
+}
+
 export async function uploadWebsiteUrl(websiteUrl: string) {
   const response = await axiosInstance.post(`/admin/ai/upload-website?website_url=${websiteUrl}`);
   return response;

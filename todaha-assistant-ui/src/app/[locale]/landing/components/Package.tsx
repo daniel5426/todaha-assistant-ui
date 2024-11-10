@@ -9,28 +9,24 @@ import routes from "@/services/routes";
 import { useLocale, useTranslations } from "next-intl";
 import { useState } from "react";
 import axios from "axios";
-const api_url = process.env.NEXT_PUBLIC_API_BASE_URL1!; // Adjust based on Next.js environment variable usage
+import { createCheckoutSession } from '@/app/lib/data';
+import useToast from '@/hooks/use-toast';
 
 const Package = () => {
     const t = useTranslations("package");
     const locale = useLocale();
     const isRTL = locale === "he";
     const [isLoading, setIsLoading] = useState(false);
+    const { toaster } = useToast();
 
     const handleCheckout = async (priceId: string) => {
         setIsLoading(true);
         try {
-            const response = await axios.get<{ url: string }>(
-                `${api_url}/stripe/create-checkout-session`,
-                {
-                  params: { price_id: priceId },
-                }
-            );
-            
-            const { url } = response.data;
+            const { url } = await createCheckoutSession(priceId);
             window.location.href = url;
         } catch (error) {
             console.error('Error:', error);
+            toaster.error(t('errorCheckout'));
         } finally {
             setIsLoading(false);
         }

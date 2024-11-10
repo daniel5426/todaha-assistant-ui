@@ -25,7 +25,10 @@
         "username": "שם משתמש",
         "phoneNumber": "מספר טלפון",
         "chatbots": "צ'אטבוטים",
-        "tokenUsage": "שימוש בטוקנים"
+        "tokenUsage": "שימוש בטוקנים",
+        "subscription": "תוכנית תשלום",
+        "manageSubscription": "ניהול תוכנית",
+        "validUntil": "מותאם עד"
     },
     "auth": {
         "Login": "התחברות",
