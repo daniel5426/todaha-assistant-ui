@@ -83,6 +83,9 @@ const Topbar = () => {
                                                 <Link href={routes.landing}>{t('home')}</Link>
                                             </MenuItem>
                                             <MenuItem className="font-medium">
+                                                <Link href={routes.pricing}>{t('Pricing')}</Link>
+                                            </MenuItem>
+                                            <MenuItem className="font-medium">
                                                 <Link href={routes.dashboard}>{t('dashboard')}</Link>
                                             </MenuItem>
                                             <MenuItem className="font-medium">
@@ -104,6 +107,10 @@ const Topbar = () => {
                                 <MenuItem className="font-medium">
                                     <Link href={routes.landing}>{t('home')}</Link>
                                 </MenuItem>
+                                <MenuItem className="font-medium">
+                                                <Link href={routes.pricing}>{t('Pricing')}</Link>
+                                            </MenuItem>
+
                                 <MenuItem className="font-medium">
                                     <a href={routes.dashboard} onClick={handleDashboardClick}>{t('dashboard')}</a>
                                 </MenuItem>

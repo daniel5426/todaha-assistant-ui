@@ -12,7 +12,8 @@
         "Landing": "Landing",
         "Contact": "Contact",
         "Chatbot": "Customize Chatbot",
-        "Integration": "Integration"
+        "Integration": "Integration",
+        "plan and billing": "Plan and Billing"
     },
     "Account": {
         "edit": "Edit",
@@ -127,6 +128,7 @@
         "register_b": "Join the Todaha community and unlock the power of AI to transform your customer service experience."
     },
     "common": {
+        "Pricing": "Pricing",
         "Account": "Account",
         "Logout": "Logout",
         "ask ai": "Ask AI",
@@ -172,6 +174,7 @@
         "plat_b": "Easily configure and monitor your AI assistant through our unified platform, which provides detailed insights into client interactions, usage statistics, performance metrics, and much more."
         },
     "package": {
+        "errorCheckout": "Error during checkout",
         "Packages": "Packages",
         "Packages_b": "Discover clear, flexible pricing options to fit any budget, with no hidden fees",
         "Base": "Base",
@@ -190,6 +193,9 @@
         "2 AI Assistant": "2 AI Assistant",
         "Enhanced Version": "Enhanced Version",
         "Pro": "Pro",
+        "Manage Plan": "Manage Plan",
+        "Processing": "Processing...",
+        "plan and billing": "Plan and Billing",
         "$700": "$550",
         "10000 Messages": "10000 Messages",
         "3 AI Assistant": "3 AI Assistant",

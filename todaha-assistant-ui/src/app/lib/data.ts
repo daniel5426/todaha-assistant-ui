@@ -129,9 +129,7 @@ export async function updateAiConfiguration(data: any) {
 }
 
 export async function createPortalSession(customerId: string) {
-  const response = await axiosInstance.get('/stripe/create-portal-session', {
-    params: { customer_id: customerId }
-  });
+  const response = await axiosInstance.get('/stripe/create-portal-session');
   return response.data;
 }
 

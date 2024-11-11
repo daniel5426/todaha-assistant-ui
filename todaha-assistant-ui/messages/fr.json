@@ -9,6 +9,7 @@
         "Configuration": "Configuration",
         "AI assistant": "Assistant IA",
         "Pages": "Pages",
+        "plan and billing": "Plan et facturation",
         "Landing": "Page d'accueil",
         "Contact": "Contact",
         "Chatbot": "Customizer le chatbot",
@@ -128,6 +129,7 @@
         "register_b": "Rejoignez la communauté Todaha et débloquez la puissance de l'IA pour transformer votre expérience de service client."
     },
     "common": {
+        "Pricing": "Tarifs",
         "Account": "Compte",
         "Logout": "Déconnexion",
         "ask ai": "Demander à l'IA",
@@ -173,6 +175,10 @@
         "plat_b": "Configurez et surveillez facilement votre assistant IA grâce à notre plateforme unifiée, qui fournit des informations détaillées sur les interactions avec les clients, les statistiques d'utilisation, les mesures de performance, et bien plus encore."
     },
     "package": {
+        "errorCheckout": "Erreur lors de la vérification",
+        "Manage Plan": "Gérer le plan",
+        "Processing": "Traitement...",
+        "plan and billing": "Plan et facturation",
         "Packages": "Forfaits",
         "Packages_b": "Découvrez des options de tarification claires et flexibles pour tous les budgets, sans frais cachés",
         "Base": "Base",

@@ -59,7 +59,7 @@ const Package = () => {
                         <div className="mt-3 space-y-2">
                             <div className="flex items-center gap-3">
                                 <Icon icon={checkIcon} fontSize={16} className="text-green-500" />
-                                <p>{t("5000 Messages")}</p>
+                                <p>{t("60k tokens per month")}</p>
                             </div>
                             <div className="flex items-center gap-3">
                                 <Icon icon={checkIcon} fontSize={16} className="text-green-500" />
@@ -82,13 +82,6 @@ const Package = () => {
                                 <p>{t("Custom development by our team")}</p>
                             </div>
                         </div>
-                        <button
-                            className="btn btn-ghost btn-block mt-10 border-base-content/10"
-                            onClick={() => handleCheckout('price_1QHRGuB16lQffSxJZsYPRlHW')}
-                            disabled={isLoading}
-                        >
-                            {isLoading ? t("Processing...") : t("Buy Now")}
-                        </button>
                     </div>
                     <div className="rounded border border-base-content/10 p-6">
                         <div className="inline rounded bg-primary px-3 py-1 text-sm font-medium text-primary-content">
@@ -104,11 +97,11 @@ const Package = () => {
                         <div className="mt-3 space-y-2">
                             <div className="flex items-center gap-3">
                                 <Icon icon={checkIcon} fontSize={16} className="text-green-500" />
-                                <p>{t("7000 Messages")}</p>
+                                <p>{t("1.8M tokens per month")}</p>
                             </div>
                             <div className="flex items-center gap-3">
                                 <Icon icon={checkIcon} fontSize={16} className="text-green-500" />
-                                <p>{t("2 AI Assistant")}</p>
+                                <p>{t("1 AI Assistant")}</p>
                             </div>
                             <div className="flex items-center gap-3">
                                 <Icon icon={checkIcon} fontSize={16} className="text-green-500" />
@@ -132,7 +125,7 @@ const Package = () => {
                             onClick={() => handleCheckout('price_1QH4cjB16lQffSxJZTGQLYvi')}
                             disabled={isLoading}
                         >
-                            {isLoading ? t("Processing...") : t("Buy Now")}
+                            {isLoading ? t("Processing") : t("Buy Now")}
                         </button>
                     </div>
                     <div className="rounded border border-base-content/10 p-6">
@@ -149,11 +142,11 @@ const Package = () => {
                         <div className="mt-3 space-y-2">
                             <div className="flex items-center gap-3">
                                 <Icon icon={checkIcon} fontSize={16} className="text-green-500" />
-                                <p>{t("10000 Messages")}</p>
+                                <p>{t("Unlimited tokens per month")}</p>
                             </div>
                             <div className="flex items-center gap-3">
                                 <Icon icon={checkIcon} fontSize={16} className="text-green-500" />
-                                <p>{t("3 AI Assistant")}</p>
+                                <p>{t("1 AI Assistant")}</p>
                             </div>
                             <div className="flex items-center gap-3">
                                 <Icon icon={checkIcon} fontSize={16} className="text-green-500" />
@@ -178,7 +171,7 @@ const Package = () => {
                             onClick={() => handleCheckout('price_1QH4cjB16lQffSxJZTGQLYvi')}
                             disabled={isLoading}
                         >
-                            {isLoading ? t("Processing...") : t("Buy Now")}
+                            {isLoading ? t("Processing") : t("Buy Now")}
                         </button>
                     </div>
                 </div>

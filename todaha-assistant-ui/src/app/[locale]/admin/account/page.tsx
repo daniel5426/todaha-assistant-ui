@@ -8,7 +8,7 @@ import { useLocale } from 'next-intl';
 import Link from 'next/link';
 import axios from "axios";
 import { createPortalSession } from '@/app/lib/data';
-
+import { useRouter, useSearchParams } from 'next/navigation';
 const api_url = process.env.NEXT_PUBLIC_API_BASE_URL1!; // Adjust based on Next.js environment variable usage
 export default function AccountPage() {
     const { state, updateUserInfo } = useAuthContext();
@@ -18,7 +18,7 @@ export default function AccountPage() {
     const { toaster } = useToast();
     const t = useTranslations('Account');
     const isRTL = useLocale() === 'he';
-
+    const router = useRouter();
     const [formData, setFormData] = useState({
         username: '',
         email: '',
@@ -27,6 +27,8 @@ export default function AccountPage() {
         phone_number: ''
     });
     const [isSaving, setIsSaving] = useState(false);
+    const searchParams = useSearchParams();
+    const [billingQuery, setBillingQuery] = useState<string | null>(null);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -43,6 +45,9 @@ export default function AccountPage() {
         fetchData();
     }, []);
 
+    useEffect(() => {
+        setBillingQuery(searchParams.get('billing'));
+    }, [searchParams]);
 
     const handleEdit = () => {
         setIsEditing(true);
@@ -68,11 +73,8 @@ export default function AccountPage() {
         } catch (error) {
             console.error('Error:', error);
             toaster.error(t('errorPortalAccess'));
-        } finally {
-            setIsLoading(false);
         }
     };
-
 
     const handleSave = async () => {
         try {
@@ -116,6 +118,10 @@ export default function AccountPage() {
                 <span className="loading loading-spinner loading-lg"></span>
             </div>
         );
+    }
+
+    if (billingQuery === 'true') {
+        handlePortal();
     }
 
     if (!user) {
@@ -279,12 +285,14 @@ export default function AccountPage() {
                                             {t('validUntil')}: {new Date(user.subscription_end_date).toLocaleDateString()}
                                         </div>
                                     )}
-                                    <button 
-                                        onClick={handlePortal}
-                                        className="btn btn-xs btn-primary"
-                                    >
-                                        {t('manageSubscription')}
-                                    </button>
+                                    {user?.stripe_customer_id && user?.subscription_type !== 'free' && (
+                                        <button 
+                                            onClick={handlePortal}
+                                            className="btn btn-xs btn-primary"
+                                        >
+                                            {t('manageSubscription')}
+                                        </button>
+                                    )}
                                 </div>
                             </div>
                             <div className="stat">
