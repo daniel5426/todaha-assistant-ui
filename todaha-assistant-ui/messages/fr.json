@@ -54,6 +54,9 @@
     },
 
     "configuration": {
+        "download_website_pages": "Téléchargement des pages du site web",
+        "upload_pages_to_ai": "Upload des pages vers l'IA",
+        "give your ai files to learn from": "Donnez à votre IA des fichiers à apprendre",
         "Upload Your Website Content": "Rajouter le contenu de votre site web",
         "upload_website_info": "Tout le contenu de votre site web sera disponible à l'assistant (max 50 pages du site web seront uploadées)",
         "Dashboard": "Tableau de bord",
@@ -62,7 +65,7 @@
         "First Message": "Premier message",
         "This will be the welcome message of your chatbot": "Ce sera le message de bienvenue de votre chatbot",
         "Instruction": "Instruction",
-        "AI instruction": "Donnez à votre IA des instructions sur qui elle est et quel est son travail",
+        "AI instruction": "Donnez à votre IA des instructions personnalisée",
         "Save": "Enregistrer",
         "Loading": "Chargement",
         "files limit": "Max 3 fichiers - 50 Mo Max",

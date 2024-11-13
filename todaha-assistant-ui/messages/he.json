@@ -70,6 +70,9 @@
         "Save": "שמור"
     },
     "configuration": {
+        "download_website_pages": "הורדת עמודי אתר האינטרנט",
+        "upload_pages_to_ai": "העלאת עמודי אתר האינטרנט לעוזר AI",
+        "give your ai files to learn from": "תעלה את קבצים לעוזר AI שלך",
         "Upload Your Website Content": "תעלה את תוכן אתר האינטרנט שלך",
         "upload_website_info": "כל התוכן של אתר האינטרנט שלך יהיה זמין לעוזר AI (מקסימום 50 עמודים מאתר האינטרנט יועלו)",
         "Dashboard": "מסך ניהול",

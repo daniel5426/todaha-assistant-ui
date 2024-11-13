@@ -8,6 +8,7 @@ import { useLocale } from 'next-intl';
 import Link from 'next/link';
 import axios from "axios";
 import { createPortalSession } from '@/app/lib/data';
+import routes from "@/services/routes";
 import { useRouter, useSearchParams } from 'next/navigation';
 const api_url = process.env.NEXT_PUBLIC_API_BASE_URL1!; // Adjust based on Next.js environment variable usage
 export default function AccountPage() {
@@ -121,7 +122,12 @@ export default function AccountPage() {
     }
 
     if (billingQuery === 'true') {
-        handlePortal();
+        if (user?.stripe_customer_id && user?.subscription_type !== 'free')
+        {
+            handlePortal();
+        } else {
+            router.push(routes.pricing);
+        }
     }
 
     if (!user) {

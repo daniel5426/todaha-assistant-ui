@@ -3,8 +3,6 @@ import { getMessages } from "next-intl/server";
 import ClientProviders from "../app";
 import "../ui/globals.css";
 import { Metadata } from "next";
-import Head from 'next/head';
-import FacebookPixel from "../facebook/FacebookPixel";
 import Script from "next/script";
 import { Analytics } from "@vercel/analytics/react"
 import { SpeedInsights } from "@vercel/speed-insights/next"
@@ -30,25 +28,6 @@ export default async function LocaleLayout({
   const messages = await getMessages();
   return (
     <html lang={locale}>
-            <Script
-        id="fb-pixel"
-        strategy="afterInteractive"
-        dangerouslySetInnerHTML={{
-          __html: `
-            !function(f,b,e,v,n,t,s)
-{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];
-s.parentNode.insertBefore(t,s)}(window, document,'script',
-'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '348946278245470');
-fbq('track', 'PageView');
-
-          `,
-        }}
-      />
 
       <head>
       <meta name="facebook-domain-verification" content="je21x2p0aiqdhq8tztmvk0brmrq974" />
@@ -61,7 +40,13 @@ fbq('track', 'PageView');
         </NextIntlClientProvider>
         <Analytics />
         <SpeedInsights/>
-
+        
+        <chatbot-component assistantid="asst_N9pkX57RHIMGIlRkiJn8ANSa"></chatbot-component>
+        <Script
+          src="https://todaha-chatbots.vercel.app/base-lib.js"
+          data-id="asst_N9pkX57RHIMGIlRkiJn8ANSa"
+          strategy="lazyOnload"
+        />
       </body>
     </html>
   );

@@ -1,15 +1,7 @@
 "use client";
-import dynamic from 'next/dynamic';
-
-
-import { Loading } from '@/components/daisyui/Loading';
-import LandingLayout from '@/components/layout/landing/landing-layout';
-import { Suspense } from 'react';
-import { Toaster } from 'sonner';
-import ChatModal from '@/components/chatbots/ChatModal';
 import ThemeToggleButton from '@/components/ThemeToggleButton';
 import { useLocale } from 'next-intl';
- 
+
 export default function Layout({ children }: { children: any }) {
   const locale = useLocale();
   const isRTL = locale === "he";
@@ -18,7 +10,6 @@ export default function Layout({ children }: { children: any }) {
     <div className="" >
 
       {children}
-      <ChatModal />
 
       <div className="fixed bottom-5 start-5 z-10 " >
         <ThemeToggleButton

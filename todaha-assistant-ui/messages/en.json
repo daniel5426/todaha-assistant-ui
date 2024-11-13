@@ -52,7 +52,9 @@
         "Save": "Save"
     },
     "configuration": {
-
+        "download_website_pages": "Downloading website pages",
+        "upload_pages_to_ai": "Uploading pages to AI",
+        "give your ai files to learn from": "give your ai files to learn from",
         "Upload Your Website Content": "Upload Your Website Content",
         "upload_website_info": "All the content of your website will be available to the assistant (max 50 pages of the website will be uploaded)",
         "Dashboard": "Dashboard",

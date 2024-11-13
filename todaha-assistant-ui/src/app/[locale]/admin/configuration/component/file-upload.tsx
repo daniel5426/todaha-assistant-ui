@@ -108,13 +108,13 @@ const FileUpload = () => {
       </div>
 
       {files.map((file: any) => (
-        <div key={file.id} className="">
-          <div className="join join-vertical lg:join-horizontal mb-2">
-            <button className="btn join-item w-64 no-animation rounded-none truncate">
+        <div key={file.id}>
+          <div className="flex w-full mb-2">
+            <button className="btn flex-1 rounded-r-none truncate border-r-0">
               {file.name}
             </button>
             <button
-              className="btn join-item bg-red-400"
+              className="btn bg-red-400 rounded-l-none"
               onClick={() => handleDelete(file.id)}
               disabled={isDeleting[file.id]}
             >
