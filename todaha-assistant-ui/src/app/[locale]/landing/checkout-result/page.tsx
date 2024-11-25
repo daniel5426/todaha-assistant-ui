@@ -25,7 +25,7 @@ const Message = () => (
                         Your payment process was not completed. This could be due to cancellation or an interruption in the payment flow.
                     </p>
                     <p className="text-sm text-base-content/70 mb-6">
-                        If you're experiencing any issues, our support team is here to help.
+                        If you&apos;re experiencing any issues, our support team is here to help.
                     </p>
                     <div className="card-actions flex flex-col w-full gap-2">
                         <Link href={routes.landing} className="btn btn-primary btn-block">

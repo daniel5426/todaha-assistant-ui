@@ -12,11 +12,6 @@ import { DeepChat } from "deep-chat-react";
 
 // Create a new React component with a different web component name
 const Chatbot = () => {
-  if (!DeepChat) {
-    console.error("DeepChat component is not available.");
-    return null;
-  }
-
   const chatElementRef = useRef<any>(null); // Adjust type as per actual DeepChat component
   const assistantId = "asst_RTpyDTujpSkjYe7rhoVc66ut"; // Adjust based on your assistant ID
   const locale = useLocale();
