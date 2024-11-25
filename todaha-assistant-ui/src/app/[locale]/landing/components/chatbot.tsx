@@ -143,13 +143,12 @@ const Chatbot = () => {
             },
           },
         }}
-        history={initialMessages}
-        connect={{
+        initialMessages={initialMessages}
+        request={{
           url: api_url + "/chat/start-chat",
           method: "POST",
-          stream: true, // Moved stream property inside connect
         }}
-        requestInterceptor={handleRequestInterceptor}
+      requestInterceptor={handleRequestInterceptor}
         responseInterceptor={(responseDetails) => {
           console.log(responseDetails);
           return responseDetails;
@@ -286,11 +285,6 @@ const Chatbot = () => {
           top: "-2.6em",
           height: "4em",
         }}
-              onMessage={(event) => {
-        const { isHistory, ...rest } = event; // Updated from isInitial to isHistory
-        // Handle the message event
-      }}
-
       />
   );
 };

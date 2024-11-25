@@ -1,6 +1,7 @@
 "use client";
 import ThemeToggleButton from '@/components/ThemeToggleButton';
 import { useLocale } from 'next-intl';
+import Chatbot from '@/components/chatbots/ChatBot';
 
 export default function Layout({ children }: { children: any }) {
   const locale = useLocale();
@@ -20,6 +21,6 @@ export default function Layout({ children }: { children: any }) {
           }
         />
       </div>
-      </div>
+    </div>
   );
 }

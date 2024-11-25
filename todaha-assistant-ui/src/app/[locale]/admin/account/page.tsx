@@ -29,7 +29,7 @@ export default function AccountPage() {
     });
     const [isSaving, setIsSaving] = useState(false);
     const searchParams = useSearchParams();
-    const [billingQuery, setBillingQuery] = useState<string | null>(null);
+    const [billingQuery, setBillingQuery] = useState<boolean | null>(null);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -47,7 +47,11 @@ export default function AccountPage() {
     }, []);
 
     useEffect(() => {
-        setBillingQuery(searchParams.get('billing'));
+        if (searchParams.get('billing')) {
+            setBillingQuery(true);
+        } else {
+            setBillingQuery(false);
+        }
     }, [searchParams]);
 
     const handleEdit = () => {
@@ -92,7 +96,7 @@ export default function AccountPage() {
                 token_limit: user?.token_limit,
                 password: "kdjfkdjf",
             };
-            
+
             await axiosInstance.post('/admin/update-user', updateData);
             await updateUserInfo();
             setFormData({
@@ -113,7 +117,7 @@ export default function AccountPage() {
         }
     };
 
-    if (isLoading) {
+    if (billingQuery === null) {
         return (
             <div className="flex items-center justify-center min-h-screen">
                 <span className="loading loading-spinner loading-lg"></span>
@@ -121,31 +125,27 @@ export default function AccountPage() {
         );
     }
 
-    if (billingQuery === 'true') {
-        if (user?.stripe_customer_id && user?.subscription_type !== 'free')
-        {
+    if (isLoading ) {
+        return (
+            <div className="flex items-center justify-center min-h-screen">
+                <span className="loading loading-spinner loading-lg"></span>
+            </div>
+        );
+    }
+
+    if (billingQuery === true) {
+        if (user?.stripe_customer_id && user?.subscription_type !== 'free') {
             handlePortal();
         } else {
             router.push(routes.pricing);
         }
     }
 
-    if (!user) {
-        return (
-            <div className="flex items-center justify-center min-h-screen">
-                <div className="text-center">
-                    <h2 className="text-xl">User not found</h2>
-                    <p className="text-base-content/60">Please log in to view your profile</p>
-                </div>
-            </div>
-        );
-    }
-
     // Calculate token usage percentage
-    const tokenPercentage = user?.token_limit 
-        ? (user.token_used / user.token_limit) * 100 
+    const tokenPercentage = user?.token_limit
+        ? (user.token_used / user.token_limit) * 100
         : 0;
-
+    
     return (
         <div className="container mx-auto p-6">
             <div className="card bg-base-100 shadow-xl max-w-3xl mx-auto">
@@ -153,7 +153,7 @@ export default function AccountPage() {
                     {/* Edit/Save buttons in top right corner */}
                     <div className={`absolute top-4 ${isRTL ? 'left-4' : 'right-4'}`}>
                         {!isEditing ? (
-                            <button 
+                            <button
                                 className="btn btn-primary btn-sm"
                                 onClick={handleEdit}
                             >
@@ -161,14 +161,14 @@ export default function AccountPage() {
                             </button>
                         ) : (
                             <div className="flex gap-2">
-                                <button 
+                                <button
                                     className="btn btn-ghost btn-sm"
                                     onClick={handleCancel}
                                     disabled={isSaving}
                                 >
                                     {t('cancel')}
                                 </button>
-                                <button 
+                                <button
                                     className="btn btn-primary btn-sm"
                                     onClick={handleSave}
                                     disabled={isSaving}
@@ -182,7 +182,7 @@ export default function AccountPage() {
                     </div>
 
                     <h2 className="text-2xl font-bold mb-6">{t('accountInformation')}</h2>
-                    
+
                     {/* Main content container */}
                     <div className="max-w-3xl w-full">
                         {/* Form Section */}
@@ -203,9 +203,9 @@ export default function AccountPage() {
                                         <span className="label-text">{t('firstName')}</span>
                                     </label>
                                     {isEditing ? (
-                                        <input 
-                                            type="text" 
-                                            className="input input-bordered" 
+                                        <input
+                                            type="text"
+                                            className="input input-bordered"
                                             value={formData.full_name}
                                             onChange={(e) => setFormData(prev => ({
                                                 ...prev,
@@ -214,7 +214,7 @@ export default function AccountPage() {
                                         />
                                     ) : (
                                         <p className="h-12 px-4 flex items-center border rounded-lg bg-base-200">
-                                            {user?.full_name }
+                                            {user?.full_name}
                                         </p>
                                     )}
                                 </div>
@@ -223,9 +223,9 @@ export default function AccountPage() {
                                         <span className="label-text">{t('companyName')}</span>
                                     </label>
                                     {isEditing ? (
-                                        <input 
-                                            type="text" 
-                                            className="input input-bordered" 
+                                        <input
+                                            type="text"
+                                            className="input input-bordered"
                                             value={formData.company_name}
                                             onChange={(e) => setFormData(prev => ({
                                                 ...prev,
@@ -255,9 +255,9 @@ export default function AccountPage() {
                                         <span className="label-text">{t('phoneNumber')}</span>
                                     </label>
                                     {isEditing ? (
-                                        <input 
-                                            type="tel" 
-                                            className="input input-bordered" 
+                                        <input
+                                            type="tel"
+                                            className="input input-bordered"
                                             value={formData.phone_number}
                                             onChange={(e) => setFormData(prev => ({
                                                 ...prev,
@@ -292,12 +292,20 @@ export default function AccountPage() {
                                         </div>
                                     )}
                                     {user?.stripe_customer_id && user?.subscription_type !== 'free' && (
-                                        <button 
+                                        <button
                                             onClick={handlePortal}
                                             className="btn btn-xs btn-primary"
                                         >
                                             {t('manageSubscription')}
                                         </button>
+                                    )}
+                                    {user?.subscription_type == 'free' && (
+                                        <Link
+                                            href={routes.pricing}
+                                            className="btn btn-xs btn-primary"
+                                        >
+                                            {t('upgrade')}
+                                        </Link>
                                     )}
                                 </div>
                             </div>
@@ -308,15 +316,14 @@ export default function AccountPage() {
                                 </div>
                                 <div className="mt-2 flex items-center gap-2">
                                     <div className="flex-grow">
-                                        <progress 
-                                            className={`progress w-full ${
-                                                tokenPercentage > 90 
-                                                    ? 'progress-error' 
-                                                    : tokenPercentage > 70 
-                                                        ? 'progress-warning' 
+                                        <progress
+                                            className={`progress w-full ${tokenPercentage > 90
+                                                    ? 'progress-error'
+                                                    : tokenPercentage > 70
+                                                        ? 'progress-warning'
                                                         : 'progress-primary'
-                                            }`}
-                                            value={tokenPercentage} 
+                                                }`}
+                                            value={tokenPercentage}
                                             max="100"
                                         ></progress>
                                     </div>

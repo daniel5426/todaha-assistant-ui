@@ -52,8 +52,8 @@ const Package = () => {
                         <p className="mt-8 text-sm text-base-content/70">{t("Perfect for small bussisness")}</p>
                         <div className="mt-2 flex items-center justify-between">
                             <p className="text-xl font-medium">{t("Starter")}</p>
-                            <p className="text-2xl font-semibold text-blue-600">{t("Free")}</p>
-                            <p className="mt-2 text-sm text-base-content/70">{t("The first month")}</p>
+                            <p className="text-2xl font-semibold ">{t("Free")}</p>
+                            <p className="mt-2 text-sm text-base-content/70">{t("good for testing")}</p>
                         </div>
                         <p className="mt-8 text-sm text-base-content/70">{t("What's Included:")}</p>
                         <div className="mt-3 space-y-2">
@@ -90,14 +90,14 @@ const Package = () => {
                         <p className="mt-8 text-sm text-base-content/70">{t("Perfect for medium bussisness")}</p>
                         <div className="mt-2 flex items-center justify-between">
                             <p className="text-xl font-medium">{t("Standard")}</p>
-                            <p className="text-2xl font-semibold text-blue-600">{t("Free")}</p>
-                            <p className="mt-2 text-sm text-base-content/70">{t("The first month")}</p>
+                            <p className="text-2xl font-semibold text-blue-800">{t("100$")}</p>
+                            <p className="mt-2 text-sm text-base-content/70">{t("per month")}</p>
                         </div>
                         <p className="mt-8 text-sm text-base-content/70">{t("What's Included:")}</p>
                         <div className="mt-3 space-y-2">
                             <div className="flex items-center gap-3">
                                 <Icon icon={checkIcon} fontSize={16} className="text-green-500" />
-                                <p>{t("1.8M tokens per month")}</p>
+                                <p>{t("2M tokens per month")}</p>
                             </div>
                             <div className="flex items-center gap-3">
                                 <Icon icon={checkIcon} fontSize={16} className="text-green-500" />
@@ -122,7 +122,7 @@ const Package = () => {
                         </div>
                         <button
                             className="btn btn-primary btn-block mt-10 border-base-content/10"
-                            onClick={() => handleCheckout('price_1QH4cjB16lQffSxJZTGQLYvi')}
+                            onClick={() => handleCheckout('price_1QOvrSB16lQffSxJhy8KNPs7')}
                             disabled={isLoading}
                         >
                             {isLoading ? t("Processing") : t("Buy Now")}
@@ -136,7 +136,8 @@ const Package = () => {
                         <p className="mt-8 text-sm text-base-content/70">{t("Perfect for big bussisness")}</p>
                         <div className="mt-2 flex items-center justify-between">
                             <p className="text-xl font-medium">{t("Pro")}</p>
-                            <p className="text-2xl font-semibold">{t("$700")}</p>
+                            <p className="text-2xl font-semibold text-yellow-600">{t("$700")}</p>
+                            <p className="mt-2 text-sm text-base-content/70">{t("per month")}</p>
                         </div>
                         <p className="mt-8 text-sm text-base-content/70">{t("What's Included:")}</p>
                         <div className="mt-3 space-y-2">
@@ -168,7 +169,7 @@ const Package = () => {
 
                         <button
                             className="btn btn-ghost btn-outline btn-block mt-10 border-base-content/10"
-                            onClick={() => handleCheckout('price_1QH4cjB16lQffSxJZTGQLYvi')}
+                            onClick={() => handleCheckout('price_1QOvs3B16lQffSxJ5Hqibeb7')}
                             disabled={isLoading}
                         >
                             {isLoading ? t("Processing") : t("Buy Now")}

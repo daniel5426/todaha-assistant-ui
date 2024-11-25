@@ -16,6 +16,7 @@
         "Integration": "Intégration"
     },
     "Account": {
+        "upgrade": "Upgrade",
         "edit": "Modifier",
         "save": "Enregistrer",
         "cancel": "Annuler",
@@ -178,6 +179,12 @@
         "plat_b": "Configurez et surveillez facilement votre assistant IA grâce à notre plateforme unifiée, qui fournit des informations détaillées sur les interactions avec les clients, les statistiques d'utilisation, les mesures de performance, et bien plus encore."
     },
     "package": {
+        "good for testing": "bon pour tester",
+        "per month": "par mois",
+        "100$": "100$",
+        "60k tokens per month": "60k tokens par mois",
+        "2M tokens per month": "1.8M tokens par mois",
+        "Unlimited tokens per month": "Nombre illimité de tokens par mois",
         "errorCheckout": "Erreur lors de la vérification",
         "Manage Plan": "Gérer le plan",
         "Processing": "Traitement...",

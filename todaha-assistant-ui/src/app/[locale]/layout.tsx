@@ -6,6 +6,7 @@ import { Metadata } from "next";
 import Script from "next/script";
 import { Analytics } from "@vercel/analytics/react"
 import { SpeedInsights } from "@vercel/speed-insights/next"
+import Chatbot from "@/components/chatbots/ChatBot";
 export const metadata: Metadata = {
   title: {
     template: '%s | Todaha',
@@ -31,22 +32,18 @@ export default async function LocaleLayout({
 
       <head>
       <meta name="facebook-domain-verification" content="je21x2p0aiqdhq8tztmvk0brmrq974" />
-      
-        </head>
+      </head>
       <body>
         <NextIntlClientProvider messages={messages}>
           <ClientProviders>{children}
+        <Chatbot />
+
           </ClientProviders>
         </NextIntlClientProvider>
+
         <Analytics />
-        <SpeedInsights/>
-        
-        <chatbot-component assistantid="asst_N9pkX57RHIMGIlRkiJn8ANSa"></chatbot-component>
-        <Script
-          src="https://todaha-chatbots.vercel.app/base-lib.js"
-          data-id="asst_N9pkX57RHIMGIlRkiJn8ANSa"
-          strategy="lazyOnload"
-        />
+        <SpeedInsights />
+
       </body>
     </html>
   );

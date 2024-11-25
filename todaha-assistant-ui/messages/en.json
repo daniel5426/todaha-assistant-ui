@@ -16,6 +16,7 @@
         "plan and billing": "Plan and Billing"
     },
     "Account": {
+        "upgrade": "Upgrade",
         "edit": "Edit",
         "save": "Save",
         "cancel": "Cancel",
@@ -174,8 +175,14 @@
         "What People Say": "What Business Say",
         "plat_h": "AI Assistant Dashboard",
         "plat_b": "Easily configure and monitor your AI assistant through our unified platform, which provides detailed insights into client interactions, usage statistics, performance metrics, and much more."
-        },
+    },
     "package": {
+        "good for testing": "good for testing",
+        "per month": "per month",
+        "100$": "100$",
+        "60k tokens per month": "60k tokens per month",
+        "2M tokens per month": "1.8M tokens per month",
+        "Unlimited tokens per month": "Unlimited tokens per month",
         "errorCheckout": "Error during checkout",
         "Packages": "Packages",
         "Packages_b": "Discover clear, flexible pricing options to fit any budget, with no hidden fees",
