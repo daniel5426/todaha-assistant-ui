@@ -60,7 +60,7 @@ const Showcase = () => {
                   variant={"outline"}
                   size={"sm"}
                 >
-                  {t("Contact")}
+                  {t("Start Now")}
                 </Button>
               </Link>
             </div>
@@ -96,7 +96,7 @@ const Showcase = () => {
                   variant={"outline"}
                   size={"sm"}
                 >
-                  {t("Contact")}
+                  {t("Start Now")}
                 </Button>
               </Link>
             </div>

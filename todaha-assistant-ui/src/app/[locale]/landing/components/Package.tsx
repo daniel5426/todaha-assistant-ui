@@ -8,6 +8,9 @@ import { useLocale, useTranslations } from "next-intl";
 import { useState } from "react";
 import { createCheckoutSession } from '@/app/lib/data';
 import useToast from '@/hooks/use-toast';
+import Link from "next/link";
+import routes from "@/services/routes";
+
 
 const Package = () => {
     const t = useTranslations("package");
@@ -30,7 +33,7 @@ const Package = () => {
     };
 
     return (
-        <div className="relative" id="packages">
+        <div className="relative" id="packages" style={{direction: isRTL? "rtl": "ltr"}}>
             <div className="container py-24">
                 <div className="text-center">
                     <div className="inline-block rounded border border-green-500/5 bg-green-500/5 p-2.5">
@@ -79,6 +82,12 @@ const Package = () => {
                                 <p>{t("Custom development by our team")}</p>
                             </div>
                         </div>
+                        <Link
+                            className="btn btn-primary btn-block mt-10 border-base-content/10"
+                            href={routes.dashboard}
+                        >
+                            {t("Start Now")}
+                        </Link>
                     </div>
                     <div className="rounded border border-base-content/10 p-6">
                         <div className="inline rounded bg-primary px-3 py-1 text-sm font-medium text-primary-content">
