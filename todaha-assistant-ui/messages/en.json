@@ -131,7 +131,7 @@
         "register_b": "Join the Todaha community and unlock the power of AI to transform your customer service experience."
     },
     "common": {
-        "Create Now": "Start Now",
+        "Start Now": "Start Now",
         "Pricing": "Pricing",
         "Account": "Account",
         "Logout": "Logout",
@@ -178,6 +178,7 @@
         "plat_b": "Easily configure and monitor your AI assistant through our unified platform, which provides detailed insights into client interactions, usage statistics, performance metrics, and much more."
     },
     "package": {
+        "Start Now": "Start Now",
         "good for testing": "good for testing",
         "per month": "per month",
         "100$": "100$",
