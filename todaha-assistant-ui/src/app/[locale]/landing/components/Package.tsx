@@ -2,13 +2,10 @@ import checkIcon from "@iconify/icons-lucide/check";
 import dollarSignIcon from "@iconify/icons-lucide/dollar-sign";
 import xCircleIcon from "@iconify/icons-lucide/x-circle";
 
-import Link from "next/link";
 
 import Icon from "@/components/Icon";
-import routes from "@/services/routes";
 import { useLocale, useTranslations } from "next-intl";
 import { useState } from "react";
-import axios from "axios";
 import { createCheckoutSession } from '@/app/lib/data';
 import useToast from '@/hooks/use-toast';
 
@@ -33,7 +30,7 @@ const Package = () => {
     };
 
     return (
-        <div className="" style={{ direction: isRTL ? "rtl" : "ltr" }}>
+        <div className="relative" id="packages">
             <div className="container py-24">
                 <div className="text-center">
                     <div className="inline-block rounded border border-green-500/5 bg-green-500/5 p-2.5">

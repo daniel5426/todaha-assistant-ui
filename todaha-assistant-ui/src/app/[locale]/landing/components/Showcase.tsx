@@ -1,7 +1,5 @@
 "use client";
 import bgVector1Img from "@/assets/images/landing/section-bg-gradient.png";
-import chatbot1 from "@/assets/images/landing/chat-bot1.png";
-import chatbot2 from "@/assets/images/landing/chat-bot2.png";
 
 import boxIcon from "@iconify/icons-lucide/box";
 import chevronRightIcon from "@iconify/icons-lucide/chevron-right";

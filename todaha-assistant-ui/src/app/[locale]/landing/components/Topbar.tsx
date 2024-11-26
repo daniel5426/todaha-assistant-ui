@@ -10,7 +10,6 @@ import routes from "@/services/routes";
 import { useLocale, useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
-import avatar1 from "@/assets/images/avatars/1.png";
 import userIcon from "@iconify/icons-lucide/user";
 import logoutIcon from "@iconify/icons-lucide/log-out";
 import {

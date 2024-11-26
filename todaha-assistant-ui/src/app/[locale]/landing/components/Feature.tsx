@@ -4,7 +4,6 @@ import hexagonIcon from "@iconify/icons-lucide/hexagon";
 import monitorSmartphoneIcon from "@iconify/icons-lucide/monitor-smartphone";
 import pencilRulerIcon from "@iconify/icons-lucide/pencil-ruler";
 import wand2Icon from "@iconify/icons-lucide/wand-2";
-import useTranslation from "next-translate/useTranslation";
 import Icon from "@/components/Icon";
 import { useLocale, useTranslations } from "next-intl";
 
