@@ -46,6 +46,7 @@ export type IAssistant = {
     name: string;
     top_name: string;
     welcome_message: string;
+    initial_questions: string;
     whatsapp_number: string;
     instruction: string;
     chatbots: IChatBot[];

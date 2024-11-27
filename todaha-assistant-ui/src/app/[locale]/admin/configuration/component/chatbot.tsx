@@ -8,7 +8,7 @@ import { useLocale } from "next-intl";
 import UserIcon from "../../../../../assets/images/avatars/user1.png";
 import { useLayoutContext } from "@/states/layout";
 import ResetIcon from "../../customization/component/icons/ResetIcon";
-
+import useToast from "@/hooks/use-toast";
 // Helper function to retrieve query parameters from the URL
 
 const Chatbot = () => {
@@ -16,11 +16,23 @@ const Chatbot = () => {
   const { state } = useAuthContext();
   const { state: layoutState } = useLayoutContext();
   const assistantId = state.user?.assistant.id!;
+  const {toaster} = useToast();
   const initialMessages = [
     {
       role: "ai",
       text: state.user?.assistant.welcome_message,
     },
+    ...(state.user?.assistant?.initial_questions ? [{
+      html: `
+          <div class="deep-chat-temporary-message" style="position: absolute; bottom: 45px; width: calc(100% - 50px); overflow-x: auto; white-space: nowrap; padding: 10px; margin: 0 0px; scrollbar-width: none; -ms-overflow-style: none;">
+            <div style="display: inline-flex; gap: 8px; margin-bottom: 5px;">
+              ${state.user?.assistant?.initial_questions.split("\n").map((question) => `
+                <button class="deep-chat-button deep-chat-suggestion-button">${question}</button>
+              `).join("")}
+            </div>
+          </div>`,
+      role: "html"//TODO
+    }] : [])
   ];
 
   const [reset, setReset] = useState<boolean>(false);
@@ -31,19 +43,6 @@ const Chatbot = () => {
   const isWhite = layoutState.theme === "light"; // Change this to dynamically set the theme
 
   // Handle window resize events to adjust the layout dynamically
-  useEffect(() => {
-    const handleResize = (event: MessageEvent) => {
-      if (event.data.type === "resize") {
-        const width = event.data.width;
-        document.getElementById("deep-chat")!.style.width = `${width}px`;
-      }
-    };
-
-    window.addEventListener("message", handleResize);
-    return () => {
-      window.removeEventListener("message", handleResize);
-    };
-  }, []);
 
   // Fetch a new thread ID from the API when the component mounts or resets
   useEffect(() => {
@@ -57,7 +56,7 @@ const Chatbot = () => {
       .catch((error) => {
         console.error(error);
       });
-  }, [state, reset]);
+  }, [reset]);
 
   // Toggle chat visibility and notify the parent window
 
@@ -122,14 +121,22 @@ const Chatbot = () => {
           stream={true}
           ref={chatElementRef}
           style={{
-            height: "640px",
-            width: "630px",
+            width: window.innerWidth < 750 ? window.innerWidth - 50 : 600,
+            height: window.innerWidth < 500 ? 400 : 600,
             border: isWhite ? "1px solid rgba(230,233,236)" : "1px solid rgba(0,0,0,0.7)",
             boxShadow: isWhite ? "0px 0px 12px 12px rgba(230,233,236)" : "0px 0px 12px 12px rgb(11,13,17)",
             borderRadius: "15px",
             backgroundColor: isWhite ? "#ffffff" : "#191E23",
           }}
           avatars={{
+            html: {//TODO
+              styles: {
+                avatar: {
+                  width: "0px",
+                  height: "0px"
+                }
+              },
+            },
             ai: {
               src: AIcon.src,
               styles: {
@@ -159,6 +166,11 @@ const Chatbot = () => {
           requestInterceptor={handleRequestInterceptor}
           responseInterceptor={(responseDetails) => {
             console.log(responseDetails);
+
+            if (responseDetails.text == "MAX_TOKEN_REACHED") {
+              toaster.error("All your tokens of this month are used. Please Upgrade your plan.");
+              responseDetails.text = "All your tokens of this month are used. Please Upgrade your plan.";
+            }
             return responseDetails;
           }}
           textInput={{
@@ -166,7 +178,7 @@ const Chatbot = () => {
               container: {
                 borderRadius: "20px",
                 border: "unset",
-                width: "78%",
+                width: "88%",
                 backgroundColor: isWhite ? "rgba(255,255,255)" : "rgb(20,24,28)",
                 boxShadow: isWhite ? "3px 3px 3px 2px rgba(230,233,236)" : "3px 3px 3px 2px rgba(0,0,0,0.7)",
               },
@@ -187,6 +199,21 @@ const Chatbot = () => {
             },
           }}
           messageStyles={{
+            html: { shared: { bubble: //TODO
+              { backgroundColor: 'unset', 
+                padding: '0px', 
+                boxShadow: 'none', 
+                borderBottom: 'hidden',
+                borderTop: 'hidden',
+                border: 'unset'
+              },
+              outerContainer: {
+                borderBottom: 'hidden',
+                borderTop: 'hidden',
+                border: 'unset'
+              },
+
+            } },
             default: {
               shared: {
                 bubble: {
@@ -195,10 +222,10 @@ const Chatbot = () => {
                   backgroundColor: "unset",
                   marginTop: "10px",
                   marginBottom: "10px",
-                  maxWidth: "100%",
+                  maxWidth: "calc(100% - 80px)",
                   marginRight: marginRight,
                   marginLeft: marginLeft,
-                  fontSize: "1.1em",
+                  fontSize: "1em",
                   color: isWhite ? "#000000" : "#ffffff",
                 },
                 outerContainer: {

@@ -53,6 +53,8 @@
         "Save": "Save"
     },
     "configuration": {
+        "Initial Questions": "Initial Questions",
+        "This will be the initial questions of your chatbot": "This will be the initial questions of your chatbot",
         "download_website_pages": "Downloading website pages",
         "upload_pages_to_ai": "Uploading pages to AI",
         "give your ai files to learn from": "give your ai files to learn from",

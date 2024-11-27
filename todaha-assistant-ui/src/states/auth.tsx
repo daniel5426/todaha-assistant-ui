@@ -82,7 +82,7 @@ const useHook = () => {
 
   const updateUserInfo = async () => {
     if (isLoggedIn()) {
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      await new Promise(resolve => setTimeout(resolve, 2000));
       const user_info = await get_user_info();
       setLoggedInUser(user_info);
       const newChatbot = user_info?.assistant?.chatbots[0] || null;

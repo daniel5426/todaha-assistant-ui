@@ -18,6 +18,7 @@ const useConfig = () => {
   const contactSchema = z.object({
     welcome_message: z.string().optional(),
     instruction: z.string().optional(),
+    initial_questions: z.string().optional(),
   });
 
   type ConfigSchemaType = z.infer<typeof contactSchema>;
@@ -28,6 +29,7 @@ const useConfig = () => {
       // Ensure default values are provided
       instruction: state.user?.assistant.instruction || "",
       welcome_message: state.user?.assistant.welcome_message || "",
+      initial_questions: state.user?.assistant.initial_questions || "",
     },
   });
 

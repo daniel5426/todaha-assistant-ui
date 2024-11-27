@@ -7,6 +7,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { useLayoutContext } from "@/states/layout";
 import UserImg from "@/assets/images/avatars/user1.png";
 import ResetIcon from "./icons/ResetIcon";
+import useToast from "@/hooks/use-toast";
 interface ChatbotModalConfigProps {
   logo: string;
   buttonColor: string;
@@ -30,8 +31,20 @@ const ChatbotModalConfig = ({
   const assistantId = state.user?.assistant.id!;
   const initialMessages = [
     { role: "ai", text: state.user?.assistant.welcome_message },
+    ,
+    ...(state.user?.assistant?.initial_questions ? [{
+      html: `
+          <div class="deep-chat-temporary-message" style="position: absolute; bottom: 65px; width: calc(100% - 50px); overflow-x: auto; white-space: nowrap; padding: 10px; margin: 0 0px; scrollbar-width: none; -ms-overflow-style: none;">
+            <div style="display: inline-flex; gap: 8px; margin-bottom: 5px;">
+              ${state.user?.assistant?.initial_questions.split("\n").map((question) => `
+                <button class="deep-chat-button deep-chat-suggestion-button">${question}</button>
+              `).join("")}
+            </div>
+          </div>`,
+      role: "html"//TODO
+    }] : [])
   ];
-
+  const { toaster } = useToast();
   const [threadId, setThreadId] = useState<string | null>(null);
   const api_url = process.env.NEXT_PUBLIC_API_BASE_URL1!;
   const isWhite = layoutState.theme === "light";
@@ -119,6 +132,14 @@ const ChatbotModalConfig = ({
             backgroundColor: bgColor,
           }}
           avatars={{
+            html: {//TODO
+              styles: {
+                avatar: {
+                  width: "0px",
+                  height: "0px"
+                }
+              },
+            },
             ai: {
               src: logo,
               styles: {
@@ -137,13 +158,22 @@ const ChatbotModalConfig = ({
           initialMessages={initialMessages}
           request={{ url: `${api_url}/chat/start-chat`, method: "POST" }}
           requestInterceptor={handleRequestInterceptor}
+          responseInterceptor={(responseDetails) => {
+            console.log(responseDetails);
+
+            if (responseDetails.text == "MAX_TOKEN_REACHED") {
+              toaster.error("All your tokens of this month are used. Please Upgrade your plan.");
+              responseDetails.text = "All your tokens of this month are used. Please Upgrade your plan.";
+            }
+            return responseDetails;
+          }}
           textInput={{
             styles: {
               container: {
                 borderRadius: "20px",
                 border: "unset",
                 marginBottom: "30px",
-                width: "78%",
+                width: "88%",
                 backgroundColor: "#ffffff",
                 boxShadow: "2px 2px 5px rgba(0, 0, 0, 0.16)",
               },
@@ -162,6 +192,21 @@ const ChatbotModalConfig = ({
             },
           }}
           messageStyles={{
+            html: { shared: { bubble: //TODO
+              { backgroundColor: 'unset', 
+                padding: '0px', 
+                boxShadow: 'none', 
+                borderBottom: 'hidden',
+                borderTop: 'hidden',
+                border: 'unset'
+              },
+              outerContainer: {
+                borderBottom: 'hidden',
+                borderTop: 'hidden',
+                border: 'unset'
+              },
+
+            } },
             default: {
               shared: {
                 bubble: {
@@ -170,10 +215,10 @@ const ChatbotModalConfig = ({
                   backgroundColor: "unset",
                   marginTop: "10px",
                   marginBottom: "10px",
-                  maxWidth: "100%",
+                  maxWidth: "calc(100% - 80px)",//TODO
                   marginRight: marginRight,
                   marginLeft: marginLeft,
-                  fontSize: "1.1em",
+                  fontSize: "1em",//TODO
                   color: "#000000",
                 },
                 outerContainer: {

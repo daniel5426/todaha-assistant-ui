@@ -71,6 +71,8 @@
         "Save": "שמור"
     },
     "configuration": {
+        "Initial Questions": "שאלות ראשוניות",
+        "This will be the initial questions of your chatbot": "זוהי תהיה השאלות הראשוניות של הצ'אטבוט שלך",
         "download_website_pages": "הורדת עמודי אתר האינטרנט",
         "upload_pages_to_ai": "העלאת עמודי אתר האינטרנט לעוזר AI",
         "give your ai files to learn from": "תעלה את קבצים לעוזר AI שלך",

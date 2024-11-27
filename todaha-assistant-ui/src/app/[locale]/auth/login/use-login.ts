@@ -60,10 +60,8 @@ const useLogin = () => {
         } else {
           toaster.error("An unexpected error occurred. Please try again.");
         }
-      })
-      .finally(() => {
         setIsLoading(false);
-      });
+      })
   });
 
   return {

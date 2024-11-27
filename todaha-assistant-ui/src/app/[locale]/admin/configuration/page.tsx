@@ -93,6 +93,28 @@ export default function Configuration ()  {
                       isTextArea={true}
                     />
                   </div>
+                  <div className="form-control mb-5">
+                    <label
+                      htmlFor="message"
+                      className="block text-base font-medium"
+                    >
+                      {t("Initial Questions")}
+                    </label>
+                    <label className="message">
+                      <span className="text-sm text-gray-500">
+                        {t("This will be the initial questions of your chatbot")}
+                      </span>
+                    </label>
+                    <FormInput
+                      type="text"
+                      control={control}
+                      name={"initial_questions"}
+                      placeholder={`question 1\nquestion 2\nquestion 3`}
+                      className="w-full focus:border-transparent border-transparent focus:outline-0 h-24 whitespace-pre-wrap"
+                      isTextArea={true}
+                    />
+                  </div>
+
                   <div>
                     <div className="mt-6 mb-5">
                       <Button

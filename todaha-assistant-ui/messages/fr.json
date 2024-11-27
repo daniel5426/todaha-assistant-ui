@@ -55,6 +55,8 @@
     },
 
     "configuration": {
+        "Initial Questions": "Questions initiales",
+        "This will be the initial questions of your chatbot": "Ce sera les questions initiales de votre chatbot",
         "download_website_pages": "Téléchargement des pages du site web",
         "upload_pages_to_ai": "Upload des pages vers l'IA",
         "give your ai files to learn from": "Donnez à votre IA des fichiers à apprendre",

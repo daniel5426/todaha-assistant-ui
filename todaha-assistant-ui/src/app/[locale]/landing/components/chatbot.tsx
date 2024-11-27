@@ -184,7 +184,7 @@ const Chatbot = () => {
                 backgroundColor: "unset",
                 marginTop: "10px",
                 marginBottom: "10px",
-                maxWidth: "100%",
+                maxWidth: "calc(100% - 80px)",//TODO
                 marginRight: marginRight,
                 marginLeft: marginLeft,
                 fontSize: "1.1em",
