@@ -64,12 +64,22 @@ const ChatbotCorner: React.FC<CustomizableChatbotProps> = ({
       { role: "ai", text: state.user?.assistant?.welcome_message || "" },
       ...(state.user?.assistant?.initial_questions ? [{
         html: `
-          <div class="deep-chat-temporary-message" style="position: absolute; bottom: 65px; width: calc(100% - 50px); overflow-x: auto; white-space: nowrap; padding: 10px; margin: 0 0px; scrollbar-width: none; -ms-overflow-style: none;">
+          <div class="deep-chat-temporary-message" style="position: absolute; bottom: 65px; width: calc(100% - 50px); overflow-x: auto; white-space: nowrap; padding: 10px 24px; margin: 0; scrollbar-width: none; -ms-overflow-style: none;">
             <div style="display: inline-flex; gap: 8px; margin-bottom: 5px;">
               ${state.user?.assistant?.initial_questions.split("\n").map((question) => `
                 <button class="deep-chat-button deep-chat-suggestion-button">${question}</button>
               `).join("")}
             </div>
+            <button onclick="this.parentElement.scrollBy({left: -100, behavior: 'smooth'})" style="position: fixed; left: 15px; bottom: 11%; transform: translateY(-50%); background: rgba(255,255,255,0.9); border-radius: 50%; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; border: 1px solid #eee; cursor: pointer; z-index: 1;">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+            <button onclick="this.parentElement.scrollBy({left: 100, behavior: 'smooth'})" style="position: fixed; right: 15px; bottom: 11%; transform: translateY(-50%); background: rgba(255,255,255,0.9); border-radius: 50%; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; border: 1px solid #eee; cursor: pointer; z-index: 1;">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
           </div>`, 
         role: "ai"
       }] : [])
@@ -289,7 +299,7 @@ const ChatbotCorner: React.FC<CustomizableChatbotProps> = ({
                     marginBottom: "30px",
                     borderRadius: "20px",
                     border: "none",
-                    width: "88%",
+                    width: "90%",
                     boxShadow: "2px 2px 5px rgba(0, 0, 0, 0.16)",
                   },
                   text: {
