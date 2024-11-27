@@ -2,20 +2,27 @@ import checkIcon from "@iconify/icons-lucide/check";
 import dollarSignIcon from "@iconify/icons-lucide/dollar-sign";
 import xCircleIcon from "@iconify/icons-lucide/x-circle";
 
+<<<<<<< HEAD
 import Link from "next/link";
 import Cookies from "js-cookie";
+=======
+
+>>>>>>> 1871e3138670e357a107bc7cc87045041cb41fbf
 import Icon from "@/components/Icon";
-import routes from "@/services/routes";
 import { useLocale, useTranslations } from "next-intl";
 import { useState } from "react";
-import axios from "axios";
-const api_url = process.env.NEXT_PUBLIC_API_BASE_URL1!; // Adjust based on Next.js environment variable usage
+import { createCheckoutSession } from '@/app/lib/data';
+import useToast from '@/hooks/use-toast';
+import Link from "next/link";
+import routes from "@/services/routes";
+
 
 const Package = () => {
     const t = useTranslations("package");
     const locale = useLocale();
     const isRTL = locale === "he";
     const [isLoading, setIsLoading] = useState(false);
+    const { toaster } = useToast();
 
     const handleCheckout = async (priceId: string) => {
         setIsLoading(true);
@@ -25,24 +32,18 @@ const Package = () => {
             return;
         }
         try {
-            const response = await axios.get<{ url: string }>(
-                `${api_url}/stripe/create-checkout-session`,
-                {
-                  params: { price_id: priceId },
-                }
-            );
-            
-            const { url } = response.data;
+            const { url } = await createCheckoutSession(priceId);
             window.location.href = url;
         } catch (error) {
             console.error('Error:', error);
+            toaster.error(t('errorCheckout'));
         } finally {
             setIsLoading(false);
         }
     };
 
     return (
-        <div className="" style={{ direction: isRTL ? "rtl" : "ltr" }}>
+        <div className="relative" id="packages" style={{direction: isRTL? "rtl": "ltr"}}>
             <div className="container py-24">
                 <div className="text-center">
                     <div className="inline-block rounded border border-green-500/5 bg-green-500/5 p-2.5">
@@ -61,14 +62,14 @@ const Package = () => {
                         <p className="mt-8 text-sm text-base-content/70">{t("Perfect for small bussisness")}</p>
                         <div className="mt-2 flex items-center justify-between">
                             <p className="text-xl font-medium">{t("Starter")}</p>
-                            <p className="text-2xl font-semibold text-blue-600">{t("Free")}</p>
-                            <p className="mt-2 text-sm text-base-content/70">{t("The first month")}</p>
+                            <p className="text-2xl font-semibold ">{t("Free")}</p>
+                            <p className="mt-2 text-sm text-base-content/70">{t("good for testing")}</p>
                         </div>
                         <p className="mt-8 text-sm text-base-content/70">{t("What's Included:")}</p>
                         <div className="mt-3 space-y-2">
                             <div className="flex items-center gap-3">
                                 <Icon icon={checkIcon} fontSize={16} className="text-green-500" />
-                                <p>{t("5000 Messages")}</p>
+                                <p>{t("60k tokens per month")}</p>
                             </div>
                             <div className="flex items-center gap-3">
                                 <Icon icon={checkIcon} fontSize={16} className="text-green-500" />
@@ -91,13 +92,12 @@ const Package = () => {
                                 <p>{t("Custom development by our team")}</p>
                             </div>
                         </div>
-                        <button
-                            className="btn btn-ghost btn-block mt-10 border-base-content/10"
-                            onClick={() => handleCheckout('price_1QHRGuB16lQffSxJZsYPRlHW')}
-                            disabled={isLoading}
+                        <Link
+                            className="btn btn-primary btn-block mt-10 border-base-content/10"
+                            href={routes.dashboard}
                         >
-                            {isLoading ? t("Processing...") : t("Buy Now")}
-                        </button>
+                            {t("Start Now")}
+                        </Link>
                     </div>
                     <div className="rounded border border-base-content/10 p-6">
                         <div className="inline rounded bg-primary px-3 py-1 text-sm font-medium text-primary-content">
@@ -106,18 +106,18 @@ const Package = () => {
                         <p className="mt-8 text-sm text-base-content/70">{t("Perfect for medium bussisness")}</p>
                         <div className="mt-2 flex items-center justify-between">
                             <p className="text-xl font-medium">{t("Standard")}</p>
-                            <p className="text-2xl font-semibold text-blue-600">{t("Free")}</p>
-                            <p className="mt-2 text-sm text-base-content/70">{t("The first month")}</p>
+                            <p className="text-2xl font-semibold text-blue-800">{t("100$")}</p>
+                            <p className="mt-2 text-sm text-base-content/70">{t("per month")}</p>
                         </div>
                         <p className="mt-8 text-sm text-base-content/70">{t("What's Included:")}</p>
                         <div className="mt-3 space-y-2">
                             <div className="flex items-center gap-3">
                                 <Icon icon={checkIcon} fontSize={16} className="text-green-500" />
-                                <p>{t("7000 Messages")}</p>
+                                <p>{t("2M tokens per month")}</p>
                             </div>
                             <div className="flex items-center gap-3">
                                 <Icon icon={checkIcon} fontSize={16} className="text-green-500" />
-                                <p>{t("2 AI Assistant")}</p>
+                                <p>{t("1 AI Assistant")}</p>
                             </div>
                             <div className="flex items-center gap-3">
                                 <Icon icon={checkIcon} fontSize={16} className="text-green-500" />
@@ -138,10 +138,10 @@ const Package = () => {
                         </div>
                         <button
                             className="btn btn-primary btn-block mt-10 border-base-content/10"
-                            onClick={() => handleCheckout('price_1QH4cjB16lQffSxJZTGQLYvi')}
+                            onClick={() => handleCheckout('price_1QOvrSB16lQffSxJhy8KNPs7')}
                             disabled={isLoading}
                         >
-                            {isLoading ? t("Processing...") : t("Buy Now")}
+                            {isLoading ? t("Processing") : t("Buy Now")}
                         </button>
                     </div>
                     <div className="rounded border border-base-content/10 p-6">
@@ -152,17 +152,18 @@ const Package = () => {
                         <p className="mt-8 text-sm text-base-content/70">{t("Perfect for big bussisness")}</p>
                         <div className="mt-2 flex items-center justify-between">
                             <p className="text-xl font-medium">{t("Pro")}</p>
-                            <p className="text-2xl font-semibold">{t("$700")}</p>
+                            <p className="text-2xl font-semibold text-yellow-600">{t("$700")}</p>
+                            <p className="mt-2 text-sm text-base-content/70">{t("per month")}</p>
                         </div>
                         <p className="mt-8 text-sm text-base-content/70">{t("What's Included:")}</p>
                         <div className="mt-3 space-y-2">
                             <div className="flex items-center gap-3">
                                 <Icon icon={checkIcon} fontSize={16} className="text-green-500" />
-                                <p>{t("10000 Messages")}</p>
+                                <p>{t("Unlimited tokens per month")}</p>
                             </div>
                             <div className="flex items-center gap-3">
                                 <Icon icon={checkIcon} fontSize={16} className="text-green-500" />
-                                <p>{t("3 AI Assistant")}</p>
+                                <p>{t("1 AI Assistant")}</p>
                             </div>
                             <div className="flex items-center gap-3">
                                 <Icon icon={checkIcon} fontSize={16} className="text-green-500" />
@@ -184,10 +185,10 @@ const Package = () => {
 
                         <button
                             className="btn btn-ghost btn-outline btn-block mt-10 border-base-content/10"
-                            onClick={() => handleCheckout('price_1QH4cjB16lQffSxJZTGQLYvi')}
+                            onClick={() => handleCheckout('price_1QOvs3B16lQffSxJ5Hqibeb7')}
                             disabled={isLoading}
                         >
-                            {isLoading ? t("Processing...") : t("Buy Now")}
+                            {isLoading ? t("Processing") : t("Buy Now")}
                         </button>
                     </div>
                 </div>

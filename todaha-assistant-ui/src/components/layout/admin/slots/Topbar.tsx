@@ -8,7 +8,6 @@ import userIcon from "@iconify/icons-lucide/user";
 
 import { useRouter } from "next/navigation";
 import {
-    Avatar,
     Button,
     Dropdown,
     DropdownItem,
@@ -27,6 +26,13 @@ import routes from "@/services/routes";
 import { useAuthContext } from "@/states/auth";
 import { useLayoutContext } from "@/states/layout";
 import { useTranslations } from "next-intl";
+import dynamic from 'next/dynamic'
+
+// Create a client-side only Avatar component
+const ClientAvatar = dynamic(
+    () => import('@/components/daisyui').then((mod) => mod.Avatar),
+    { ssr: false }
+);
 
 const Topbar = () => {
     const { toggleLeftbarDrawer, state: layoutState } = useLayoutContext();
@@ -40,7 +46,7 @@ const Topbar = () => {
     };
 
     return (
-        <Navbar className="z-10  border-b border-base-200 px-3">
+        <Navbar className="z-10 border-b border-base-200 px-3">
             <NavbarStart className="gap-3">
                 <Button
                     shape="square"
@@ -59,13 +65,11 @@ const Topbar = () => {
                         className="btn btn-ghost rounded-btn px-1.5 hover:bg-base-content/20"
                         button={false}>
                         <div className="flex items-center gap-2">
-                            {authState.user.username && (
-                            <Avatar
-                                letters={authState.user.username.slice(0, 2)}
-                                    color="secondary"
-                                    size={30}
-                                    innerClassName={Mask.className({ variant: "squircle" })} />
-                            )}
+                            <ClientAvatar
+                                letters={authState.user?.username?.slice(0, 2) || ""}
+                                color="secondary"
+                                size={30}
+                                innerClassName={Mask.className({ variant: "squircle" })} />
                         </div>
                     </DropdownToggle>
                     <DropdownMenu className="mt-4 w-52">

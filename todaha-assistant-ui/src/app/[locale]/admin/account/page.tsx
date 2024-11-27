@@ -5,6 +5,12 @@ import axiosInstance from "@/app/lib/axiosConfig";
 import useToast from "@/hooks/use-toast";
 import { useTranslations } from 'next-intl';
 import { useLocale } from 'next-intl';
+import Link from 'next/link';
+import axios from "axios";
+import { createPortalSession } from '@/app/lib/data';
+import routes from "@/services/routes";
+import { useRouter, useSearchParams } from 'next/navigation';
+const api_url = process.env.NEXT_PUBLIC_API_BASE_URL1!; // Adjust based on Next.js environment variable usage
 export default function AccountPage() {
     const { state, updateUserInfo } = useAuthContext();
     const user = state.user;
@@ -13,7 +19,7 @@ export default function AccountPage() {
     const { toaster } = useToast();
     const t = useTranslations('Account');
     const isRTL = useLocale() === 'he';
-
+    const router = useRouter();
     const [formData, setFormData] = useState({
         username: '',
         email: '',
@@ -22,6 +28,8 @@ export default function AccountPage() {
         phone_number: ''
     });
     const [isSaving, setIsSaving] = useState(false);
+    const searchParams = useSearchParams();
+    const [billingQuery, setBillingQuery] = useState<boolean | null>(null);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -38,6 +46,13 @@ export default function AccountPage() {
         fetchData();
     }, []);
 
+    useEffect(() => {
+        if (searchParams.get('billing')) {
+            setBillingQuery(true);
+        } else {
+            setBillingQuery(false);
+        }
+    }, [searchParams]);
 
     const handleEdit = () => {
         setIsEditing(true);
@@ -52,6 +67,18 @@ export default function AccountPage() {
             company_name: user?.company_name || '',
             phone_number: user?.phone_number || ''
         });
+    };
+
+    const handlePortal = async () => {
+        setIsLoading(true);
+        try {
+            console.log(user.stripe_customer_id)
+            const { url } = await createPortalSession(user.stripe_customer_id);
+            window.location.href = url;
+        } catch (error) {
+            console.error('Error:', error);
+            toaster.error(t('errorPortalAccess'));
+        }
     };
 
     const handleSave = async () => {
@@ -69,7 +96,7 @@ export default function AccountPage() {
                 token_limit: user?.token_limit,
                 password: "kdjfkdjf",
             };
-            
+
             await axiosInstance.post('/admin/update-user', updateData);
             await updateUserInfo();
             setFormData({
@@ -90,7 +117,7 @@ export default function AccountPage() {
         }
     };
 
-    if (isLoading) {
+    if (billingQuery === null) {
         return (
             <div className="flex items-center justify-center min-h-screen">
                 <span className="loading loading-spinner loading-lg"></span>
@@ -98,22 +125,27 @@ export default function AccountPage() {
         );
     }
 
-    if (!user) {
+    if (isLoading ) {
         return (
             <div className="flex items-center justify-center min-h-screen">
-                <div className="text-center">
-                    <h2 className="text-xl">User not found</h2>
-                    <p className="text-base-content/60">Please log in to view your profile</p>
-                </div>
+                <span className="loading loading-spinner loading-lg"></span>
             </div>
         );
     }
 
-    // Calculate token usage percentage
-    const tokenPercentage = user?.token_limit 
-        ? (user.token_used / user.token_limit) * 100 
-        : 0;
+    if (billingQuery === true) {
+        if (user?.stripe_customer_id && user?.subscription_type !== 'free') {
+            handlePortal();
+        } else {
+            router.push(routes.pricing);
+        }
+    }
 
+    // Calculate token usage percentage
+    const tokenPercentage = user?.token_limit
+        ? (user.token_used / user.token_limit) * 100
+        : 0;
+    
     return (
         <div className="container mx-auto p-6">
             <div className="card bg-base-100 shadow-xl max-w-3xl mx-auto">
@@ -121,7 +153,7 @@ export default function AccountPage() {
                     {/* Edit/Save buttons in top right corner */}
                     <div className={`absolute top-4 ${isRTL ? 'left-4' : 'right-4'}`}>
                         {!isEditing ? (
-                            <button 
+                            <button
                                 className="btn btn-primary btn-sm"
                                 onClick={handleEdit}
                             >
@@ -129,14 +161,14 @@ export default function AccountPage() {
                             </button>
                         ) : (
                             <div className="flex gap-2">
-                                <button 
+                                <button
                                     className="btn btn-ghost btn-sm"
                                     onClick={handleCancel}
                                     disabled={isSaving}
                                 >
                                     {t('cancel')}
                                 </button>
-                                <button 
+                                <button
                                     className="btn btn-primary btn-sm"
                                     onClick={handleSave}
                                     disabled={isSaving}
@@ -150,7 +182,7 @@ export default function AccountPage() {
                     </div>
 
                     <h2 className="text-2xl font-bold mb-6">{t('accountInformation')}</h2>
-                    
+
                     {/* Main content container */}
                     <div className="max-w-3xl w-full">
                         {/* Form Section */}
@@ -171,9 +203,9 @@ export default function AccountPage() {
                                         <span className="label-text">{t('firstName')}</span>
                                     </label>
                                     {isEditing ? (
-                                        <input 
-                                            type="text" 
-                                            className="input input-bordered" 
+                                        <input
+                                            type="text"
+                                            className="input input-bordered"
                                             value={formData.full_name}
                                             onChange={(e) => setFormData(prev => ({
                                                 ...prev,
@@ -182,7 +214,7 @@ export default function AccountPage() {
                                         />
                                     ) : (
                                         <p className="h-12 px-4 flex items-center border rounded-lg bg-base-200">
-                                            {user?.full_name }
+                                            {user?.full_name}
                                         </p>
                                     )}
                                 </div>
@@ -191,9 +223,9 @@ export default function AccountPage() {
                                         <span className="label-text">{t('companyName')}</span>
                                     </label>
                                     {isEditing ? (
-                                        <input 
-                                            type="text" 
-                                            className="input input-bordered" 
+                                        <input
+                                            type="text"
+                                            className="input input-bordered"
                                             value={formData.company_name}
                                             onChange={(e) => setFormData(prev => ({
                                                 ...prev,
@@ -223,9 +255,9 @@ export default function AccountPage() {
                                         <span className="label-text">{t('phoneNumber')}</span>
                                     </label>
                                     {isEditing ? (
-                                        <input 
-                                            type="tel" 
-                                            className="input input-bordered" 
+                                        <input
+                                            type="tel"
+                                            className="input input-bordered"
                                             value={formData.phone_number}
                                             onChange={(e) => setFormData(prev => ({
                                                 ...prev,
@@ -249,15 +281,49 @@ export default function AccountPage() {
                                 <div className="stat-value">{user.assistant?.chatbots?.length || 0}</div>
                             </div>
                             <div className="stat">
+                                <div className="stat-title">{t('subscription')}</div>
+                                <div className="stat-value capitalize text-primary">
+                                    {user?.subscription_type || 'free'}
+                                </div>
+                                <div className="stat-desc mt-2">
+                                    {user?.subscription_end_date && (
+                                        <div className="text-sm mb-2">
+                                            {t('validUntil')}: {new Date(user.subscription_end_date).toLocaleDateString()}
+                                        </div>
+                                    )}
+                                    {user?.stripe_customer_id && user?.subscription_type !== 'free' && (
+                                        <button
+                                            onClick={handlePortal}
+                                            className="btn btn-xs btn-primary"
+                                        >
+                                            {t('manageSubscription')}
+                                        </button>
+                                    )}
+                                    {user?.subscription_type == 'free' && (
+                                        <Link
+                                            href={routes.pricing}
+                                            className="btn btn-xs btn-primary"
+                                        >
+                                            {t('upgrade')}
+                                        </Link>
+                                    )}
+                                </div>
+                            </div>
+                            <div className="stat">
                                 <div className="stat-title">{t('tokenUsage')}</div>
                                 <div className="stat-value text-base">
                                     {user?.token_used || 0} / {user?.token_limit || 0}
                                 </div>
                                 <div className="mt-2 flex items-center gap-2">
                                     <div className="flex-grow">
-                                        <progress 
-                                            className="progress progress-primary w-full" 
-                                            value={tokenPercentage} 
+                                        <progress
+                                            className={`progress w-full ${tokenPercentage > 90
+                                                    ? 'progress-error'
+                                                    : tokenPercentage > 70
+                                                        ? 'progress-warning'
+                                                        : 'progress-primary'
+                                                }`}
+                                            value={tokenPercentage}
                                             max="100"
                                         ></progress>
                                     </div>

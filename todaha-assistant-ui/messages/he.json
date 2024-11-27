@@ -12,9 +12,11 @@
         "Pages": "עמודים",
         "Landing": "דף נחיתה",
         "Contact": "צור קשר",
-        "Integration": "אינטגרציה"
+        "Integration": "אינטגרציה",
+        "plan and billing": "תוכנית ותשלום"
     },
     "Account": {
+        "upgrade": "שדרג",
         "edit": "עריכה",
         "save": "שמור",
         "cancel": "ביטול",
@@ -25,7 +27,10 @@
         "username": "שם משתמש",
         "phoneNumber": "מספר טלפון",
         "chatbots": "צ'אטבוטים",
-        "tokenUsage": "שימוש בטוקנים"
+        "tokenUsage": "שימוש בטוקנים",
+        "subscription": "תוכנית תשלום",
+        "manageSubscription": "ניהול תוכנית",
+        "validUntil": "מותאם עד"
     },
     "auth": {
         "Login": "התחברות",
@@ -66,6 +71,11 @@
         "Save": "שמור"
     },
     "configuration": {
+        "Initial Questions": "שאלות ראשוניות",
+        "This will be the initial questions of your chatbot": "זוהי תהיה השאלות הראשוניות של הצ'אטבוט שלך",
+        "download_website_pages": "הורדת עמודי אתר האינטרנט",
+        "upload_pages_to_ai": "העלאת עמודי אתר האינטרנט לעוזר AI",
+        "give your ai files to learn from": "תעלה את קבצים לעוזר AI שלך",
         "Upload Your Website Content": "תעלה את תוכן אתר האינטרנט שלך",
         "upload_website_info": "כל התוכן של אתר האינטרנט שלך יהיה זמין לעוזר AI (מקסימום 50 עמודים מאתר האינטרנט יועלו)",
         "Dashboard": "מסך ניהול",
@@ -124,6 +134,8 @@
         "avg messages per day - this week": "הודעות ממוצעות ביום - השבוע"
     },
     "common": {
+        "Start Now": "התחל עכשיו",
+        "Pricing": "פיצול",
         "Account": "פרופיל",
         "Logout": "התנתקות",
         "ask ai": "תשאל AI",
@@ -169,6 +181,17 @@
         "plat_b": "הגדר ונטר את עוזר ה-AI שלך בקלות באמצעות הפלטפורמה המאוחדת שלנו, המספקת תובנות מפורטות על אינטראקציות עם לקוחות, סטטיסטיקות שימוש, מדדי ביצועים ועוד."
     },
     "package": {
+        "Start Now": "התחל עכשיו",
+        "good for testing": "מושלם לבדיקה",
+        "per month": "בחודש",
+        "100$": "364 ₪",
+        "60k tokens per month": "60k תוקנים בחודש",
+        "2M tokens per month": "1.8M תוקנים בחודש",
+        "Unlimited tokens per month": "מספר תוקנים ללא גבול",
+        "errorCheckout": "שגיאה בזמן בדיקת התשלום",
+        "Manage Plan": "ניהול תוכנית",
+        "Processing": "מעבד...",
+        "plan and billing": "תוכנית ופיצול",
         "Packages": "חבילות",
         "Packages_b": "גלה אפשרויות תמחור ברורות וגמישות המתאימות לכל תקציב, ללא עמלות נסתרות",
         "Base": "בסיסי",
@@ -187,7 +210,7 @@
         "2 AI Assistant": "2 עוזרי AI",
         "Enhanced Version": "גרסה משופרת",
         "Pro": "מקצוען",
-        "$700": "2000 ₪",
+        "$700": "2004 ₪",
         "10000 Messages": "10000 הודעות",
         "3 AI Assistant": "3 עוזרי AI",
         "Standard": "סטנדרט",

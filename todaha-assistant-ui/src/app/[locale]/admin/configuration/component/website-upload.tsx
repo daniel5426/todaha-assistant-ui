@@ -9,17 +9,32 @@ import TrashIcon from "@iconify/icons-lucide/trash";
 import { useTranslations } from "next-intl";
 
 const WebsiteUpload = () => {
+  const t = useTranslations("configuration");
   const [websiteUrl, setWebsiteUrl] = useState<string>("");
   const [existingWebsiteUrl, setExistingWebsiteUrl] = useState<string>("");
   const { updateUserInfo, state } = useAuthContext();
   const { toaster } = useToast();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isDeleting, setIsDeleting] = useState<boolean>(false);
+  const [loadingMessage, setLoadingMessage] = useState<string>("");
 
   useEffect(() => {
     setExistingWebsiteUrl(state.user?.assistant.website_url);
   }, [state.user?.assistant.website_url]);
 
+  useEffect(() => {
+    let interval: NodeJS.Timeout;
+    if (isLoading) {
+      let toggle = false;
+      interval = setInterval(() => {
+        setLoadingMessage(toggle ? t("download_website_pages") : t("upload_pages_to_ai"));
+        toggle = !toggle;
+      }, 2000); // Switch every 2 seconds
+    } else {
+      setLoadingMessage("");
+    }
+    return () => clearInterval(interval);
+  }, [isLoading, t]);
 
   const handleUpload = async () => {
     if (websiteUrl === "") {
@@ -75,18 +90,20 @@ const WebsiteUpload = () => {
       setIsDeleting(false);
     }
   };
-  const t = useTranslations("configuration");
 
   return (
     <div>
-      <div className="">
+      <div className="flex items-center gap-2">
         <Input
+          className="w-full"
           type="text"
           value={websiteUrl}
+          size="sm"
           onChange={(e) => setWebsiteUrl(e.target.value)}
+          placeholder="https://www.example.com"
         />
         <button
-          className="btn right-full m-2"
+          className="btn btn-primary min-w-[100px] btn-sm"
           onClick={handleUpload}
           disabled={isLoading}
         >
@@ -101,14 +118,21 @@ const WebsiteUpload = () => {
         </button>
       </div>
 
+      {isLoading && (
+        <div className="text-sm text-gray-500 mt-2 flex items-center gap-2 px-1">
+          <span className="loading loading-dots loading-xs"></span>
+          {loadingMessage}
+        </div>
+      )}
+
       {existingWebsiteUrl !== "" && (
-        <div className="">
-          <div className="join join-vertical lg:join-horizontal mb-2">
-            <button className="btn join-item w-64 no-animation rounded-none truncate">
+        <div className="pt-2">
+          <div className="flex w-full">
+            <button className="btn btn-sm flex-1 rounded-r-none truncate border-r-0">
               {existingWebsiteUrl}
             </button>
             <button
-              className="btn join-item bg-red-400"
+              className="btn btn-sm bg-red-400 rounded-l-none"
               onClick={handleDelete}
               disabled={isDeleting}
             >

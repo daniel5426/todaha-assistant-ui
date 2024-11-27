@@ -17,14 +17,13 @@ const FileUpload = () => {
   const [isDeleting, setIsDeleting] = useState<{ [key: string]: boolean }>({});
 
   useEffect(() => {
-    const initialFiles: any[] = [];
-    state.user?.assistant.files.forEach((file, index) => {
-      if (index < 3) {
-        initialFiles[index] = file;
-      }
-    });
-    setFiles(initialFiles);
-  }, [state.user?.assistant.files]);
+    if (state.user?.assistant?.files) {
+      const initialFiles = state.user.assistant.files.slice(0, 3);
+      setFiles(initialFiles);
+    } else {
+      setFiles([]);
+    }
+  }, [state.user?.assistant?.files]);
 
   const handleFileChange = (event: any) => {
     setSelectedFile(event.target.files[0]);
@@ -38,6 +37,12 @@ const FileUpload = () => {
       return;
     }
 
+    if (files.length >= 3) {
+      toaster.error("Maximum 3 files allowed");
+      setIsLoading(false);
+      return;
+    }
+
     const formData = new FormData();
     formData.append("file", selectedFile);
 
@@ -46,7 +51,6 @@ const FileUpload = () => {
       if (response.status === 200) {
         await updateUserInfo();
         toaster.success("File uploaded successfully");
-        // Refresh the files after upload
         setFiles(prevFiles => [...prevFiles, { id: selectedFile.name, name: selectedFile.name }]);
       } else {
         toaster.error("Failed to upload file");
@@ -61,13 +65,16 @@ const FileUpload = () => {
   const handleDelete = async (fileId: string) => {
     setIsDeleting(prevState => ({ ...prevState, [fileId]: true }));
     try {
-      await deleteFile(fileId);
+      // Optimistically update UI first
       
+      // Then perform server operation
+      await deleteFile(fileId);
+
       await updateUserInfo();
       toaster.success("File deleted successfully");
-      // Update files state to remove the deleted file
-      setFiles(files.filter(file => file.id !== fileId));
     } catch (error) {
+      // If server operation fails, revert the UI by re-fetching the current state
+      await updateUserInfo();
       toaster.error("Error deleting file");
     } finally {
       setIsDeleting(prevState => ({ ...prevState, [fileId]: false }));
@@ -77,15 +84,15 @@ const FileUpload = () => {
 
   return (
     <div>
-      <div className="mb-3">
+      <div className="mb-3 flex flex-row items-center gap-2">
         <FileInput
-          className="w-md bg-base-200 sm:max-w-xs mt-1 col-auto"
+          className="w-full max-w-[300px] bg-base-200"
           size={"md"}
           color="neutral"
           onChange={handleFileChange}
         />
         <button
-          className="btn right-full m-2"
+          className="btn whitespace-nowrap"
           onClick={handleUpload}
           disabled={isLoading}
         >
@@ -101,13 +108,13 @@ const FileUpload = () => {
       </div>
 
       {files.map((file: any) => (
-        <div key={file.id} className="">
-          <div className="join join-vertical lg:join-horizontal mb-2">
-            <button className="btn join-item w-64 no-animation rounded-none truncate">
+        <div key={file.id}>
+          <div className="flex w-full mb-2">
+            <button className="btn flex-1 rounded-r-none truncate border-r-0">
               {file.name}
             </button>
             <button
-              className="btn join-item bg-red-400"
+              className="btn bg-red-400 rounded-l-none"
               onClick={() => handleDelete(file.id)}
               disabled={isDeleting[file.id]}
             >

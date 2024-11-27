@@ -7,6 +7,7 @@ import AIcon from "../../../../../assets/images/avatars/fav.png";
 import { useLocale } from "next-intl";
 import { DeepChat } from "deep-chat-react";
 import axios from "axios";
+import useToast from "@/hooks/use-toast";
 
 interface CustomizableChatbotProps {
   topName: string;
@@ -42,9 +43,9 @@ const ChatbotCorner: React.FC<CustomizableChatbotProps> = ({
   const [activeText, setActiveText] = useState("");
   const [placeholderText, setPlaceholderText] = useState("");
   const [initialMessages, setInitialMessages] = useState<
-    Array<{ role: string; text: string }>
+    Array<any>
   >([]);
-
+  const { toaster } = useToast();
   useEffect(() => {
     const active_lg = {
       he: "מחובר",
@@ -61,6 +62,17 @@ const ChatbotCorner: React.FC<CustomizableChatbotProps> = ({
     setPlaceholderText(placeholder_text_possible_values[selectedLanguage]);
     setInitialMessages([
       { role: "ai", text: state.user?.assistant?.welcome_message || "" },
+      ...(state.user?.assistant?.initial_questions ? [{
+        html: `
+          <div class="deep-chat-temporary-message" style="position: absolute; bottom: 65px; width: calc(100% - 50px); overflow-x: auto; white-space: nowrap; padding: 10px; margin: 0 0px; scrollbar-width: none; -ms-overflow-style: none;">
+            <div style="display: inline-flex; gap: 8px; margin-bottom: 5px;">
+              ${state.user?.assistant?.initial_questions.split("\n").map((question) => `
+                <button class="deep-chat-button deep-chat-suggestion-button">${question}</button>
+              `).join("")}
+            </div>
+          </div>`, 
+        role: "ai"
+      }] : [])
     ]);
   }, [selectedLanguage, state.user?.assistant?.welcome_message]);
 
@@ -70,18 +82,21 @@ const ChatbotCorner: React.FC<CustomizableChatbotProps> = ({
 
   // Fetch a new thread ID from the API when the component mounts or resets
   useEffect(() => {
-    updateUserInfo().then(() => {
       axios
         .get(`${api_url}/chat/create-thread`, {
           params: { assistant_id: state.user?.assistant?.id || "" },
         })
         .then((response) => {
-          setThreadId(response.data.thread_id);
+          console.log(response);
+          if (response.data.thread_id) {
+            setThreadId(response.data.thread_id);
+          } else {
+            toaster.error(response.data.error);
+          }
         })
         .catch((error) => {
           console.error(error);
         });
-    });
   }, [reset]);
 
   // Intercept and modify the request details before sending
@@ -259,8 +274,13 @@ const ChatbotCorner: React.FC<CustomizableChatbotProps> = ({
                 method: "POST",
               }}
               requestInterceptor={handleRequestInterceptor}
-              responseInterceptor={(responseDetails) => {
+              responseInterceptor={(responseDetails) => {//TODO
                 console.log(responseDetails);
+
+                if (responseDetails.text == "MAX_TOKEN_REACHED") {
+                  toaster.error("All your tokens of this month are used. Please Upgrade your plan.");
+                  responseDetails.text = "All your tokens of this month are used. Please Upgrade your plan.";
+                }
                 return responseDetails;
               }}
               textInput={{
@@ -269,7 +289,7 @@ const ChatbotCorner: React.FC<CustomizableChatbotProps> = ({
                     marginBottom: "30px",
                     borderRadius: "20px",
                     border: "none",
-                    width: "78%",
+                    width: "88%",
                     boxShadow: "2px 2px 5px rgba(0, 0, 0, 0.16)",
                   },
                   text: {
@@ -288,6 +308,7 @@ const ChatbotCorner: React.FC<CustomizableChatbotProps> = ({
                 },
               }}
               messageStyles={{
+                html: {shared: {bubble: {backgroundColor: 'unset', padding: '0px', boxShadow: 'none'}}},
                 default: {
                   shared: {
                     bubble: {

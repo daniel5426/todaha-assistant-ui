@@ -10,7 +10,6 @@ import routes from "@/services/routes";
 import { useLocale, useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
-import avatar1 from "@/assets/images/avatars/1.png";
 import userIcon from "@iconify/icons-lucide/user";
 import logoutIcon from "@iconify/icons-lucide/log-out";
 import {
@@ -83,6 +82,9 @@ const Topbar = () => {
                                                 <Link href={routes.landing}>{t('home')}</Link>
                                             </MenuItem>
                                             <MenuItem className="font-medium">
+                                                <Link href={routes.pricing}>{t('Pricing')}</Link>
+                                            </MenuItem>
+                                            <MenuItem className="font-medium">
                                                 <Link href={routes.dashboard}>{t('dashboard')}</Link>
                                             </MenuItem>
                                             <MenuItem className="font-medium">
@@ -104,6 +106,10 @@ const Topbar = () => {
                                 <MenuItem className="font-medium">
                                     <Link href={routes.landing}>{t('home')}</Link>
                                 </MenuItem>
+                                <MenuItem className="font-medium">
+                                                <Link href={routes.pricing}>{t('Pricing')}</Link>
+                                            </MenuItem>
+
                                 <MenuItem className="font-medium">
                                     <a href={routes.dashboard} onClick={handleDashboardClick}>{t('dashboard')}</a>
                                 </MenuItem>

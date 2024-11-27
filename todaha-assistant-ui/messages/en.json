@@ -12,9 +12,11 @@
         "Landing": "Landing",
         "Contact": "Contact",
         "Chatbot": "Customize Chatbot",
-        "Integration": "Integration"
+        "Integration": "Integration",
+        "plan and billing": "Plan and Billing"
     },
     "Account": {
+        "upgrade": "Upgrade",
         "edit": "Edit",
         "save": "Save",
         "cancel": "Cancel",
@@ -25,7 +27,10 @@
         "username": "Username",
         "phoneNumber": "Phone Number",
         "chatbots": "Chatbots",
-        "tokenUsage": "Token Usage"
+        "tokenUsage": "Token Usage",
+        "subscription": "Subscription Plan",
+        "manageSubscription": "Manage Plan",
+        "validUntil": "Valid until"
     },
     "customization": {
         "Language": "Language",
@@ -48,7 +53,11 @@
         "Save": "Save"
     },
     "configuration": {
-
+        "Initial Questions": "Initial Questions",
+        "This will be the initial questions of your chatbot": "This will be the initial questions of your chatbot",
+        "download_website_pages": "Downloading website pages",
+        "upload_pages_to_ai": "Uploading pages to AI",
+        "give your ai files to learn from": "give your ai files to learn from",
         "Upload Your Website Content": "Upload Your Website Content",
         "upload_website_info": "All the content of your website will be available to the assistant (max 50 pages of the website will be uploaded)",
         "Dashboard": "Dashboard",
@@ -124,6 +133,8 @@
         "register_b": "Join the Todaha community and unlock the power of AI to transform your customer service experience."
     },
     "common": {
+        "Start Now": "Start Now",
+        "Pricing": "Pricing",
         "Account": "Account",
         "Logout": "Logout",
         "ask ai": "Ask AI",
@@ -167,8 +178,16 @@
         "What People Say": "What Business Say",
         "plat_h": "AI Assistant Dashboard",
         "plat_b": "Easily configure and monitor your AI assistant through our unified platform, which provides detailed insights into client interactions, usage statistics, performance metrics, and much more."
-        },
+    },
     "package": {
+        "Start Now": "Start Now",
+        "good for testing": "good for testing",
+        "per month": "per month",
+        "100$": "100$",
+        "60k tokens per month": "60k tokens per month",
+        "2M tokens per month": "1.8M tokens per month",
+        "Unlimited tokens per month": "Unlimited tokens per month",
+        "errorCheckout": "Error during checkout",
         "Packages": "Packages",
         "Packages_b": "Discover clear, flexible pricing options to fit any budget, with no hidden fees",
         "Base": "Base",
@@ -187,6 +206,9 @@
         "2 AI Assistant": "2 AI Assistant",
         "Enhanced Version": "Enhanced Version",
         "Pro": "Pro",
+        "Manage Plan": "Manage Plan",
+        "Processing": "Processing...",
+        "plan and billing": "Plan and Billing",
         "$700": "$550",
         "10000 Messages": "10000 Messages",
         "3 AI Assistant": "3 AI Assistant",

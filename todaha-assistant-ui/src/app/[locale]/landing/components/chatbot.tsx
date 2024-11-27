@@ -1,14 +1,16 @@
 "use client";
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, lazy } from "react";
 import axios from "axios";
-import { DeepChat } from "deep-chat-react";
 import AIcon from "../../../../assets/images/avatars/logo.png";
 import { useLocale } from "next-intl";
 import UserIcon from "../../../../assets/images/avatars/user1.png";
 import { useLayoutContext } from "@/states/layout";
+import * as React from "react";
+import dynamic from "next/dynamic";
+import { DeepChat } from "deep-chat-react";
+  
 
-// Helper function to retrieve query parameters from the URL
-
+// Create a new React component with a different web component name
 const Chatbot = () => {
   const chatElementRef = useRef<any>(null); // Adjust type as per actual DeepChat component
   const assistantId = "asst_RTpyDTujpSkjYe7rhoVc66ut"; // Adjust based on your assistant ID
@@ -85,28 +87,6 @@ const Chatbot = () => {
     return requestDetails;
   };
 
-  useEffect(() => {
-    const handleResize = () => {
-      if (chatElementRef.current) {
-        const width = window.innerWidth < 750 ? window.innerWidth - 50 : 630; 
-        const height = window.innerWidth < 500 ? 400 : 630; 
-        chatElementRef.current.style.width = `${width}px`;
-        chatElementRef.current.style.height = `${height}px`; // Adjust height as needed
-      }
-    };
-
-    // Initial adjustment
-    handleResize();
-
-    // Add event listener
-    window.addEventListener("resize", handleResize);
-
-    // Clean up event listener
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
-
   // Reset the chat messages
   const handleResetClick = () => {
     setReset((prevReset) => !prevReset);
@@ -120,11 +100,13 @@ const Chatbot = () => {
 
   return (
       <DeepChat
-        id="deep-chat"
         className="join-item"
+      
         stream={true}
         ref={chatElementRef}
         style={{
+          width: window.innerWidth < 750 ? window.innerWidth - 50 : 600,
+          height: window.innerWidth < 500 ? 400 : 600,
           border: isWhite
             ? "1px solid rgba(230,233,236)"
             : "1px solid rgba(0,0,0,0.7)",
@@ -161,7 +143,7 @@ const Chatbot = () => {
           url: api_url + "/chat/start-chat",
           method: "POST",
         }}
-        requestInterceptor={handleRequestInterceptor}
+      requestInterceptor={handleRequestInterceptor}
         responseInterceptor={(responseDetails) => {
           console.log(responseDetails);
           return responseDetails;
@@ -202,7 +184,7 @@ const Chatbot = () => {
                 backgroundColor: "unset",
                 marginTop: "10px",
                 marginBottom: "10px",
-                maxWidth: "100%",
+                maxWidth: "calc(100% - 80px)",//TODO
                 marginRight: marginRight,
                 marginLeft: marginLeft,
                 fontSize: "1.1em",

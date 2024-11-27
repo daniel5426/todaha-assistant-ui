@@ -72,6 +72,12 @@ export const adminMenuItems: IMenuItem[] = [
         label: "Account",
         url: routes.admin.account,
     },
+    {
+        key: "plan-and-billing",
+        icon: fileIcon,
+        label: "plan and billing",
+        url: routes.admin.account + '?billing=true',
+    },
 
 
 

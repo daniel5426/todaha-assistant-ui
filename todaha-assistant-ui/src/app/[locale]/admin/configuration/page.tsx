@@ -32,6 +32,20 @@ export default function Configuration ()  {
             <Card className="bg-base-100">
               <CardBody>
                 <div className="mt-2">
+                  <div className="w-full mb-5">
+                    <label
+                      htmlFor="message"
+                      className=" text-base font-medium flex items-center gap-2 mb-2"
+                    >
+                      {t("Upload Your Website Content")}
+                      <div className="tooltip" data-tip={t('upload_website_info')}>
+                        <button className="btn btn-circle btn-xs">?</button>
+                      </div>
+                    </label>
+                    
+                    <WebsiteUpload />
+                  </div>
+
                   <div className="form-control mb-5">
                     <label
                       htmlFor="message"
@@ -79,8 +93,30 @@ export default function Configuration ()  {
                       isTextArea={true}
                     />
                   </div>
+                  <div className="form-control mb-5">
+                    <label
+                      htmlFor="message"
+                      className="block text-base font-medium"
+                    >
+                      {t("Initial Questions")}
+                    </label>
+                    <label className="message">
+                      <span className="text-sm text-gray-500">
+                        {t("This will be the initial questions of your chatbot")}
+                      </span>
+                    </label>
+                    <FormInput
+                      type="text"
+                      control={control}
+                      name={"initial_questions"}
+                      placeholder={`question 1\nquestion 2\nquestion 3`}
+                      className="w-full focus:border-transparent border-transparent focus:outline-0 h-24 whitespace-pre-wrap"
+                      isTextArea={true}
+                    />
+                  </div>
+
                   <div>
-                    <div className="mt-6">
+                    <div className="mt-6 mb-5">
                       <Button
                         color="primary"
                         loading={isLoading}
@@ -93,29 +129,17 @@ export default function Configuration ()  {
                       </Button>
                     </div>
                   </div>
-                  <div className=" w-full mt-5">
+
+                  <div className="w-full">
                     <label
                       htmlFor="message"
-                      className=" block text-base font-medium"
-                    >
-                      {t("Upload Your Website Content")}
-                    </label>
-                    <span className="text-sm text-gray-500 mb-3">
-                      {t('upload_website_info')}</span>
-
-                    <WebsiteUpload />
-                  </div>
-
-                  <div className=" w-full mt-2">
-                    <label
-                      htmlFor="message"
-                      className=" block text-base font-medium"
+                      className=" text-base font-medium flex items-center gap-2 mb-2"
                     >
                       {t("Upload")}
+                      <div className="tooltip" data-tip={t('Upload info')}>
+                        <button className="btn btn-circle btn-xs">?</button>
+                      </div>
                     </label>
-                    <span className="text-sm text-gray-500 mb-3">
-                      {t('Upload info')}</span>
-
                     <FileUpload />
                   </div>
                 </div>

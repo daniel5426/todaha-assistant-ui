@@ -1,5 +1,6 @@
 const routes = {
     landing: "/landing",
+    pricing: "/landing/pricing",
     checkoutResult: "/landing/checkout-result",
     home: "/admin/dashboard",
     admin: {

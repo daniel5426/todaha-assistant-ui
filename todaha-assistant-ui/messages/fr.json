@@ -9,12 +9,14 @@
         "Configuration": "Configuration",
         "AI assistant": "Assistant IA",
         "Pages": "Pages",
+        "plan and billing": "Plan et facturation",
         "Landing": "Page d'accueil",
         "Contact": "Contact",
         "Chatbot": "Customizer le chatbot",
         "Integration": "Intégration"
     },
     "Account": {
+        "upgrade": "Upgrade",
         "edit": "Modifier",
         "save": "Enregistrer",
         "cancel": "Annuler",
@@ -25,7 +27,10 @@
         "username": "Nom d'utilisateur",
         "phoneNumber": "Numéro de téléphone",
         "chatbots": "Chatbots",
-        "tokenUsage": "Utilisation des tokens"
+        "tokenUsage": "Utilisation des tokens",
+        "subscription": "Plan d'abonnement",
+        "manageSubscription": "Gérer le plan",
+        "validUntil": "Valide jusqu'à"
     },
     "customization": {
         "Language": "Langue",
@@ -50,6 +55,11 @@
     },
 
     "configuration": {
+        "Initial Questions": "Questions initiales",
+        "This will be the initial questions of your chatbot": "Ce sera les questions initiales de votre chatbot",
+        "download_website_pages": "Téléchargement des pages du site web",
+        "upload_pages_to_ai": "Upload des pages vers l'IA",
+        "give your ai files to learn from": "Donnez à votre IA des fichiers à apprendre",
         "Upload Your Website Content": "Rajouter le contenu de votre site web",
         "upload_website_info": "Tout le contenu de votre site web sera disponible à l'assistant (max 50 pages du site web seront uploadées)",
         "Dashboard": "Tableau de bord",
@@ -58,7 +68,7 @@
         "First Message": "Premier message",
         "This will be the welcome message of your chatbot": "Ce sera le message de bienvenue de votre chatbot",
         "Instruction": "Instruction",
-        "AI instruction": "Donnez à votre IA des instructions sur qui elle est et quel est son travail",
+        "AI instruction": "Donnez à votre IA des instructions personnalisée",
         "Save": "Enregistrer",
         "Loading": "Chargement",
         "files limit": "Max 3 fichiers - 50 Mo Max",
@@ -125,6 +135,8 @@
         "register_b": "Rejoignez la communauté Todaha et débloquez la puissance de l'IA pour transformer votre expérience de service client."
     },
     "common": {
+        "Start Now": "Commence maintenant",
+        "Pricing": "Tarifs",
         "Account": "Compte",
         "Logout": "Déconnexion",
         "ask ai": "Demander à l'IA",
@@ -170,6 +182,17 @@
         "plat_b": "Configurez et surveillez facilement votre assistant IA grâce à notre plateforme unifiée, qui fournit des informations détaillées sur les interactions avec les clients, les statistiques d'utilisation, les mesures de performance, et bien plus encore."
     },
     "package": {
+        "Start Now": "Commence maintenant",
+        "good for testing": "bon pour tester",
+        "per month": "par mois",
+        "100$": "$100",
+        "60k tokens per month": "60k tokens par mois",
+        "2M tokens per month": "1.8M tokens par mois",
+        "Unlimited tokens per month": "Nombre illimité de tokens par mois",
+        "errorCheckout": "Erreur lors de la vérification",
+        "Manage Plan": "Gérer le plan",
+        "Processing": "Traitement...",
+        "plan and billing": "Plan et facturation",
         "Packages": "Forfaits",
         "Packages_b": "Découvrez des options de tarification claires et flexibles pour tous les budgets, sans frais cachés",
         "Base": "Base",
