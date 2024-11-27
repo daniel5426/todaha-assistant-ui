@@ -21,6 +21,7 @@ export default function Layout({ children }: { children: any }) {
           }
         />
       </div>
+      <Chatbot />
     </div>
   );
 }
