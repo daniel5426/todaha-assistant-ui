@@ -3,7 +3,7 @@ import dollarSignIcon from "@iconify/icons-lucide/dollar-sign";
 import xCircleIcon from "@iconify/icons-lucide/x-circle";
 
 import Link from "next/link";
-
+import Cookies from "js-cookie";
 import Icon from "@/components/Icon";
 import routes from "@/services/routes";
 import { useLocale, useTranslations } from "next-intl";
@@ -19,6 +19,11 @@ const Package = () => {
 
     const handleCheckout = async (priceId: string) => {
         setIsLoading(true);
+        const loggedIn = Cookies.get("loggedIn") === "true";
+        if (!loggedIn) {
+            window.location.href = routes.auth.login;
+            return;
+        }
         try {
             const response = await axios.get<{ url: string }>(
                 `${api_url}/stripe/create-checkout-session`,
