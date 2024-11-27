@@ -2,18 +2,13 @@ import checkIcon from "@iconify/icons-lucide/check";
 import dollarSignIcon from "@iconify/icons-lucide/dollar-sign";
 import xCircleIcon from "@iconify/icons-lucide/x-circle";
 
-<<<<<<< HEAD
 import Link from "next/link";
 import Cookies from "js-cookie";
-=======
-
->>>>>>> 1871e3138670e357a107bc7cc87045041cb41fbf
 import Icon from "@/components/Icon";
 import { useLocale, useTranslations } from "next-intl";
 import { useState } from "react";
 import { createCheckoutSession } from '@/app/lib/data';
 import useToast from '@/hooks/use-toast';
-import Link from "next/link";
 import routes from "@/services/routes";
 
 
