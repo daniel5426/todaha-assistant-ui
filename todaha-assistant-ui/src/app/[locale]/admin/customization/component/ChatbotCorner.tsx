@@ -42,9 +42,7 @@ const ChatbotCorner: React.FC<CustomizableChatbotProps> = ({
   const api_url = process.env.NEXT_PUBLIC_API_BASE_URL1;
   const [activeText, setActiveText] = useState("");
   const [placeholderText, setPlaceholderText] = useState("");
-  const [initialMessages, setInitialMessages] = useState<
-    Array<any>
-  >([]);
+  const [initialMessages, setInitialMessages] = useState<Array<any>>([]);
   const { toaster } = useToast();
   useEffect(() => {
     const active_lg = {
@@ -62,27 +60,40 @@ const ChatbotCorner: React.FC<CustomizableChatbotProps> = ({
     setPlaceholderText(placeholder_text_possible_values[selectedLanguage]);
     setInitialMessages([
       { role: "ai", text: state.user?.assistant?.welcome_message || "" },
-      ...(state.user?.assistant?.initial_questions ? [{
-        html: `
-          <div class="deep-chat-temporary-message" style="position: absolute; bottom: 65px; width: calc(100% - 50px); overflow-x: auto; white-space: nowrap; padding: 10px 24px; margin: 0; scrollbar-width: none; -ms-overflow-style: none;">
-            <div style="display: inline-flex; gap: 8px; margin-bottom: 5px;">
-              ${state.user?.assistant?.initial_questions.split("\n").map((question) => `
-                <button class="deep-chat-button deep-chat-suggestion-button">${question}</button>
-              `).join("")}
+      ...(state.user?.assistant?.initial_questions
+        ? (() => {
+            const questions = state.user?.assistant?.initial_questions
+              .split("\n")
+              .filter(q => q.trim());
+            
+            return questions.length > 0 ? [{
+              html: `
+          <div class="deep-chat-temporary-message" style="position: absolute; bottom: 65px; width: calc(100% - 45px); overflow-x: auto; white-space: nowrap; padding: 10px 19px; margin: 0; scrollbar-width: none; -ms-overflow-style: none;">
+            <div style="display: inline-flex; gap: 8px; padding-right: 40px; margin-bottom: 5px;">
+              ${questions
+                .map(
+                  (question) => `
+                <button class="deep-chat-button deep-chat-suggestion-button" style="border: none; background: unset; box-shadow: 0px 0.3px 0.9px rgba(0, 0, 0, 0.12), 0px 1.6px 3.6px rgba(0, 0, 0, 0.16);">${question}</button>
+              `
+                )
+                .join("")}
             </div>
-            <button onclick="this.parentElement.scrollBy({left: -100, behavior: 'smooth'})" style="position: fixed; left: 15px; bottom: 11%; transform: translateY(-50%); background: rgba(255,255,255,0.9); border-radius: 50%; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; border: 1px solid #eee; cursor: pointer; z-index: 1;">
+            ${ window.innerWidth > 768 ? (`
+            <button onclick="this.parentElement.scrollBy({left: -130, behavior: 'smooth'})" style="position: fixed; left: 10px; bottom: 11%; transform: translateY(-50%); background: rgba(255,255,255,0.9); border-radius: 50%; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; border: 0px solid #eee; cursor: pointer; z-index: 1;">
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             </button>
-            <button onclick="this.parentElement.scrollBy({left: 100, behavior: 'smooth'})" style="position: fixed; right: 15px; bottom: 11%; transform: translateY(-50%); background: rgba(255,255,255,0.9); border-radius: 50%; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; border: 1px solid #eee; cursor: pointer; z-index: 1;">
+            <button onclick="this.parentElement.scrollBy({left: 130, behavior: 'smooth'})" style="position: fixed; right: 10px; bottom: 11%; transform: translateY(-50%); background: rgba(255,255,255,0.9); border-radius: 50%; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; border: 0px solid #eee; cursor: pointer; z-index: 1;">
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
-            </button>
-          </div>`, 
-        role: "ai"
-      }] : [])
+            </button>`) : ''}
+          </div>`,
+              role: "html",
+            }] : []
+          })()
+        : []),
     ]);
   }, [selectedLanguage, state.user?.assistant?.welcome_message]);
 
@@ -92,21 +103,21 @@ const ChatbotCorner: React.FC<CustomizableChatbotProps> = ({
 
   // Fetch a new thread ID from the API when the component mounts or resets
   useEffect(() => {
-      axios
-        .get(`${api_url}/chat/create-thread`, {
-          params: { assistant_id: state.user?.assistant?.id || "" },
-        })
-        .then((response) => {
-          console.log(response);
-          if (response.data.thread_id) {
-            setThreadId(response.data.thread_id);
-          } else {
-            toaster.error(response.data.error);
-          }
-        })
-        .catch((error) => {
-          console.error(error);
-        });
+    axios
+      .get(`${api_url}/chat/create-thread`, {
+        params: { assistant_id: state.user?.assistant?.id || "" },
+      })
+      .then((response) => {
+        console.log(response);
+        if (response.data.thread_id) {
+          setThreadId(response.data.thread_id);
+        } else {
+          toaster.error(response.data.error);
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }, [reset]);
 
   // Intercept and modify the request details before sending
@@ -117,6 +128,9 @@ const ChatbotCorner: React.FC<CustomizableChatbotProps> = ({
       thread_id: threadId,
       assistant_id: state.user?.assistant?.id || "",
     };
+    console.log("--------------------------------");
+    console.log(chatElementRef.current.textInput.placeholder.text);
+    chatElementRef.current.textInput.placeholder.text = placeholderText;
     return requestDetails;
   };
 
@@ -193,9 +207,7 @@ const ChatbotCorner: React.FC<CustomizableChatbotProps> = ({
                     style={{ color: nameTextColor }}
                   >
                     <span className="flex flex-col">
-                      <span className="text-[17px] font-bold">
-                        {topName}
-                      </span>
+                      <span className="text-[17px] font-bold">{topName}</span>
                       <div className="flex items-center gap-2">
                         <div className="size-2 rounded-full bg-success"></div>
                         <p className="text-[12px]">{activeText}</p>
@@ -263,14 +275,14 @@ const ChatbotCorner: React.FC<CustomizableChatbotProps> = ({
               ref={chatElementRef}
               style={{
                 height:
-                window.innerWidth > 380
-                  ? "540px"
-                  : `${(window.innerWidth - 20) * (540 / 380)}px`,
-              fontSize: "0.90em",
-              width:
-                window.innerWidth > 380
-                  ? "380px"
-                  : `${window.innerWidth - 20}px`,
+                  window.innerWidth > 380
+                    ? "540px"
+                    : `${(window.innerWidth - 20) * (540 / 380)}px`,
+                fontSize: "0.90em",
+                width:
+                  window.innerWidth > 380
+                    ? "380px"
+                    : `${window.innerWidth - 20}px`,
                 zIndex: 50,
                 borderRadius: "0 0 12px 12px",
                 border: "none",
@@ -284,12 +296,16 @@ const ChatbotCorner: React.FC<CustomizableChatbotProps> = ({
                 method: "POST",
               }}
               requestInterceptor={handleRequestInterceptor}
-              responseInterceptor={(responseDetails) => {//TODO
+              responseInterceptor={(responseDetails) => {
+                //TODO
                 console.log(responseDetails);
 
                 if (responseDetails.text == "MAX_TOKEN_REACHED") {
-                  toaster.error("All your tokens of this month are used. Please Upgrade your plan.");
-                  responseDetails.text = "All your tokens of this month are used. Please Upgrade your plan.";
+                  toaster.error(
+                    "All your tokens of this month are used. Please Upgrade your plan."
+                  );
+                  responseDetails.text =
+                    "All your tokens of this month are used. Please Upgrade your plan.";
                 }
                 return responseDetails;
               }}
@@ -318,7 +334,21 @@ const ChatbotCorner: React.FC<CustomizableChatbotProps> = ({
                 },
               }}
               messageStyles={{
-                html: {shared: {bubble: {backgroundColor: 'unset', padding: '0px', boxShadow: 'none'}}},
+                html: { shared: { bubble: //TODO
+                  { backgroundColor: 'unset', 
+                    padding: '0px', 
+                    boxShadow: 'none', 
+                    borderBottom: 'hidden',
+                    borderTop: 'hidden',
+                    border: 'unset'
+                  },
+                  outerContainer: {
+                    borderBottom: 'hidden',
+                    borderTop: 'hidden',
+                    border: 'unset'
+                  },
+    
+                } },    
                 default: {
                   shared: {
                     bubble: {

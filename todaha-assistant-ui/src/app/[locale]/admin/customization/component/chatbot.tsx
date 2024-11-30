@@ -30,19 +30,53 @@ const ChatbotModalConfig = ({
   const { state: layoutState } = useLayoutContext();
   const assistantId = state.user?.assistant.id!;
   const initialMessages = [
-    { role: "ai", text: state.user?.assistant.welcome_message },
-    ,
-    ...(state.user?.assistant?.initial_questions ? [{
-      html: `
-          <div class="deep-chat-temporary-message" style="position: absolute; bottom: 65px; width: calc(100% - 50px); overflow-x: auto; white-space: nowrap; padding: 10px; margin: 0 0px; scrollbar-width: none; -ms-overflow-style: none;">
-            <div style="display: inline-flex; gap: 8px; margin-bottom: 5px;">
-              ${state.user?.assistant?.initial_questions.split("\n").map((question) => `
-                <button class="deep-chat-button deep-chat-suggestion-button">${question}</button>
-              `).join("")}
-            </div>
-          </div>`,
-      role: "html"//TODO
-    }] : [])
+    { role: "ai", text: state.user?.assistant?.welcome_message || "" },
+    ...(state.user?.assistant?.initial_questions
+      ? (() => {
+          const questions = state.user?.assistant?.initial_questions
+            .split("\n")
+            .filter((q) => q.trim());
+
+          return questions.length > 0
+            ? [
+                {
+                  html: `
+            <div class="deep-chat-temporary-message" style="position: absolute; bottom: 65px; width: calc(100% - 45px); margin: 0;">
+              <div style="position: relative;">
+                <div style="width: calc(100% - 65px);overflow-x: auto; white-space: nowrap; padding: 10px 26px; scrollbar-width: none; -ms-overflow-style: none;">
+                  <div style="display: inline-flex; gap: 8px; margin-bottom: 5px; padding-right: 50px;">
+                    ${questions
+                      .map(
+                        (question) => `
+                    <button class="deep-chat-button deep-chat-suggestion-button" style="border: none; background: unset; box-shadow: 0px 0.3px 0.9px rgba(0, 0, 0, 0.12), 0px 1.6px 3.6px rgba(0, 0, 0, 0.16);">${question}</button>
+                    `
+                      )
+                      .join("")}
+                  </div>
+                </div>
+                ${
+                  window.innerWidth > 768
+                    ? `
+                <button onclick="this.parentElement.querySelector('div').scrollBy({left: -130, behavior: 'smooth'})" style="position: absolute; left: 0px; top: 46%; transform: translateY(-50%); background: rgba(255,255,255,0.9); border-radius: 50%; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; border: 0px solid #eee; cursor: pointer; z-index: 1;">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </button>
+                <button onclick="this.parentElement.querySelector('div').scrollBy({left: 130, behavior: 'smooth'})" style="position: absolute; right: 10px; top: 46%; transform: translateY(-50%); background: rgba(255,255,255,0.9); border-radius: 50%; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; border: 0px solid #eee; cursor: pointer; z-index: 1;">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </button>`
+                    : ""
+                }
+              </div>
+            </div>`,
+                  role: "html",
+                },
+              ]
+            : [];
+        })()
+      : []),
   ];
   const { toaster } = useToast();
   const [threadId, setThreadId] = useState<string | null>(null);
@@ -94,23 +128,25 @@ const ChatbotModalConfig = ({
   const t = useTranslations("chatbot");
 
   return (
-    <div className="flex flex-col items-center" style={{ direction: "ltr" }}>
+    <div
+      className="flex flex-col items-center"
+      style={{ direction: "ltr", zIndex: 9999 }}
+    >
       <div className="shadow-xl h-[600px] w-[595px] rounded-xl join join-vertical relative">
         <button
           onClick={handleReset}
           style={{
-            position: 'absolute',
-            top: '10px',
-            [isRTL ? 'left' : 'right']: '10px',
-            zIndex: 1,
-            background: 'transparent',
-            border: 'none',
-            cursor: 'pointer',
-            padding: '5px',
-            borderRadius: '50%',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
+            position: "absolute",
+            top: "10px",
+            [isRTL ? "left" : "right"]: "10px",
+            background: "transparent",
+            border: "none",
+            cursor: "pointer",
+            padding: "5px",
+            borderRadius: "50%",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
           }}
           className="p-1 rounded-full bg-transparent hover:rotate-180 transition-transform duration-300 mr-1"
         >
@@ -132,12 +168,13 @@ const ChatbotModalConfig = ({
             backgroundColor: bgColor,
           }}
           avatars={{
-            html: {//TODO
+            html: {
+              //TODO
               styles: {
                 avatar: {
                   width: "0px",
-                  height: "0px"
-                }
+                  height: "0px",
+                },
               },
             },
             ai: {
@@ -162,8 +199,11 @@ const ChatbotModalConfig = ({
             console.log(responseDetails);
 
             if (responseDetails.text == "MAX_TOKEN_REACHED") {
-              toaster.error("All your tokens of this month are used. Please Upgrade your plan.");
-              responseDetails.text = "All your tokens of this month are used. Please Upgrade your plan.";
+              toaster.error(
+                "All your tokens of this month are used. Please Upgrade your plan."
+              );
+              responseDetails.text =
+                "All your tokens of this month are used. Please Upgrade your plan.";
             }
             return responseDetails;
           }}
@@ -192,21 +232,24 @@ const ChatbotModalConfig = ({
             },
           }}
           messageStyles={{
-            html: { shared: { bubble: //TODO
-              { backgroundColor: 'unset', 
-                padding: '0px', 
-                boxShadow: 'none', 
-                borderBottom: 'hidden',
-                borderTop: 'hidden',
-                border: 'unset'
+            html: {
+              shared: {
+                //TODO
+                bubble: {
+                  backgroundColor: "unset",
+                  padding: "0px",
+                  boxShadow: "none",
+                  borderBottom: "hidden",
+                  borderTop: "hidden",
+                  border: "unset",
+                },
+                outerContainer: {
+                  borderBottom: "hidden",
+                  borderTop: "hidden",
+                  border: "unset",
+                },
               },
-              outerContainer: {
-                borderBottom: 'hidden',
-                borderTop: 'hidden',
-                border: 'unset'
-              },
-
-            } },
+            },
             default: {
               shared: {
                 bubble: {
@@ -215,10 +258,10 @@ const ChatbotModalConfig = ({
                   backgroundColor: "unset",
                   marginTop: "10px",
                   marginBottom: "10px",
-                  maxWidth: "calc(100% - 80px)",//TODO
+                  maxWidth: "calc(100% - 80px)", //TODO
                   marginRight: marginRight,
                   marginLeft: marginLeft,
-                  fontSize: "1em",//TODO
+                  fontSize: "1em", //TODO
                   color: "#000000",
                 },
                 outerContainer: {
