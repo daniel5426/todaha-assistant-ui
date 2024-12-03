@@ -301,12 +301,12 @@ const Chatbot = () => {
                     : [
                         {
                           role: "ai",
-                          text: state.user?.assistant?.welcome_message || "",
+                          text: chatbotConfig?.welcome_message || "",
                         },
-                        ...(state.user?.assistant?.initial_questions
+                        ...(chatbotConfig?.initial_questions
                           ? (() => {
                               const questions =
-                                state.user?.assistant?.initial_questions
+                                chatbotConfig?.initial_questions
                                   .split("\n")
                                   .filter((q) => q.trim())
                                   .map((q) => ({
