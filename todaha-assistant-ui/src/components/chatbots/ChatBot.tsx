@@ -13,7 +13,7 @@ const Chatbot = () => {
   const chatElementRef = useRef<any>(null);
   const { state } = useAuthContext();
   const { state: layoutState } = useLayoutContext();
-  const assistantId = "asst_N9pkX57RHIMGIlRkiJn8ANSa";
+  const assistantId = "asst_cqai9Gl5vxtG1G25rqd0RZHa";
   const [chatbotConfig, setChatbotConfig] = useState<any>(null);
   const [isOpen, setIsOpen] = useState(false);
   const [isRendered, setIsRendered] = useState(false);
