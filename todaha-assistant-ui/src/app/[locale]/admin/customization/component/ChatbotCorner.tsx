@@ -74,9 +74,9 @@ const ChatbotCorner: React.FC<CustomizableChatbotProps> = ({
                     40
                   ), 
                   300
-                ) : q.split(' ').filter(word => word.length > 1).length > 3 ? Math.max(
+                ) : q.split(' ').filter(word => word.length > 2).length > 4 ? Math.max(
                   (q.split('').length * 4) - 
-                  (q.split(' ').length*2) + 30, 
+                  (q.split(' ').length*2) + 20, 
                   40
                 ) : Math.max(
                   (q.split('').length * 4) + 30, 
@@ -85,77 +85,73 @@ const ChatbotCorner: React.FC<CustomizableChatbotProps> = ({
                 
               }));
             
+            const totalWidth = questions.reduce((acc, q) => acc + q.width + 8, 0);
+
             return questions.length > 0 ? [{
               html: `
               <div class="deep-chat-temporary-message" style="position: absolute; bottom: 65px; width: calc(100% - 45px); left:">
                 <div style="position: relative;">
                   <div style="width: calc(100% - 32px);overflow-x: auto; white-space: nowrap; padding: 10px 18px; scrollbar-width: none; -ms-overflow-style: none;">
                     <div style="display: inline-flex; gap: 8px; margin-bottom: 5px;">
-                      ${questions
-                        .map(
-                          ({text, width}) => `
-                      <button 
-                        class="deep-chat-button deep-chat-suggestion-button" 
-                        style="border: none; 
-                          background: unset; 
-                          justify-content: space-around;
-                          box-shadow: 0px 0.3px 0.9px rgba(0, 0, 0, 0.12), 0px 1.6px 3.6px rgba(0, 0, 0, 0.16); 
-                          width: ${width}px;
-                          white-space: normal; 
-                          height: 45px; 
-                          display: flex; 
-                          align-items: center; 
-                          text-align: center; 
-                          padding: 8px 12px; 
-                          line-height: 1.2;"
-                      >${text}</button>
-                      `
-                        )
-                        .join("")}
+                      ${questions.map(({text, width}) => `
+                        <button 
+                          class="deep-chat-button deep-chat-suggestion-button" 
+                          style="border: none; 
+                            background: unset; 
+                            justify-content: space-around;
+                            box-shadow: 0px 0.3px 0.9px rgba(0, 0, 0, 0.12), 0px 1.6px 3.6px rgba(0, 0, 0, 0.16); 
+                            width: ${width}px;
+                            white-space: normal; 
+                            height: 45px; 
+                            display: flex; 
+                            align-items: center; 
+                            text-align: center; 
+                            padding: 8px 12px; 
+                            line-height: 1.2;"
+                        >${text}</button>
+                      `).join("")}
                     </div>
                   </div>
                   ${
-                    window.innerWidth > 768
-                      ? `
-                  <button onclick="this.parentElement.querySelector('div').scrollBy({left: -130, behavior: 'smooth'})" 
-                    style="position: absolute; 
-                      left: -10px; 
-                      top: 50%; 
-                      transform: translateY(-50%); 
-                      background: rgba(255,255,255,0.9); 
-                      border-radius: 8px;
-                      width: 24px; 
-                      height: 45px; 
-                      display: flex; 
-                      align-items: center; 
-                      justify-content: center; 
-                      border: 0px solid #eee; 
-                      cursor: pointer; 
-                      z-index: 1;">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                  </button>
-                  <button onclick="this.parentElement.querySelector('div').scrollBy({left: 130, behavior: 'smooth'})" 
-                    style="position: absolute; 
-                      right: -20px; 
-                      top: 47%; 
-                      transform: translateY(-50%); 
-                      background: rgba(255,255,255,0.9); 
-                      border-radius: 8px;
-                      width: 24px; 
-                      height: 45px; 
-                      display: flex; 
-                      align-items: center; 
-                      justify-content: center; 
-                      border: 0px solid #eee; 
-                      cursor: pointer; 
-                      z-index: 1;">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                  </button>`
-                      : ""
+                    totalWidth > 320 && window.innerWidth > 768 ? `
+                    <button onclick="this.parentElement.querySelector('div').scrollBy({left: -130, behavior: 'smooth'})" 
+                      style="position: absolute; 
+                        left: -10px; 
+                        top: 50%; 
+                        transform: translateY(-50%); 
+                        background: rgba(255,255,255,0.9); 
+                        border-radius: 8px;
+                        width: 24px; 
+                        height: 45px; 
+                        display: flex; 
+                        align-items: center; 
+                        justify-content: center; 
+                        border: 0px solid #eee; 
+                        cursor: pointer; 
+                        z-index: 1;">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                    </button>
+                    <button onclick="this.parentElement.querySelector('div').scrollBy({left: 130, behavior: 'smooth'})" 
+                      style="position: absolute; 
+                        right: -20px; 
+                        top: 47%; 
+                        transform: translateY(-50%); 
+                        background: rgba(255,255,255,0.9); 
+                        border-radius: 8px;
+                        width: 24px; 
+                        height: 45px; 
+                        display: flex; 
+                        align-items: center; 
+                        justify-content: center; 
+                        border: 0px solid #eee; 
+                        cursor: pointer; 
+                        z-index: 1;">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                    </button>` : ''
                   }
                 </div>
               </div>`,

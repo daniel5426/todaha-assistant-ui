@@ -26,8 +26,25 @@ const Chatbot = () => {
         .filter(q => q.trim())
         .map(q => ({
           text: q,
-          width: Math.min(Math.max((q.split('').length * 4) + 115/(1 + q.split(' ').length), 40), 300)
+          width: q.split(' ').filter(word => word.length > 2).length > 5 ? Math.min(
+            Math.max(
+              (q.split('').length * 4) - 
+              (q.split(' ').filter(word => word.length > 1).length * 1.3), 
+              40
+            ), 
+            300
+          ) : q.split(' ').filter(word => word.length > 2).length > 4 ? Math.max(
+            (q.split('').length * 4) - 
+            (q.split(' ').length*2) + 20, 
+            40
+          ) : Math.max(
+            (q.split('').length * 4) + 30, 
+            40
+          )
+          
         }));
+  const totalWidth = questions.reduce((acc, q) => acc + q.width + 8, 0);
+
 
           return questions.length > 0
             ? [
@@ -61,8 +78,7 @@ const Chatbot = () => {
                         </div>
                       </div>
                       ${
-                        window.innerWidth > 768
-                          ? `
+                        totalWidth > 525 && window.innerWidth > 768 ? `
                       <button onclick="this.parentElement.querySelector('div').scrollBy({left: -130, behavior: 'smooth'})" 
                         style="position: absolute; 
                           left: -10px; 
