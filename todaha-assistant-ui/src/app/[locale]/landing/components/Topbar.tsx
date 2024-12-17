@@ -58,46 +58,123 @@ const Topbar = () => {
 
     return (
         <>
-            <div
-                className={cn("fixed inset-x-0 top-0 z-[60] backdrop-blur-sm transition-all duration-500", {
-                    "z-20 border-b border-base-content/10 bg-base-100 lg:bg-opacity-90 dark:lg:bg-opacity-95": !atTop,
-                    "border-transparent": atTop,
-                })}  >
-                <div className="container">
-                    <Navbar className="px-0">
-                        <NavbarStart className="gap-2">
-                            <div className="flex " >
-                                <Drawer 
-                                    style={{ direction: "ltr" }}
-                                    open={drawerOpened}
-                                    onClickOverlay={() => setDrawerOpened(!drawerOpened)}
-                                    end={isRTL}
-                                    side={
-                                        <Menu className="min-h-full w-80 gap-2 bg-base-100 p-4 text-base-content">
-                                            <MenuItem className="font-medium">
-                                                <Logo />
-                                            </MenuItem>
+            {/* Overlay - moved before the menu to be behind it */}
+            {drawerOpened && (
+                <div 
+                    className="lg:hidden fixed inset-0 z-[65] bg-black/20 backdrop-blur-sm pointer-events-auto"
+                    onClick={() => setDrawerOpened(false)}
+                />
+            )}
 
-                                            <MenuItem className="font-medium">
-                                                <Link href={routes.landing}>{t('home')}</Link>
-                                            </MenuItem>
-                                            <MenuItem className="font-medium">
-                                                <Link href={routes.pricing}>{t('Pricing')}</Link>
-                                            </MenuItem>
-                                            <MenuItem className="font-medium">
-                                                <Link href={routes.dashboard}>{t('dashboard')}</Link>
-                                            </MenuItem>
-                                            <MenuItem className="font-medium">
-                                                <Link href={routes.contact}>{t('Contact')}</Link>
-                                            </MenuItem>
-                                        </Menu>
-                                    }>
-                                    <Button shape="square" color="ghost" onClick={() => setDrawerOpened(true)}>
-                                        <Icon icon={menuIcon} className="inline-block text-xl" />
+            <div className="lg:hidden fixed inset-0 z-[70] pointer-events-none">
+                <div 
+                    className={cn(
+                        "fixed inset-x-0 transform transition-all duration-300 ease-in-out pointer-events-auto",
+                        "bg-base-100 shadow-lg"
+                    )}
+                    style={{
+                        transform: drawerOpened ? 'translateY(0)' : 'translateY(-100%)',
+                        direction: isRTL ? 'rtl' : 'ltr'
+                    }}
+                >
+                    {/* Close button */}
+                    <div className={cn(
+                        "flex p-2",
+                        isRTL ? "justify-start" : "justify-end"
+                    )}>
+                        <Button 
+                            shape="circle" 
+                            size="sm" 
+                            color="ghost"
+                            onClick={() => setDrawerOpened(false)}
+                        >
+                            <Icon icon="lucide:x" className="w-5 h-5" />
+                        </Button>
+                    </div>
+
+                    {/* Menu Items */}
+                    <div className="px-4 pb-6" style={{ direction: isRTL ? 'rtl' : 'ltr' }}>
+                        <Menu className="space-y-1">
+                            <MenuItem className="w-full">
+                                <Link href={routes.landing} className={cn(
+                                    "w-full py-2",
+                                    isRTL ? "text-right" : "text-left"
+                                )}>
+                                    {t('home')}
+                                </Link>
+                            </MenuItem>
+                            <MenuItem>
+                                <Link href={routes.pricing} className="w-full py-2">
+                                    {t('Pricing')}
+                                </Link>
+                            </MenuItem>
+                            <MenuItem>
+                                <Link href={routes.dashboard} className="w-full py-2">
+                                    {t('dashboard')}
+                                </Link>
+                            </MenuItem>
+                            <MenuItem>
+                                <Link href={routes.contact} className="w-full py-2">
+                                    {t('Contact')}
+                                </Link>
+                            </MenuItem>
+                        </Menu>
+
+                        <div className="border-t border-base-200 my-4" />
+
+                        <div className="space-y-2">
+                            {!isAuthenticated && (
+                                <>
+                                    <Button 
+                                        color="primary" 
+                                        className="w-full"
+                                        onClick={() => router.push(routes.auth.register)}
+                                    >
+                                        {t('Sign up')}
                                     </Button>
-                                </Drawer>
-                            </div>
+                                    <Button 
+                                        color="primary" 
+                                        variant="outline"
+                                        className="w-full"
+                                        onClick={() => router.push(routes.auth.login)}
+                                    >
+                                        {t('Login')}
+                                    </Button>
+                                </>
+                            )}
+                            {isAuthenticated && (
+                                <Button 
+                                    color="error" 
+                                    variant="outline"
+                                    className="w-full"
+                                    onClick={doLogout}
+                                >
+                                    {t('Logout')}
+                                </Button>
+                            )}
+                        </div>
+                    </div>
+                </div>
+            </div>
 
+            <div className="container fixed left-1/2 top-2 z-[60] -translate-x-1/2">
+                <div
+                    className={cn(
+                        "rounded-full px-3 transition-all duration-300",
+                        "bg-white/70 dark:bg-gray-900/70 backdrop-blur-sm",
+                        {
+                            "shadow-lg": !atTop,
+                            "bg-white/50 dark:bg-gray-900/50": atTop
+                        }
+                    )}
+                >
+                    <Navbar className="min-h-[2.5rem] px-1">
+                        <NavbarStart className="gap-2">
+                            <div className="lg:hidden flex">
+                                <Button shape="square" color="ghost" onClick={() => setDrawerOpened(true)}>
+                                    <Icon icon={menuIcon} className="inline-block text-xl" />
+                                </Button>
+                            </div>
                             <Logo />
                         </NavbarStart>
 

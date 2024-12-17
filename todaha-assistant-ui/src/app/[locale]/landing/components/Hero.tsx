@@ -8,6 +8,7 @@ import Icon from "@/components/Icon";
 import routes from "@/services/routes";
 import { Suspense, useEffect, useState } from "react";
 import dynamic from "next/dynamic";
+import { motion } from "framer-motion";
 
 const Chatbot = dynamic(() => import("./chatbot"), { ssr: false });
 
@@ -31,40 +32,108 @@ const Hero = () => {
 
   return (
     <div>
-      <div
-        className=" absolute inset-0 rotate-180 bg-cover bg-center bg-no-repeat opacity-20 dark:hidden"
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 0.2 }}
+        transition={{ duration: 1 }}
+        className="absolute inset-0 rotate-180 bg-cover bg-center bg-no-repeat dark:hidden"
         style={{
           backgroundImage: `url(${heroGradientImg.src})`,
           filter: "blur(4px)",
         }}
-      ></div>
+      />
       <div className="container relative z-10 py-20 xl:py-40">
-        <div 
-          className={`grid items-center gap-8 xl:grid-cols-7 xl:gap-20 transition-all duration-700 ${
-            showChatbot ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-          }`}
-        >
-          <div className="order-2 xl:order-1 xl:col-span-3">
+        <div className="grid items-center gap-8 xl:grid-cols-7 xl:gap-20">
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="order-2 xl:order-1 xl:col-span-3"
+          >
             <div style={{ direction: isRTL ? "rtl" : "ltr" }}>
-              <p className="text-5xl font-semibold leading-normal">
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.5 }}
+                className="text-5xl font-semibold leading-normal"
+              >
                 {t("HOME_HERRO")}
-              </p>
-              <p className="mt-8 max-w-[500px]">{t("herro_b")}</p>
-              <div className={"mt-8 inline-flex items-center gap-3"}>
+              </motion.p>
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.7 }}
+                className="mt-8 max-w-[500px]"
+              >
+                {t("herro_b")}
+              </motion.p>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.9 }}
+                className="mt-8 inline-flex items-center gap-3"
+              >
                 <Link href={routes.contact}>
                   <Button
                     color={"primary"}
                     startIcon={<Icon icon={airplayIcon} fontSize={18} />}
+                    className="hover:scale-105 transition-transform duration-300"
                   >
                     {t("Contact")}
                   </Button>
                 </Link>
-              </div>
+              </motion.div>
             </div>
-          </div>
-          <div className="order-1 xl:order-2 xl:col-span-4 self-center justify-center" style={{ direction: isRTL ? "rtl" : "ltr" }}>
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="order-1 xl:order-2 xl:col-span-4 relative"
+          >
             <Chatbot />
-          </div>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5, delay: 1.2 }}
+              className="absolute bottom-4 right-[90%] hidden md:block"
+            >
+              <svg
+                width="160"
+                height="140"
+                viewBox="0 0 160 140"
+                className="transform rotate-[160deg]"
+              >
+                <path
+                  d="M10,10 Q60,60 90,40 T160,110"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  className="dark:stroke-white stroke-black"
+                  style={{
+                    strokeDasharray: "5,5",
+                    filter: "url(#roughness)"
+                  }}
+                />
+                <defs>
+                  <filter id="roughness">
+                    <feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="2" />
+                    <feDisplacementMap in="SourceGraphic" scale="1" />
+                  </filter>
+                </defs>
+              </svg>
+              <span 
+                className="absolute -left-24 bottom-24 -rotate-12 font-handwriting text-xl"
+                style={{
+                  fontFamily: "'Caveat', cursive",
+                  textShadow: '1px 1px 1px rgba(0,0,0,0.1)'
+                }}
+              >
+                Ask a question!
+              </span>
+            </motion.div>
+          </motion.div>
         </div>
       </div>
     </div>
