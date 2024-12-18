@@ -41,7 +41,10 @@ const FeatureCard = ({
   const variants = {
     hidden: { 
       opacity: 0, 
-      x: isRTL ? (index % 2 === 0 ? 50 : -50) : (index % 2 === 0 ? -50 : 50)
+      x: 0,
+      '@media (min-width: 768px)': {
+        x: isRTL ? (index % 2 === 0 ? 50 : -50) : (index % 2 === 0 ? -50 : 50)
+      }
     },
     visible: {
       opacity: 1,
@@ -84,8 +87,9 @@ const FeatureCard = ({
       
       <motion.div
         className={`relative ${index % 2 === 0 ? 'lg:order-2' : ''}`}
-        whileHover={{ scale: 1.15 }}
+        whileHover={window?.innerWidth >= 768 ? { scale: 1.15 } : {}}
         transition={{ duration: 0.3 }}
+        viewport={{ once: true }}
       >
         <div className="relative group">
           <Image
@@ -139,14 +143,25 @@ const Showcase = () => {
       
       <motion.div
         ref={ref}
-        initial={{ opacity: 0, y: 20 }}
-        animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+        initial={{ 
+          opacity: 0, 
+          y: window?.innerWidth >= 768 ? 20 : 0
+        }}
+        animate={inView ? { 
+          opacity: 1, 
+          y: 0 
+        } : { 
+          opacity: 0,
+          y: window?.innerWidth >= 768 ? 20 : 0
+        }}
         transition={{ duration: 0.6 }}
         className="container relative z-10"
       >
         <div className="text-center mb-16">
           <motion.div
-            initial={{ scale: 0 }}
+            initial={{ 
+              scale: window?.innerWidth >= 768 ? 0 : 1
+            }}
             animate={{ scale: 1 }}
             transition={{ duration: 0.5 }}
             className="inline-block rounded border border-indigo-500/5 bg-indigo-500/5 p-2.5"
@@ -154,8 +169,14 @@ const Showcase = () => {
             <Icon icon={wand2Icon} fontSize={20} className="text-indigo-600" />
           </motion.div>
           <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ 
+              opacity: 0, 
+              y: window?.innerWidth >= 768 ? 20 : 0
+            }}
+            animate={{ 
+              opacity: 1, 
+              y: 0
+            }}
             transition={{ duration: 0.5, delay: 0.2 }}
             className="mt-4 text-4xl font-semibold"
           >

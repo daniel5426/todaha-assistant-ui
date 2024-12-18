@@ -76,7 +76,7 @@ const Feature = () => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8 }}
     >
-      <div className="container py-12 2xl:py-24">
+      <div className="container py-12 2xl:py-24 px-10">
         <motion.div
           className="text-center"
           initial={{ scale: 0.8, opacity: 0 }}

@@ -98,6 +98,32 @@ const Chatbot = () => {
   const marginRight = isRTL ? "0px" : "auto";
   const marginLeft = isRTL ? "auto" : "0px";
 
+  // Add window size state
+  const [windowSize, setWindowSize] = useState({
+    width: typeof window !== 'undefined' ? window.innerWidth : 0,
+    height: typeof window !== 'undefined' ? window.innerHeight : 0
+  });
+
+  // Add resize handler
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowSize({
+        width: window.innerWidth,
+        height: window.innerHeight
+      });
+    };
+
+    window.addEventListener('resize', handleResize);
+    handleResize(); // Initial size
+
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  // Calculate dynamic dimensions
+  const chatWidth = windowSize.width < 750 ? windowSize.width - 35 : 600;
+  const chatHeight = windowSize.width < 500 ? 400 : 
+                     windowSize.width < 750 ? windowSize.width * 0.7 : 600;
+
   return (
       <DeepChat
         className="join-item"
@@ -105,8 +131,8 @@ const Chatbot = () => {
         stream={true}
         ref={chatElementRef}
         style={{
-          width: window.innerWidth < 750 ? window.innerWidth - 50 : 600,
-          height: window.innerWidth < 500 ? 400 : 600,
+          width: chatWidth,
+          height: chatHeight,
           border: isWhite
             ? "1px solid rgba(230,233,236)"
             : "1px solid rgba(0,0,0,0.7)",
