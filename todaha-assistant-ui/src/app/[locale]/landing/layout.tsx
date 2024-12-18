@@ -12,7 +12,7 @@ export default function Layout({ children }: { children: any }) {
 
       {children}
 
-      <div className="fixed bottom-5 start-5 z-10 " >
+      <div className="fixed bottom-4 start-5 z-10 " >
         <ThemeToggleButton
           shape="circle"
           color="ghost"
