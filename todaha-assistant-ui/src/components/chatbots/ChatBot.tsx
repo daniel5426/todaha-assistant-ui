@@ -130,7 +130,7 @@ const Chatbot = () => {
   const isRTL = chatbotConfig?.lg === "he";
 
   return (
-    <div className="fixed bottom-5 end-2 z-10">
+    <div className="fixed bottom-5 end-2 z-[9999]">
       <div
         className="flex justify-end"
         style={{ zIndex: 9999, direction: "ltr" }}
