@@ -99,10 +99,6 @@ const Chatbot = () => {
   const marginLeft = isRTL ? "auto" : "0px";
 
 
-  // Calculate dynamic dimensions
-  const chatWidth = window.innerWidth < 750 ? window.innerWidth - 35 : 600;
-  const chatHeight = window.innerWidth < 500 ? 400 : 
-                     window.innerWidth < 750 ? window.innerWidth * 0.7 : 600;
 
   return (
       <DeepChat
@@ -111,8 +107,9 @@ const Chatbot = () => {
         stream={true}
         ref={chatElementRef}
         style={{
-          width: chatWidth,
-          height: chatHeight,
+          width: window.innerWidth < 750 ? window.innerWidth - 35 : 600,
+          height: window.innerWidth < 500 ? 400 : 
+          window.innerWidth < 750 ? window.innerWidth * 0.7 : 600,
           border: isWhite
             ? "1px solid rgba(230,233,236)"
             : "1px solid rgba(0,0,0,0.7)",
