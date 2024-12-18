@@ -87,7 +87,7 @@ const FeatureCard = ({
       
       <motion.div
         className={`relative ${index % 2 === 0 ? 'lg:order-2' : ''}`}
-        whileHover={window?.innerWidth >= 768 ? { scale: 1.15 } : {}}
+        whileHover={window?.innerWidth >= 768 ? { scale: 1.05 } : {}}
         transition={{ duration: 0.3 }}
         viewport={{ once: true }}
       >
