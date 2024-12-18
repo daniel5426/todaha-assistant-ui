@@ -66,7 +66,7 @@ const Topbar = () => {
                 />
             )}
 
-            <div className="lg:hidden fixed inset-0 z-[1] pointer-events-none">
+            <div className="lg:hidden fixed inset-0 z-[70] pointer-events-none">
                 <div 
                     className={cn(
                         "fixed inset-x-0 transform transition-all duration-300 ease-in-out pointer-events-auto",
