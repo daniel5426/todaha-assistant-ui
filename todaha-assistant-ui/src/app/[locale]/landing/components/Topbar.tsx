@@ -58,19 +58,18 @@ const Topbar = () => {
 
     return (
         <>
-            {/* Update overlay to prevent horizontal scroll */}
+            {/* Overlay - moved before the menu to be behind it */}
             {drawerOpened && (
                 <div 
-                    className="lg:hidden fixed inset-0 z-[65] bg-black/20 backdrop-blur-sm pointer-events-auto w-screen h-screen overflow-hidden"
+                    className="lg:hidden fixed inset-0 z-[65] bg-black/20 backdrop-blur-sm pointer-events-auto"
                     onClick={() => setDrawerOpened(false)}
                 />
             )}
 
-            {/* Update mobile drawer container */}
-            <div className="lg:hidden fixed inset-0 z-[70] pointer-events-none w-screen overflow-hidden">
+            <div className="lg:hidden fixed inset-0 z-[70] pointer-events-none">
                 <div 
                     className={cn(
-                        "fixed inset-x-0 w-full transform transition-all duration-300 ease-in-out pointer-events-auto",
+                        "fixed inset-x-0 transform transition-all duration-300 ease-in-out pointer-events-auto",
                         "bg-base-100 shadow-lg"
                     )}
                     style={{
@@ -158,84 +157,81 @@ const Topbar = () => {
                 </div>
             </div>
 
-            {/* Update main topbar container */}
-            <div className="absolute inset-x-0 top-2 z-[60] w-full px-4 overflow-hidden">
-                <div className="mx-auto max-w-7xl">
-                    <div
-                        className={cn(
-                            "rounded-full px-3 transition-all duration-300 relative",
-                            "bg-white/70 dark:bg-gray-900/70 backdrop-blur-sm",
-                            {
-                                "shadow-lg": !atTop,
-                                "bg-white/50 dark:bg-gray-900/50": atTop
-                            }
-                        )}
-                    >
-                        <Navbar className="min-h-[2.5rem] px-1">
-                            <NavbarStart className="gap-2">
-                                <div className="lg:hidden flex">
-                                    <Button shape="square" color="ghost" onClick={() => setDrawerOpened(true)}>
-                                        <Icon icon={menuIcon} className="inline-block text-xl" />
-                                    </Button>
-                                </div>
-                                <Logo />
-                            </NavbarStart>
+            <div className="container fixed left-1/2 top-2 z-[60] -translate-x-1/2">
+                <div
+                    className={cn(
+                        "rounded-full px-3 transition-all duration-300",
+                        "bg-white/70 dark:bg-gray-900/70 backdrop-blur-sm",
+                        {
+                            "shadow-lg": !atTop,
+                            "bg-white/50 dark:bg-gray-900/50": atTop
+                        }
+                    )}
+                >
+                    <Navbar className="min-h-[2.5rem] px-1">
+                        <NavbarStart className="gap-2">
+                            <div className="lg:hidden flex">
+                                <Button shape="square" color="ghost" onClick={() => setDrawerOpened(true)}>
+                                    <Icon icon={menuIcon} className="inline-block text-xl" />
+                                </Button>
+                            </div>
+                            <Logo />
+                        </NavbarStart>
 
-                            <NavbarEnd className="gap-3">
-                                <Menu horizontal size="sm" className="hidden gap-2 px-1 lg:inline-flex">
-                                    <MenuItem className="font-medium">
-                                        <Link href={routes.landing}>{t('home')}</Link>
-                                    </MenuItem>
-                                    <MenuItem className="font-medium">
+                        <NavbarEnd className="gap-3">
+                            <Menu horizontal size="sm" className="hidden gap-2 px-1 lg:inline-flex">
+                                <MenuItem className="font-medium">
+                                    <Link href={routes.landing}>{t('home')}</Link>
+                                </MenuItem>
+                                <MenuItem className="font-medium">
                                                 <Link href={routes.pricing}>{t('Pricing')}</Link>
                                             </MenuItem>
 
-                                    <MenuItem className="font-medium">
-                                        <a href={routes.dashboard} onClick={handleDashboardClick}>{t('dashboard')}</a>
-                                    </MenuItem>
-                                    <MenuItem className="font-medium">
-                                        <Link href={routes.contact}>{t('Contact')}</Link>
-                                    </MenuItem>
-                                </Menu>
-                                {!isLoading && (
-                                    isAuthenticated ? (
-                                        <Dropdown vertical="bottom" end>
-                                            <DropdownToggle
-                                                className="btn btn-ghost rounded-btn px-1.5 hover:bg-base-content/20"
-                                                button={false}>
-                                                <div className="flex items-center gap-2">
-                                                    <Avatar
+                                <MenuItem className="font-medium">
+                                    <a href={routes.dashboard} onClick={handleDashboardClick}>{t('dashboard')}</a>
+                                </MenuItem>
+                                <MenuItem className="font-medium">
+                                    <Link href={routes.contact}>{t('Contact')}</Link>
+                                </MenuItem>
+                            </Menu>
+                            {!isLoading && (
+                                isAuthenticated ? (
+                                    <Dropdown vertical="bottom" end>
+                                        <DropdownToggle
+                                            className="btn btn-ghost rounded-btn px-1.5 hover:bg-base-content/20"
+                                            button={false}>
+                                            <div className="flex items-center gap-2">
+                                                <Avatar
                                     letters={state.user?.username.slice(0, 2) || ""}
                                                     color="secondary"
                                                     size={30}
                                                     innerClassName={Mask.className({ variant: "squircle" })}/>
-                                                </div>
-                                            </DropdownToggle>
-                                            <DropdownMenu className="mt-4 w-52">
-                                                <DropdownItem onClick={() => router.push(routes.dashboard)}>
-                                                    <Icon icon={userIcon} fontSize={16} />
-                                                    {t('dashboard')}
-                                                </DropdownItem>
-                                                <DropdownItem onClick={() => router.push(routes.admin.account)}>
-                                                    <Icon icon={userIcon} fontSize={16} />
-                                                    {t('Account')}
-                                                </DropdownItem>
-                                                <hr className="-mx-2 my-1 border-base-content/10" />
-                                                <DropdownItem className="text-error" onClick={doLogout}>
-                                                    <Icon icon={logoutIcon} fontSize={16} />
-                                                    {t('Logout')}
-                                                </DropdownItem>
-                                            </DropdownMenu>
-                                        </Dropdown>
-                                    ) : (
-                                        <Button size={"sm"} color="primary">
-                                            <Link href={routes.auth.login}>{t('Login')}</Link>
-                                        </Button>
-                                    )
-                                )}
-                            </NavbarEnd>
-                        </Navbar>
-                    </div>
+                                            </div>
+                                        </DropdownToggle>
+                                        <DropdownMenu className="mt-4 w-52">
+                                            <DropdownItem onClick={() => router.push(routes.dashboard)}>
+                                                <Icon icon={userIcon} fontSize={16} />
+                                                {t('dashboard')}
+                                            </DropdownItem>
+                                            <DropdownItem onClick={() => router.push(routes.admin.account)}>
+                                                <Icon icon={userIcon} fontSize={16} />
+                                                {t('Account')}
+                                            </DropdownItem>
+                                            <hr className="-mx-2 my-1 border-base-content/10" />
+                                            <DropdownItem className="text-error" onClick={doLogout}>
+                                                <Icon icon={logoutIcon} fontSize={16} />
+                                                {t('Logout')}
+                                            </DropdownItem>
+                                        </DropdownMenu>
+                                    </Dropdown>
+                                ) : (
+                                    <Button size={"sm"} color="primary">
+                                        <Link href={routes.auth.login}>{t('Login')}</Link>
+                                    </Button>
+                                )
+                            )}
+                        </NavbarEnd>
+                    </Navbar>
                 </div>
             </div>
         </>
