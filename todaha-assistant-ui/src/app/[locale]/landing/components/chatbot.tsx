@@ -100,7 +100,7 @@ const Chatbot = () => {
 
   return (
       <DeepChat
-        className="join-item"
+        className="join-item justify-center items-center"
       
         stream={true}
         ref={chatElementRef}
@@ -184,11 +184,14 @@ const Chatbot = () => {
                 backgroundColor: "unset",
                 marginTop: "10px",
                 marginBottom: "10px",
-                maxWidth: "calc(100% - 80px)",//TODO
+                maxWidth: "calc(100% - 80px)",
                 marginRight: marginRight,
                 marginLeft: marginLeft,
                 fontSize: "1.1em",
                 color: isWhite ? "#000000" : "#ffffff",
+              },
+              outerContainer: {
+                direction: isRTL ? "rtl" : "ltr",
               },
             },
             user: {

@@ -162,9 +162,9 @@ const Topbar = () => {
                     className={cn(
                         "rounded-full px-3 transition-all duration-300",
                         "bg-white/70 dark:bg-gray-900/70 backdrop-blur-sm",
-                        "ring-1 ring-black/5 dark:ring-white/10",
+                        "shadow-[0_8px_30px_rgb(0,0,0,0.12)]",
                         {
-                            "shadow-lg shadow-black/5 dark:shadow-white/5": !atTop,
+                            "shadow-[0_8px_30px_rgb(0,0,0,0.24)]": !atTop,
                             "bg-white/50 dark:bg-gray-900/50": atTop
                         }
                     )}

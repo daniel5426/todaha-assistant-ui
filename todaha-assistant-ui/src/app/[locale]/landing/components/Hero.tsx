@@ -45,12 +45,12 @@ const Hero = () => {
         }}
       />
       <div className="container relative z-10 py-20 xl:py-40">
-        <div className="grid items-center gap-6 xl:gap-20 xl:grid-cols-7">
+        <div className="grid items-center gap-6 xl:gap-20 xl:grid-cols-6">
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="order-2 px-4 xl:px-0 xl:order-1 xl:col-span-3"
+            className="order-2 px-4 xl:px-0 xl:order-1 xl:col-span-3 ml-5"
           >
             <div style={{ direction: isRightToLeft ? "rtl" : "ltr" }}>
               <motion.p
@@ -91,57 +91,63 @@ const Hero = () => {
             <motion.div
               initial={{ opacity: 0, x: 50 }}
               animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="order-1 w-full px-4 xl:px-0 xl:order-2 xl:col-span-4 relative"
-          >
-            <Chatbot />
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5, delay: 1.2 }}
-              className="absolute bottom-4 right-[90%] hidden lg:block"
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="order-1 w-full px-4 xl:px-0 xl:order-2 xl:col-span-3 relative flex justify-center items-center"
             >
-              <svg
-                width="160"
-                height="140"
-                viewBox="0 0 160 140"
-                className="transform rotate-[160deg]"
+                <Chatbot />
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5, delay: 1.2 }}
+                className="absolute bottom-4 right-[90%] hidden lg:block"
               >
-                <path
-                  d="M10,10 Q60,60 90,40 T160,110"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  className="dark:stroke-white stroke-black"
+                <svg
+                  width="160"
+                  height="140"
+                  viewBox="0 0 160 140"
+                  className="transform rotate-[160deg]"
+                >
+                  <path
+                    d="M10,10 Q60,60 90,40 T160,110"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    className="dark:stroke-white stroke-black"
+                    style={{
+                      strokeDasharray: "5,5",
+                      filter: "url(#roughness)",
+                    }}
+                  />
+                  <defs>
+                    <filter id="roughness">
+                      <feTurbulence
+                        type="fractalNoise"
+                        baseFrequency="0.03"
+                        numOctaves="2"
+                      />
+                      <feDisplacementMap in="SourceGraphic" scale="1" />
+                    </filter>
+                  </defs>
+                </svg>
+                <span
+                  className="absolute -left-24 bottom-24 -rotate-12 font-handwriting text-xl"
                   style={{
-                    strokeDasharray: "5,5",
-                    filter: "url(#roughness)",
+                    fontFamily: "'Caveat', cursive",
+                    textShadow: "1px 1px 1px rgba(0,0,0,0.1)",
                   }}
-                />
-                <defs>
-                  <filter id="roughness">
-                    <feTurbulence
-                      type="fractalNoise"
-                      baseFrequency="0.03"
-                      numOctaves="2"
-                    />
-                    <feDisplacementMap in="SourceGraphic" scale="1" />
-                  </filter>
-                </defs>
-              </svg>
-              <span
-                className="absolute -left-24 bottom-24 -rotate-12 font-handwriting text-xl"
-                style={{
-                  fontFamily: "'Caveat', cursive",
-                  textShadow: "1px 1px 1px rgba(0,0,0,0.1)",
-                }}
-              >
-                Ask a question!
-              </span>
+                >
+                  Ask a question!
+                </span>
+              </motion.div>
             </motion.div>
-          </motion.div>
-          ): <Chatbot/>}
+          ) : (
+            <div className="w-full flex justify-center">
+              <div className="w-full max-w-2xl">
+                <Chatbot />
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>
