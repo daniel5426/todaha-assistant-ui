@@ -111,16 +111,17 @@ const Package = () => {
         <Container
             id="packages"
             sx={{
-                pt: { xs: 2, sm: 4, md: 10 },
-                pb: { xs: 2, sm: 4, md: 10 },
+                pt: { xs: 4, sm: 4, md: 10 },
+                pb: { xs: 4, sm: 4, md: 10 },
                 position: 'relative',
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
-                gap: { xs: 3, sm: 4 },
+                gap: { xs: 4, sm: 4 },
                 direction: isRTL ? 'rtl' : 'ltr',
                 height: '100%',
-                justifyContent: 'center'
+                justifyContent: 'center',
+                px: { xs: 1, sm: 2, md: 3 }
             }}
         >
             <Box
@@ -128,15 +129,25 @@ const Package = () => {
                     width: '100%',
                     maxWidth: 1200,
                     mx: 'auto',
-                    backgroundColor: isWhite ? 'background.paper' : 'hsl(220, 30%, 16%)',
-                    borderRadius: '24px',
-                    boxShadow: isWhite 
-                        ? '0 12px 40px rgba(0, 0, 0, 0.12), 0 4px 12px rgba(0, 0, 0, 0.08)'
-                        : '0 12px 40px rgba(0, 0, 0, 0.4), 0 4px 12px rgba(0, 0, 0, 0.3)',
-                    p: { xs: 3, sm: 5, md: 8 },
-                    border: isWhite ? '1px solid rgba(0, 0, 0, 0.08)' : '1px solid rgba(255, 255, 255, 0.05)',
+                    backgroundColor: {
+                        xs: 'transparent',
+                        sm: isWhite ? 'background.paper' : 'hsl(220, 30%, 16%)'
+                    },
+                    borderRadius: { xs: 0, sm: '24px' },
+                    boxShadow: {
+                        xs: 'none',
+                        sm: isWhite 
+                            ? '0 12px 40px rgba(0, 0, 0, 0.12), 0 4px 12px rgba(0, 0, 0, 0.08)'
+                            : '0 12px 40px rgba(0, 0, 0, 0.4), 0 4px 12px rgba(0, 0, 0, 0.3)'
+                    },
+                    p: { xs: 0, sm: 5, md: 8 },
+                    border: {
+                        xs: 'none',
+                        sm: isWhite ? '1px solid rgba(0, 0, 0, 0.08)' : '1px solid rgba(255, 255, 255, 0.05)'
+                    },
                     position: 'relative',
                     '&::before': {
+                        display: { xs: 'none', sm: 'block' },
                         content: '""',
                         position: 'absolute',
                         inset: -1,
