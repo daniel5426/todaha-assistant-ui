@@ -65,7 +65,7 @@ const Package = () => {
         },
         {
             title: t("Standard"),
-            price: "100",
+            price: t("100$"),
             subheader: t("Most Popular"),
             description: [
                 t("2M tokens per month"),
@@ -82,7 +82,7 @@ const Package = () => {
         },
         {
             title: t("Pro"),
-            price: "700",
+            price: t("$700"),
             subheader: t("Enhanced Version"),
             description: [
                 t("Unlimited tokens per month"),
@@ -267,7 +267,7 @@ const Package = () => {
                                                 fontWeight: 600
                                             }}
                                         >
-                                            {tier.price === t("Free") ? tier.price : `$${tier.price}`}
+                                            {tier.price === t("Free") ? tier.price : `${tier.price}`}
                                         </Typography>
                                         {tier.price !== t("Free") && (
                                             <Typography 
