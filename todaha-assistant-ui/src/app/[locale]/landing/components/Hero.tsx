@@ -137,7 +137,7 @@ const Hero = () => {
                     textShadow: "1px 1px 1px rgba(0,0,0,0.1)",
                   }}
                 >
-                  Ask a question!
+                  {t("Ask a question!")}
                 </span>
               </motion.div>
             </motion.div>
