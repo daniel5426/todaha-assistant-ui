@@ -98,8 +98,6 @@ const Chatbot = () => {
   const marginRight = isRTL ? "0px" : "auto";
   const marginLeft = isRTL ? "auto" : "0px";
 
-
-
   return (
       <DeepChat
         className="join-item"
@@ -107,9 +105,8 @@ const Chatbot = () => {
         stream={true}
         ref={chatElementRef}
         style={{
-          width: window.innerWidth < 750 ? window.innerWidth - 35 : 600,
-          height: window.innerWidth < 500 ? 400 : 
-          window.innerWidth < 750 ? window.innerWidth * 0.7 : 600,
+          width: window.innerWidth < 750 ? window.innerWidth - 45 : 600,
+          height: window.innerWidth < 500 ? 400 : 600,
           border: isWhite
             ? "1px solid rgba(230,233,236)"
             : "1px solid rgba(0,0,0,0.7)",

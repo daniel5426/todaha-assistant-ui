@@ -162,14 +162,15 @@ const Topbar = () => {
                     className={cn(
                         "rounded-full px-3 transition-all duration-300",
                         "bg-white/70 dark:bg-gray-900/70 backdrop-blur-sm",
+                        "ring-1 ring-black/5 dark:ring-white/10",
                         {
-                            "shadow-lg": !atTop,
+                            "shadow-lg shadow-black/5 dark:shadow-white/5": !atTop,
                             "bg-white/50 dark:bg-gray-900/50": atTop
                         }
                     )}
                 >
                     <Navbar className="min-h-[2.5rem] px-1">
-                        <NavbarStart className="gap-2">
+                        <NavbarStart className="gap-2 ml-3">
                             <div className="lg:hidden flex">
                                 <Button shape="square" color="ghost" onClick={() => setDrawerOpened(true)}>
                                     <Icon icon={menuIcon} className="inline-block text-xl" />
