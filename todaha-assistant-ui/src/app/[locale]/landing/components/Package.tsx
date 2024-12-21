@@ -111,220 +111,250 @@ const Package = () => {
         <Container
             id="packages"
             sx={{
-                pt: { xs: 4, sm: 12 },
-                pb: { xs: 8, sm: 16 },
+                pt: { xs: 2, sm: 4, md: 10 },
+                pb: { xs: 2, sm: 4, md: 10 },
                 position: 'relative',
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
-                gap: { xs: 3, sm: 6 },
-                direction: isRTL ? 'rtl' : 'ltr'
+                gap: { xs: 3, sm: 4 },
+                direction: isRTL ? 'rtl' : 'ltr',
+                height: '100%',
+                justifyContent: 'center'
             }}
         >
             <Box
                 sx={{
-                    width: { sm: '100%', md: '60%' },
-                    textAlign: 'center',
+                    width: '100%',
+                    maxWidth: 1200,
+                    mx: 'auto',
+                    backgroundColor: isWhite ? 'background.paper' : 'hsl(220, 30%, 16%)',
+                    borderRadius: '24px',
+                    boxShadow: isWhite 
+                        ? '0 12px 40px rgba(0, 0, 0, 0.12), 0 4px 12px rgba(0, 0, 0, 0.08)'
+                        : '0 12px 40px rgba(0, 0, 0, 0.4), 0 4px 12px rgba(0, 0, 0, 0.3)',
+                    p: { xs: 3, sm: 5, md: 8 },
+                    border: isWhite ? '1px solid rgba(0, 0, 0, 0.08)' : '1px solid rgba(255, 255, 255, 0.05)',
+                    position: 'relative',
+                    '&::before': {
+                        content: '""',
+                        position: 'absolute',
+                        inset: -1,
+                        borderRadius: '24px',
+                        background: isWhite 
+                            ? 'linear-gradient(145deg, rgba(144, 202, 249, 0.2), rgba(255, 255, 255, 0))'
+                            : 'linear-gradient(145deg, rgba(144, 202, 249, 0.1), rgba(255, 255, 255, 0))',
+                        zIndex: 0,
+                        pointerEvents: 'none'
+                    }
                 }}
             >
-                <Typography
-                    component="h2"
-                    variant="h4"
-                    gutterBottom
-                    sx={{ 
-                        color: isWhite ? 'text.primary' : 'grey.100',
-                        fontWeight: 600,
-                        mb: 2,
-                        fontSize: { xs: '1.75rem', sm: '2.125rem' }
+                <Box
+                    sx={{
+                        width: { sm: '100%', md: '60%' },
+                        textAlign: 'center',
+                        mx: 'auto'
                     }}
                 >
-                    {t("Packages")}
-                </Typography>
-                <Typography 
-                    variant="body1" 
-                    sx={{ 
-                        color: isWhite ? 'text.secondary' : 'grey.300',
-                        fontSize: { xs: '1rem', sm: '1.1rem' },
-                        lineHeight: 1.5
-                    }}
-                >
-                    {t("Packages_b")}
-                </Typography>
-            </Box>
+                    <Typography
+                        component="h2"
+                        variant="h4"
+                        gutterBottom
+                        sx={{ 
+                            color: isWhite ? 'text.primary' : 'grey.100',
+                            fontWeight: 600,
+                            mb: 2,
+                            fontSize: { xs: '1.75rem', sm: '2.125rem' }
+                        }}
+                    >
+                        {t("Packages")}
+                    </Typography>
+                    <Typography 
+                        variant="body1" 
+                        sx={{ 
+                            color: isWhite ? 'text.secondary' : 'grey.300',
+                            fontSize: { xs: '1rem', sm: '1.1rem' },
+                            lineHeight: 1.5
+                        }}
+                    >
+                        {t("Packages_b")}
+                    </Typography>
+                </Box>
 
-            <Grid container spacing={4} sx={{ alignItems: 'center', justifyContent: 'center', width: '100%' }}>
-                {tiers.map((tier) => (
-                    <Grid item xs={12} sm={6} md={4} key={tier.title}>
-                        <Card
-                            sx={[
-                                {
-                                    p: 2,
-                                    display: 'flex',
-                                    flexDirection: 'column',
-                                    gap: 2,
-                                    height: '100%',
-                                    maxWidth: 400,
-                                    mx: 'auto',
-                                    borderRadius: 2,
-                                    border: isWhite ? '1px solid rgba(0, 0, 0, 0.12)' : 'none',
-                                    background: isWhite
-                                        ? '#fff'
-                                        : 'hsl(220, 30%, 16%)',
-                                    boxShadow: isWhite
-                                        ? '0 8px 12px hsla(220, 20%, 42%, 0.1)'
-                                        : '0 8px 12px hsla(0, 0%, 0%, 0.2)',
-                                },
-                                tier.subheader === t("Most Popular") && {
-                                    border: 'none',
-                                    background: isWhite
-                                        ? 'radial-gradient(circle at 50% 0%, hsl(220, 20%, 35%), hsl(220, 30%, 6%))'
-                                        : 'radial-gradient(circle at 50% 0%, hsl(220, 20%, 20%), hsl(220, 30%, 16%))',
-                                    boxShadow: isWhite
-                                        ? '0 8px 12px hsla(220, 20%, 42%, 0.2)'
-                                        : '0 8px 12px hsla(0, 0%, 0%, 0.8)',
-                                },
-                            ]}
-                        >
-                            <CardContent sx={{ p: 1 }}>
-                                <Box
-                                    sx={{
-                                        mb: 1,
+                <Grid container spacing={4} sx={{ alignItems: 'center', justifyContent: 'center', width: '100%', mt: 2 }}>
+                    {tiers.map((tier) => (
+                        <Grid item xs={12} sm={6} md={4} key={tier.title}>
+                            <Card
+                                sx={[
+                                    {
+                                        p: 2,
                                         display: 'flex',
-                                        justifyContent: 'space-between',
-                                        alignItems: 'center',
+                                        flexDirection: 'column',
                                         gap: 2,
-                                        color: !isWhite || tier.subheader === t("Most Popular") ? 'grey.100' : 'inherit',
-                                    }}
-                                >
-                                    <Typography component="h3" variant="h6">
-                                        {tier.title}
-                                    </Typography>
-                                    {tier.subheader && (
-                                        <Chip
-                                            icon={<AutoAwesomeIcon />}
-                                            label={tier.subheader}
-                                            color={tier.subheader === t("Most Popular") ? "primary" : "default"}
-                                            size="small"
-                                            sx={{
-                                                bgcolor: !isWhite && tier.subheader !== t("Most Popular") 
-                                                    ? 'rgba(255, 255, 255, 0.1)' 
-                                                    : undefined,
-                                                '& .MuiChip-label': {
-                                                    color: !isWhite && tier.subheader !== t("Most Popular")
-                                                        ? 'grey.100'
-                                                        : undefined
-                                                },
-                                                '& .MuiSvgIcon-root': {
-                                                    color: !isWhite && tier.subheader !== t("Most Popular")
-                                                        ? 'grey.100'
-                                                        : undefined
-                                                }
-                                            }}
-                                        />
-                                    )}
-                                </Box>
-
-                                <Box
-                                    sx={{
-                                        display: 'flex',
-                                        alignItems: 'baseline',
-                                        color: !isWhite || tier.subheader === t("Most Popular") ? 'grey.50' : 'inherit',
-                                    }}
-                                >
-                                    <Typography 
-                                        component="h3" 
-                                        sx={{ 
-                                            fontSize: '2rem',
-                                            fontWeight: 600
-                                        }}
-                                    >
-                                        {tier.price === t("Free") ? tier.price : `$${tier.price}`}
-                                    </Typography>
-                                    {tier.price !== t("Free") && (
-                                        <Typography 
-                                            component="span" 
-                                            sx={{ 
-                                                fontSize: '1rem',
-                                                ml: 0.5
-                                            }}
-                                        >
-                                            /{t("per month")}
-                                        </Typography>
-                                    )}
-                                </Box>
-
-                                <Divider sx={{ my: 2, opacity: 0.2 }} />
-
-                                {tier.description.map((line, index) => (
+                                        height: '100%',
+                                        maxWidth: 400,
+                                        mx: 'auto',
+                                        borderRadius: 2,
+                                        border: isWhite ? '1px solid rgba(0, 0, 0, 0.12)' : 'none',
+                                        background: isWhite
+                                            ? '#fff'
+                                            : 'hsl(220, 30%, 16%)',
+                                        boxShadow: isWhite
+                                            ? '0 8px 12px hsla(220, 20%, 42%, 0.1)'
+                                            : '0 8px 12px hsla(0, 0%, 0%, 0.2)',
+                                    },
+                                    tier.subheader === t("Most Popular") && {
+                                        border: 'none',
+                                        background: isWhite
+                                            ? 'radial-gradient(circle at 50% 0%, hsl(220, 20%, 35%), hsl(220, 30%, 6%))'
+                                            : 'radial-gradient(circle at 50% 0%, hsl(220, 20%, 20%), hsl(220, 30%, 16%))',
+                                        boxShadow: isWhite
+                                            ? '0 8px 12px hsla(220, 20%, 42%, 0.2)'
+                                            : '0 8px 12px hsla(0, 0%, 0%, 0.8)',
+                                    },
+                                ]}
+                            >
+                                <CardContent sx={{ p: 1 }}>
                                     <Box
-                                        key={index}
                                         sx={{
-                                            py: 0.75,
+                                            mb: 1,
                                             display: 'flex',
-                                            gap: 1.5,
+                                            justifyContent: 'space-between',
                                             alignItems: 'center',
+                                            gap: 2,
+                                            color: !isWhite || tier.subheader === t("Most Popular") ? 'grey.100' : 'inherit',
                                         }}
                                     >
-                                        {typeof line === 'object' && line.disabled ? (
-                                            <CancelIcon color="disabled" sx={{ width: 18 }} />
-                                        ) : (
-                                            <CheckCircleRoundedIcon
+                                        <Typography component="h3" variant="h6">
+                                            {tier.title}
+                                        </Typography>
+                                        {tier.subheader && (
+                                            <Chip
+                                                icon={<AutoAwesomeIcon />}
+                                                label={tier.subheader}
+                                                color={tier.subheader === t("Most Popular") ? "primary" : "default"}
+                                                size="small"
                                                 sx={{
-                                                    width: 18,
-                                                    color: tier.subheader === t("Most Popular")
-                                                        ? 'primary.light'
-                                                        : 'primary.main',
+                                                    bgcolor: !isWhite && tier.subheader !== t("Most Popular") 
+                                                        ? 'rgba(255, 255, 255, 0.1)' 
+                                                        : undefined,
+                                                    '& .MuiChip-label': {
+                                                        color: !isWhite && tier.subheader !== t("Most Popular")
+                                                            ? 'grey.100'
+                                                            : undefined
+                                                    },
+                                                    '& .MuiSvgIcon-root': {
+                                                        color: !isWhite && tier.subheader !== t("Most Popular")
+                                                            ? 'grey.100'
+                                                            : undefined
+                                                    }
                                                 }}
                                             />
                                         )}
-                                        <Typography
-                                            variant="body2"
-                                            sx={{
-                                                color: !isWhite || tier.subheader === t("Most Popular")
-                                                    ? 'grey.50'
-                                                    : 'inherit',
+                                    </Box>
+
+                                    <Box
+                                        sx={{
+                                            display: 'flex',
+                                            alignItems: 'baseline',
+                                            color: !isWhite || tier.subheader === t("Most Popular") ? 'grey.50' : 'inherit',
+                                        }}
+                                    >
+                                        <Typography 
+                                            component="h3" 
+                                            sx={{ 
+                                                fontSize: '2rem',
+                                                fontWeight: 600
                                             }}
                                         >
-                                            {typeof line === 'object' ? line.text : line}
+                                            {tier.price === t("Free") ? tier.price : `$${tier.price}`}
                                         </Typography>
+                                        {tier.price !== t("Free") && (
+                                            <Typography 
+                                                component="span" 
+                                                sx={{ 
+                                                    fontSize: '1rem',
+                                                    ml: 0.5
+                                                }}
+                                            >
+                                                /{t("per month")}
+                                            </Typography>
+                                        )}
                                     </Box>
-                                ))}
-                            </CardContent>
 
-                            <CardActions sx={{ p: 2, pt: 0 }}>
-                                {tier.href ? (
-                                    <Button
-                                        href={tier.href}
-                                        variant={tier.buttonVariant as 'outlined' | 'contained'}
-                                        color={tier.buttonColor as 'primary'}
-                                        fullWidth
-                                        sx={{ 
-                                            borderRadius: 1,
-                                            ...tier.buttonSx 
-                                        }}
-                                    >
-                                        {tier.buttonText}
-                                    </Button>
-                                ) : (
-                                    <Button
-                                        onClick={() => tier.priceId && handleCheckout(tier.priceId)}
-                                        variant={tier.buttonVariant as 'outlined' | 'contained'}
-                                        color={tier.buttonColor as 'primary'}
-                                        fullWidth
-                                        disabled={isLoading}
-                                        sx={{ 
-                                            borderRadius: 1,
-                                            ...tier.buttonSx 
-                                        }}
-                                    >
-                                        {isLoading ? t("Processing") : tier.buttonText}
-                                    </Button>
-                                )}
-                            </CardActions>
-                        </Card>
-                    </Grid>
-                ))}
-            </Grid>
+                                    <Divider sx={{ my: 2, opacity: 0.2 }} />
+
+                                    {tier.description.map((line, index) => (
+                                        <Box
+                                            key={index}
+                                            sx={{
+                                                py: 0.75,
+                                                display: 'flex',
+                                                gap: 1.5,
+                                                alignItems: 'center',
+                                            }}
+                                        >
+                                            {typeof line === 'object' && line.disabled ? (
+                                                <CancelIcon color="disabled" sx={{ width: 18 }} />
+                                            ) : (
+                                                <CheckCircleRoundedIcon
+                                                    sx={{
+                                                        width: 18,
+                                                        color: tier.subheader === t("Most Popular")
+                                                            ? 'primary.light'
+                                                            : 'primary.main',
+                                                    }}
+                                                />
+                                            )}
+                                            <Typography
+                                                variant="body2"
+                                                sx={{
+                                                    color: !isWhite || tier.subheader === t("Most Popular")
+                                                        ? 'grey.50'
+                                                        : 'inherit',
+                                                }}
+                                            >
+                                                {typeof line === 'object' ? line.text : line}
+                                            </Typography>
+                                        </Box>
+                                    ))}
+                                </CardContent>
+
+                                <CardActions sx={{ p: 2, pt: 0 }}>
+                                    {tier.href ? (
+                                        <Button
+                                            href={tier.href}
+                                            variant={tier.buttonVariant as 'outlined' | 'contained'}
+                                            color={tier.buttonColor as 'primary'}
+                                            fullWidth
+                                            sx={{ 
+                                                borderRadius: 1,
+                                                ...tier.buttonSx 
+                                            }}
+                                        >
+                                            {tier.buttonText}
+                                        </Button>
+                                    ) : (
+                                        <Button
+                                            onClick={() => tier.priceId && handleCheckout(tier.priceId)}
+                                            variant={tier.buttonVariant as 'outlined' | 'contained'}
+                                            color={tier.buttonColor as 'primary'}
+                                            fullWidth
+                                            disabled={isLoading}
+                                            sx={{ 
+                                                borderRadius: 1,
+                                                ...tier.buttonSx 
+                                            }}
+                                        >
+                                            {isLoading ? t("Processing") : tier.buttonText}
+                                        </Button>
+                                    )}
+                                </CardActions>
+                            </Card>
+                        </Grid>
+                    ))}
+                </Grid>
+            </Box>
         </Container>
     );
 };
