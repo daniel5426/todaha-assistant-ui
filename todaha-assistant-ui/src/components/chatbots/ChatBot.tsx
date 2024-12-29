@@ -45,8 +45,12 @@ const Chatbot = () => {
   const initial_questions_possible_values = {
     fr: "Peut-on l'intégrer à Shopify ou Wix ?\nQuels sont les coûts ?",
     en: "Can it be integrated with Shopify or Wix?\nWhat are the costs?",
-    he: "האם ניתן לשלב את זה עם Shopify או Wix?\nמה העלויות?"
+    he: "האם ניתן לשלב את זה עם Shopify או Wix?\nמה העלויות והאם אפשר לנסות אותו בחינם?"
   };
+
+  const currentLocale = useLocale();
+  const isRightToLeft = currentLocale === "he";
+
 
   useEffect(() => {
     const fetchChatbotConfig = async () => {
@@ -55,7 +59,7 @@ const Chatbot = () => {
           params: { assistant_id: assistantId },
         });
         const { assistant } = response.data;
-        const lg = assistant.chatbots[0].lg;
+        const lg = currentLocale;
         
         setChatbotConfig({
           bg_color: assistant.chatbots[0].bg_color,
@@ -335,7 +339,7 @@ const Chatbot = () => {
                                                   .filter(
                                                     (word) => word.length > 1
                                                   ).length *
-                                                  1.3,
+                                                  0.5,
                                               40
                                             ),
                                             300
@@ -367,7 +371,7 @@ const Chatbot = () => {
                                       html: `
                               <div class="deep-chat-temporary-message" style="position: absolute; bottom: 65px; width: calc(100% - 45px); left:">
                                 <div style="position: relative;">
-                                  <div style="width: calc(100% - 20px);overflow-x: auto; white-space: nowrap; padding: 10px 18px; scrollbar-width: none; -ms-overflow-style: none;">
+                                  <div style="width: calc(100% - 17px);overflow-x: auto; white-space: nowrap; padding: 10px 18px; scrollbar-width: none; -ms-overflow-style: none;">
                                     <div style="display: inline-flex; gap: 8px; margin-bottom: 5px;">
                                       ${questions
                                         .map(
@@ -385,6 +389,7 @@ const Chatbot = () => {
                                             align-items: center; 
                                             text-align: center; 
                                             padding: 8px 12px; 
+                                            direction: ${isRightToLeft ? "rtl" : "ltr"};
                                             line-height: 1.2;"
                                         >${text}</button>
                                       `
