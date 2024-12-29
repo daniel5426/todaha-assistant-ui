@@ -46,7 +46,7 @@ const Topbar = () => {
         if (isAuthenticated) {
             window.location.href = routes.dashboard; // Force full page load
         } else {
-            router.push(routes.auth.login);
+            router.push(routes.auth.register);
         }
     };
 
@@ -127,7 +127,7 @@ const Topbar = () => {
                                 <>
                                     <Button 
                                         color="primary" 
-                                        className="w-full"
+                                        className="w-full rounded-full"
                                         onClick={() => router.push(routes.auth.register)}
                                     >
                                         {t('Sign up')}
@@ -135,7 +135,7 @@ const Topbar = () => {
                                     <Button 
                                         color="primary" 
                                         variant="outline"
-                                        className="w-full"
+                                        className="w-full rounded-full"
                                         onClick={() => router.push(routes.auth.login)}
                                     >
                                         {t('Login')}
@@ -226,8 +226,8 @@ const Topbar = () => {
                                         </DropdownMenu>
                                     </Dropdown>
                                 ) : (
-                                    <Button size={"sm"} color="primary">
-                                        <Link href={routes.auth.login}>{t('Login')}</Link>
+                                    <Button size={"sm"} color="primary" className="rounded-full">
+                                        <Link href={routes.auth.register}>{t('Sign up')}</Link>
                                     </Button>
                                 )
                             )}
