@@ -73,7 +73,7 @@ const FeatureCard = ({
         </div>
         <h3 className="text-3xl font-semibold">{title}</h3>
         <p className="text-base-content/70 leading-relaxed">{description}</p>
-        <Link href={routes.contact}>
+        <Link href={routes.dashboard}>
           <Button
             endIcon={<Icon icon={chevronRightIcon} fontSize={18} />}
             variant="outline"

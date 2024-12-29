@@ -36,6 +36,18 @@ const Chatbot = () => {
     fr: "Écrivez votre message...",
   };
 
+  const welcome_message_possible_values = {
+    fr: "Salut! 🌟\nPrêt à créer un chatbot IA unique pour votre site ? Posez-moi vos questions, je suis là pour vous accompagner !",
+    en: "Hi! 🌟\nReady to create a unique AI chatbot for your site? Ask me your questions, I'm here to help!",
+    he: "שלום! 🌟\nמוכנים ליצור צ'אטבוט AI ייחודי לאתר שלכם? שאלו אותי שאלות, אני כאן כדי לעזור!"
+  };
+
+  const initial_questions_possible_values = {
+    fr: "Peut-on l'intégrer à Shopify ou Wix ?\nQuels sont les coûts ?",
+    en: "Can it be integrated with Shopify or Wix?\nWhat are the costs?",
+    he: "האם ניתן לשלב את זה עם Shopify או Wix?\nמה העלויות?"
+  };
+
   useEffect(() => {
     const fetchChatbotConfig = async () => {
       try {
@@ -43,7 +55,8 @@ const Chatbot = () => {
           params: { assistant_id: assistantId },
         });
         const { assistant } = response.data;
-        console.log(assistant);
+        const lg = assistant.chatbots[0].lg;
+        
         setChatbotConfig({
           bg_color: assistant.chatbots[0].bg_color,
           top_color: assistant.chatbots[0].top_color,
@@ -54,14 +67,12 @@ const Chatbot = () => {
           button_text: assistant.chatbots[0].button_text,
           button_color: assistant.chatbots[0].button_color,
           lg: assistant.chatbots[0].lg,
-          initial_questions: assistant.initial_questions,
-          welcome_message: assistant.welcome_message,
+          initial_questions: initial_questions_possible_values[lg] || assistant.initial_questions,
+          welcome_message: welcome_message_possible_values[lg] || assistant.welcome_message,
         });
-        console.log(assistant.chatbots[0].lg);
-        setPlaceholderText(
-          placeholder_text_possible_values[assistant.chatbots[0].lg]
-        );
-        setActiveText(active_lg[assistant.chatbots[0].lg]);
+        
+        setPlaceholderText(placeholder_text_possible_values[lg]);
+        setActiveText(active_lg[lg]);
       } catch (error) {
         console.error("Failed to fetch chatbot configuration:", error);
       }
@@ -356,7 +367,7 @@ const Chatbot = () => {
                                       html: `
                               <div class="deep-chat-temporary-message" style="position: absolute; bottom: 65px; width: calc(100% - 45px); left:">
                                 <div style="position: relative;">
-                                  <div style="width: calc(100% - 32px);overflow-x: auto; white-space: nowrap; padding: 10px 18px; scrollbar-width: none; -ms-overflow-style: none;">
+                                  <div style="width: calc(100% - 20px);overflow-x: auto; white-space: nowrap; padding: 10px 18px; scrollbar-width: none; -ms-overflow-style: none;">
                                     <div style="display: inline-flex; gap: 8px; margin-bottom: 5px;">
                                       ${questions
                                         .map(
