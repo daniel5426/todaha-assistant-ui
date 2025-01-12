@@ -105,7 +105,7 @@ const Chatbot = () => {
         stream={true}
         ref={chatElementRef}
         style={{
-          width: window.innerWidth < 750 ? window.innerWidth - 45 : 600,
+          width: window.innerWidth < 750 ? window.innerWidth - 45 : window.innerWidth < 1538? 500:600,
           height: window.innerWidth < 500 ? 400 : 600,
           border: isWhite
             ? "1px solid rgba(230,233,236)"

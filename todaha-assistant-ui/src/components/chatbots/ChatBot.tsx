@@ -39,18 +39,17 @@ const Chatbot = () => {
   const welcome_message_possible_values = {
     fr: "Salut! 🌟\nPrêt à créer un chatbot IA unique pour votre site ? Posez-moi vos questions, je suis là pour vous accompagner !",
     en: "Hi! 🌟\nReady to create a unique AI chatbot for your site? Ask me your questions, I'm here to help!",
-    he: "שלום! 🌟\nמוכנים ליצור צ'אטבוט AI ייחודי לאתר שלכם? שאלו אותי שאלות, אני כאן כדי לעזור!"
+    he: "שלום! 🌟\nמוכנים ליצור צ'אטבוט AI ייחודי לאתר שלכם? שאלו אותי שאלות, אני כאן כדי לעזור!",
   };
 
   const initial_questions_possible_values = {
     fr: "Peut-on l'intégrer à Shopify ou Wix ?\nQuels sont les coûts ?",
     en: "Can it be integrated with Shopify or Wix?\nWhat are the costs?",
-    he: "האם ניתן לשלב את זה עם Shopify או Wix?\nמה העלויות והאם אפשר לנסות אותו בחינם?"
+    he: "האם ניתן לשלב את זה עם Shopify או Wix?\nמה העלויות והאם אפשר לנסות אותו בחינם?",
   };
 
   const currentLocale = useLocale();
   const isRightToLeft = currentLocale === "he";
-
 
   useEffect(() => {
     const fetchChatbotConfig = async () => {
@@ -60,7 +59,7 @@ const Chatbot = () => {
         });
         const { assistant } = response.data;
         const lg = currentLocale;
-        
+
         setChatbotConfig({
           bg_color: assistant.chatbots[0].bg_color,
           top_color: assistant.chatbots[0].top_color,
@@ -71,10 +70,13 @@ const Chatbot = () => {
           button_text: assistant.chatbots[0].button_text,
           button_color: assistant.chatbots[0].button_color,
           lg: assistant.chatbots[0].lg,
-          initial_questions: initial_questions_possible_values[lg] || assistant.initial_questions,
-          welcome_message: welcome_message_possible_values[lg] || assistant.welcome_message,
+          initial_questions:
+            initial_questions_possible_values[lg] ||
+            assistant.initial_questions,
+          welcome_message:
+            welcome_message_possible_values[lg] || assistant.welcome_message,
         });
-        
+
         setPlaceholderText(placeholder_text_possible_values[lg]);
         setActiveText(active_lg[lg]);
       } catch (error) {
@@ -205,12 +207,12 @@ const Chatbot = () => {
                 }}
               >
                 <div
-                  className="flex flex-col rounded-2xl"
-                  style={{ direction: "ltr" }}
+                  className="flex flex-col"
+                  style={{ direction: isRTL ? "rtl" : "ltr" }}
                 >
-                  <div className="flex flex-row items-center ml-3">
+                  <div className={`flex flex-row items-center `}>
                     {chatbotConfig?.logo !== "" && (
-                      <div className="pr-5 p-1">
+                      <div className={`p-1`} style={{ padding: "0 0.70rem" }}>
                         <div className="w-9 h-9 rounded-full ">
                           <img
                             src={chatbotConfig?.logo}
@@ -224,7 +226,10 @@ const Chatbot = () => {
                       className="grow flex flex-row "
                       style={{ color: chatbotConfig?.name_text_color }}
                     >
-                      <span className="flex flex-col">
+                      <span
+                        className="flex flex-col"
+                        style={{ padding: "0 0.35rem" }}
+                      >
                         <span className="text-[17px] font-bold">
                           {chatbotConfig?.top_name}
                         </span>
@@ -235,7 +240,13 @@ const Chatbot = () => {
                       </span>
                     </div>
                   </div>
-                  <div className="flex flex-row absolute right-2 top-2">
+                  <div
+                    className="flex flex-row absolute top-2"
+                    style={{
+                      left: isRTL ? "10px" : "auto",
+                      right: isRTL ? "auto" : "10px",
+                    }}
+                  >
                     <button
                       style={{
                         color: chatbotConfig?.name_text_color,
@@ -320,45 +331,44 @@ const Chatbot = () => {
                         },
                         ...(chatbotConfig?.initial_questions
                           ? (() => {
-                              const questions =
-                                chatbotConfig?.initial_questions
-                                  .split("\n")
-                                  .filter((q) => q.trim())
-                                  .map((q) => ({
-                                    text: q,
-                                    width:
-                                      q
-                                        .split(" ")
-                                        .filter((word) => word.length > 2)
-                                        .length > 5
-                                        ? Math.min(
-                                            Math.max(
-                                              q.split("").length * 4 -
-                                                q
-                                                  .split(" ")
-                                                  .filter(
-                                                    (word) => word.length > 1
-                                                  ).length *
-                                                  0.5,
-                                              40
-                                            ),
-                                            300
-                                          )
-                                        : q
-                                            .split(" ")
-                                            .filter((word) => word.length > 2)
-                                            .length > 4
-                                        ? Math.max(
+                              const questions = chatbotConfig?.initial_questions
+                                .split("\n")
+                                .filter((q) => q.trim())
+                                .map((q) => ({
+                                  text: q,
+                                  width:
+                                    q
+                                      .split(" ")
+                                      .filter((word) => word.length > 2)
+                                      .length > 5
+                                      ? Math.min(
+                                          Math.max(
                                             q.split("").length * 4 -
-                                              q.split(" ").length * 2 +
-                                              20,
-                                            40
-                                          )
-                                        : Math.max(
-                                            q.split("").length * 4 + 30,
+                                              q
+                                                .split(" ")
+                                                .filter(
+                                                  (word) => word.length > 1
+                                                ).length *
+                                                0.5,
                                             40
                                           ),
-                                  }));
+                                          300
+                                        )
+                                      : q
+                                          .split(" ")
+                                          .filter((word) => word.length > 2)
+                                          .length > 4
+                                      ? Math.max(
+                                          q.split("").length * 4 -
+                                            q.split(" ").length * 2 +
+                                            20,
+                                          40
+                                        )
+                                      : Math.max(
+                                          q.split("").length * 4 + 30,
+                                          40
+                                        ),
+                                }));
 
                               const totalWidth = questions.reduce(
                                 (acc, q) => acc + q.width + 8,
@@ -389,7 +399,9 @@ const Chatbot = () => {
                                             align-items: center; 
                                             text-align: center; 
                                             padding: 8px 12px; 
-                                            direction: ${isRightToLeft ? "rtl" : "ltr"};
+                                            direction: ${
+                                              isRightToLeft ? "rtl" : "ltr"
+                                            };
                                             line-height: 1.2;"
                                         >${text}</button>
                                       `
@@ -464,10 +476,10 @@ const Chatbot = () => {
                     container: {
                       marginBottom: "30px",
                       borderRadius: "20px",
-                      border: "none",
                       width: "90%",
+                      border: "0.3px solid rgb(229,229,229)",
                       boxShadow: "2px 2px 5px rgba(0, 0, 0, 0.16)",
-                    },
+                  },
                     text: {
                       padding: "10px",
                       textAlign: isRTL ? "right" : "left",
@@ -484,44 +496,60 @@ const Chatbot = () => {
                   },
                 }}
                 messageStyles={{
-                  html: { shared: { bubble: //TODO
-                    { backgroundColor: 'unset', 
-                      padding: '0px', 
-                      boxShadow: 'none', 
-                      borderBottom: 'hidden',
-                      borderTop: 'hidden',
-                      border: 'unset'
+                  html: {
+                    shared: {
+                      //TODO
+                      bubble: {
+                        backgroundColor: "unset",
+                        padding: "0px",
+                        boxShadow: "none",
+                        borderBottom: "hidden",
+                        borderTop: "hidden",
+                        border: "unset",
+                      },
+                      outerContainer: {
+                        borderBottom: "hidden",
+                        borderTop: "hidden",
+                        border: "unset",
+                      },
                     },
-                    outerContainer: {
-                      borderBottom: 'hidden',
-                      borderTop: 'hidden',
-                      border: 'unset'
-                    },
-      
-                  } },      
+                  },
                   default: {
                     shared: {
                       bubble: {
                         direction: isRTL ? "rtl" : "ltr",
-                        backgroundColor: "unset",
                         marginTop: "10px",
                         marginBottom: "10px",
+                        maxWidth: "calc(100% - 80px)",
                         boxShadow:
                           "0px 0.3px 0.9px rgba(0, 0, 0, 0.12), 0px 1.6px 3.6px rgba(0, 0, 0, 0.16)",
                       },
+                    },
+                    html: {
+                        bubble: {
+                          direction: "ltr",
+                          marginLeft:  "0",
+                          marginRight: "auto",  
+                        },
                     },
                     user: {
                       bubble: {
                         direction: isRTL ? "rtl" : "ltr",
                         background: "rgba(255,255,255,0.7)",
                         color: "#000000",
+                        marginLeft: isRTL ? "0" : "auto",
+                        marginRight: isRTL ? "auto" : "0",
                       },
                     },
                     ai: {
-                      bubble: { background: "rgba(255,255,255,0.7)" },
+                      bubble: { 
+                        background: "rgba(255,255,255,0.7)",
+                        marginLeft: isRTL ? "auto" : "0",
+                        marginRight: isRTL ? "0" : "auto",
+                      },
                     },
                   },
-                  loading: {
+                loading: {
                     bubble: { padding: "0.6em 1.78em 0.6em 1.3em" },
                   },
                 }}
