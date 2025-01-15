@@ -27,6 +27,8 @@ const ChatbotModalConfig = ({
 }: ChatbotModalConfigProps) => {
   const chatElementRef = useRef<any>(null);
   const { state } = useAuthContext();
+  const locale = useLocale();
+  const isRTL = lg === "he";
   const { state: layoutState } = useLayoutContext();
   const assistantId = state.user?.assistant.id!;
   const initialMessages = [
@@ -35,27 +37,16 @@ const ChatbotModalConfig = ({
       ? (() => {
         const questions = state.user?.assistant?.initial_questions
         .split("\n")
-        .filter(q => q.trim())
-        .map(q => ({
+        .filter((q) => q.trim())
+        .map((q) => ({
           text: q,
-          width: q.split(' ').filter(word => word.length > 2).length > 5 ? Math.min(
-            Math.max(
-              (q.split('').length * 4) - 
-              (q.split(' ').filter(word => word.length > 1).length * 1.3), 
-              40
-            ), 
-            300
-          ) : q.split(' ').filter(word => word.length > 2).length > 4 ? Math.max(
-            (q.split('').length * 4) - 
-            (q.split(' ').length*2) + 20, 
-            40
-          ) : Math.max(
-            (q.split('').length * 4) + 30, 
-            40
-          )
-          
+          width: calculateTwoRowWidth(q),
         }));
-  const totalWidth = questions.reduce((acc, q) => acc + q.width + 8, 0);
+
+      const totalWidth = questions.reduce(
+        (acc, q) => acc + q.width + 8,
+        0
+      );
 
 
           return questions.length > 0
@@ -74,6 +65,7 @@ const ChatbotModalConfig = ({
                             style="border: none; 
                               background: unset; 
                               justify-content: space-around;
+                              direction: ${isRTL ? "rtl" : "ltr"};
                               box-shadow: 0px 0.3px 0.9px rgba(0, 0, 0, 0.12), 0px 1.6px 3.6px rgba(0, 0, 0, 0.16); 
                               width: ${width}px;
                               white-space: normal; 
@@ -176,6 +168,27 @@ const ChatbotModalConfig = ({
     },
   });
 
+  function calculateTwoRowWidth(text: string) {
+    const words = text.split(" ");
+    
+    if (words.length <= 1) {
+      // Single word
+      return Math.max(text.length * 8, 40);
+    }
+    
+    if (words.length === 2) {
+      // For two words, use the length of the longer word
+      const longestWordLength = Math.max(words[0].length, words[1].length);
+      return Math.max(longestWordLength * 10, 40); // Slightly wider per char for two words
+    }
+
+    // For longer texts, split into two roughly equal rows
+    const totalLength = text.length;
+    const approximateCharsPerRow = Math.ceil(totalLength / 2);
+    return Math.max(approximateCharsPerRow * 8, 40);
+  }
+
+
   const handleReset = () => {
     if (chatElementRef.current) {
       chatElementRef.current.clearMessages();
@@ -183,8 +196,6 @@ const ChatbotModalConfig = ({
     setReset((prevReset) => !prevReset);
   };
 
-  const locale = useLocale();
-  const isRTL = lg === "he";
   const marginRight = isRTL ? "0px" : "auto";
   const marginLeft = isRTL ? "auto" : "0px";
   const t = useTranslations("chatbot");
@@ -273,14 +284,15 @@ const ChatbotModalConfig = ({
             styles: {
               container: {
                 borderRadius: "20px",
-                border: "unset",
                 marginBottom: "30px",
                 width: "88%",
                 backgroundColor: "#ffffff",
+                border: "0.3px solid rgb(229,229,229)",
                 boxShadow: "2px 2px 5px rgba(0, 0, 0, 0.16)",
-              },
+      },
               text: {
                 padding: "10px",
+                direction: isRTL ? "rtl" : "ltr",
                 textAlign: isRTL ? "right" : "left",
                 paddingLeft: "15px",
                 paddingRight: "34px",
@@ -336,6 +348,13 @@ const ChatbotModalConfig = ({
                   borderBottom: "1px solid rgba(230,233,236)",
                 },
               },
+              html: {
+                bubble: {
+                  direction: "ltr",
+                  marginLeft:  "0",
+                  marginRight: "auto",  
+                },
+              },
               user: {
                 outerContainer: {
                   backgroundColor: "unset",
@@ -363,8 +382,9 @@ const ChatbotModalConfig = ({
                   default: {
                     width: "1.5em",
                     filter:
-                      "brightness(0) saturate(100%) invert(10%) sepia(86%) saturate(6044%) hue-rotate(205deg) brightness(100%) contrast(100%)",
-                  },
+                    "brightness(0) saturate(100%) invert(10%) sepia(86%) saturate(6044%) hue-rotate(205deg) brightness(100%) contrast(100%)",
+                    transform: isRTL ? "scaleX(-1)" : "none",
+              },
                 },
               },
             },

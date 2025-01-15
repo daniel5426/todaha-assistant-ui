@@ -13,7 +13,7 @@ import Icon from "@/components/Icon";
 export default function AuthLayout ({ children }: { children: ReactNode }) {
     return (
         <div className="grid h-screen grid-cols-12">
-            <div className="relative hidden bg-[#FFE9D1] dark:bg-[#14181c] lg:col-span-7 lg:block xl:col-span-8 2xl:col-span-9">
+            <div className="relative hidden bg-[#FFE9D1] dark:bg-[#14181c] lg:col-span-6 lg:block xl:col-span-7 2xl:col-span-8">
                 <div className="absolute inset-0 flex items-center justify-center">
                     <img src={authImage.src} className="object-cover" alt="Auth Image" />
                 </div>
@@ -45,7 +45,7 @@ export default function AuthLayout ({ children }: { children: ReactNode }) {
                     </Card>
                 </div>
             </div>
-            <div className="col-span-12  lg:col-span-5 xl:col-span-4 2xl:col-span-3">
+            <div className="col-span-12 lg:col-span-6 xl:col-span-5 2xl:col-span-4">
                 <Suspense>{children}</Suspense>
             </div>
         </div>

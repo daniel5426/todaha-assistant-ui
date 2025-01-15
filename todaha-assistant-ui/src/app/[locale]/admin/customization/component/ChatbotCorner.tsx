@@ -64,40 +64,33 @@ const ChatbotCorner: React.FC<CustomizableChatbotProps> = ({
         ? (() => {
             const questions = state.user?.assistant?.initial_questions
               .split("\n")
-              .filter(q => q.trim())
-              .map(q => ({
+              .filter((q) => q.trim())
+              .map((q) => ({
                 text: q,
-                width: q.split(' ').filter(word => word.length > 2).length > 5 ? Math.min(
-                  Math.max(
-                    (q.split('').length * 4) - 
-                    (q.split(' ').filter(word => word.length > 1).length * 1.3), 
-                    40
-                  ), 
-                  300
-                ) : q.split(' ').filter(word => word.length > 2).length > 4 ? Math.max(
-                  (q.split('').length * 4) - 
-                  (q.split(' ').length*2) + 20, 
-                  40
-                ) : Math.max(
-                  (q.split('').length * 4) + 30, 
-                  40
-                )
-                
+                width: calculateTwoRowWidth(q),
               }));
-            
-            const totalWidth = questions.reduce((acc, q) => acc + q.width + 8, 0);
 
-            return questions.length > 0 ? [{
-              html: `
-              <div class="deep-chat-temporary-message" style="position: absolute; bottom: 65px; width: calc(100% - 45px); left:">
+            const totalWidth = questions.reduce(
+              (acc, q) => acc + q.width + 8,
+              0
+            );
+
+            return questions.length > 0
+              ? [
+                  {
+                    html: `
+              <div class="deep-chat-temporary-message" style="position: absolute; bottom: 65px; width: calc(100% - 45px); direction: "ltr";">
                 <div style="position: relative;">
                   <div style="width: calc(100% - 32px);overflow-x: auto; white-space: nowrap; padding: 10px 18px; scrollbar-width: none; -ms-overflow-style: none;">
                     <div style="display: inline-flex; gap: 8px; margin-bottom: 5px;">
-                      ${questions.map(({text, width}) => `
+                      ${questions
+                        .map(
+                          ({ text, width }) => `
                         <button 
                           class="deep-chat-button deep-chat-suggestion-button" 
                           style="border: none; 
                             background: unset; 
+                            direction: ${isRTL ? "rtl" : "ltr"};
                             justify-content: space-around;
                             box-shadow: 0px 0.3px 0.9px rgba(0, 0, 0, 0.12), 0px 1.6px 3.6px rgba(0, 0, 0, 0.16); 
                             width: ${width}px;
@@ -109,11 +102,14 @@ const ChatbotCorner: React.FC<CustomizableChatbotProps> = ({
                             padding: 8px 12px; 
                             line-height: 1.2;"
                         >${text}</button>
-                      `).join("")}
+                      `
+                        )
+                        .join("")}
                     </div>
                   </div>
                   ${
-                    totalWidth > 320 && window.innerWidth > 768 ? `
+                    totalWidth > 320 && window.innerWidth > 768
+                      ? `
                     <button onclick="this.parentElement.querySelector('div').scrollBy({left: -130, behavior: 'smooth'})" 
                       style="position: absolute; 
                         left: -10px; 
@@ -151,12 +147,15 @@ const ChatbotCorner: React.FC<CustomizableChatbotProps> = ({
                       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                       </svg>
-                    </button>` : ''
+                    </button>`
+                      : ""
                   }
                 </div>
               </div>`,
-              role: "html",
-            }] : []
+                    role: "html",
+                  },
+                ]
+              : [];
           })()
         : []),
     ]);
@@ -206,6 +205,27 @@ const ChatbotCorner: React.FC<CustomizableChatbotProps> = ({
     setReset((prevReset) => !prevReset);
   };
 
+  // Helper function to calculate width for two rows
+  function calculateTwoRowWidth(text: string) {
+    const words = text.split(" ");
+    
+    if (words.length <= 1) {
+      // Single word
+      return Math.max(text.length * 8, 40);
+    }
+    
+    if (words.length === 2) {
+      // For two words, use the length of the longer word
+      const longestWordLength = Math.max(words[0].length, words[1].length);
+      return Math.max(longestWordLength * 10, 40); // Slightly wider per char for two words
+    }
+
+    // For longer texts, split into two roughly equal rows
+    const totalLength = text.length;
+    const approximateCharsPerRow = Math.ceil(totalLength / 2);
+    return Math.max(approximateCharsPerRow * 8, 40);
+  }
+
   return (
     <div
       className=" mt-[638px] flex ml-60"
@@ -253,25 +273,28 @@ const ChatbotCorner: React.FC<CustomizableChatbotProps> = ({
             >
               <div
                 className="flex flex-col rounded-2xl"
-                style={{ direction: "ltr" }}
+                style={{ direction: isRTL ? "rtl" : "ltr" }}
               >
                 <div className="flex flex-row items-center ml-3">
-                  {logo !== "" && (
-                    <div className="pr-5 p-1">
-                      <div className="w-9 h-9 rounded-full ">
-                        <img
-                          src={logo}
-                          alt="Logo"
-                          className="w-full h-full object-cover "
-                        />
+                {logo !== "" && (
+                      <div className={`p-1`} style={{ padding: "0 0.70rem" }}>
+                        <div className="w-9 h-9 rounded-full ">
+                          <img
+                            src={logo}
+                            alt="Logo"
+                            className="w-full h-full object-cover "
+                          />
+                        </div>
                       </div>
-                    </div>
-                  )}
-                  <div
-                    className="grow flex flex-row "
-                    style={{ color: nameTextColor }}
-                  >
-                    <span className="flex flex-col">
+                    )}
+                    <div
+                      className="grow flex flex-row "
+                      style={{ color: nameTextColor }}
+                    >
+                      <span
+                        className="flex flex-col"
+                        style={{ padding: "0 0.35rem" }}
+                      >
                       <span className="text-[17px] font-bold">{topName}</span>
                       <div className="flex items-center gap-2">
                         <div className="size-2 rounded-full bg-success"></div>
@@ -280,7 +303,13 @@ const ChatbotCorner: React.FC<CustomizableChatbotProps> = ({
                     </span>
                   </div>
                 </div>
-                <div className="flex flex-row absolute right-2 top-2">
+                <div
+                  className="flex flex-row absolute right-2 top-2"
+                  style={{
+                    left: isRTL ? "10px" : "auto",
+                    right: isRTL ? "auto" : "10px",
+                  }}
+                >
                   <button
                     style={{
                       color: nameTextColor,
@@ -379,10 +408,10 @@ const ChatbotCorner: React.FC<CustomizableChatbotProps> = ({
                   container: {
                     marginBottom: "30px",
                     borderRadius: "20px",
-                    border: "none",
                     width: "90%",
+                    border: "0.3px solid rgb(229,229,229)",
                     boxShadow: "2px 2px 5px rgba(0, 0, 0, 0.16)",
-                  },
+                      },
                   text: {
                     padding: "10px",
                     textAlign: isRTL ? "right" : "left",
@@ -399,21 +428,24 @@ const ChatbotCorner: React.FC<CustomizableChatbotProps> = ({
                 },
               }}
               messageStyles={{
-                html: { shared: { bubble: //TODO
-                  { backgroundColor: 'unset', 
-                    padding: '0px', 
-                    boxShadow: 'none', 
-                    borderBottom: 'hidden',
-                    borderTop: 'hidden',
-                    border: 'unset'
+                html: {
+                  shared: {
+                    //TODO
+                    bubble: {
+                      backgroundColor: "unset",
+                      padding: "0px",
+                      boxShadow: "none",
+                      borderBottom: "hidden",
+                      borderTop: "hidden",
+                      border: "unset",
+                    },
+                    outerContainer: {
+                      borderBottom: "hidden",
+                      borderTop: "hidden",
+                      border: "unset",
+                    },
                   },
-                  outerContainer: {
-                    borderBottom: 'hidden',
-                    borderTop: 'hidden',
-                    border: 'unset'
-                  },
-    
-                } },    
+                },
                 default: {
                   shared: {
                     bubble: {
@@ -425,20 +457,37 @@ const ChatbotCorner: React.FC<CustomizableChatbotProps> = ({
                         "0px 0.3px 0.9px rgba(0, 0, 0, 0.12), 0px 1.6px 3.6px rgba(0, 0, 0, 0.16)",
                     },
                   },
-                  user: {
+                  html: {
                     bubble: {
-                      direction: isRTL ? "rtl" : "ltr",
-                      background: "rgba(255,255,255,0.7)",
-                      color: "#000000",
+                      direction: "ltr",
+                      marginLeft:  "0",
+                      marginRight: "auto",  
                     },
-                  },
-                  ai: {
-                    bubble: { background: "rgba(255,255,255,0.7)" },
+                },
+                user: {
+                  bubble: {
+                    direction: isRTL ? "rtl" : "ltr",
+                    background: "rgba(255,255,255,0.7)",
+                    color: "#000000",
+                    marginLeft: isRTL ? "0" : "auto",
+                    marginRight: isRTL ? "auto" : "0",
                   },
                 },
-                loading: {
-                  bubble: { padding: "0.6em 1.78em 0.6em 1.3em" },
+                ai: {
+                  bubble: { 
+                    background: "rgba(255,255,255,0.7)",
+                    marginLeft: isRTL ? "auto" : "0",
+                    marginRight: isRTL ? "0" : "auto",
+                  },
                 },
+              },
+            loading: {
+              bubble: { 
+                padding: "0.6em 1.78em 0.6em 1.3em",
+                marginLeft: isRTL ? "auto" : "0",
+                marginRight: isRTL ? "0" : "auto",
+              },
+            },
               }}
               submitButtonStyles={{
                 position: isRTL ? "inside-left" : "inside-right",
@@ -465,8 +514,9 @@ const ChatbotCorner: React.FC<CustomizableChatbotProps> = ({
                       default: {
                         width: "1.5em",
                         filter:
-                          "brightness(0) saturate(100%) invert(10%) sepia(86%) saturate(6044%) hue-rotate(205deg) brightness(100%) contrast(100%)",
-                      },
+                        "brightness(0) saturate(100%) invert(10%) sepia(86%) saturate(6044%) hue-rotate(205deg) brightness(100%) contrast(100%)",
+                        transform: isRTL ? "scaleX(-1)" : "none",
+                  },
                     },
                   },
                 },

@@ -36,113 +36,125 @@ export default function RegisterPage () {
                     <Logo />
                     <ThemeToggle />
                 </div>
+                <div className=" mt-[20%]">
                 <h3 className="mt-2 text-center text-xl font-semibold lg:mt-10">{t("Register")}</h3>
                 <h3 className="mt-2 text-center text-sm text-base-content/70">
                     {t("register_b")}
                 </h3>
                 <div className="mt-8">
-                    <div>
-                        <div className="form-control">
-                            <label className="label">
-                                <span className="label-text">{t("Username")}</span>
-                            </label>
-                            <FormInput
-                                size="sm"
-                                startIcon={<Icon icon={userIcon} className="text-base-content/80" fontSize={18} />}
-                                control={control}
-                                name={"username"}
-                                placeholder={t("Username")}
-                                className="w-full focus:border-transparent focus:outline-0"
-                                bordered={false}
-                                borderOffset={false}></FormInput>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <div className="form-control">
+                                <label className="label">
+                                    <span className="label-text">{t("Full Name")}</span>
+                                </label>
+                                <FormInput
+                                    size="sm"
+                                    startIcon={<Icon icon={userIcon} className="text-base-content/80" fontSize={18} />}
+                                    control={control}
+                                    name="full_name"
+                                    placeholder={t("Full Name")}
+                                    className="w-full focus:border-transparent focus:outline-0"
+                                    bordered={false}
+                                    borderOffset={false}
+                                />
+                            </div>
+                            <div className="form-control mt-3">
+                                <label className="label">
+                                    <span className="label-text">{t("Username")}</span>
+                                </label>
+                                <FormInput
+                                    size="sm"
+                                    startIcon={<Icon icon={userIcon} className="text-base-content/80" fontSize={18} />}
+                                    control={control}
+                                    name={"username"}
+                                    placeholder={t("Username")}
+                                    className="w-full focus:border-transparent focus:outline-0"
+                                    bordered={false}
+                                    borderOffset={false}
+                                />
+                            </div>
+                            <div className="form-control mt-3">
+                                <label className="label">
+                                    <span className="label-text">{t("Phone Number")}</span>
+                                </label>
+                                <FormInput
+                                    size="sm"
+                                    startIcon={<Icon icon={phoneIcon} className="text-base-content/80" fontSize={18} />}
+                                    control={control}
+                                    name={"phone_number"}
+                                    placeholder={t("Phone Number")}
+                                    className="w-full focus:border-transparent focus:outline-0"
+                                    bordered={false}
+                                    borderOffset={false}
+                                />
+                            </div>
                         </div>
-                        <div className="form-control mt-3">
-                            <label className="label">
-                                <span className="label-text">{t("Email Address")}</span>
-                            </label>
-                            <FormInput
-                                size="sm"
-                                startIcon={<Icon icon={mailIcon} className="text-base-content/80" fontSize={18} />}
-                                control={control}
-                                name={"email"}
-                                placeholder={t("Email Address")}
-                                className="w-full focus:border-transparent focus:outline-0"
-                                bordered={false}
-                                borderOffset={false}></FormInput>
-                        </div>
-                        <div className="form-control mt-3">
-                            <label className="label">
-                                <span className="label-text">{t("Company Name")}</span>
-                            </label>
-                            <FormInput
-                                size="sm"
-                                startIcon={<Icon icon={buildingIcon} className="text-base-content/80" fontSize={18} />}
-                                control={control}
-                                name={"company_name"}
-                                placeholder={t("Company Name")}
-                                className="w-full focus:border-transparent focus:outline-0"
-                                bordered={false}
-                                borderOffset={false}></FormInput>
-                        </div>
-                        <div className="form-control mt-3">
-                            <label className="label">
-                                <span className="label-text">{t("Phone Number")}</span>
-                            </label>
-                            <FormInput
-                                size="sm"
-                                startIcon={<Icon icon={phoneIcon} className="text-base-content/80" fontSize={18} />}
-                                control={control}
-                                name={"phone_number"}
-                                placeholder={t("Phone Number")}
-                                className="w-full focus:border-transparent focus:outline-0"
-                                bordered={false}
-                                borderOffset={false}></FormInput>
-                        </div>
-                        <div className="form-control mt-3">
-                            <label className="label">
-                                <span className="label-text">{t("Password")}</span>
-                            </label>
-                            <FormInput
-                                size="sm"
-                                startIcon={<Icon icon={keyRoundIcon} className="text-base-content/80" fontSize={18} />}
-                                control={control}
-                                name={"password"}
-                                placeholder={t("Password")}
-                                type={showPassword ? "text" : "password"}
-                                className="w-full focus:border-transparent focus:outline-0"
-                                bordered={false}
-                                endIcon={
-                                    <Button
-                                        onClick={toggleShowPassword}
-                                        size={"xs"}
-                                        shape={"circle"}
-                                        color={"ghost"}
-                                        className={"hover:bg-base-content/10"}>
-                                        {showPassword ? (
-                                            <Icon icon={eyeOffIcon} className="text-base-content/80" fontSize={18} />
-                                        ) : (
-                                            <Icon icon={eyeIcon} className="text-base-content/80" fontSize={16} />
-                                        )}
-                                    </Button>
-                                }
-                                borderOffset={false}></FormInput>
-                        </div>
-                        <div className="form-control">
-                            <label className="label">
-                                <span className="label-text">{t("Full Name")}</span>
-                            </label>
-                            <FormInput
-                                size="sm"
-                                startIcon={<Icon icon={userIcon} className="text-base-content/80" fontSize={18} />}
-                                control={control}
-                                name="full_name"
-                                placeholder={t("Full Name")}
-                                className="w-full focus:border-transparent focus:outline-0"
-                                bordered={false}
-                                borderOffset={false}
-                            />
+
+                        <div>
+                            <div className="form-control">
+                                <label className="label">
+                                    <span className="label-text">{t("Email Address")}</span>
+                                </label>
+                                <FormInput
+                                    size="sm"
+                                    startIcon={<Icon icon={mailIcon} className="text-base-content/80" fontSize={18} />}
+                                    control={control}
+                                    name={"email"}
+                                    placeholder={t("Email Address")}
+                                    className="w-full focus:border-transparent focus:outline-0"
+                                    bordered={false}
+                                    borderOffset={false}
+                                />
+                            </div>
+                            <div className="form-control mt-3">
+                                <label className="label">
+                                    <span className="label-text">{t("Company Name")}</span>
+                                </label>
+                                <FormInput
+                                    size="sm"
+                                    startIcon={<Icon icon={buildingIcon} className="text-base-content/80" fontSize={18} />}
+                                    control={control}
+                                    name={"company_name"}
+                                    placeholder={t("Company Name")}
+                                    className="w-full focus:border-transparent focus:outline-0"
+                                    bordered={false}
+                                    borderOffset={false}
+                                />
+                            </div>
+                            <div className="form-control mt-3">
+                                <label className="label">
+                                    <span className="label-text">{t("Password")}</span>
+                                </label>
+                                <FormInput
+                                    size="sm"
+                                    startIcon={<Icon icon={keyRoundIcon} className="text-base-content/80" fontSize={18} />}
+                                    control={control}
+                                    name={"password"}
+                                    placeholder={t("Password")}
+                                    type={showPassword ? "text" : "password"}
+                                    className="w-full focus:border-transparent focus:outline-0"
+                                    bordered={false}
+                                    endIcon={
+                                        <Button
+                                            onClick={toggleShowPassword}
+                                            size={"xs"}
+                                            shape={"circle"}
+                                            color={"ghost"}
+                                            className={"hover:bg-base-content/10"}>
+                                            {showPassword ? (
+                                                <Icon icon={eyeOffIcon} className="text-base-content/80" fontSize={18} />
+                                            ) : (
+                                                <Icon icon={eyeIcon} className="text-base-content/80" fontSize={16} />
+                                            )}
+                                        </Button>
+                                    }
+                                    borderOffset={false}
+                                />
+                            </div>
                         </div>
                     </div>
+
                     <div className="mt-6">
                         <Button
                             color="primary"
@@ -160,6 +172,7 @@ export default function RegisterPage () {
                             {t("Login")}
                         </Link>
                     </p>
+                </div>
                 </div>
             </div>
         </>

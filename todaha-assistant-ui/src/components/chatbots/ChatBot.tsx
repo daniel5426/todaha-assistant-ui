@@ -50,7 +50,7 @@ const Chatbot = () => {
 
   const currentLocale = useLocale();
   const isRightToLeft = currentLocale === "he";
-
+  const [buttonOpacity, setButtonOpacity] = useState(0);
   useEffect(() => {
     const fetchChatbotConfig = async () => {
       try {
@@ -140,6 +140,32 @@ const Chatbot = () => {
     }
   };
 
+  function calculateTwoRowWidth(text: string) {
+    const words = text.split(" ");
+
+    if (words.length <= 1) {
+      // Single word
+      return Math.max(text.length * 8, 40);
+    }
+
+    if (words.length === 2) {
+      // For two words, use the length of the longer word
+      const longestWordLength = Math.max(words[0].length, words[1].length);
+      return Math.max(longestWordLength * 10, 40); // Slightly wider per char for two words
+    }
+
+    // For longer texts, split into two roughly equal rows
+    const totalLength = text.length;
+    const approximateCharsPerRow = Math.ceil(totalLength / 2);
+    return Math.max(approximateCharsPerRow * 8, 40);
+  }
+
+  useEffect(() => {
+    if (chatbotConfig) {
+      setTimeout(() => setButtonOpacity(1), 100);
+    }
+  }, [chatbotConfig]);
+
   if (!chatbotConfig) {
     return null;
   }
@@ -150,7 +176,12 @@ const Chatbot = () => {
     <div className="fixed bottom-5 end-2 z-[9999]">
       <div
         className="flex justify-end"
-        style={{ zIndex: 9999, direction: "ltr" }}
+        style={{
+          zIndex: 9999,
+          direction: "ltr",
+          opacity: buttonOpacity,
+          transition: "opacity 0.3s ease-in-out",
+        }}
       >
         <div className="relative inline-block text-left">
           <button
@@ -207,7 +238,7 @@ const Chatbot = () => {
                 }}
               >
                 <div
-                  className="flex flex-col"
+                  className="flex flex-col rounded-2xl"
                   style={{ direction: isRTL ? "rtl" : "ltr" }}
                 >
                   <div className={`flex flex-row items-center `}>
@@ -336,38 +367,7 @@ const Chatbot = () => {
                                 .filter((q) => q.trim())
                                 .map((q) => ({
                                   text: q,
-                                  width:
-                                    q
-                                      .split(" ")
-                                      .filter((word) => word.length > 2)
-                                      .length > 5
-                                      ? Math.min(
-                                          Math.max(
-                                            q.split("").length * 4 -
-                                              q
-                                                .split(" ")
-                                                .filter(
-                                                  (word) => word.length > 1
-                                                ).length *
-                                                0.5,
-                                            40
-                                          ),
-                                          300
-                                        )
-                                      : q
-                                          .split(" ")
-                                          .filter((word) => word.length > 2)
-                                          .length > 4
-                                      ? Math.max(
-                                          q.split("").length * 4 -
-                                            q.split(" ").length * 2 +
-                                            20,
-                                          40
-                                        )
-                                      : Math.max(
-                                          q.split("").length * 4 + 30,
-                                          40
-                                        ),
+                                  width: calculateTwoRowWidth(q),
                                 }));
 
                               const totalWidth = questions.reduce(
@@ -479,7 +479,7 @@ const Chatbot = () => {
                       width: "90%",
                       border: "0.3px solid rgb(229,229,229)",
                       boxShadow: "2px 2px 5px rgba(0, 0, 0, 0.16)",
-                  },
+                    },
                     text: {
                       padding: "10px",
                       textAlign: isRTL ? "right" : "left",
@@ -526,11 +526,11 @@ const Chatbot = () => {
                       },
                     },
                     html: {
-                        bubble: {
-                          direction: "ltr",
-                          marginLeft:  "0",
-                          marginRight: "auto",  
-                        },
+                      bubble: {
+                        direction: "ltr",
+                        marginLeft: "0",
+                        marginRight: "auto",
+                      },
                     },
                     user: {
                       bubble: {
@@ -542,15 +542,19 @@ const Chatbot = () => {
                       },
                     },
                     ai: {
-                      bubble: { 
+                      bubble: {
                         background: "rgba(255,255,255,0.7)",
                         marginLeft: isRTL ? "auto" : "0",
                         marginRight: isRTL ? "0" : "auto",
                       },
                     },
                   },
-                loading: {
-                    bubble: { padding: "0.6em 1.78em 0.6em 1.3em" },
+                  loading: {
+                    bubble: {
+                      padding: "0.6em 1.78em 0.6em 1.3em",
+                      marginLeft: isRTL ? "auto" : "0",
+                      marginRight: isRTL ? "0" : "auto",
+                    },
                   },
                 }}
                 submitButtonStyles={{
@@ -579,6 +583,7 @@ const Chatbot = () => {
                           width: "1.5em",
                           filter:
                             "brightness(0) saturate(100%) invert(10%) sepia(86%) saturate(6044%) hue-rotate(205deg) brightness(100%) contrast(100%)",
+                          transform: isRTL ? "scaleX(-1)" : "none",
                         },
                       },
                     },

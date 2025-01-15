@@ -17,33 +17,24 @@ const Chatbot = () => {
   const { state: layoutState } = useLayoutContext();
   const assistantId = state.user?.assistant.id!;
   const {toaster} = useToast();
+  const isWhite = layoutState.theme === "light"; // Change this to dynamically set the theme
   const initialMessages = [
     { role: "ai", text: state.user?.assistant?.welcome_message || "" },
     ...(state.user?.assistant?.initial_questions
       ? (() => {
         const questions = state.user?.assistant?.initial_questions
         .split("\n")
-        .filter(q => q.trim())
-        .map(q => ({
+        .filter((q) => q.trim())
+        .map((q) => ({
           text: q,
-          width: q.split(' ').filter(word => word.length > 2).length > 5 ? Math.min(
-            Math.max(
-              (q.split('').length * 4) - 
-              (q.split(' ').filter(word => word.length > 1).length * 1.3), 
-              40
-            ), 
-            300
-          ) : q.split(' ').filter(word => word.length > 2).length > 4 ? Math.max(
-            (q.split('').length * 4) - 
-            (q.split(' ').length*2) + 20, 
-            40
-          ) : Math.max(
-            (q.split('').length * 4) + 30, 
-            40
-          )
-          
+          width: calculateTwoRowWidth(q),
         }));
-  const totalWidth = questions.reduce((acc, q) => acc + q.width + 8, 0);
+
+      const totalWidth = questions.reduce(
+        (acc, q) => acc + q.width + 8,
+        0
+      );
+
 
 
           return questions.length > 0
@@ -61,6 +52,7 @@ const Chatbot = () => {
                             class="deep-chat-button deep-chat-suggestion-button" 
                             style="border: none; 
                               background: unset; 
+                              color: ${isWhite ? "#000000" : "#ffffff"};
                               justify-content: space-around;
                               box-shadow: 0px 0.3px 0.9px rgba(0, 0, 0, 0.12), 0px 1.6px 3.6px rgba(0, 0, 0, 0.16); 
                               width: ${width}px;
@@ -134,7 +126,6 @@ const Chatbot = () => {
 
   const api_url = process.env.NEXT_PUBLIC_API_BASE_URL1!; // Adjust based on Next.js environment variable usage
 
-  const isWhite = layoutState.theme === "light"; // Change this to dynamically set the theme
 
   // Handle window resize events to adjust the layout dynamically
 
@@ -151,6 +142,26 @@ const Chatbot = () => {
         console.error(error);
       });
   }, [reset]);
+  function calculateTwoRowWidth(text: string) {
+    const words = text.split(" ");
+    
+    if (words.length <= 1) {
+      // Single word
+      return Math.max(text.length * 8, 40);
+    }
+    
+    if (words.length === 2) {
+      // For two words, use the length of the longer word
+      const longestWordLength = Math.max(words[0].length, words[1].length);
+      return Math.max(longestWordLength * 10, 40); // Slightly wider per char for two words
+    }
+
+    // For longer texts, split into two roughly equal rows
+    const totalLength = text.length;
+    const approximateCharsPerRow = Math.ceil(totalLength / 2);
+    return Math.max(approximateCharsPerRow * 8, 40);
+  }
+
 
   // Toggle chat visibility and notify the parent window
 
@@ -271,13 +282,14 @@ const Chatbot = () => {
             styles: {
               container: {
                 borderRadius: "20px",
-                border: "unset",
+                border: isWhite ? "0.3px solid rgb(229,229,229)" : "0.3px solid rgb(20,24,28)",
                 width: "88%",
                 backgroundColor: isWhite ? "rgba(255,255,255)" : "rgb(20,24,28)",
-                boxShadow: isWhite ? "3px 3px 3px 2px rgba(230,233,236)" : "3px 3px 3px 2px rgba(0,0,0,0.7)",
+                boxShadow: isWhite ? "2px 2px 5px rgba(0, 0, 0, 0.16)" : "2px 2px 5px rgba(0, 0, 0, 0.16)",
               },
               text: {
                 padding: "10px",
+                direction: isRTL ? "rtl" : "ltr",
                 textAlign: isRTL ? "right" : "left",
                 paddingLeft: "15px",
                 paddingRight: "34px",
@@ -334,6 +346,13 @@ const Chatbot = () => {
                   borderBottom: isWhite ? "1px solid rgba(230,233,236)" : "1px solid rgba(0,0,0,0.7)",
                 },
               },
+              html: {
+                bubble: {
+                  direction: "ltr",
+                  marginLeft:  "0",
+                  marginRight: "auto",  
+                },
+              },
               ai: {
                 outerContainer: {
                   backgroundColor: isWhite ? "rgba(255,255,255)" : "rgb(25,30,35)",
@@ -368,6 +387,7 @@ const Chatbot = () => {
                 styles: {
                   default: {
                     width: "1.5em",
+                    transform: isRTL ? "scaleX(-1)" : "none",
                     filter: isWhite
                       ? "brightness(0) saturate(100%) invert(10%) sepia(86%) saturate(6044%) hue-rotate(205deg) brightness(100%) contrast(100%)"
                       : "brightness(0) saturate(100%) invert(100%) sepia(100%) saturate(0%) hue-rotate(170deg) brightness(0%) contrast(0%)",
