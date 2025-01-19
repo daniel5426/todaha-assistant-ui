@@ -10,6 +10,7 @@ import useToast from '@/hooks/use-toast';
 import routes from "@/services/routes";
 import { useLayoutContext } from "@/states/layout";
 
+
 const Package = () => {
     const t = useTranslations("package");
     const locale = useLocale();

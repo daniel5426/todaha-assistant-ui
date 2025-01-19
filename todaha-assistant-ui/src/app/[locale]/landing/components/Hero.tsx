@@ -87,7 +87,7 @@ const Hero = () => {
               </motion.div>
             </div>
           </motion.div>
-          {window.innerWidth > 700 ? (
+          {window.innerWidth > 1100 ? (
             <motion.div
               initial={{ opacity: 0, x: 50 }}
               animate={{ opacity: 1, x: 0 }}
@@ -99,11 +99,11 @@ const Hero = () => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.5, delay: 1.2 }}
-                className="absolute bottom-4 right-[90%] hidden lg:block"
+                className="absolute bottom-[-3px] right-[85%] hidden lg:block"
               >
                 <svg
                   width="160"
-                  height="140"
+                  height="120"
                   viewBox="0 0 160 140"
                   className="transform rotate-[160deg]"
                 >
@@ -131,7 +131,7 @@ const Hero = () => {
                   </defs>
                 </svg>
                 <span
-                  className="absolute -left-24 bottom-24 -rotate-12 font-handwriting text-xl"
+                  className="absolute -left-24 bottom-[70px] -rotate-12 text-xl"
                   style={{
                     fontFamily: "'Caveat', cursive",
                     textShadow: "1px 1px 1px rgba(0,0,0,0.1)",
