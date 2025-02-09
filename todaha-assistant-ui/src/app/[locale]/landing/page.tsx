@@ -28,8 +28,6 @@ export default function Page() {
           property="og:description"
           content={t("ogDescription")}
         />
-        <meta property="og:image" content="https://example.com/thumbnail.jpg" />
-        <meta name="twitter:card" content="summary_large_image" />
       </Head>
 
       <main className="relative">
