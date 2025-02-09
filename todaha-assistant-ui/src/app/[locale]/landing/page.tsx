@@ -6,22 +6,43 @@ import Showcase from "./components/Showcase";
 import Testimonial from "./components/Testimonial";
 import Topbar from "./components/Topbar";
 import Package from "./components/Package";
+import Head from "next/head";
+import { useTranslations } from "next-intl";
 
 //<Package />
 //<FAQ />
 
 export default function Page() {
+  const t = useTranslations("head");
+
   return (
-    <main className="relative">
-      <div className="z-0">
-        <Topbar />
-        <Hero />
-        <Feature />
-        <Showcase />
-        <Testimonial />
-        <Package />
-        <Footer />
-      </div>
-    </main>
+    <>
+      <Head>
+        <title>{t("title")}</title>
+        <meta
+          name="description"
+          content={t("description")}
+        />
+        <meta property="og:title" content={t("ogTitle")} />
+        <meta
+          property="og:description"
+          content={t("ogDescription")}
+        />
+        <meta property="og:image" content="https://example.com/thumbnail.jpg" />
+        <meta name="twitter:card" content="summary_large_image" />
+      </Head>
+
+      <main className="relative">
+        <div className="z-0">
+          <Topbar />
+          <Hero />
+          <Feature />
+          <Showcase />
+          <Testimonial />
+          <Package />
+          <Footer />
+        </div>
+      </main>
+    </>
   );
 }

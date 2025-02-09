@@ -181,7 +181,9 @@
         "Our Platform": "Notre plateforme",
         "What People Say": "Ce que disent les entreprises",
         "plat_h": "Tableau de bord de l'assistant IA",
-        "plat_b": "Configurez et surveillez facilement votre assistant IA grâce à notre plateforme unifiée, qui fournit des informations détaillées sur les interactions avec les clients, les statistiques d'utilisation, les mesures de performance, et bien plus encore."
+        "plat_b": "Configurez et surveillez facilement votre assistant IA grâce à notre plateforme unifiée, qui fournit des informations détaillées sur les interactions avec les clients, les statistiques d'utilisation, les mesures de performance, et bien plus encore.",
+        "hero_title": "Rencontrez votre partenaire commercial ultime",
+        "hero_description": "Un assistant AI personnalisé qui apprend, répond et prend des mesures pour automatiser et transformer votre service client."
     },
     "package": {
         "Start Now": "Commence maintenant",
@@ -285,5 +287,11 @@
             }
         },
         "copy": "Copier"
+    },
+    "head": {
+        "title": "Todaha Assistant - Votre partenaire commercial ultime",
+        "description": "Rencontrez votre partenaire commercial ultime : un assistant AI personnalisé qui apprend, répond et prend des mesures pour automatiser et transformer votre service client.",
+        "ogTitle": "Todaha Assistant - Votre partenaire commercial ultime",
+        "ogDescription": "Rencontrez votre partenaire commercial ultime : un assistant AI personnalisé qui apprend, répond et prend des mesures pour automatiser et transformer votre service client."
     }
 }

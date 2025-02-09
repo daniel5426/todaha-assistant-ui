@@ -157,7 +157,7 @@
         "client_1": "Todaha's AI assistant has truly transformed our customer service experience. The integration was quick and straightforward, but what really stands out is the outstanding support it provides. Our clients are happier, and we couldn't be more pleased. Highly recommended!",
         "client_2": "Our decision to implement Todaha's AI assistant has been a game-changer for us. The AI seamlessly handles customer inquiries, providing accurate and timely responses. It has significantly reduced our workload while enhancing customer satisfaction. We're impressed by its efficiency and the positive impact it has had on our operations!",
         "footer_h": "Are you ready to unlock the power of AI?",
-        "footer_b1": "Let’s discuss how our team of experts can build a custom machine",
+        "footer_b1": "Let's discuss how our team of experts can build a custom machine",
         "footer_b2": "learning or AI solution tailored to your specific needs",
         "home": "Home",
         "dashboard": "Dashboard",
@@ -179,7 +179,9 @@
         "Our Platform": "Our Platform",
         "What People Say": "What Business Say",
         "plat_h": "AI Assistant Dashboard",
-        "plat_b": "Easily configure and monitor your AI assistant through our unified platform, which provides detailed insights into client interactions, usage statistics, performance metrics, and much more."
+        "plat_b": "Easily configure and monitor your AI assistant through our unified platform, which provides detailed insights into client interactions, usage statistics, performance metrics, and much more.",
+        "hero_title": "Meet Your Ultimate Business Partner",
+        "hero_description": "A personalized AI assistant that learns, responds, and takes action to automate and transform your customer service."
     },
     "package": {
         "Start Now": "Start Now",
@@ -283,5 +285,11 @@
             }
         },
         "copy": "Copy"
+    },
+    "head": {
+        "title": "Todaha Assistant - Your Ultimate Business Partner",
+        "description": "Meet your ultimate business partner: a personalized AI assistant that learns, responds, and takes action to automate and transform your customer service.",
+        "ogTitle": "Todaha Assistant - Your Ultimate Business Partner",
+        "ogDescription": "Meet your ultimate business partner: a personalized AI assistant that learns, responds, and takes action to automate and transform your customer service."
     }
 }
