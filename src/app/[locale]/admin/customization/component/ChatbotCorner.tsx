@@ -79,80 +79,83 @@ const ChatbotCorner: React.FC<CustomizableChatbotProps> = ({
               ? [
                   {
                     html: `
-              <div class="deep-chat-temporary-message" style="position: absolute; bottom: 65px; width: calc(100% - 45px); direction: "ltr";">
-                <div style="position: relative;">
-                  <div style="width: calc(100% - 32px);overflow-x: auto; white-space: nowrap; padding: 10px 18px; scrollbar-width: none; -ms-overflow-style: none;">
-                    <div style="display: inline-flex; gap: 8px; margin-bottom: 5px;">
-                      ${questions
-                        .map(
-                          ({ text, width }) => `
-                        <button 
-                          class="deep-chat-button deep-chat-suggestion-button" 
-                          style="border: none; 
-                            background: unset; 
-                            direction: ${isRTL ? "rtl" : "ltr"};
-                            justify-content: space-around;
-                            box-shadow: 0px 0.3px 0.9px rgba(0, 0, 0, 0.12), 0px 1.6px 3.6px rgba(0, 0, 0, 0.16); 
-                            width: ${width}px;
-                            white-space: normal; 
-                            height: 45px; 
-                            display: flex; 
-                            align-items: center; 
-                            text-align: center; 
-                            padding: 8px 12px; 
-                            line-height: 1.2;"
-                        >${text}</button>
-                      `
-                        )
-                        .join("")}
-                    </div>
-                  </div>
-                  ${
-                    totalWidth > 320 && window.innerWidth > 768
-                      ? `
-                    <button onclick="this.parentElement.querySelector('div').scrollBy({left: -130, behavior: 'smooth'})" 
-                      style="position: absolute; 
-                        left: -10px; 
-                        top: 50%; 
-                        transform: translateY(-50%); 
-                        background: rgba(255,255,255,0.9); 
-                        border-radius: 8px;
-                        width: 24px; 
-                        height: 45px; 
-                        display: flex; 
-                        align-items: center; 
-                        justify-content: center; 
-                        border: 0px solid #eee; 
-                        cursor: pointer; 
-                        z-index: 1;">
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                      </svg>
-                    </button>
-                    <button onclick="this.parentElement.querySelector('div').scrollBy({left: 130, behavior: 'smooth'})" 
-                      style="position: absolute; 
-                        right: -20px; 
-                        top: 47%; 
-                        transform: translateY(-50%); 
-                        background: rgba(255,255,255,0.9); 
-                        border-radius: 8px;
-                        width: 24px; 
-                        height: 45px; 
-                        display: flex; 
-                        align-items: center; 
-                        justify-content: center; 
-                        border: 0px solid #eee; 
-                        cursor: pointer; 
-                        z-index: 1;">
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                      </svg>
-                    </button>`
-                      : ""
-                  }
-                </div>
-              </div>`,
-                    role: "html",
+                    <div class="deep-chat-temporary-message" style="position: absolute; bottom: 65px; width: calc(100% - 45px); left:">
+                      <div style="position: relative;">
+                        <div style="width: calc(100% - 17px);overflow-x: auto; white-space: nowrap; padding: 10px 18px; scrollbar-width: none; -ms-overflow-style: none;">
+                          <div style="display: inline-flex; gap: 8px; margin-bottom: 5px; padding-right: 7%;">
+                            ${questions
+                              .map(
+                                ({ text, width }) => `
+                              <button 
+                                class="deep-chat-button deep-chat-suggestion-button" 
+                                style="border: none; 
+                                  background: white; 
+                                  justify-content: space-around;
+                                  box-shadow: 0px 0.3px 0.9px rgba(0, 0, 0, 0.12), 0px 1.6px 3.6px rgba(0, 0, 0, 0.16); 
+                                  width: ${width}px;
+                                  white-space: normal; 
+                                  height: 45px; 
+                                  border-radius: 8px;
+                                  display: flex; 
+                                  align-items: center; 
+                                  text-align: center; 
+                                  padding: 8px 12px; 
+                                  direction: ${
+                                    isRTL ? "rtl" : "ltr"
+                                  };
+                                  line-height: 1.2;"
+                              >${text}</button>
+                            `
+                              )
+                              .join("")}
+                          </div>
+                        </div>
+                        ${
+                          totalWidth > 320 && window.innerWidth > 768
+                            ? `
+                          <button onclick="this.parentElement.querySelector('div').scrollBy({left: -130, behavior: 'smooth'})" 
+                            style="position: absolute; 
+                              left: -10px; 
+                              top: 47%; 
+                              transform: translateY(-50%); 
+                              background: rgba(255,255,255,0.9); 
+                              border-radius: 8px;
+                              width: 24px; 
+                              height: 45px; 
+                              display: flex; 
+                              align-items: center; 
+                              justify-content: center; 
+                              border: 0px solid #eee; 
+                              cursor: pointer; 
+                              z-index: 1;">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                          </button>
+                          <button onclick="this.parentElement.querySelector('div').scrollBy({left: 130, behavior: 'smooth'})" 
+                            style="position: absolute; 
+                              right: -20px; 
+                              top: 47%; 
+                              transform: translateY(-50%); 
+                              background: rgba(255,255,255,0.9); 
+                              border-radius: 8px;
+                              width: 24px; 
+                              height: 45px; 
+                              display: flex; 
+                              align-items: center; 
+                              justify-content: center; 
+                              border: 0px solid #eee; 
+                              cursor: pointer; 
+                              z-index: 1;">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                          </button>`
+                            : ""
+                        }
+                      </div>
+                    </div>`,
+          role: "html",
                   },
                 ]
               : [];
@@ -223,7 +226,8 @@ const ChatbotCorner: React.FC<CustomizableChatbotProps> = ({
     // For longer texts, split into two roughly equal rows
     const totalLength = text.length;
     const approximateCharsPerRow = Math.ceil(totalLength / 2);
-    return Math.max(approximateCharsPerRow * 8, 40);
+    const charWidth = selectedLanguage === "he" ? 8 : 9;
+    return Math.max(approximateCharsPerRow * charWidth, 40);
   }
 
   return (
@@ -262,49 +266,81 @@ const ChatbotCorner: React.FC<CustomizableChatbotProps> = ({
         </button>
 
         {isOpen && (
-          <div
-            className={`join join-vertical -top-7 absolute right-0 -translate-y-full  rounded-xl shadow-xl ring-1 ring-gray-200 ring-opacity-20 transition-opacity duration-300 ease-in-out transform`}
+            <div
+            className="join join-vertical mb-3 absolute right-0 bottom-full border-[1px] border-gray-200"
+            style={{
+              transformOrigin: "bottom right",
+              transition: "all 0.3s ease-in-out",
+              opacity: isOpen ? 1 : 0,
+              transform: isOpen
+                ? "scale(1) translateY(0)"
+                : "scale(0.95) translateY(0)",
+              pointerEvents: isOpen ? "auto" : "none",
+              visibility: isOpen ? "visible" : "hidden",
+              position: "absolute",
+              borderRadius: "25px",
+              boxShadow: `
+                0 15px 50px 0px rgb(0 0 0 / 0.07),
+                0 -15px 50px 0px rgb(0 0 0 / 0.03),
+                15px 0 50px 0px rgb(0 0 0 / 0.07),
+                -15px 0 50px 0px rgb(0 0 0 / 0.07)
+              `,
+              backgroundColor: bgColor,
+            }}
           >
             <div
-              className="p-2 join-item"
+              className="p-2 join-item relative z-10"
               style={{
                 backgroundColor: topColor,
+                marginBottom: "15px",
               }}
             >
               <div
-                className="flex flex-col rounded-2xl"
-                style={{ direction: isRTL ? "rtl" : "ltr" }}
+                className="flex flex-col"
+                style={{
+                  direction: isRTL ? "rtl" : "ltr",
+                  borderRadius: "0 0 25px 25px",
+                  marginBottom: "-16.5px",
+                  position: "relative",
+
+                  zIndex: 2,
+                }}
               >
-                <div className="flex flex-row items-center ml-3">
-                {logo !== "" && (
-                      <div className={`p-1`} style={{ padding: "0 0.70rem" }}>
-                        <div className="w-9 h-9 rounded-full ">
-                          <img
-                            src={logo}
-                            alt="Logo"
-                            className="w-full h-full object-cover "
-                          />
-                        </div>
+                <div className={`flex flex-row items-center `}>
+                  {logo !== "" && (
+                    <div className={`p-1`} style={{ padding: "0 0.70rem" }}>
+                      <div className="w-9 h-9 rounded-full ">
+                        <img
+                          src={logo}
+                          alt="Logo"
+                          className="w-full h-full object-cover "
+                        />
                       </div>
-                    )}
-                    <div
-                      className="grow flex flex-row "
-                      style={{ color: nameTextColor }}
+                    </div>
+                  )}
+                  <div
+                    className="grow flex flex-row"
+                    style={{ color: nameTextColor }}
+                  >
+                    <span
+                      className="text-center self-center"
+                      style={{ padding: "0 0.35rem" }}
                     >
-                      <span
-                        className="flex flex-col"
-                        style={{ padding: "0 0.35rem" }}
-                      >
-                      <span className="text-[17px] font-bold">{topName}</span>
+                      <p className="text-lg font-bold">
+                        {topName}
+                      </p>
                       <div className="flex items-center gap-2">
-                        <div className="size-2 rounded-full bg-success"></div>
-                        <p className="text-[12px]">{activeText}</p>
+                        <div
+                          className="rounded-full w-2 h-2"
+                          style={{ backgroundColor: "#28A745" }}
+                        ></div>
+                        <p className="text-xs">{activeText}</p>
                       </div>
                     </span>
                   </div>
                 </div>
                 <div
-                  className="flex flex-row absolute right-2 top-2"
+                  className="flex flex-row absolute top-2"
                   style={{
                     left: isRTL ? "10px" : "auto",
                     right: isRTL ? "auto" : "10px",
@@ -325,13 +361,11 @@ const ChatbotCorner: React.FC<CustomizableChatbotProps> = ({
                       stroke={nameTextColor}
                     >
                       <g id="SVGRepo_bgCarrier" strokeWidth="0" />
-
                       <g
                         id="SVGRepo_tracerCarrier"
                         strokeLinecap="round"
                         strokeLinejoin="round"
                       />
-
                       <g id="SVGRepo_iconCarrier">
                         <path
                           d="M960 0v213.333c411.627 0 746.667 334.934 746.667 746.667S1371.627 1706.667 960 1706.667 213.333 1371.733 213.333 960c0-197.013 78.4-382.507 213.334-520.747v254.08H640V106.667H53.333V320h191.04C88.64 494.08 0 720.96 0 960c0 529.28 430.613 960 960 960s960-430.72 960-960S1489.387 0 960 0"
@@ -341,9 +375,9 @@ const ChatbotCorner: React.FC<CustomizableChatbotProps> = ({
                     </svg>
                   </button>
                   <button
-                    style={{ color: nameTextColor }}
                     className="p-1 rounded-full bg-transparent hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-600"
                     onClick={toggleChatbot}
+                    style={{ color: nameTextColor }}
                   >
                     <svg
                       className="h-6 w-6"
@@ -361,7 +395,29 @@ const ChatbotCorner: React.FC<CustomizableChatbotProps> = ({
                   </button>
                 </div>
               </div>
+              <div
+                style={{
+                  position: "absolute",
+                  bottom: "-20px",
+                  left: 0,
+                  width: "100%",
+                  height: "22px",
+                  zIndex: 1,
+                }}
+              >
+                <svg
+                  viewBox="0 0 500 50"
+                  preserveAspectRatio="none"
+                  style={{ width: "100%", height: "100%" }}
+                >
+                  <path
+                    d="M0,50 C125,0 275,80 500,30 L500,0 L0,0 Z"
+                    fill={topColor}
+                  />
+                </svg>
+              </div>
             </div>
+          <div style={{ marginTop: "10px" }}>
             <DeepChat
               id="deep-chat"
               className="join-item"
@@ -568,6 +624,7 @@ const ChatbotCorner: React.FC<CustomizableChatbotProps> = ({
                   Todaha
                 </span>
               </a>
+            </div>
             </div>
           </div>
         )}
