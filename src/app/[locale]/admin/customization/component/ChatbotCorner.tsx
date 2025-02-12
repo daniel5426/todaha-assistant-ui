@@ -411,7 +411,10 @@ const ChatbotCorner: React.FC<CustomizableChatbotProps> = ({
                   style={{ width: "100%", height: "100%" }}
                 >
                   <path
-                    d="M0,50 C125,0 275,80 500,30 L500,0 L0,0 Z"
+                      d={isRTL 
+                        ? "M500,50 C375,0 225,80 0,30 L0,0 L500,0 Z"
+                        : "M0,50 C125,0 275,80 500,30 L500,0 L0,0 Z"
+                      }
                     fill={topColor}
                   />
                 </svg>
@@ -488,7 +491,6 @@ const ChatbotCorner: React.FC<CustomizableChatbotProps> = ({
                   shared: {
                     //TODO
                     bubble: {
-                      backgroundColor: "unset",
                       padding: "0px",
                       boxShadow: "none",
                       borderBottom: "hidden",
@@ -506,7 +508,7 @@ const ChatbotCorner: React.FC<CustomizableChatbotProps> = ({
                   shared: {
                     bubble: {
                       direction: isRTL ? "rtl" : "ltr",
-                      backgroundColor: "unset",
+                      backgroundColor: "white",
                       marginTop: "10px",
                       marginBottom: "10px",
                       boxShadow:
@@ -523,7 +525,7 @@ const ChatbotCorner: React.FC<CustomizableChatbotProps> = ({
                 user: {
                   bubble: {
                     direction: isRTL ? "rtl" : "ltr",
-                    background: "rgba(255,255,255,0.7)",
+                    background: "white",
                     color: "#000000",
                     marginLeft: isRTL ? "0" : "auto",
                     marginRight: isRTL ? "auto" : "0",
@@ -531,7 +533,7 @@ const ChatbotCorner: React.FC<CustomizableChatbotProps> = ({
                 },
                 ai: {
                   bubble: { 
-                    background: "rgba(255,255,255,0.7)",
+                    background: "white",
                     marginLeft: isRTL ? "auto" : "0",
                     marginRight: isRTL ? "0" : "auto",
                   },

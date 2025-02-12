@@ -360,7 +360,10 @@ const Chatbot = () => {
                     style={{ width: "100%", height: "100%" }}
                   >
                     <path
-                      d="M0,50 C125,0 275,80 500,30 L500,0 L0,0 Z"
+                      d={isRTL 
+                        ? "M500,50 C375,0 225,80 0,30 L0,0 L500,0 Z"
+                        : "M0,50 C125,0 275,80 500,30 L500,0 L0,0 Z"
+                      }
                       fill={chatbotConfig.top_color}
                     />
                   </svg>
@@ -556,6 +559,7 @@ const Chatbot = () => {
                       bubble: {
                         direction: isRTL ? "rtl" : "ltr",
                         marginTop: "10px",
+                        background: "white",
                         marginBottom: "10px",
                         maxWidth: "calc(100% - 80px)",
                         boxShadow:
