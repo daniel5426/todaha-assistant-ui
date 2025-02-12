@@ -42,7 +42,7 @@ const Chatbot = () => {
   const initial_questions_possible_values = {
     fr: "Peut-on l'intégrer à Shopify ou Wix ?\nQuels sont les coûts ?",
     en: "Can it be integrated with Shopify or Wix?\nWhat are the costs?",
-    he: "האם ניתן לשלב את זה עם Shopify או Wix?\nמה העלויות והאם אפשר לנסות אותו בחינם?\nמה העלויות והאם אפשר לנסות אותו בחינם?\nמה העלויות והאם אפשר לנסות אותו בחינם?",
+    he: "האם ניתן לשלב את זה עם Shopify או Wix?\nמה העלויות והאם אפשר לנסות אותו בחינם?",
   };
 
   const currentLocale = useLocale();
@@ -66,7 +66,7 @@ const Chatbot = () => {
           button_text_color: assistant.chatbots[0].button_text_color,
           button_text: assistant.chatbots[0].button_text,
           button_color: assistant.chatbots[0].button_color,
-          lg: assistant.chatbots[0].lg,
+          lg: currentLocale,
           initial_questions:
             initial_questions_possible_values[lg] ||
             assistant.initial_questions,
