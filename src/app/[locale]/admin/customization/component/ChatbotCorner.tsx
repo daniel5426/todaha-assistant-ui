@@ -412,8 +412,8 @@ const ChatbotCorner: React.FC<CustomizableChatbotProps> = ({
                 >
                   <path
                       d={isRTL 
-                        ? "M500,50 C375,0 225,80 0,30 L0,0 L500,0 Z"
-                        : "M0,50 C125,0 275,80 500,30 L500,0 L0,0 Z"
+                        ? "M0,50 C125,0 275,80 500,30 L500,0 L0,0 Z"
+                        : "M500,50 C375,0 225,80 0,30 L0,0 L500,0 Z"
                       }
                     fill={topColor}
                   />
@@ -436,7 +436,7 @@ const ChatbotCorner: React.FC<CustomizableChatbotProps> = ({
                   window.innerWidth > 380
                     ? "380px"
                     : `${window.innerWidth - 20}px`,
-                zIndex: 50,
+        zIndex: 50,
                 borderRadius: "0 0 12px 12px",
                 border: "none",
                 boxShadow: "none",
