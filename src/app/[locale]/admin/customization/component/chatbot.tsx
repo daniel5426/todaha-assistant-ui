@@ -63,7 +63,7 @@ const ChatbotModalConfig = ({
                           <button 
                             class="deep-chat-button deep-chat-suggestion-button" 
                             style="border: none; 
-                              background: unset; 
+                              background: white; 
                               justify-content: space-around;
                               direction: ${isRTL ? "rtl" : "ltr"};
                               box-shadow: 0px 0.3px 0.9px rgba(0, 0, 0, 0.12), 0px 1.6px 3.6px rgba(0, 0, 0, 0.16); 
@@ -86,7 +86,7 @@ const ChatbotModalConfig = ({
                       <button onclick="this.parentElement.querySelector('div').scrollBy({left: -130, behavior: 'smooth'})" 
                         style="position: absolute; 
                           left: -10px; 
-                          top: 50%; 
+                          top: 47%; 
                           transform: translateY(-50%); 
                           background: rgba(255,255,255,0.9); 
                           border-radius: 8px;
@@ -205,7 +205,7 @@ const ChatbotModalConfig = ({
       className="flex flex-col items-center"
       style={{ direction: "ltr", zIndex: 9999 }}
     >
-      <div className="shadow-xl h-[600px] w-[595px] rounded-xl join join-vertical relative">
+      <div className="shadow-xl h-[595px] w-[595px] rounded-[25px] join join-vertical relative">
       <button
           onClick={handleReset}
           style={{
