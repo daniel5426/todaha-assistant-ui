@@ -14,6 +14,7 @@ import { StatsCounterWidget } from "../../components/CounterWidget";
 import { useAuthContext } from "@/states/auth";
 import ProgressCard from "../../components/ProgressCard";
 
+
 // Create a context to hold your data
 export default function EcommerceDashboardPage() {
 
