@@ -140,8 +140,54 @@ export async function createCheckoutSession(priceId: string) {
   return response.data;
 }
 
-export async function uploadWebsiteUrl(websiteUrl: string) {
-  const response = await axiosInstance.post(`/admin/ai/upload-website?website_url=${websiteUrl}`);
+export async function uploadWebsiteUrl(
+  websiteUrl: string, 
+  maxPages: number = 200,
+  crawlConfig?: {
+    parallelRequests?: number;
+    qualityThreshold?: number;
+    includeSubdomains?: boolean;
+    respectRobots?: boolean;
+    specificPages?: string[];
+  }
+) {
+  let params = `?website_url=${encodeURIComponent(websiteUrl)}&max_pages=${maxPages}`;
+  
+  if (crawlConfig) {
+    if (crawlConfig.parallelRequests) {
+      params += `&parallel_requests=${crawlConfig.parallelRequests}`;
+    }
+    if (crawlConfig.qualityThreshold !== undefined) {
+      params += `&quality_threshold=${crawlConfig.qualityThreshold}`;
+    }
+    if (crawlConfig.includeSubdomains !== undefined) {
+      params += `&include_subdomains=${crawlConfig.includeSubdomains}`;
+    }
+    if (crawlConfig.respectRobots !== undefined) {
+      params += `&respect_robots=${crawlConfig.respectRobots}`;
+    }
+    if (crawlConfig.specificPages && crawlConfig.specificPages.length > 0) {
+      params += `&specific_pages=${encodeURIComponent(JSON.stringify(crawlConfig.specificPages))}`;
+    }
+  }
+  
+  const response = await axiosInstance.post(`/admin/ai/upload-website${params}`);
+  return response;
+}
+
+export async function uploadIndividualPages(
+  pageUrls: string[],
+  qualityThreshold: number = 10,
+  respectRobots: boolean = true
+) {
+  const params = `?page_urls=${encodeURIComponent(JSON.stringify(pageUrls))}&quality_threshold=${qualityThreshold}&respect_robots=${respectRobots}`;
+  const response = await axiosInstance.post(`/admin/ai/upload-individual-pages${params}`);
+  return response;
+}
+
+export async function deleteIndividualPage(pageUrl: string) {
+  const params = `?page_url=${encodeURIComponent(pageUrl)}`;
+  const response = await axiosInstance.post(`/admin/ai/delete-individual-page${params}`);
   return response;
 }
 

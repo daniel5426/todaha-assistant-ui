@@ -40,6 +40,12 @@ export type IChatBot = {
     is_modal: boolean;
 }
 
+export type IIndividualPage = {
+    url: string;
+    file_id: string;
+    uploaded_at: string;
+}
+
 
 export type IAssistant = {
     id: string;
@@ -52,4 +58,5 @@ export type IAssistant = {
     chatbots: IChatBot[];
     files: UserFile[];
     website_url: string;
+    individual_pages: IIndividualPage[];
 };

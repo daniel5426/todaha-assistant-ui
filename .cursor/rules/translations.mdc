@@ -1,0 +1,51 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# Translation Rule
+
+## Always Add Translations When Writing Text
+
+When writing any text content in pages, you MUST add the corresponding translations to all three language files in the messages directory:
+
+- [messages/en.json](mdc:todaha-assistant-ui/messages/en.json) - English translations
+- [messages/fr.json](mdc:todaha-assistant-ui/messages/fr.json) - French translations  
+- [messages/he.json](mdc:todaha-assistant-ui/messages/he.json) - Hebrew translations
+
+## Implementation Guidelines
+
+1. **Text Keys**: Use descriptive camelCase keys for translation keys (e.g., "welcomeMessage", "uploadWebsiteContent")
+
+2. **Translation Usage**: Always use the `useTranslations` hook and `t()` function for any user-facing text:
+   ```tsx
+   const t = useTranslations("configuration");
+   <label>{t("welcomeMessage")}</label>
+   ```
+
+3. **File Structure**: Add translations under appropriate namespace objects in each JSON file:
+   ```json
+   {
+     "configuration": {
+       "welcomeMessage": "Welcome Message",
+       "uploadWebsiteContent": "Upload Your Website Content"
+     }
+   }
+   ```
+
+4. **Required Languages**: 
+   - **English (en.json)**: Primary language, always complete
+   - **French (fr.json)**: French translations required
+   - **Hebrew (he.json)**: Hebrew translations required, remember RTL considerations
+
+5. **When to Apply**: This rule applies to:
+   - Page titles and headings
+   - Form labels and placeholders
+   - Button text
+   - Help text and tooltips
+   - Error messages
+   - Any user-visible strings
+
+## Never Skip Translations
+
+Do not write hardcoded strings in components. Always use the translation system even for simple text to maintain consistency and internationalization support.
