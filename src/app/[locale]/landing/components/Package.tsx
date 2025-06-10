@@ -1,15 +1,10 @@
-import { Box, Button, Card, Chip, Container, Typography, Grid, CardContent, CardActions, Divider } from '@mui/material';
-import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded';
-import CancelIcon from '@mui/icons-material/Cancel';
-import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
+"use client";
 import { useLocale, useTranslations } from "next-intl";
 import { useState } from "react";
 import Cookies from "js-cookie";
 import { createCheckoutSession } from '@/app/lib/data';
 import useToast from '@/hooks/use-toast';
 import routes from "@/services/routes";
-import { useLayoutContext } from "@/states/layout";
-
 
 const Package = () => {
     const t = useTranslations("package");
@@ -17,8 +12,6 @@ const Package = () => {
     const isRTL = locale === "he";
     const [isLoading, setIsLoading] = useState(false);
     const { toaster } = useToast();
-    const { state: layoutState } = useLayoutContext();
-    const isWhite = layoutState.theme === "light";
 
     const handleCheckout = async (priceId: string) => {
         setIsLoading(true);
@@ -48,21 +41,14 @@ const Package = () => {
                 t("1 AI Assistant"),
                 t("Our Platform"),
                 t("Customization Service"),
-                { text: t("support"), disabled: true },
-                { text: t("Custom development by our team"), disabled: true }
+            ],
+            excludedFeatures: [
+                t("support"),
+                t("Custom development by our team")
             ],
             buttonText: t("Start Now"),
-            buttonVariant: 'outlined',
-            buttonColor: 'primary',
-            buttonSx: {
-                borderColor: isWhite ? 'primary.main' : 'grey.400',
-                color: isWhite ? 'primary.main' : 'grey.100',
-                '&:hover': {
-                    borderColor: isWhite ? 'primary.dark' : 'grey.300',
-                    backgroundColor: 'rgba(144, 202, 249, 0.08)'
-                }
-            },
-            href: routes.dashboard
+            href: routes.dashboard,
+            popular: false
         },
         {
             title: t("Standard"),
@@ -76,10 +62,10 @@ const Package = () => {
                 t("support"),
                 t("Custom development by our team")
             ],
+            excludedFeatures: [],
             buttonText: t("Buy Now"),
-            buttonVariant: 'contained',
-            buttonColor: 'primary',
-            priceId: 'price_1QOvrSB16lQffSxJhy8KNPs7'
+            priceId: 'price_1QOvrSB16lQffSxJhy8KNPs7',
+            popular: true
         },
         {
             title: t("Pro"),
@@ -93,281 +79,167 @@ const Package = () => {
                 t("support"),
                 t("Custom development by our team")
             ],
+            excludedFeatures: [],
             buttonText: t("Buy Now"),
-            buttonVariant: 'outlined',
-            buttonColor: 'primary',
-            buttonSx: {
-                borderColor: isWhite ? 'primary.main' : 'grey.400',
-                color: isWhite ? 'primary.main' : 'grey.100',
-                '&:hover': {
-                    borderColor: isWhite ? 'primary.dark' : 'grey.300',
-                    backgroundColor: 'rgba(144, 202, 249, 0.08)'
-                }
-            },
-            priceId: 'price_1QOvs3B16lQffSxJ5Hqibeb7'
+            priceId: 'price_1QOvs3B16lQffSxJ5Hqibeb7',
+            popular: false
         }
     ];
 
     return (
-        <Container
-            id="packages"
-            sx={{
-                pt: { xs: 4, sm: 4, md: 10 },
-                pb: { xs: 4, sm: 4, md: 10 },
-                position: 'relative',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                gap: { xs: 4, sm: 4 },
-                direction: isRTL ? 'rtl' : 'ltr',
-                height: '100%',
-                justifyContent: 'center',
-                px: { xs: 1, sm: 2, md: 3 }
-            }}
-        >
-            <Box
-                sx={{
-                    width: '100%',
-                    maxWidth: 1200,
-                    mx: 'auto',
-                    backgroundColor: {
-                        xs: 'transparent',
-                        sm: isWhite ? 'background.paper' : 'hsl(220, 30%, 16%)'
-                    },
-                    borderRadius: { xs: 0, sm: '24px' },
-                    boxShadow: {
-                        xs: 'none',
-                        sm: isWhite 
-                            ? '0 12px 40px rgba(0, 0, 0, 0.12), 0 4px 12px rgba(0, 0, 0, 0.08)'
-                            : '0 12px 40px rgba(0, 0, 0, 0.4), 0 4px 12px rgba(0, 0, 0, 0.3)'
-                    },
-                    p: { xs: 0, sm: 5, md: 8 },
-                    border: {
-                        xs: 'none',
-                        sm: isWhite ? '1px solid rgba(0, 0, 0, 0.08)' : '1px solid rgba(255, 255, 255, 0.05)'
-                    },
-                    position: 'relative',
-                    '&::before': {
-                        display: { xs: 'none', sm: 'block' },
-                        content: '""',
-                        position: 'absolute',
-                        inset: -1,
-                        borderRadius: '24px',
-                        background: isWhite 
-                            ? 'linear-gradient(145deg, rgba(144, 202, 249, 0.2), rgba(255, 255, 255, 0))'
-                            : 'linear-gradient(145deg, rgba(144, 202, 249, 0.1), rgba(255, 255, 255, 0))',
-                        zIndex: 0,
-                        pointerEvents: 'none'
-                    }
-                }}
-            >
-                <Box
-                    sx={{
-                        width: { sm: '100%', md: '60%' },
-                        textAlign: 'center',
-                        mx: 'auto'
-                    }}
-                >
-                    <Typography
-                        component="h2"
-                        variant="h4"
-                        gutterBottom
-                        sx={{ 
-                            color: isWhite ? 'text.primary' : 'grey.100',
-                            fontWeight: 600,
-                            mb: 2,
-                            fontSize: { xs: '1.75rem', sm: '2.125rem' }
-                        }}
-                    >
+        <section id="pricing" className="py-24 bg-gray-50" dir={isRTL ? "rtl" : "ltr"}>
+            <div className="container mx-auto px-4">
+                {/* Header */}
+                <div className="text-center mb-16">
+                    <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
                         {t("Packages")}
-                    </Typography>
-                    <Typography 
-                        variant="body1" 
-                        sx={{ 
-                            color: isWhite ? 'text.secondary' : 'grey.300',
-                            fontSize: { xs: '1rem', sm: '1.1rem' },
-                            lineHeight: 1.5
-                        }}
-                    >
+                    </h2>
+                    <p className="text-xl text-gray-600 max-w-3xl mx-auto">
                         {t("Packages_b")}
-                    </Typography>
-                </Box>
+                    </p>
+                </div>
 
-                <Grid container spacing={4} sx={{ alignItems: 'center', justifyContent: 'center', width: '100%', mt: 2 }}>
-                    {tiers.map((tier) => (
-                        <Grid item xs={12} sm={6} md={4} key={tier.title}>
-                            <Card
-                                sx={[
-                                    {
-                                        p: 2,
-                                        display: 'flex',
-                                        flexDirection: 'column',
-                                        gap: 2,
-                                        height: '100%',
-                                        maxWidth: 400,
-                                        mx: 'auto',
-                                        borderRadius: 2,
-                                        border: isWhite ? '1px solid rgba(0, 0, 0, 0.12)' : 'none',
-                                        background: isWhite
-                                            ? '#fff'
-                                            : 'hsl(220, 30%, 16%)',
-                                        boxShadow: isWhite
-                                            ? '0 8px 12px hsla(220, 20%, 42%, 0.1)'
-                                            : '0 8px 12px hsla(0, 0%, 0%, 0.2)',
-                                    },
-                                    tier.subheader === t("Most Popular") && {
-                                        border: 'none',
-                                        background: isWhite
-                                            ? 'radial-gradient(circle at 50% 0%, hsl(220, 20%, 35%), hsl(220, 30%, 6%))'
-                                            : 'radial-gradient(circle at 50% 0%, hsl(220, 20%, 20%), hsl(220, 30%, 16%))',
-                                        boxShadow: isWhite
-                                            ? '0 8px 12px hsla(220, 20%, 42%, 0.2)'
-                                            : '0 8px 12px hsla(0, 0%, 0%, 0.8)',
-                                    },
-                                ]}
-                            >
-                                <CardContent sx={{ p: 1 }}>
-                                    <Box
-                                        sx={{
-                                            mb: 1,
-                                            display: 'flex',
-                                            justifyContent: 'space-between',
-                                            alignItems: 'center',
-                                            gap: 2,
-                                            color: !isWhite || tier.subheader === t("Most Popular") ? 'grey.100' : 'inherit',
-                                        }}
-                                    >
-                                        <Typography component="h3" variant="h6">
-                                            {tier.title}
-                                        </Typography>
-                                        {tier.subheader && (
-                                            <Chip
-                                                icon={<AutoAwesomeIcon />}
-                                                label={tier.subheader}
-                                                color={tier.subheader === t("Most Popular") ? "primary" : "default"}
-                                                size="small"
-                                                sx={{
-                                                    bgcolor: !isWhite && tier.subheader !== t("Most Popular") 
-                                                        ? 'rgba(255, 255, 255, 0.1)' 
-                                                        : undefined,
-                                                    '& .MuiChip-label': {
-                                                        color: !isWhite && tier.subheader !== t("Most Popular")
-                                                            ? 'grey.100'
-                                                            : undefined
-                                                    },
-                                                    '& .MuiSvgIcon-root': {
-                                                        color: !isWhite && tier.subheader !== t("Most Popular")
-                                                            ? 'grey.100'
-                                                            : undefined
-                                                    }
-                                                }}
-                                            />
-                                        )}
-                                    </Box>
+                {/* Pricing Cards */}
+                <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                    {tiers.map((tier, index) => (
+                        <div
+                            key={tier.title}
+                            className={`relative bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group ${
+                                tier.popular ? 'ring-2 ring-indigo-500 scale-105' : 'hover:scale-105'
+                            }`}
+                        >
+                            {/* Popular Badge */}
+                            {tier.popular && (
+                                <div className="absolute top-0 left-0 right-0 bg-gradient-to-r from-indigo-500 to-indigo-600 text-white text-center py-2 px-4">
+                                    <span className="text-sm font-medium flex items-center justify-center gap-2">
+                                        ⭐ {tier.subheader}
+                                    </span>
+                                </div>
+                            )}
 
-                                    <Box
-                                        sx={{
-                                            display: 'flex',
-                                            alignItems: 'baseline',
-                                            color: !isWhite || tier.subheader === t("Most Popular") ? 'grey.50' : 'inherit',
-                                        }}
-                                    >
-                                        <Typography 
-                                            component="h3" 
-                                            sx={{ 
-                                                fontSize: '2rem',
-                                                fontWeight: 600
-                                            }}
-                                        >
-                                            {tier.price === t("Free") ? tier.price : `${tier.price}`}
-                                        </Typography>
+                            <div className={`p-8 ${tier.popular ? 'pt-16' : ''}`}>
+                                {/* Plan Header */}
+                                <div className="text-center mb-8">
+                                    <h3 className="text-2xl font-bold text-gray-900 mb-2">
+                                        {tier.title}
+                                    </h3>
+                                    <div className="flex items-baseline justify-center gap-1">
+                                        <span className="text-4xl font-bold text-gray-900">
+                                            {tier.price === t("Free") ? tier.price : tier.price}
+                                        </span>
                                         {tier.price !== t("Free") && (
-                                            <Typography 
-                                                component="span" 
-                                                sx={{ 
-                                                    fontSize: '1rem',
-                                                    ml: 0.5
-                                                }}
-                                            >
+                                            <span className="text-gray-500 text-lg">
                                                 /{t("per month")}
-                                            </Typography>
+                                            </span>
                                         )}
-                                    </Box>
+                                    </div>
+                                </div>
 
-                                    <Divider sx={{ my: 2, opacity: 0.2 }} />
-
-                                    {tier.description.map((line, index) => (
-                                        <Box
-                                            key={index}
-                                            sx={{
-                                                py: 0.75,
-                                                display: 'flex',
-                                                gap: 1.5,
-                                                alignItems: 'center',
-                                            }}
-                                        >
-                                            {typeof line === 'object' && line.disabled ? (
-                                                <CancelIcon color="disabled" sx={{ width: 18 }} />
-                                            ) : (
-                                                <CheckCircleRoundedIcon
-                                                    sx={{
-                                                        width: 18,
-                                                        color: tier.subheader === t("Most Popular")
-                                                            ? 'primary.light'
-                                                            : 'primary.main',
-                                                    }}
-                                                />
-                                            )}
-                                            <Typography
-                                                variant="body2"
-                                                sx={{
-                                                    color: !isWhite || tier.subheader === t("Most Popular")
-                                                        ? 'grey.50'
-                                                        : 'inherit',
-                                                }}
-                                            >
-                                                {typeof line === 'object' ? line.text : line}
-                                            </Typography>
-                                        </Box>
+                                {/* Features List */}
+                                <div className="space-y-4 mb-8">
+                                    {tier.description.map((feature, featureIndex) => (
+                                        <div key={featureIndex} className="flex items-center gap-3">
+                                            <div className="w-5 h-5 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0">
+                                                <svg className="w-3 h-3 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                                                </svg>
+                                            </div>
+                                            <span className="text-gray-700">{feature}</span>
+                                        </div>
                                     ))}
-                                </CardContent>
+                                    
+                                    {tier.excludedFeatures.map((feature, featureIndex) => (
+                                        <div key={`excluded-${featureIndex}`} className="flex items-center gap-3 opacity-50">
+                                            <div className="w-5 h-5 rounded-full bg-gray-100 flex items-center justify-center flex-shrink-0">
+                                                <svg className="w-3 h-3 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
+                                                </svg>
+                                            </div>
+                                            <span className="text-gray-400 line-through">{feature}</span>
+                                        </div>
+                                    ))}
+                                </div>
 
-                                <CardActions sx={{ p: 2, pt: 0 }}>
+                                {/* CTA Button */}
+                                <div className="mt-auto">
                                     {tier.href ? (
-                                        <Button
+                                        <a
                                             href={tier.href}
-                                            variant={tier.buttonVariant as 'outlined' | 'contained'}
-                                            color={tier.buttonColor as 'primary'}
-                                            fullWidth
-                                            sx={{ 
-                                                borderRadius: 1,
-                                                ...tier.buttonSx 
-                                            }}
+                                            className={`block w-full text-center py-3 px-6 rounded-lg font-medium transition-all duration-300 ${
+                                                tier.popular
+                                                    ? 'bg-indigo-600 text-white hover:bg-indigo-700 shadow-lg hover:shadow-xl'
+                                                    : 'bg-gray-900 text-white hover:bg-gray-800'
+                                            }`}
                                         >
                                             {tier.buttonText}
-                                        </Button>
+                                        </a>
                                     ) : (
-                                        <Button
+                                        <button
                                             onClick={() => tier.priceId && handleCheckout(tier.priceId)}
-                                            variant={tier.buttonVariant as 'outlined' | 'contained'}
-                                            color={tier.buttonColor as 'primary'}
-                                            fullWidth
                                             disabled={isLoading}
-                                            sx={{ 
-                                                borderRadius: 1,
-                                                ...tier.buttonSx 
-                                            }}
+                                            className={`w-full py-3 px-6 rounded-lg font-medium transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed ${
+                                                tier.popular
+                                                    ? 'bg-indigo-600 text-white hover:bg-indigo-700 shadow-lg hover:shadow-xl'
+                                                    : 'bg-gray-900 text-white hover:bg-gray-800'
+                                            }`}
                                         >
                                             {isLoading ? t("Processing") : tier.buttonText}
-                                        </Button>
+                                        </button>
                                     )}
-                                </CardActions>
-                            </Card>
-                        </Grid>
+                                </div>
+                            </div>
+
+                            {/* Decorative Elements */}
+                            <div className={`absolute -bottom-2 -right-2 w-20 h-20 rounded-full opacity-10 transition-opacity duration-300 group-hover:opacity-20 ${
+                                tier.popular ? 'bg-indigo-500' : 'bg-gray-400'
+                            }`} />
+                            <div className={`absolute -top-2 -left-2 w-16 h-16 rounded-full opacity-5 transition-opacity duration-300 group-hover:opacity-15 ${
+                                tier.popular ? 'bg-indigo-500' : 'bg-gray-400'
+                            }`} />
+                        </div>
                     ))}
-                </Grid>
-            </Box>
-        </Container>
+                </div>
+
+                {/* Bottom CTA */}
+                <div dir={isRTL ? "rtl" : "ltr"} className="text-center mt-16 p-8 bg-white rounded-2xl shadow-lg max-w-4xl mx-auto">
+                    <div dir={isRTL ? "rtl" : "ltr"} className={`grid md:grid-cols-3 gap-6 ${isRTL ? 'text-right' : 'text-left'}`}>
+                        <div className="flex items-start gap-3">
+                            <div className="w-8 h-8 rounded-full bg-indigo-100 flex items-center justify-center flex-shrink-0">
+                                <svg className="w-5 h-5 text-indigo-600" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <div dir={isRTL ? "rtl" : "ltr"}>
+                                <h4 className="font-semibold text-gray-900 mb-1">{t("Easy Setup")}</h4>
+                                <p className="text-gray-600 text-sm">{t("easySetupDesc")}</p>
+                            </div>
+                        </div>
+                        <div className="flex items-start gap-3">
+                            <div className="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0">
+                                <svg className="w-5 h-5 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3z" />
+                                </svg>
+                            </div>
+                            <div dir={isRTL ? "rtl" : "ltr"}>
+                                <h4 className="font-semibold text-gray-900 mb-1">{t("24/7 Support")}</h4>
+                                <p className="text-gray-600 text-sm">{t("supportDesc")}</p>
+                            </div>
+                        </div>
+                        <div className="flex items-start gap-3">
+                            <div className="w-8 h-8 rounded-full bg-purple-100 flex items-center justify-center flex-shrink-0">
+                                <svg className="w-5 h-5 text-purple-600" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z" />
+                                </svg>
+                            </div>
+                            <div dir={isRTL ? "rtl" : "ltr"}>
+                                <h4 className="font-semibold text-gray-900 mb-1">{t("Custom Dashboard")}</h4>
+                                <p className="text-gray-600 text-sm">{t("dashboardDesc")}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     );
 };
 

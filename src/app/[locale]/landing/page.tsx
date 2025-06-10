@@ -6,6 +6,9 @@ import Showcase from "./components/Showcase";
 import Testimonial from "./components/Testimonial";
 import Topbar from "./components/Topbar";
 import Package from "./components/Package";
+import StepByStep from "./components/StepByStep";
+import PlatformShowcase from "./components/PlatformShowcase";
+import AdvancedFeatures from "./components/AdvancedFeatures";
 import Head from "next/head";
 import { useTranslations } from "next-intl";
 
@@ -31,15 +34,15 @@ export default function Page() {
       </Head>
 
       <main className="relative">
-        <div className="z-0">
-          <Topbar />
-          <Hero />
-          <Feature />
-          <Showcase />
-          <Testimonial />
-          <Package />
-          <Footer />
-        </div>
+        <Topbar />
+        <Hero />
+        <StepByStep />
+        <PlatformShowcase />
+        <Feature />
+        <AdvancedFeatures />
+        <Testimonial />
+        <Package />
+        <Footer />
       </main>
     </>
   );

@@ -104,6 +104,11 @@ const Topbar = () => {
                                 </Link>
                             </MenuItem>
                             <MenuItem>
+                                <Link href="/about" className="w-full py-2">
+                                    {t('About Us')}
+                                </Link>
+                            </MenuItem>
+                            <MenuItem>
                                 <Link href={routes.pricing} className="w-full py-2">
                                     {t('Pricing')}
                                 </Link>
@@ -185,11 +190,13 @@ const Topbar = () => {
                                     <Link href={routes.landing}>{t('home')}</Link>
                                 </MenuItem>
                                 <MenuItem className="font-medium">
-                                                <Link href={routes.pricing}>{t('Pricing')}</Link>
-                                            </MenuItem>
-
+                                    <Link href="/about">{t('About Us')}</Link>
+                                </MenuItem>
                                 <MenuItem className="font-medium">
-                                    <a href={routes.dashboard} onClick={handleDashboardClick}>{t('dashboard')}</a>
+                                    <Link href={routes.pricing}>{t('Pricing')}</Link>
+                                </MenuItem>
+                                <MenuItem className="font-medium">
+                                    <Link href={routes.dashboard}>{t('dashboard')}</Link>
                                 </MenuItem>
                                 <MenuItem className="font-medium">
                                     <Link href={routes.contact}>{t('Contact')}</Link>

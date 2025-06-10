@@ -216,11 +216,13 @@
         "send": "Send",
         "Contact Us": "Contact Us",
         "Our Platform": "Our Platform",
-        "What People Say": "What Business Say",
+        "What People Say": "What People Say",
         "plat_h": "AI Assistant Dashboard",
         "plat_b": "Easily configure and monitor your AI assistant through our unified platform, which provides detailed insights into client interactions, usage statistics, performance metrics, and much more.",
         "hero_title": "Meet Your Ultimate Business Partner",
-        "hero_description": "A personalized AI assistant that learns, responds, and takes action to automate and transform your customer service."
+        "hero_description": "A personalized AI assistant that learns, responds, and takes action to automate and transform your customer service.",
+        "About Us": "About Us",
+        "Blog": "Blog"
     },
     "package": {
         "Start Now": "Start Now",
@@ -261,7 +263,13 @@
         "Free": "Free",
         "The first month": "The first month",
         "Our Platform": "Our Platform",
-        "Customization Service": "Customization Service"
+        "Customization Service": "Customization Service",
+        "Easy Setup": "Easy Setup",
+        "easySetupDesc": "Get started in minutes with our simple integration",
+        "24/7 Support": "24/7 Support", 
+        "supportDesc": "Expert support whenever you need it",
+        "Custom Dashboard": "Custom Dashboard",
+        "dashboardDesc": "Monitor and manage your AI assistant"
     },
     "integration": {
         "title": "Integration",
@@ -330,5 +338,322 @@
         "description": "Meet your ultimate business partner: a personalized AI assistant that learns, responds, and takes action to automate and transform your customer service.",
         "ogTitle": "Todaha Assistant - Your Ultimate Business Partner",
         "ogDescription": "Meet your ultimate business partner: a personalized AI assistant that learns, responds, and takes action to automate and transform your customer service."
+    },
+    "stepByStep": {
+        "title": "Add Chatbot to Any Website in 4 Simple Steps",
+        "subtitle": "Transform your customer service in minutes with our easy integration process",
+        "step1": {
+            "title": "Configure Your Assistant",
+            "description": "Set up your AI with custom welcome messages, initial questions, and specific instructions to match your business needs."
+        },
+        "step2": {
+            "title": "Upload Your Content",
+            "description": "Train your AI by uploading your website content, documents, and FAQs so it can provide accurate, relevant answers."
+        },
+        "step3": {
+            "title": "Customize Appearance",
+            "description": "Design your chatbot's look and feel with custom colors, logos, and positioning to match your brand perfectly."
+        },
+        "step4": {
+            "title": "Integrate with One Click",
+            "description": "Copy our simple code snippet and paste it into your website. Works with any platform - no technical skills required."
+        },
+        "visuals": {
+            "configuration": {
+                "title": "Configuration",
+                "welcomeMessage": "Welcome Message",
+                "initialQuestions": "Initial Questions",
+                "aiInstructions": "AI Instructions",
+                "saveSettings": "Save Settings",
+                "configuringAI": "Configuring AI Assistant"
+            },
+            "upload": {
+                "title": "Content Upload",
+                "websiteContent": "Website Content",
+                "trainingAI": "Training AI Knowledge Base"
+            },
+            "customization": {
+                "title": "Customization",
+                "colors": "Colors",
+                "logoBranding": "Logo & Branding",
+                "positionStyle": "Position & Style",
+                "applyingStyle": "Applying Custom Style"
+            },
+            "integration": {
+                "title": "Integration",
+                "deployStatus": "Deploy Status",
+                "live": "Live",
+                "pending": "Pending",
+                "copy": "Copy",
+                "chatbotGoingLive": "Chatbot Going Live"
+            },
+            "status": {
+                "currentlyActive": "Currently Active",
+                "completed": "Completed"
+            }
+        }
+    },
+    "platforms": {
+        "title": "Works with Every Platform",
+        "subtitle": "One-click integration across all major website builders and frameworks",
+        "integration": "Integration",
+        "shopify": {
+            "description": "Perfect for e-commerce stores. Handles product inquiries, order tracking, and customer support seamlessly."
+        },
+        "wordpress": {
+            "description": "Ideal for blogs and business websites. Easy integration with themes and plugins for enhanced functionality."
+        },
+        "wix": {
+            "description": "Drag-and-drop simplicity meets AI power. Perfect for creative professionals and small businesses."
+        },
+        "react": {
+            "description": "Developer-friendly integration for modern web applications with full customization capabilities."
+        },
+        "squarespace": {
+            "description": "Elegant design meets intelligent AI. Perfect for portfolios, restaurants, and creative businesses."
+        },
+        "features": {
+            "quick": {
+                "title": "5-Minute Setup",
+                "description": "From configuration to live chatbot in under 5 minutes"
+            },
+            "noCode": {
+                "title": "No Coding Required",
+                "description": "Simple copy-paste integration that anyone can handle"
+            },
+            "universal": {
+                "title": "Universal Compatibility",
+                "description": "Works with any website platform or custom solution"
+            }
+        }
+    },
+    "advancedFeatures": {
+        "title": "Advanced Features for Professional Results",
+        "subtitle": "Go beyond basic chatbots with enterprise-grade features and deep customization",
+        "customization": {
+            "title": "Complete Visual Customization",
+            "description": "Design every aspect of your chatbot - colors, fonts, positioning, branding. Create a seamless experience that feels native to your website."
+        },
+        "analytics": {
+            "title": "Detailed Analytics & Insights",
+            "description": "Track conversations, user engagement, response accuracy, and performance metrics. Make data-driven decisions to improve customer service."
+        },
+        "content": {
+            "title": "Smart Content Management",
+            "description": "Upload documents, crawl your website, and manage knowledge bases. Your AI learns continuously and stays up-to-date with your business."
+        },
+        "conversations": {
+            "title": "Live Conversation Monitoring",
+            "description": "Monitor real-time conversations, step in when needed, and analyze customer interactions to improve your AI's responses."
+        },
+        "benefits": {
+            "performance": {
+                "title": "Lightning Fast",
+                "description": "Sub-second response times with 99.9% uptime guaranteed"
+            },
+            "security": {
+                "title": "Enterprise Security",
+                "description": "Bank-grade encryption and GDPR compliance built-in"
+            },
+            "scalability": {
+                "title": "Unlimited Scale",
+                "description": "Handle thousands of conversations simultaneously"
+            }
+        },
+        "visuals": {
+            "customization": {
+                "chatbotStyle": "Chatbot Style",
+                "realTimeCustomization": "Real-time customization",
+                "colorThemes": "Color Themes",
+                "brandingOptions": "Branding Options"
+            },
+            "analytics": {
+                "weeklyStats": "Weekly analytics overview",
+                "conversations": "Conversations",
+                "messages": "Messages",
+                "clientsHelped": "Clients Helped",
+                "days": {
+                    "mon": "Mon",
+                    "tue": "Tue", 
+                    "wed": "Wed",
+                    "thu": "Thu",
+                    "fri": "Fri",
+                    "sat": "Sat",
+                    "sun": "Sun"
+                }
+            },
+            "conversations": {
+                "customerMessage1": "Hi, I need help with my order",
+                "botResponse1": "I can help you with that! Let me check your order status.",
+                "customerMessage2": "What are your business hours?",
+                "botResponse2": "We're open Monday-Friday 9 AM to 6 PM EST.",
+                "customerMessage3": "Can I get a refund?",
+                "liveMonitoring": "Live conversation monitoring",
+                "customer": "Customer",
+                "aiBot": "AI Bot",
+                "timeAgo": {
+                    "2min": "2m ago",
+                    "1min": "1m ago",
+                    "30sec": "30s ago"
+                }
+            }
+        }
+    },
+    "footer": {
+        "companyDescription": "Empowering businesses with intelligent AI assistants that understand, respond, and take action to transform customer experiences.",
+        "followUs": "Follow Us",
+        "product": "Product",
+        "dashboard": "Dashboard",
+        "features": "Features", 
+        "pricing": "Pricing",
+        "integration": "Integration",
+        "company": "Company",
+        "about": "About Us",
+        "contact": "Contact",
+        "careers": "Careers",
+        "blog": "Blog",
+        "legal": "Legal",
+        "privacy": "Privacy Policy",
+        "terms": "Terms of Service",
+        "cookies": "Cookie Policy",
+        "gdpr": "GDPR",
+        "allRightsReserved": "All rights reserved.",
+        "madeWith": "Made with",
+        "inJerusalem": "in Jerusalem",
+        "poweredBy": "Powered by"
+    },
+    "about": {
+        "pageTitle": "About Us",
+        "pageDescription": "Learn about Todaha's mission to revolutionize customer service with intelligent AI assistants.",
+        "heroTitle": "Empowering Businesses with Intelligent AI",
+        "heroSubtitle": "We're on a mission to transform how businesses interact with their customers through cutting-edge artificial intelligence technology.",
+        "missionTitle": "Our Mission",
+        "missionDescription": "At Todaha, we believe that every business deserves access to intelligent AI assistants that can understand, respond, and take action on behalf of their customers.",
+        "missionExtended": "We're building the future of customer service by creating AI solutions that are not just smart, but truly understand the nuances of human communication and business needs.",
+        "valuesTitle": "Our Core Values",
+        "valuesSubtitle": "The principles that guide everything we do at Todaha.",
+        "innovationTitle": "Innovation First",
+        "innovationDesc": "We constantly push the boundaries of AI technology to deliver breakthrough solutions that transform businesses.",
+        "customerFirstTitle": "Customer Success",
+        "customerFirstDesc": "Our customers' success is our success. We're committed to delivering solutions that drive real business results.",
+        "accessibilityTitle": "Accessibility",
+        "accessibilityDesc": "AI should be accessible to businesses of all sizes. We make advanced technology simple and affordable.",
+        "excellenceTitle": "Excellence",
+        "excellenceDesc": "We strive for excellence in everything we do, from our technology to our customer service.",
+        "teamTitle": "Meet Our Team",
+        "teamSubtitle": "The brilliant minds behind Todaha's innovative AI solutions.",
+        "ceoRole": "CEO & Co-Founder",
+        "ceoDesc": "Visionary leader with a passion for AI innovation and customer success. Daniel drives Todaha's strategic vision and ensures our solutions truly serve our customers' needs.",
+        "ctoRole": "CTO & Co-Founder",
+        "ctoDesc": "Technical genius behind our AI architecture. Dan leads our engineering team in building robust, scalable AI solutions that power businesses worldwide.",
+        "ctaTitle": "Ready to Transform Your Business?",
+        "ctaSubtitle": "Join thousands of businesses already using Todaha's AI assistants to revolutionize their customer service.",
+        "ctaButton": "Get Started Today"
+    },
+    "blog": {
+        "pageTitle": "AI Insights & Trends",
+        "pageDescription": "Discover the latest insights, trends, and innovations in artificial intelligence and customer service automation.",
+        "heroTitle": "AI Insights & Trends",
+        "heroSubtitle": "Stay ahead of the curve with expert insights on artificial intelligence, automation, and the future of customer service.",
+        "latestPosts": "Latest Articles",
+        "latestPostsSubtitle": "Discover cutting-edge insights and trends in AI technology",
+        "post1Title": "The Future of AI in Customer Service: 2025 Predictions",
+        "post1Excerpt": "Explore how artificial intelligence is revolutionizing customer service and what businesses can expect in 2025. From advanced natural language processing to predictive analytics, discover the trends shaping the future.",
+        "post2Title": "Implementing AI Chatbots: A Complete Business Guide",
+        "post2Excerpt": "Learn how to successfully implement AI chatbots in your business. This comprehensive guide covers everything from planning and integration to measuring ROI and optimizing performance.",
+        "post3Title": "AI Automation Trends That Will Dominate 2025",
+        "post3Excerpt": "Discover the key AI automation trends that will transform businesses in 2025. From intelligent workflow automation to predictive customer insights, see what's coming next.",
+        "categoryAI": "Artificial Intelligence",
+        "categoryBusiness": "Business Strategy",
+        "categoryTrends": "Industry Trends",
+        "readTime5": "5 min read",
+        "readTime6": "6 min read",
+        "readTime7": "7 min read",
+        "readMore": "Read More",
+        "newsletterTitle": "Stay Updated",
+        "newsletterSubtitle": "Get the latest AI insights and industry trends delivered to your inbox.",
+        "emailPlaceholder": "Enter your email",
+        "subscribeButton": "Subscribe"
+    },
+    "legal": {
+        "pageTitle": "Legal Information",
+        "pageDescription": "Read our privacy policy and terms of service to understand how Todaha protects your data and defines our service agreement.",
+        "headerTitle": "Legal Information",
+        "headerSubtitle": "Transparency and trust are fundamental to our relationship with you. Here you'll find our privacy policy and terms of service.",
+        "privacyTitle": "Privacy Policy",
+        "privacySection1Title": "Information We Collect",
+        "privacySection1Content": "We collect information you provide directly to us, such as when you create an account, use our services, or contact us for support. This may include personal information like your name, email address, and business information.",
+        "privacySection2Title": "How We Use Your Information",
+        "privacySection2Content": "We use the information we collect to provide, maintain, and improve our services. This includes:",
+        "privacyDataType1": "Providing customer support and responding to your inquiries",
+        "privacyDataType2": "Improving our AI assistant capabilities and user experience",
+        "privacyDataType3": "Sending important service notifications and updates",
+        "privacyDataType4": "Ensuring the security and proper functioning of our platform",
+        "privacySection3Title": "Data Protection",
+        "privacySection3Content": "We implement industry-standard security measures to protect your personal information. All data transmission is encrypted using SSL/TLS protocols, and we maintain strict access controls to ensure only authorized personnel can access your information.",
+        "privacySection4Title": "Data Sharing",
+        "privacySection4Content": "We do not sell, trade, or otherwise transfer your personal information to third parties without your consent, except as described in this policy. We may share your information with trusted service providers who assist us in operating our website and conducting our business.",
+        "privacySection5Title": "Your Rights",
+        "privacySection5Content": "You have the right to access, update, or delete your personal information at any time. If you wish to exercise these rights or have any questions about our privacy practices, please contact us using the information provided below.",
+        "termsTitle": "Terms of Service",
+        "termsSection1Title": "Acceptance of Terms",
+        "termsSection1Content": "By accessing and using Todaha's services, you accept and agree to be bound by these terms. If you do not agree to these terms, please do not use our services.",
+        "termsSection2Title": "Service Description",
+        "termsSection2Content": "Todaha provides AI-powered assistant services designed to help businesses automate customer service and improve customer engagement. Our services include chatbot creation, customization tools, integration capabilities, and analytics.",
+        "termsSection3Title": "User Responsibilities",
+        "termsSection3Content": "You are responsible for maintaining the confidentiality of your account credentials and for all activities that occur under your account. You agree to use our services only for lawful purposes and in accordance with applicable laws.",
+        "termsSection4Title": "Service Availability",
+        "termsSection4Content": "While we strive to maintain high service availability, we do not guarantee uninterrupted access to our services. We may temporarily suspend or restrict access for maintenance, security, or other operational reasons.",
+        "termsSection5Title": "Intellectual Property",
+        "termsSection5Content": "All content, features, and functionality of our service are owned by Todaha and are protected by intellectual property laws. You may not reproduce, distribute, or create derivative works without our express written permission.",
+        "termsSection6Title": "Limitation of Liability",
+        "termsSection6Content": "Our services are provided 'as is' without warranties. We shall not be liable for any indirect, incidental, or consequential damages resulting from your use of our services.",
+        "termsSection7Title": "Termination",
+        "termsSection7Content": "We may terminate or suspend your access to our services at any time for violations of these terms or for any other reason at our sole discretion. You may terminate your account at any time.",
+        "contactTitle": "Questions?",
+        "contactSubtitle": "If you have any questions about our privacy policy or terms of service, please don't hesitate to contact us.",
+        "contactButton": "Contact Us"
+    },
+    "privacy": {
+        "pageTitle": "Privacy Policy",
+        "pageDescription": "Learn how Todaha protects your privacy and handles your personal data.",
+        "heroTitle": "Privacy Policy",
+        "heroSubtitle": "Your privacy and data security are our top priorities. Learn how we protect and handle your information.",
+        "lastUpdated": "Last updated",
+        "introTitle": "Our Commitment to Privacy",
+        "introContent": "At Todaha, we are committed to protecting your privacy and ensuring the security of your personal information. This Privacy Policy explains how we collect, use, and safeguard your data when you use our AI assistant services.",
+        "dataCollectionTitle": "Information We Collect",
+        "dataCollectionContent": "We collect information you provide directly to us, such as when you create an account, use our services, or contact us for support.\n\nWe also automatically collect certain information about your device and how you interact with our services, including usage patterns and performance data.\n\nWe may collect information from third-party sources to enhance our services and provide better customer support.",
+        "dataProtectionTitle": "How We Protect Your Data",
+        "dataProtectionContent": "We implement industry-standard security measures to protect your personal information against unauthorized access, alteration, disclosure, or destruction.\n\nAll data transmission is encrypted using SSL/TLS protocols, and we maintain strict access controls to ensure only authorized personnel can access your information.\n\nWe regularly review and update our security practices to maintain the highest level of protection.",
+        "dataUsageTitle": "How We Use Your Information",
+        "dataUsageContent": "We use your information to provide, maintain, and improve our AI assistant services, including personalizing your experience and providing customer support.\n\nWe may use your data to communicate with you about our services, send important notifications, and respond to your inquiries.\n\nWe analyze usage patterns to improve our services and develop new features that better serve our users.",
+        "dataRetentionTitle": "Data Retention",
+        "dataRetentionContent": "We retain your personal information only for as long as necessary to provide our services and fulfill the purposes outlined in this policy.\n\nWhen you delete your account, we will delete your personal information within 30 days, except where we are required to retain certain information for legal or regulatory purposes.\n\nYou have the right to request deletion of your personal information at any time by contacting our support team.",
+        "contactTitle": "Contact Us About Privacy",
+        "contactContent": "If you have any questions or concerns about our privacy practices, please don't hesitate to contact us:",
+        "email": "Email",
+        "address": "Address"
+    },
+    "terms": {
+        "pageTitle": "Terms of Service",
+        "pageDescription": "Read Todaha's terms of service and understand your rights and responsibilities when using our AI assistant platform.",
+        "heroTitle": "Terms of Service",
+        "heroSubtitle": "Please read these terms carefully before using our AI assistant services. By using Todaha, you agree to these terms and conditions.",
+        "lastUpdated": "Last updated",
+        "introTitle": "Agreement to Terms",
+        "introContent": "By accessing and using Todaha's AI assistant services, you accept and agree to be bound by the terms and provision of this agreement. If you do not agree to abide by the above, please do not use this service.",
+        "acceptanceTitle": "Acceptance of Terms",
+        "acceptanceContent": "By creating an account or using our services, you acknowledge that you have read, understood, and agree to be bound by these Terms of Service.\n\nThese terms apply to all users of our services, including visitors, registered users, and premium subscribers.\n\nWe reserve the right to update these terms at any time, and continued use of our services constitutes acceptance of any changes.",
+        "servicesTitle": "Description of Services",
+        "servicesContent": "Todaha provides AI-powered assistant services designed to help businesses automate customer service and improve customer engagement.\n\nOur services include chatbot creation, customization tools, integration capabilities, and analytics dashboard access.\n\nWe strive to maintain high service availability but do not guarantee uninterrupted access to our services.",
+        "responsibilitiesTitle": "User Responsibilities",
+        "responsibilitiesContent": "You are responsible for maintaining the confidentiality of your account credentials and for all activities that occur under your account.\n\nYou agree to use our services only for lawful purposes and in accordance with these terms and all applicable laws and regulations.\n\nYou are responsible for any content you upload or input into our system and must ensure you have the right to use such content.",
+        "limitationsTitle": "Limitations and Disclaimers",
+        "limitationsContent": "Our services are provided 'as is' without warranties of any kind, either express or implied, including but not limited to warranties of merchantability or fitness for a particular purpose.\n\nWe shall not be liable for any indirect, incidental, special, consequential, or punitive damages resulting from your use of our services.\n\nOur liability is limited to the amount you have paid for our services in the 12 months preceding any claim.",
+        "contactTitle": "Legal Contact",
+        "contactContent": "For questions regarding these terms or legal matters, please contact our legal team:",
+        "email": "Email",
+        "address": "Address"
     }
 }

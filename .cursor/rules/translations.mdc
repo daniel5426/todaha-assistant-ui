@@ -9,9 +9,39 @@ alwaysApply: true
 
 When writing any text content in pages, you MUST add the corresponding translations to all three language files in the messages directory:
 
-- [messages/en.json](mdc:todaha-assistant-ui/messages/en.json) - English translations
-- [messages/fr.json](mdc:todaha-assistant-ui/messages/fr.json) - French translations  
-- [messages/he.json](mdc:todaha-assistant-ui/messages/he.json) - Hebrew translations
+- [messages/en.json](mdc:todaha-assistant-ui/todaha-assistant-ui/messages/en.json) - English translations
+- [messages/fr.json](mdc:todaha-assistant-ui/todaha-assistant-ui/messages/fr.json) - French translations  
+- [messages/he.json](mdc:todaha-assistant-ui/todaha-assistant-ui/messages/he.json) - Hebrew translations
+
+## RTL (Right-to-Left) Support Requirements
+
+Always implement proper RTL support for Hebrew language users:
+
+1. **Locale Detection**: Use `useLocale()` and check for Hebrew (`he`) locale:
+   ```tsx
+   const currentLocale = useLocale();
+   const isRightToLeft = currentLocale === "he";
+   ```
+
+2. **Direction Attribute**: Always add `dir` attribute to section/container elements:
+   ```tsx
+   <section dir={isRightToLeft ? "rtl" : "ltr"}>
+   ```
+
+3. **Spacing Classes**: 
+   - **AVOID** `space-x-*` classes as they don't work properly in RTL
+   - **USE** `gap-*` classes for consistent spacing in both directions
+   - **USE** `me-*` and `ms-*` instead of `mr-*` and `ml-*` for logical properties
+   - **PREFER** Flexbox with `gap` over margin-based spacing
+
+4. **Layout Classes to Use**:
+   - `gap-2`, `gap-4`, etc. instead of `space-x-2`, `space-x-4`
+   - `me-4` (margin-end) instead of `mr-4` (margin-right)
+   - `ms-4` (margin-start) instead of `ml-4` (margin-left)
+   - `pe-4` (padding-end) instead of `pr-4` (padding-right)
+   - `ps-4` (padding-start) instead of `pl-4` (padding-left)
+
+5. **Testing**: Always test components in both LTR and RTL modes to ensure proper spacing and alignment.
 
 ## Implementation Guidelines
 
