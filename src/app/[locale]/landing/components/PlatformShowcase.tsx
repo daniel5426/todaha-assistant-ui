@@ -61,13 +61,13 @@ const IntegrationPreview = ({ platform }: { platform: typeof platforms[0] }) => 
           <span>&lt;chatbot-component</span>
         </div>
         <div className="typing-animation" style={{ animationDelay: '0.5s' }}>
-          <span className="ml-4">assistantid="your-id"</span>
+          <span className="ml-4">assistantid=&quot;your-id&quot;</span>
         </div>
         <div className="typing-animation" style={{ animationDelay: '1s' }}>
           <span>&gt;&lt;/chatbot-component&gt;</span>
         </div>
         <div className="typing-animation" style={{ animationDelay: '1.5s' }}>
-          <span>&lt;script src="base-lib.js"&gt;</span>
+          <span>&lt;script src=&quot;base-lib.js&quot;&gt;</span>
         </div>
         <div className="typing-animation" style={{ animationDelay: '2s' }}>
           <span>&lt;/script&gt;</span>
